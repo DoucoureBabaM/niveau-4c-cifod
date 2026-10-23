@@ -1,0 +1,3 @@
+# Site statique : pas de commande de build, on publie le dossier racine.
+[build]
+  publish = "."

@@ -1,0 +1,1176 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Niveau 4C — Arrêts et signes du Coran</title>
+<meta name="description" content="Apprendre et réviser les types d’arrêts et les signes conventionnels de la lecture du Coran : fiches, QCM, vrai ou faux et texte à trous.">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#F3F4F0">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Niveau 4C">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&amp;family=Amiri+Quran&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap">
+<style>
+body{margin:0;background:#F3F4F0}
+*{box-sizing:border-box}
+button,input{font:inherit;color:inherit}
+button{-webkit-tap-highlight-color:transparent}
+button:not(:disabled){cursor:pointer}
+button:focus-visible,input:focus-visible,label:focus-within{outline:3px solid #1F4F8F;outline-offset:2px}
+a{color:#0B5D4B}a:hover{color:#08463A}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.rise{animation:rise .32s cubic-bezier(.2,.7,.2,1) both}
+.lift{transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease}
+.lift:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 22px rgba(20,32,28,.08)}
+@media (prefers-reduced-motion: reduce){.rise{animation:none}.lift{transition:none}.lift:hover:not(:disabled){transform:none}}
+</style>
+<style>[v-cloak]{display:none}</style>
+</head>
+<body>
+<div id="app" v-cloak>
+<div style="min-height: 100vh; background: #F3F4F0; color: #14201C; font-family: 'Manrope', 'Amiri', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; display: flex; flex-direction: column">
+
+<header style="border-bottom: 1px solid #DCE0DA">
+<div style="max-width: 760px; margin: 0 auto; padding: 10px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px">
+<button @click="goHome" aria-label="CIFOD, retour à l’accueil" style="display: flex; align-items: center; gap: 12px; background: none; border: 0; padding: 4px 4px 4px 0; min-height: 48px; border-radius: 12px; text-align: left; min-width: 0">
+<img src="assets/cifod_logo.png" alt="" style="width: 50px; height: 50px; border-radius: 999px; display: block; flex-shrink: 0; background: #FFFFFF">
+<span style="display: flex; flex-direction: column; align-items: flex-start; gap: 2px; min-width: 0">
+<span style="font-size: 19px; font-weight: 800; letter-spacing: 0.02em; line-height: 1.1; color: #24452F">CIFOD</span>
+<span style="font-size: 11px; font-weight: 700; letter-spacing: 0.02em; line-height: 1.25; color: #24452F; text-transform: uppercase; text-wrap: balance">Centre islamique de formation et de documentation</span>
+</span>
+</button>
+<template v-if="inSession">
+<button @click="quit" style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1.5px solid #DCE0DA; background: #FFFFFF; font-size: 14px; font-weight: 700">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17"></path></svg>
+Quitter
+</button>
+</template>
+</div>
+</header>
+
+<main style="flex: 1; width: 100%; max-width: 760px; margin: 0 auto; padding: 32px 20px 48px; display: flex; flex-direction: column; gap: 20px">
+
+<template v-if="isHome">
+<section class="rise" style="display: flex; flex-direction: column; gap: 26px">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center">
+<p :style="`margin: 0; font-size: 13px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${accent}`">Apprendre · Réviser</p>
+<p style="margin: 0; display: flex; flex-direction: column; align-items: center; gap: 2px; text-align: center"><span style="font-size: clamp(17px, 2.6vw, 22px); font-weight: 800; font-style: italic; line-height: 1.25; color: #14201C">Le viatique du lecteur</span><span style="font-size: clamp(14px, 2vw, 17px); font-weight: 600; line-height: 1.3; color: #55625D">Règles de la Psalmodie du QUR’AN</span></p>
+</div>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px">
+<img src="assets/cifod_cercle.png" alt="Banderole du CIFOD : Apprendre à lire le Coran en 3 mois" style="width: clamp(88px, 18vw, 128px); height: clamp(88px, 18vw, 128px); border-radius: 999px; display: block; flex-shrink: 0; object-fit: cover; box-shadow: 0 0 0 3px #FFFFFF, 0 0 0 4px #DCE0DA, 0 8px 22px rgba(20,32,28,0.12)">
+<h1 style="margin: 0; font-size: 24px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 800; color: #14201C; text-transform: uppercase">Niveau 4C</h1>
+</div>
+<p style="margin: 0; font-size: 17px; line-height: 1.55; color: #55625D; max-width: 580px; text-wrap: pretty">Les types d’arrêts et les signes conventionnels&nbsp;: apprends-les avec les fiches, puis révise-les en QCM, en vrai ou faux et en texte à trous.</p>
+</div>
+<section aria-labelledby="h-types" style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 24px; padding: 24px 22px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 10px 20px">
+<div style="display: flex; flex-direction: column; gap: 6px; max-width: 440px">
+<span :style="`font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${accent}`">Chapitre 11</span>
+<h2 id="h-types" style="margin: 0; font-size: 24px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 800">Les types d’arrêts</h2>
+<p style="margin: 0; font-size: 15px; line-height: 1.5; color: #55625D; text-wrap: pretty">Complet, suffisant, correct ou mauvais&nbsp;: savoir où l’on peut s’arrêter, et quoi faire ensuite.</p>
+</div>
+<span dir="rtl" lang="ar" aria-hidden="true" :style="`font-family: 'Amiri', serif; font-weight: 700; font-size: 26px; line-height: 1.7; color: ${accent}`">اَلْوَقْفُ وَ الْإِبْتِدَاءُ</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(140px, 100%), 1fr)); gap: 10px">
+<button class="lift" @click="goTypes" :style="`text-align: left; background: ${accent}; color: #FFFFFF; border: 1.5px solid ${accent}; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px`">
+<span style="width: 38px; height: 38px; border-radius: 11px; background: rgba(255,255,255,0.16); display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5.5C3 4.7 3.7 4 4.5 4H10a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5h-6A1.5 1.5 0 0 1 3 17V5.5Z"></path><path d="M21 5.5c0-.8-.7-1.5-1.5-1.5H14a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5h6A1.5 1.5 0 0 0 21 17V5.5Z"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Fiches</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; opacity: 0.92">4 types · tableau comparatif</span></span>
+</button>
+<button class="lift" @click="startTQcm" style="text-align: left; background: #FFFFFF; border: 1.5px solid #DCE0DA; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px">
+<span :style="`width: 38px; height: 38px; border-radius: 11px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5.5" cy="6" r="2"></circle><path d="M11 6h9"></path><circle cx="5.5" cy="12" r="2"></circle><path d="M11 12h9"></path><circle cx="5.5" cy="18" r="2"></circle><path d="M11 18h9"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">QCM</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: #55625D">{{metaT.qcm}}</span></span>
+</button>
+<button class="lift" @click="startTVf" style="text-align: left; background: #FFFFFF; border: 1.5px solid #DCE0DA; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px">
+<span :style="`width: 38px; height: 38px; border-radius: 11px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 12.5l3.2 3.2L11 9.5"></path><path d="M15 9l6 6M21 9l-6 6"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Vrai ou faux</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: #55625D">{{metaT.vf}}</span></span>
+</button>
+<button class="lift" @click="startTTrous" style="text-align: left; background: #FFFFFF; border: 1.5px solid #DCE0DA; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px">
+<span :style="`width: 38px; height: 38px; border-radius: 11px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h6"></path><rect x="11" y="5.5" width="10" height="5" rx="1.5" stroke-dasharray="2 2"></rect><path d="M3 16h3"></path><rect x="8" y="13.5" width="8" height="5" rx="1.5" stroke-dasharray="2 2"></rect><path d="M18 16h3"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Texte à trous</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: #55625D">{{metaT.trous}}</span></span>
+</button>
+</div>
+</section>
+<section aria-labelledby="h-signes" style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 24px; padding: 24px 22px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 10px 20px">
+<div style="display: flex; flex-direction: column; gap: 6px; max-width: 440px">
+<span :style="`font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${accent}`">Chapitre 15</span>
+<h2 id="h-signes" style="margin: 0; font-size: 24px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 800">Les signes conventionnels</h2>
+<p style="margin: 0; font-size: 15px; line-height: 1.5; color: #55625D; text-wrap: pretty">Les 10 signes des arrêts, leur règle de liaison et leur signal visuel.</p>
+</div>
+<span dir="rtl" lang="ar" :style="`font-family: 'Amiri', serif; font-weight: 700; font-size: 26px; line-height: 1.7; color: ${accent}`">اَلْعَلَامَاتُ الِاصْطِلَاحِيَّةُ</span>
+</div>
+<div aria-hidden="true" style="display: flex; flex-wrap: wrap; gap: 8px">
+<template v-for="t in strip">
+<span style="width: 56px; height: 56px; border-radius: 14px; background: #FFFFFF; border: 1px solid #DCE0DA; box-shadow: inset 0 -3px 0 #ECEEE9; display: flex; align-items: center; justify-content: center">
+<template v-if="t.isTxt"><span dir="rtl" lang="ar" :style="`font-family: 'Amiri', 'Noto Naskh Arabic', serif; line-height: 1.3; font-size: ${t.fs}; color: ${t.color}`">{{t.glyph}}</span></template>
+<template v-if="t.isSajda"><img src="assets/sajda.svg" alt="" :style="`width: ${t.px}; height: ${t.px}; display: block`"></template>
+<template v-if="t.isHizb"><img src="assets/hizb.svg" alt="" :style="`width: ${t.px}; height: ${t.px}; display: block`"></template>
+<template v-if="t.isQala"><img src="assets/qala.svg" alt="" :style="`width: ${t.px}; height: ${t.px}; display: block`"></template>
+<template v-if="t.isSala"><img src="assets/sala.svg" alt="" :style="`width: ${t.px}; height: ${t.px}; display: block`"></template>
+<template v-if="t.isAyah"><img src="assets/fin-de-verset.svg" alt="" :style="`width: ${t.px}; height: ${t.px}; display: block`"></template>
+<template v-if="t.isMim"><img src="assets/mim.svg" alt="" :style="`width: ${t.px}; height: ${t.px}; display: block`"></template>
+<template v-if="t.isSin"><img src="assets/sin.svg" alt="" :style="`width: ${t.px}; height: ${t.px}; display: block`"></template>
+<template v-if="t.isJim"><img src="assets/jim.svg" alt="" :style="`width: ${t.px}; height: ${t.px}; display: block`"></template>
+<template v-if="t.isLa"><img src="assets/la.svg" alt="" :style="`width: ${t.px}; height: ${t.px}; display: block`"></template>
+<template v-if="t.isDots"><img src="assets/dots.svg" alt="" :style="`width: ${t.px}; height: ${t.px}; display: block`"></template>
+</span>
+</template>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(140px, 100%), 1fr)); gap: 10px">
+<button class="lift" @click="goLearn" :style="`text-align: left; background: ${accent}; color: #FFFFFF; border: 1.5px solid ${accent}; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px`">
+<span style="width: 38px; height: 38px; border-radius: 11px; background: rgba(255,255,255,0.16); display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5.5C3 4.7 3.7 4 4.5 4H10a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5h-6A1.5 1.5 0 0 1 3 17V5.5Z"></path><path d="M21 5.5c0-.8-.7-1.5-1.5-1.5H14a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5h6A1.5 1.5 0 0 0 21 17V5.5Z"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Fiches</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; opacity: 0.92">10 signes · mode mémorisation</span></span>
+</button>
+<button class="lift" @click="startQcm" style="text-align: left; background: #FFFFFF; border: 1.5px solid #DCE0DA; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px">
+<span :style="`width: 38px; height: 38px; border-radius: 11px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5.5" cy="6" r="2"></circle><path d="M11 6h9"></path><circle cx="5.5" cy="12" r="2"></circle><path d="M11 12h9"></path><circle cx="5.5" cy="18" r="2"></circle><path d="M11 18h9"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">QCM</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: #55625D">{{meta.qcm}}</span></span>
+</button>
+<button class="lift" @click="startVf" style="text-align: left; background: #FFFFFF; border: 1.5px solid #DCE0DA; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px">
+<span :style="`width: 38px; height: 38px; border-radius: 11px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 12.5l3.2 3.2L11 9.5"></path><path d="M15 9l6 6M21 9l-6 6"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Vrai ou faux</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: #55625D">{{meta.vf}}</span></span>
+</button>
+<button class="lift" @click="startTrous" style="text-align: left; background: #FFFFFF; border: 1.5px solid #DCE0DA; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px">
+<span :style="`width: 38px; height: 38px; border-radius: 11px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h6"></path><rect x="11" y="5.5" width="10" height="5" rx="1.5" stroke-dasharray="2 2"></rect><path d="M3 16h3"></path><rect x="8" y="13.5" width="8" height="5" rx="1.5" stroke-dasharray="2 2"></rect><path d="M18 16h3"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Texte à trous</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: #55625D">{{meta.trous}}</span></span>
+</button>
+</div>
+</section>
+</section>
+</template>
+
+<template v-if="isLearn">
+<section class="rise" style="display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 8px; max-width: 460px">
+<span dir="rtl" lang="ar" :style="`align-self: flex-start; font-family: 'Amiri Quran', 'Amiri', serif; font-size: 24px; line-height: 1.7; color: ${accent}`">اَلْعَلَامَاتُ الِاصْطِلَاحِيَّةُ</span>
+<h1 style="margin: 0; font-size: 34px; line-height: 1.1; letter-spacing: -0.025em; font-weight: 800">Les 10 signes</h1>
+<p style="margin: 0; font-size: 15px; line-height: 1.55; color: #55625D">Active le mode mémorisation pour cacher les réponses et te tester signe par signe.</p>
+</div>
+<label style="display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 16px; border: 1.5px solid #DCE0DA; border-radius: 999px; background: #FFFFFF; font-size: 14px; font-weight: 700; cursor: pointer">
+<input type="checkbox" :checked="hide" @change="toggleHide" :style="`width: 18px; height: 18px; margin: 0; accent-color: ${accent}`">
+Mode mémorisation
+</label>
+</div>
+
+<div style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 18px; padding: 16px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 14px">
+<div style="display: flex; align-items: center; gap: 12px">
+<svg width="32" height="32" viewBox="0 0 30 30" aria-hidden="true"><polygon points="9,1 21,1 29,9 29,21 21,29 9,29 1,21 1,9" fill="#C62828"></polygon><text x="15" y="17.8" text-anchor="middle" font-family="Manrope, Arial, sans-serif" font-size="7.5" font-weight="800" fill="#FFFFFF">STOP</text></svg>
+<span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 800">Stop</span><span style="font-size: 13px; color: #55625D">On s’arrête, sans lier.</span></span>
+</div>
+<div style="display: flex; align-items: center; gap: 12px">
+<svg width="32" height="32" viewBox="0 0 30 30" aria-hidden="true"><rect x="1" y="1" width="28" height="28" rx="6" fill="#23201C"></rect><circle cx="15" cy="15" r="9.5" fill="#E8820C"></circle><circle cx="12" cy="12" r="3" fill="#F7B867"></circle></svg>
+<span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 800">Feu orange</span><span style="font-size: 13px; color: #55625D">On peut s’arrêter ou lier.</span></span>
+</div>
+<div style="display: flex; align-items: center; gap: 12px">
+<svg width="32" height="32" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="14" fill="#1F4F8F"></circle><circle cx="15" cy="15" r="12" fill="none" stroke="#FFFFFF" stroke-width="1.2"></circle><path d="M15 22V9M10 13.5L15 8.5l5 5" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 800">Sens obligatoire</span><span style="font-size: 13px; color: #55625D">On lie, sans s’arrêter.</span></span>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 10px">
+<template v-for="row in learnRows">
+<template v-if="row.isHeader">
+<h2 style="margin: 14px 0 2px; font-size: 13px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #55625D">{{row.title}}</h2>
+</template>
+<template v-if="row.isHidden">
+<button class="lift" @click="row.reveal" :aria-label="row.revealAria" style="width: 100%; text-align: left; background: #FFFFFF; border: 1.5px dashed #C9CFC7; border-radius: 18px; padding: 14px 16px; display: grid; grid-template-columns: 68px minmax(0, 1fr) auto; gap: 16px; align-items: center">
+<span style="width: 68px; height: 68px; border-radius: 16px; background: #F6F7F3; border: 1px solid #DCE0DA; box-shadow: inset 0 -3px 0 #ECEEE9; display: flex; align-items: center; justify-content: center">
+<template v-if="row.tile.isTxt"><span dir="rtl" lang="ar" :style="`font-family: 'Amiri', 'Noto Naskh Arabic', serif; line-height: 1.3; font-size: ${row.tile.fs}; color: ${row.tile.color}`">{{row.tile.glyph}}</span></template>
+<template v-if="row.tile.isSajda"><img src="assets/sajda.svg" alt="" :style="`width: ${row.tile.px}; height: ${row.tile.px}; display: block`"></template>
+<template v-if="row.tile.isHizb"><img src="assets/hizb.svg" alt="" :style="`width: ${row.tile.px}; height: ${row.tile.px}; display: block`"></template>
+<template v-if="row.tile.isQala"><img src="assets/qala.svg" alt="" :style="`width: ${row.tile.px}; height: ${row.tile.px}; display: block`"></template>
+<template v-if="row.tile.isSala"><img src="assets/sala.svg" alt="" :style="`width: ${row.tile.px}; height: ${row.tile.px}; display: block`"></template>
+<template v-if="row.tile.isAyah"><img src="assets/fin-de-verset.svg" alt="" :style="`width: ${row.tile.px}; height: ${row.tile.px}; display: block`"></template>
+<template v-if="row.tile.isMim"><img src="assets/mim.svg" alt="" :style="`width: ${row.tile.px}; height: ${row.tile.px}; display: block`"></template>
+<template v-if="row.tile.isSin"><img src="assets/sin.svg" alt="" :style="`width: ${row.tile.px}; height: ${row.tile.px}; display: block`"></template>
+<template v-if="row.tile.isJim"><img src="assets/jim.svg" alt="" :style="`width: ${row.tile.px}; height: ${row.tile.px}; display: block`"></template>
+<template v-if="row.tile.isLa"><img src="assets/la.svg" alt="" :style="`width: ${row.tile.px}; height: ${row.tile.px}; display: block`"></template>
+<template v-if="row.tile.isDots"><img src="assets/dots.svg" alt="" :style="`width: ${row.tile.px}; height: ${row.tile.px}; display: block`"></template>
+</span>
+<span style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 16px; font-weight: 700">Que signifie ce signe&nbsp;?</span>
+<span style="font-size: 13px; color: #55625D">Touche pour révéler la fiche.</span>
+</span>
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#55625D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+</button>
+</template>
+<template v-if="row.isShown">
+<article style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 18px; padding: 14px 16px; display: grid; grid-template-columns: 68px minmax(0, 1fr) auto; gap: 16px; align-items: center">
+<span role="img" :aria-label="row.tile.aria" style="width: 68px; height: 68px; border-radius: 16px; background: #F6F7F3; border: 1px solid #DCE0DA; box-shadow: inset 0 -3px 0 #ECEEE9; display: flex; align-items: center; justify-content: center">
+<template v-if="row.tile.isTxt"><span dir="rtl" lang="ar" aria-hidden="true" :style="`font-family: 'Amiri', 'Noto Naskh Arabic', serif; line-height: 1.3; font-size: ${row.tile.fs}; color: ${row.tile.color}`">{{row.tile.glyph}}</span></template>
+<template v-if="row.tile.isSajda"><img src="assets/sajda.svg" alt="" :style="`width: ${row.tile.px}; height: ${row.tile.px}; display: block`"></template>
+<template v-if="row.tile.isHizb"><img src="assets/hizb.svg" alt="" :style="`width: ${row.tile.px}; height: ${row.tile.px}; display: block`"></template>
+<template v-if="row.tile.isQala"><img src="assets/qala.svg" alt="" :style="`width: ${row.tile.px}; height: ${row.tile.px}; display: block`"></template>
+<template v-if="row.tile.isSala"><img src="assets/sala.svg" alt="" :style="`width: ${row.tile.px}; height: ${row.tile.px}; display: block`"></template>
+<template v-if="row.tile.isAyah"><img src="assets/fin-de-verset.svg" alt="" :style="`width: ${row.tile.px}; height: ${row.tile.px}; display: block`"></template>
+<template v-if="row.tile.isMim"><img src="assets/mim.svg" alt="" :style="`width: ${row.tile.px}; height: ${row.tile.px}; display: block`"></template>
+<template v-if="row.tile.isSin"><img src="assets/sin.svg" alt="" :style="`width: ${row.tile.px}; height: ${row.tile.px}; display: block`"></template>
+<template v-if="row.tile.isJim"><img src="assets/jim.svg" alt="" :style="`width: ${row.tile.px}; height: ${row.tile.px}; display: block`"></template>
+<template v-if="row.tile.isLa"><img src="assets/la.svg" alt="" :style="`width: ${row.tile.px}; height: ${row.tile.px}; display: block`"></template>
+<template v-if="row.tile.isDots"><img src="assets/dots.svg" alt="" :style="`width: ${row.tile.px}; height: ${row.tile.px}; display: block`"></template>
+</span>
+<div style="display: flex; flex-direction: column; gap: 5px; min-width: 0">
+<p style="margin: 0; font-size: 17px; font-weight: 800; line-height: 1.3">{{row.designation}}</p>
+<template v-if="row.hasLiaison">
+<p style="margin: 0; font-size: 14px; line-height: 1.45; color: #55625D">Liaison&nbsp;: <strong style="color: #14201C; font-weight: 700">{{row.liaison}}</strong></p>
+</template>
+<template v-if="row.hasNote">
+<p style="margin: 0; font-size: 14px; line-height: 1.5; color: #55625D; text-wrap: pretty">{{row.note}}</p>
+</template>
+</div>
+<template v-if="row.hasSignal">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 5px; width: 64px">
+<template v-if="row.isStop"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><polygon points="9,1 21,1 29,9 29,21 21,29 9,29 1,21 1,9" fill="#C62828"></polygon><text x="15" y="17.8" text-anchor="middle" font-family="Manrope, Arial, sans-serif" font-size="7.5" font-weight="800" fill="#FFFFFF">STOP</text></svg></template>
+<template v-if="row.isOrange"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><rect x="1" y="1" width="28" height="28" rx="6" fill="#23201C"></rect><circle cx="15" cy="15" r="9.5" fill="#E8820C"></circle><circle cx="12" cy="12" r="3" fill="#F7B867"></circle></svg></template>
+<template v-if="row.isBlue"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="14" fill="#1F4F8F"></circle><circle cx="15" cy="15" r="12" fill="none" stroke="#FFFFFF" stroke-width="1.2"></circle><path d="M15 22V9M10 13.5L15 8.5l5 5" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></template>
+<span style="font-size: 11px; font-weight: 700; line-height: 1.2; text-align: center; color: #55625D">{{row.signalLabel}}</span>
+</div>
+</template>
+</article>
+</template>
+</template>
+</div>
+
+<div style="margin-top: 10px; background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+<p style="margin: 0; font-size: 17px; font-weight: 800">Prêt à te tester&nbsp;?</p>
+<div style="display: flex; flex-wrap: wrap; gap: 10px">
+<button @click="startQcm" :style="`min-height: 48px; padding: 0 20px; border-radius: 12px; border: 0; background: ${accent}; color: #FFFFFF; font-size: 15px; font-weight: 700`">QCM</button>
+<button @click="startVf" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid #DCE0DA; background: #FFFFFF; font-size: 15px; font-weight: 700">Vrai ou faux</button>
+<button @click="startTrous" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid #DCE0DA; background: #FFFFFF; font-size: 15px; font-weight: 700">Texte à trous</button>
+</div>
+</div>
+</section>
+</template>
+
+<template v-if="isLearnTypes">
+<section class="rise" style="display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 8px; max-width: 460px">
+<span :style="`font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${accent}`">Chapitre 11</span>
+<h1 style="margin: 0; font-size: 34px; line-height: 1.1; letter-spacing: -0.025em; font-weight: 800">Les types d’arrêts</h1>
+<p style="margin: 0; font-size: 15px; line-height: 1.55; color: #55625D">Active le mode mémorisation pour cacher les définitions et te tester type par type.</p>
+</div>
+<label style="display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 16px; border: 1.5px solid #DCE0DA; border-radius: 999px; background: #FFFFFF; font-size: 14px; font-weight: 700; cursor: pointer">
+<input type="checkbox" :checked="hide" @change="toggleHide" :style="`width: 18px; height: 18px; margin: 0; accent-color: ${accent}`">
+Mode mémorisation
+</label>
+</div>
+<div style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 18px; padding: 18px 20px; display: flex; flex-direction: column; gap: 8px">
+<span dir="rtl" lang="ar" :style="`align-self: flex-start; font-family: 'Amiri Quran', 'Amiri', serif; font-size: 24px; line-height: 1.7; color: ${accent}`">اَلْوَقْفُ وَ الْإِبْتِدَاءُ</span>
+<p style="margin: 0; font-size: 16px; line-height: 1.6"><strong>Al-Waqf</strong> est un court arrêt à la fin d’un mot dans le Coran, avec l’intention de poursuivre la lecture.</p>
+<p style="margin: 0; font-size: 15px; line-height: 1.6; color: #55625D">On ne peut pas s’arrêter à n’importe quel moment&nbsp;: il faut connaître les différentes sortes d’arrêts.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<h2 style="margin: 4px 0 0; font-size: 13px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #55625D">En un coup d’œil</h2>
+<div style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 18px; overflow-x: auto">
+<div role="table" aria-label="Comparaison des quatre types d’arrêts" style="min-width: 400px">
+<div role="row" style="display: grid; grid-template-columns: minmax(112px, 1.3fr) repeat(3, minmax(86px, 1fr)); background: #F6F7F3; align-items: center">
+<span role="columnheader" style="padding: 12px 14px; font-size: 12.5px; font-weight: 800; color: #55625D">Arrêt</span>
+<span role="columnheader" style="padding: 12px 8px; font-size: 12.5px; font-weight: 800; line-height: 1.3; color: #55625D; text-align: center">Sens complet</span>
+<span role="columnheader" style="padding: 12px 8px; font-size: 12.5px; font-weight: 800; line-height: 1.3; color: #55625D; text-align: center">Lié à la suite par le sens</span>
+<span role="columnheader" style="padding: 12px 8px; font-size: 12.5px; font-weight: 800; line-height: 1.3; color: #55625D; text-align: center">Lié à la suite par la grammaire</span>
+</div>
+<template v-for="mr in matrixRows">
+<div role="row" style="display: grid; grid-template-columns: minmax(112px, 1.3fr) repeat(3, minmax(86px, 1fr)); border-top: 1px solid #E6E9E3; align-items: center">
+<span role="rowheader" style="padding: 12px 14px; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 800">{{mr.name}}</span><span style="font-size: 12px; font-weight: 600; color: #55625D">{{mr.translit}}</span></span>
+<template v-for="c in mr.cells">
+<span role="cell" style="padding: 12px 6px; display: flex; justify-content: center"><span :style="`display: inline-flex; align-items: center; gap: 5px; min-height: 28px; padding: 0 11px; border-radius: 999px; font-size: 13px; font-weight: 800; background: ${c.bg}; color: ${c.fg}`"><template v-if="c.yes"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></template><template v-if="c.no"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17"></path></svg></template><span>{{c.label}}</span></span></span>
+</template>
+</div>
+</template>
+</div>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 12px">
+<h2 style="margin: 10px 0 0; font-size: 13px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #55625D">Les fiches</h2>
+<template v-for="ty in typeRows">
+<template v-if="ty.isHidden">
+<button class="lift" @click="ty.reveal" :aria-label="ty.revealAria" style="width: 100%; text-align: left; background: #FFFFFF; border: 1.5px dashed #C9CFC7; border-radius: 20px; padding: 18px 20px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px">
+<span style="display: flex; align-items: center; gap: 12px">
+<span :style="`min-width: 46px; height: 30px; padding: 0 8px; border-radius: 9px; background: ${ty.tint}; color: ${ty.accent}; font-size: 13px; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; font-variant-numeric: tabular-nums; flex-shrink: 0`">{{ty.num}}</span>
+<span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 18px; font-weight: 800">{{ty.name}}</span><span style="font-size: 13px; color: #55625D">Touche pour révéler la définition.</span></span>
+</span>
+<span dir="rtl" lang="ar" :style="`font-family: 'Amiri Quran', 'Amiri', serif; font-size: 24px; line-height: 1.6; color: ${ty.accent}`">{{ty.ar}}</span>
+</button>
+</template>
+<template v-if="ty.isShown">
+<article style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 6px 16px">
+<div style="display: flex; align-items: flex-start; gap: 12px">
+<span :style="`min-width: 46px; height: 30px; padding: 0 8px; border-radius: 9px; background: ${ty.tint}; color: ${ty.accent}; font-size: 13px; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; font-variant-numeric: tabular-nums; flex-shrink: 0`">{{ty.num}}</span>
+<div style="display: flex; flex-direction: column; gap: 2px"><h3 style="margin: 0; font-size: 19px; line-height: 1.3; font-weight: 800">{{ty.name}}</h3><p style="margin: 0; font-size: 13px; font-weight: 600; color: #55625D">{{ty.translit}}</p></div>
+</div>
+<span dir="rtl" lang="ar" :style="`font-family: 'Amiri Quran', 'Amiri', serif; font-size: 24px; line-height: 1.6; color: ${ty.accent}`">{{ty.ar}}</span>
+</div>
+<p style="margin: 0; font-size: 15.5px; line-height: 1.6; text-wrap: pretty">{{ty.def}}</p>
+<div style="display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: 12px; background: #F3F4F0">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" :stroke="ty.accent" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 3px"><path d="M5 4v7a4 4 0 0 0 4 4h10"></path><path d="M15 11l4 4-4 4"></path></svg>
+<p style="margin: 0; font-size: 15px; line-height: 1.55"><strong>Après l’arrêt&nbsp;:</strong> {{ty.after}}</p>
+</div>
+<template v-if="ty.hasNote"><p style="margin: 0; font-size: 14px; line-height: 1.5; color: #55625D"><strong style="color: #14201C">À retenir&nbsp;:</strong> {{ty.note}}</p></template>
+<div style="border: 1px dashed #C9CFC7; border-radius: 14px; padding: 12px 16px; display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #55625D">Exemple · {{ty.ex.ref}}</span>
+<span style="font-size: 14px; line-height: 1.5">{{ty.exLabel}}</span>
+<div dir="rtl" lang="ar" style="font-family: 'Amiri Quran', 'Amiri', serif; font-size: 26px; line-height: 2.1; color: #14201C; text-align: center">
+<template v-if="ty.ex.isPair"><span>… {{ty.ex.before}}</span><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true" style="vertical-align: middle; margin: 0 8px"><circle cx="10" cy="10" r="7.5" fill="none" stroke="#A1262B" stroke-width="1.6"></circle><circle cx="10" cy="10" r="3" fill="#A1262B"></circle></svg><span>{{ty.ex.after}} …</span></template>
+<template v-if="ty.ex.isSingle"><span>{{ty.ex.text}} …</span></template>
+</div>
+<template v-if="ty.hasExNote"><p style="margin: 0; font-size: 14px; line-height: 1.5; color: #55625D">{{ty.exNote}}</p></template>
+</div>
+</article>
+</template>
+</template>
+</div>
+<div style="margin-top: 10px; background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+<p style="margin: 0; font-size: 17px; font-weight: 800">Prêt à te tester&nbsp;?</p>
+<div style="display: flex; flex-wrap: wrap; gap: 10px">
+<button @click="startTQcm" :style="`min-height: 48px; padding: 0 20px; border-radius: 12px; border: 0; background: ${accent}; color: #FFFFFF; font-size: 15px; font-weight: 700`">QCM</button>
+<button @click="startTVf" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid #DCE0DA; background: #FFFFFF; font-size: 15px; font-weight: 700">Vrai ou faux</button>
+<button @click="startTTrous" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid #DCE0DA; background: #FFFFFF; font-size: 15px; font-weight: 700">Texte à trous</button>
+</div>
+</div>
+</section>
+</template>
+
+<template v-if="inSession">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 16px">
+<span :style="`font-size: 13px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${accent}`">{{modeLabel}}</span>
+<span style="font-size: 14px; font-weight: 600; color: #55625D; font-variant-numeric: tabular-nums">Question {{qNum}}/{{total}} · Score {{score}}</span>
+</div>
+<div role="progressbar" aria-label="Progression" aria-valuemin="0" aria-valuemax="100" :aria-valuenow="progressNum" style="height: 6px; border-radius: 999px; background: #E2E6DF; overflow: hidden">
+<div :style="`height: 100%; width: ${progressPct}; background: ${accent}; border-radius: 999px; transition: width .35s ease`"></div>
+</div>
+</div>
+</template>
+
+<template v-if="isCard">
+<div style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 22px; padding: 28px 24px; display: flex; flex-direction: column; align-items: center; gap: 18px; text-align: center">
+<template v-if="qc.hasGlyph">
+<span role="img" :aria-label="qc.tile.aria" style="width: 116px; height: 116px; border-radius: 26px; background: #F6F7F3; border: 1px solid #DCE0DA; box-shadow: inset 0 -4px 0 #ECEEE9; display: flex; align-items: center; justify-content: center">
+<template v-if="qc.tile.isTxt"><span dir="rtl" lang="ar" aria-hidden="true" :style="`font-family: 'Amiri', 'Noto Naskh Arabic', serif; line-height: 1.3; font-size: ${qc.tile.fs}; color: ${qc.tile.color}`">{{qc.tile.glyph}}</span></template>
+<template v-if="qc.tile.isSajda"><img src="assets/sajda.svg" alt="" :style="`width: ${qc.tile.px}; height: ${qc.tile.px}; display: block`"></template>
+<template v-if="qc.tile.isHizb"><img src="assets/hizb.svg" alt="" :style="`width: ${qc.tile.px}; height: ${qc.tile.px}; display: block`"></template>
+<template v-if="qc.tile.isQala"><img src="assets/qala.svg" alt="" :style="`width: ${qc.tile.px}; height: ${qc.tile.px}; display: block`"></template>
+<template v-if="qc.tile.isSala"><img src="assets/sala.svg" alt="" :style="`width: ${qc.tile.px}; height: ${qc.tile.px}; display: block`"></template>
+<template v-if="qc.tile.isAyah"><img src="assets/fin-de-verset.svg" alt="" :style="`width: ${qc.tile.px}; height: ${qc.tile.px}; display: block`"></template>
+<template v-if="qc.tile.isMim"><img src="assets/mim.svg" alt="" :style="`width: ${qc.tile.px}; height: ${qc.tile.px}; display: block`"></template>
+<template v-if="qc.tile.isSin"><img src="assets/sin.svg" alt="" :style="`width: ${qc.tile.px}; height: ${qc.tile.px}; display: block`"></template>
+<template v-if="qc.tile.isJim"><img src="assets/jim.svg" alt="" :style="`width: ${qc.tile.px}; height: ${qc.tile.px}; display: block`"></template>
+<template v-if="qc.tile.isLa"><img src="assets/la.svg" alt="" :style="`width: ${qc.tile.px}; height: ${qc.tile.px}; display: block`"></template>
+<template v-if="qc.tile.isDots"><img src="assets/dots.svg" alt="" :style="`width: ${qc.tile.px}; height: ${qc.tile.px}; display: block`"></template>
+</span>
+</template>
+<span style="font-size: 13px; font-weight: 700; color: #55625D">{{qc.kicker}}</span>
+<p style="margin: 0; font-size: 22px; font-weight: 700; line-height: 1.4; letter-spacing: -0.01em; max-width: 540px; text-wrap: pretty">{{qc.text}}</p>
+<template v-if="qc.hasVerse">
+<div style="width: 100%; max-width: 560px; border: 1px dashed #C9CFC7; border-radius: 14px; padding: 10px 16px; display: flex; flex-direction: column; gap: 2px">
+<div dir="rtl" lang="ar" style="font-family: 'Amiri Quran', 'Amiri', serif; font-size: 30px; line-height: 2.1; color: #14201C; text-align: center">
+<template v-if="qc.verse.isPair"><span>… {{qc.verse.before}}</span><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true" style="vertical-align: middle; margin: 0 8px"><circle cx="10" cy="10" r="7.5" fill="none" stroke="#A1262B" stroke-width="1.6"></circle><circle cx="10" cy="10" r="3" fill="#A1262B"></circle></svg><span>{{qc.verse.after}} …</span></template>
+<template v-if="qc.verse.isSingle"><span>{{qc.verse.text}} …</span></template>
+</div>
+<span style="font-size: 12px; font-weight: 700; color: #55625D">{{qc.verse.ref}}</span>
+</div>
+</template>
+</div>
+</template>
+
+<template v-if="isQcm">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<template v-for="o in qcmOptions">
+<button class="lift" @click="o.pick" :disabled="o.disabled" :aria-label="o.aria" :style="`width: 100%; min-height: 62px; padding: 12px 16px; display: flex; align-items: center; gap: 14px; text-align: left; background: ${o.bg}; border: 1.5px solid ${o.border}; border-radius: 15px; opacity: ${o.op}; color: #14201C`">
+<span :style="`width: 34px; height: 34px; flex-shrink: 0; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; background: ${o.badgeBg}; color: ${o.badgeFg}`">
+<template v-if="o.showLetter"><span>{{o.letter}}</span></template>
+<template v-if="o.showCheck"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></template>
+<template v-if="o.showCross"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17"></path></svg></template>
+</span>
+<template v-if="o.isText"><span style="font-size: 16px; font-weight: 600; line-height: 1.35">{{o.text}}</span></template>
+<template v-if="o.isGlyphTxt"><span dir="rtl" lang="ar" :style="`font-family: 'Amiri', 'Noto Naskh Arabic', serif; line-height: 1.25; font-size: ${o.fs}; color: ${o.color}`">{{o.glyph}}</span></template>
+<template v-if="o.isQala"><img src="assets/qala.svg" alt="" :style="`width: ${o.px}; height: ${o.px}; display: block`"></template>
+<template v-if="o.isSala"><img src="assets/sala.svg" alt="" :style="`width: ${o.px}; height: ${o.px}; display: block`"></template>
+<template v-if="o.isMim"><img src="assets/mim.svg" alt="" :style="`width: ${o.px}; height: ${o.px}; display: block`"></template>
+<template v-if="o.isJim"><img src="assets/jim.svg" alt="" :style="`width: ${o.px}; height: ${o.px}; display: block`"></template>
+<template v-if="o.isLa"><img src="assets/la.svg" alt="" :style="`width: ${o.px}; height: ${o.px}; display: block`"></template>
+</button>
+</template>
+</div>
+</template>
+
+<template v-if="isVf">
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+<template v-for="b in vfButtons">
+<button class="lift" @click="b.pick" :disabled="b.disabled" :style="`min-height: 76px; border-radius: 18px; border: 1.5px solid ${b.border}; background: ${b.bg}; opacity: ${b.op}; color: ${b.fg}; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 19px; font-weight: 800`">
+<template v-if="b.isTrue"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></template>
+<template v-if="b.isFalse"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17"></path></svg></template>
+<span>{{b.label}}</span>
+</button>
+</template>
+</div>
+</template>
+
+<template v-if="isTrous">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<div style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 22px; padding: 26px 24px; display: flex; flex-direction: column; gap: 14px">
+<span style="font-size: 13px; font-weight: 700; color: #55625D">Complète la phrase</span>
+<div style="font-size: 21px; font-weight: 600; line-height: 2.3; letter-spacing: -0.005em; text-wrap: pretty">
+<template v-for="g in tr.segs">
+<template v-if="g.isText"><span>{{g.text}}</span></template>
+<template v-if="g.isGlyphTxt"><span dir="rtl" lang="ar" :style="`font-family: 'Amiri', 'Noto Naskh Arabic', serif; font-size: ${g.fs}; line-height: 1; padding: 0 3px; color: ${g.color}`">{{g.glyph}}</span></template>
+<template v-if="g.isSajda"><img src="assets/sajda.svg" alt="symbole de prosternation" :style="`width: ${g.px}; height: ${g.px}; display: inline-block; vertical-align: middle; margin: 0 3px`"></template>
+<template v-if="g.isHizb"><img src="assets/hizb.svg" alt="symbole de fin de section" :style="`width: ${g.px}; height: ${g.px}; display: inline-block; vertical-align: middle; margin: 0 3px`"></template>
+<template v-if="g.isQala"><img src="assets/qala.svg" alt="signe Qalâ" :style="`width: ${g.px}; height: ${g.px}; display: inline-block; vertical-align: middle; margin: 0 3px`"></template>
+<template v-if="g.isSala"><img src="assets/sala.svg" alt="signe Salâ" :style="`width: ${g.px}; height: ${g.px}; display: inline-block; vertical-align: middle; margin: 0 3px`"></template>
+<template v-if="g.isAyah"><img src="assets/fin-de-verset.svg" alt="symbole de fin de verset" :style="`width: ${g.px}; height: ${g.px}; display: inline-block; vertical-align: middle; margin: 0 3px`"></template>
+<template v-if="g.isMim"><img src="assets/mim.svg" alt="signe de l’arrêt obligatoire" :style="`width: ${g.px}; height: ${g.px}; display: inline-block; vertical-align: middle; margin: 0 3px`"></template>
+<template v-if="g.isSin"><img src="assets/sin.svg" alt="signe de l’arrêt obligatoire en 4 cas" :style="`width: ${g.px}; height: ${g.px}; display: inline-block; vertical-align: middle; margin: 0 3px`"></template>
+<template v-if="g.isJim"><img src="assets/jim.svg" alt="signe de l’arrêt autorisé" :style="`width: ${g.px}; height: ${g.px}; display: inline-block; vertical-align: middle; margin: 0 3px`"></template>
+<template v-if="g.isLa"><img src="assets/la.svg" alt="signe de l’arrêt interdit" :style="`width: ${g.px}; height: ${g.px}; display: inline-block; vertical-align: middle; margin: 0 3px`"></template>
+<template v-if="g.isDots"><img src="assets/dots.svg" alt="paire de trois points" :style="`width: ${g.px}; height: ${g.px}; display: inline-block; vertical-align: middle; margin: 0 3px`"></template>
+<template v-if="g.isBlank"><button @click="g.clear" :disabled="g.disabled" :aria-label="g.aria" :style="`display: inline-flex; align-items: center; justify-content: center; vertical-align: middle; min-width: ${g.minw}; height: 46px; padding: 0 14px; margin: 0 3px; border-radius: 11px; border: 1.5px ${g.bs} ${g.border}; background: ${g.bg}; color: ${g.fg}; font-size: 18px; font-weight: 800; line-height: 1`">{{g.label}}</button></template>
+</template>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 12px">
+<span style="font-size: 13px; font-weight: 600; color: #55625D">Touche un mot pour remplir le prochain trou&nbsp;; touche un trou pour le vider.</span>
+<div style="display: flex; flex-wrap: wrap; gap: 10px">
+<template v-for="c in tr.chips">
+<button class="lift" @click="c.pick" :disabled="c.disabled" :style="`min-height: 46px; padding: 0 18px; border-radius: 999px; border: 1.5px solid #CFD5CD; background: #FFFFFF; font-size: 16px; font-weight: 700; opacity: ${c.op}; color: #14201C`">{{c.label}}</button>
+</template>
+</div>
+</div>
+<template v-if="tr.showActions">
+<div style="display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px">
+<button @click="resetFills" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid #DCE0DA; background: #FFFFFF; font-size: 15px; font-weight: 700">Effacer</button>
+<button @click="check" :disabled="tr.checkDisabled" :style="`min-height: 48px; padding: 0 24px; border-radius: 12px; border: 0; background: ${accent}; color: #FFFFFF; font-size: 15px; font-weight: 700; opacity: ${tr.checkOp}`">Vérifier</button>
+</div>
+</template>
+</div>
+</template>
+
+<template v-if="fb.show">
+<div class="rise" role="status" :style="`border-radius: 18px; padding: 18px 20px; display: flex; flex-direction: column; gap: 16px; background: ${fb.bg}; border: 1px solid ${fb.border}`">
+<div style="display: flex; gap: 14px; align-items: flex-start">
+<span :style="`width: 34px; height: 34px; flex-shrink: 0; border-radius: 999px; background: ${fb.color}; color: #FFFFFF; display: flex; align-items: center; justify-content: center`">
+<template v-if="fb.ok"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></template>
+<template v-if="fb.ko"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17"></path></svg></template>
+</span>
+<div style="display: flex; flex-direction: column; gap: 6px; min-width: 0">
+<p :style="`margin: 0; font-size: 17px; font-weight: 800; color: ${fb.color}`">{{fb.title}}</p>
+<template v-if="fb.hasExtra"><p style="margin: 0; font-size: 15px; font-weight: 700; line-height: 1.5; color: #14201C">{{fb.extra}}</p></template>
+<p style="margin: 0; font-size: 15px; line-height: 1.55; color: #33403B; text-wrap: pretty">{{fb.explain}}</p>
+</div>
+</div>
+<button @click="next" style="align-self: flex-end; min-height: 48px; padding: 0 22px; border-radius: 12px; border: 0; background: #14201C; color: #FFFFFF; font-size: 15px; font-weight: 700; display: inline-flex; align-items: center; gap: 8px">{{fb.nextLabel}}
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+</button>
+</div>
+</template>
+
+<template v-if="isResult">
+<section class="rise" style="display: flex; flex-direction: column; gap: 22px">
+<div style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 24px; padding: 32px 24px; display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center">
+<span :style="`font-size: 13px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${accent}`">{{res.modeLabel}} · Résultat</span>
+<p style="margin: 0; font-size: 72px; font-weight: 800; letter-spacing: -0.04em; line-height: 1; font-variant-numeric: tabular-nums">{{res.score}}<span style="font-size: 30px; font-weight: 700; color: #55625D; letter-spacing: -0.01em"> / {{res.total}}</span></p>
+<div aria-hidden="true" style="width: 100%; max-width: 320px; height: 8px; border-radius: 999px; background: #E2E6DF; overflow: hidden"><div :style="`height: 100%; width: ${res.barW}; background: ${accent}; border-radius: 999px`"></div></div>
+<p style="margin: 0; font-size: 17px; line-height: 1.55; max-width: 440px; text-wrap: pretty">{{res.message}}</p>
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 6px">
+<button @click="restart" :style="`min-height: 48px; padding: 0 22px; border-radius: 12px; border: 0; background: ${accent}; color: #FFFFFF; font-size: 15px; font-weight: 700; display: inline-flex; align-items: center; gap: 8px`">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"></path><path d="M20 4v7h-7"></path></svg>
+Recommencer
+</button>
+<button @click="goFiches" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid #DCE0DA; background: #FFFFFF; font-size: 15px; font-weight: 700">Revoir les fiches</button>
+<button @click="goHome" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid #DCE0DA; background: #FFFFFF; font-size: 15px; font-weight: 700">Changer de mode</button>
+</div>
+</div>
+<template v-if="res.hasMistakes">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<h2 style="margin: 0 0 4px; font-size: 20px; font-weight: 800; letter-spacing: -0.01em">À revoir</h2>
+<template v-for="m in res.mistakes">
+<article style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 16px; padding: 16px; display: flex; gap: 14px; align-items: flex-start">
+<template v-if="m.hasTile">
+<span role="img" :aria-label="m.tile.aria" style="width: 52px; height: 52px; flex-shrink: 0; border-radius: 13px; background: #F6F7F3; border: 1px solid #DCE0DA; display: flex; align-items: center; justify-content: center">
+<template v-if="m.tile.isTxt"><span dir="rtl" lang="ar" aria-hidden="true" :style="`font-family: 'Amiri', 'Noto Naskh Arabic', serif; line-height: 1.3; font-size: ${m.tile.fs}; color: ${m.tile.color}`">{{m.tile.glyph}}</span></template>
+<template v-if="m.tile.isSajda"><img src="assets/sajda.svg" alt="" :style="`width: ${m.tile.px}; height: ${m.tile.px}; display: block`"></template>
+<template v-if="m.tile.isHizb"><img src="assets/hizb.svg" alt="" :style="`width: ${m.tile.px}; height: ${m.tile.px}; display: block`"></template>
+<template v-if="m.tile.isQala"><img src="assets/qala.svg" alt="" :style="`width: ${m.tile.px}; height: ${m.tile.px}; display: block`"></template>
+<template v-if="m.tile.isSala"><img src="assets/sala.svg" alt="" :style="`width: ${m.tile.px}; height: ${m.tile.px}; display: block`"></template>
+<template v-if="m.tile.isAyah"><img src="assets/fin-de-verset.svg" alt="" :style="`width: ${m.tile.px}; height: ${m.tile.px}; display: block`"></template>
+<template v-if="m.tile.isMim"><img src="assets/mim.svg" alt="" :style="`width: ${m.tile.px}; height: ${m.tile.px}; display: block`"></template>
+<template v-if="m.tile.isSin"><img src="assets/sin.svg" alt="" :style="`width: ${m.tile.px}; height: ${m.tile.px}; display: block`"></template>
+<template v-if="m.tile.isJim"><img src="assets/jim.svg" alt="" :style="`width: ${m.tile.px}; height: ${m.tile.px}; display: block`"></template>
+<template v-if="m.tile.isLa"><img src="assets/la.svg" alt="" :style="`width: ${m.tile.px}; height: ${m.tile.px}; display: block`"></template>
+<template v-if="m.tile.isDots"><img src="assets/dots.svg" alt="" :style="`width: ${m.tile.px}; height: ${m.tile.px}; display: block`"></template>
+</span>
+</template>
+<div style="display: flex; flex-direction: column; gap: 6px; min-width: 0">
+<p style="margin: 0; font-size: 15px; font-weight: 700; line-height: 1.45">{{m.prompt}}</p>
+<template v-if="m.hasVerse">
+<div dir="rtl" lang="ar" style="font-family: 'Amiri Quran', 'Amiri', serif; font-size: 22px; line-height: 2.1; color: #14201C; text-align: left">
+<template v-if="m.verse.isPair"><span>… {{m.verse.before}}</span><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true" style="vertical-align: middle; margin: 0 8px"><circle cx="10" cy="10" r="7.5" fill="none" stroke="#A1262B" stroke-width="1.6"></circle><circle cx="10" cy="10" r="3" fill="#A1262B"></circle></svg><span>{{m.verse.after}} …</span></template>
+<template v-if="m.verse.isSingle"><span>{{m.verse.text}} …</span></template>
+</div>
+</template>
+<p :style="`margin: 0; font-size: 14px; font-weight: 800; line-height: 1.45; color: ${m.accent}`">Bonne réponse&nbsp;: {{m.answer}}</p>
+<p style="margin: 0; font-size: 14px; line-height: 1.5; color: #55625D; text-wrap: pretty">{{m.explain}}</p>
+</div>
+</article>
+</template>
+</div>
+</template>
+</section>
+</template>
+
+</main>
+
+<footer style="padding: 20px; border-top: 1px solid #DCE0DA">
+<p style="margin: 0 auto; max-width: 760px; font-size: 13px; line-height: 1.5; color: #55625D">D’après «&nbsp;Le viatique du lecteur&nbsp;» (CIFOD), chapitres 11 (types d’arrêts) et 15 (signes conventionnels).</p>
+</footer>
+
+</div>
+</div>
+<script src="assets/petite-vue.iife.js"></script>
+<script>
+const PROPS = { accent: '#0B5D4B', questions: 10 };
+let render = function () {};
+class DCLogic {
+  constructor() { this.props = PROPS; this.state = null; }
+  setState(patch) { this.state = Object.assign({}, this.state || {}, typeof patch === 'function' ? patch(this.state) : patch); render(); }
+  forceUpdate() { render(); }
+}
+class Component extends DCLogic {
+  D() {
+    if (this._d) return this._d;
+    const fr = (t) => String(t).replace(/ ([:;?!»])/g, '\u00a0$1').replace(/« /g, '«\u00a0');
+    const signs = [
+      { id: 'mim', glyph: 'مـ', nom: 'Mîm', aria: 'Signe de l’arrêt obligatoire', tone: 'red', scale: 1, group: 'arret', designation: 'Arrêt obligatoire', liaison: 'Interdite', signal: 'stop', note: '' },
+      { id: 'sin', glyph: 'س', nom: 'Sîn', aria: 'Signe de l’arrêt obligatoire en 4 cas', tone: 'red', scale: 1, group: 'arret', designation: 'Arrêt obligatoire (4 cas)', liaison: 'Interdite (4 cas) · Autorisée (2 cas)', signal: null, note: 'Pause légère.' },
+      { id: 'qala', glyph: 'قلى', nom: 'Qalâ', aria: 'Signe Qalâ', tone: 'red', scale: 0.78, group: 'arret', designation: 'Arrêt prioritaire', liaison: 'Autorisée', signal: 'orange', note: '' },
+      { id: 'jim', glyph: 'ج', nom: 'Jîm', aria: 'Signe de l’arrêt autorisé', tone: 'red', scale: 1, group: 'arret', designation: 'Arrêt autorisé', liaison: 'Autorisée', signal: 'orange', note: '' },
+      { id: 'sala', glyph: 'صلى', nom: 'Salâ', aria: 'Signe Salâ', tone: 'green', scale: 0.78, group: 'arret', designation: 'Arrêt autorisé', liaison: 'Prioritaire', signal: 'orange', note: '' },
+      { id: 'la', glyph: 'لا', nom: 'Lâ', aria: 'Signe de l’arrêt interdit', tone: 'green', scale: 1, group: 'arret', designation: 'Arrêt interdit', liaison: 'Obligatoire', signal: 'blue', note: '' },
+      { id: 'dots', glyph: '∴ ∴', nom: 'Trois points', aria: 'Paire de trois points', tone: 'green', scale: 0.6, group: 'arret', designation: 'Arrêt autorisé (1 des 2)', liaison: 'Autorisée', signal: 'orange', note: 'Les points vont par paire : on s’arrête à l’un des deux, pas aux deux.' },
+      { id: 'sajda', glyph: '۩', nom: '', aria: 'Symbole de prosternation', tone: 'maroon', scale: 0.95, group: 'autre', designation: 'Prosternation', liaison: null, signal: null, note: 'Il est recommandé de se prosterner au niveau de ce symbole. Le mot ou l’expression qui induit la prosternation est marqué(e) d’un trait horizontal au-dessus.' },
+      { id: 'hizb', glyph: '۞', nom: '', aria: 'Symbole de fin de section', tone: 'maroon', scale: 0.95, group: 'autre', designation: 'Fin d’une section', liaison: null, signal: null, note: 'Fin d’un Djouz’ (1/30 du Coran), d’un Hizb (1/60), ou d’un Roub’ / Nisf de Hizb (quart et moitié de Hizb).' },
+      { id: 'ayah', glyph: '۝١', nom: '', aria: 'Symbole de fin de verset', tone: 'maroon', scale: 0.85, group: 'autre', designation: 'Fin de verset', liaison: null, signal: null, note: 'Le numéro du verset est inscrit dans le symbole.' }
+    ].map((s) => Object.assign({}, s, { designation: fr(s.designation), note: fr(s.note), liaison: s.liaison ? fr(s.liaison) : null }));
+    const map = {};
+    signs.forEach((s) => { map[s.id] = s; });
+
+    const qcm = [
+      { g: 'mim', p: 'Que signifie ce signe ?', o: ['Arrêt obligatoire', 'Arrêt prioritaire', 'Arrêt autorisé', 'Arrêt interdit'], e: 'Ce signe marque un arrêt obligatoire : la liaison avec la suite est interdite.' },
+      { g: 'la', p: 'Que signifie ce signe ?', o: ['Arrêt interdit', 'Arrêt obligatoire', 'Arrêt autorisé', 'Arrêt prioritaire'], e: 'Avec ce signe, l’arrêt est interdit : la liaison est obligatoire.' },
+      { g: 'qala', p: 'Que signifie ce signe ?', o: ['Arrêt prioritaire', 'Arrêt autorisé', 'Arrêt obligatoire', 'Arrêt interdit'], e: 'Avec Qalâ, l’arrêt est prioritaire, mais la liaison reste autorisée.' },
+      { g: 'sala', p: 'Avec ce signe, quelle est la règle de liaison ?', o: ['Prioritaire', 'Autorisée', 'Interdite', 'Obligatoire'], e: 'Avec Salâ, l’arrêt est autorisé, mais c’est la liaison qui est prioritaire.' },
+      { g: 'jim', p: 'Avec ce signe, quelle est la règle de liaison ?', o: ['Autorisée', 'Prioritaire', 'Interdite', 'Obligatoire'], e: 'Avec ce signe, on peut s’arrêter comme on peut lier : les deux sont autorisés.' },
+      { g: null, go: true, p: 'Quel signe indique un arrêt prioritaire ?', o: ['qala', 'sala', 'jim', 'la'], e: 'C’est Qalâ. Ne le confonds pas avec Salâ, où c’est la liaison qui est prioritaire.' },
+      { g: null, go: true, p: 'Quel signe rend la liaison obligatoire ?', o: ['la', 'mim', 'jim', 'qala'], e: 'C’est le signe de l’arrêt interdit : on doit lier.' },
+      { g: null, go: true, p: 'Quel signe impose l’arrêt et interdit la liaison ?', o: ['mim', 'la', 'sala', 'jim'], e: 'C’est le signe de l’arrêt obligatoire, associé au « Stop ».' },
+      { g: 'dots', p: 'Que signifie cette paire de signes ?', o: ['Arrêt autorisé à l’un des deux', 'Arrêt obligatoire aux deux', 'Arrêt interdit aux deux', 'Fin d’une section'], e: 'Les trois points vont par paire : l’arrêt est autorisé à l’un des deux (1 des 2), et la liaison est autorisée.' },
+      { g: 'sin', p: 'Dans combien de cas l’arrêt est-il obligatoire avec ce signe ?', o: ['4 cas', '2 cas', '6 cas', '1 cas'], e: 'Ce signe marque une pause légère : l’arrêt est obligatoire dans 4 cas ; la liaison est autorisée dans 2 cas.' },
+      { g: 'sin', p: 'Dans combien de cas la liaison est-elle autorisée avec ce signe ?', o: ['2 cas', '4 cas', 'Aucun', '6 cas'], e: 'Avec ce signe, la liaison est interdite dans 4 cas et autorisée dans 2 cas.' },
+      { g: 'sajda', p: 'Que recommande ce symbole ?', o: ['Se prosterner', 'S’arrêter obligatoirement', 'Lier avec la suite', 'Relire le verset'], e: 'Il est recommandé de se prosterner au niveau de ce symbole.' },
+      { g: null, p: 'Comment est marqué le mot qui induit la prosternation ?', o: ['Par un trait horizontal au-dessus', 'Par un trait en dessous', 'Par une couleur différente', 'Par des parenthèses'], e: 'Dans le verset concerné, le mot ou l’expression est surmonté(e) d’un trait horizontal.' },
+      { g: 'hizb', p: 'Que marque ce symbole ?', o: ['La fin d’une section', 'La fin d’un verset', 'Une prosternation', 'Un arrêt obligatoire'], e: 'Une section peut être un Djouz’, un Hizb, ou un Roub’ / Nisf de Hizb.' },
+      { g: null, p: 'Quelle fraction du Coran représente un Hizb ?', o: ['1/60', '1/30', '1/4', '1/114'], e: 'Un Hizb représente 1/60 du Coran ; un Djouz’, 1/30.' },
+      { g: null, p: 'Quelle fraction du Coran représente un Djouz’ ?', o: ['1/30', '1/60', '1/2', '1/8'], e: 'Un Djouz’ représente 1/30 du Coran ; un Hizb, 1/60.' },
+      { g: 'ayah', p: 'Qu’est-ce qui est inscrit dans ce symbole ?', o: ['Le numéro du verset', 'Le numéro de la sourate', 'Le numéro du Hizb', 'Le nombre d’arrêts'], e: 'Le symbole de fin de verset porte le numéro du verset.' },
+      { g: 'jim', p: 'Quel signal visuel accompagne ce signe ?', o: ['Feu orange', 'Stop', 'Sens obligatoire', 'Aucun'], e: 'Feu orange : on peut s’arrêter ou lier.' },
+      { g: 'la', p: 'Quel signal visuel accompagne ce signe ?', o: ['Sens obligatoire', 'Stop', 'Feu orange', 'Aucun'], e: 'Sens obligatoire : on continue, sans s’arrêter.' },
+      { g: 'mim', p: 'Quel signal visuel accompagne ce signe ?', o: ['Stop', 'Feu orange', 'Sens obligatoire', 'Aucun'], e: 'Stop : on s’arrête, la liaison est interdite.' }
+    ].map((q) => Object.assign({}, q, { p: fr(q.p), e: fr(q.e), o: q.go ? q.o : q.o.map(fr) }));
+
+    const vf = [
+      { g: 'mim', s: 'Avec ce signe, on peut lier avec la suite.', a: false, e: 'Ce signe marque un arrêt obligatoire : la liaison est interdite.' },
+      { g: 'la', s: 'Ce signe interdit l’arrêt.', a: true, e: 'Avec ce signe, l’arrêt est interdit et la liaison obligatoire.' },
+      { g: 'qala', s: 'Avec ce signe, l’arrêt est prioritaire, mais la liaison reste autorisée.', a: true, e: 'C’est exactement la règle de Qalâ.' },
+      { g: 'sala', s: 'Avec ce signe, l’arrêt est prioritaire.', a: false, e: 'Avec Salâ, l’arrêt est autorisé, mais c’est la liaison qui est prioritaire. L’arrêt prioritaire, c’est Qalâ.' },
+      { g: 'jim', s: 'Avec ce signe, l’arrêt et la liaison sont tous deux autorisés.', a: true, e: 'Avec ce signe, on peut s’arrêter comme on peut lier.' },
+      { g: 'jim', s: 'Ce signe impose la liaison.', a: false, e: 'Avec ce signe, la liaison est seulement autorisée. C’est le signe de l’arrêt interdit qui rend la liaison obligatoire.' },
+      { g: 'sin', s: 'Ce signe marque un arrêt obligatoire dans 4 cas.', a: true, e: 'Ce signe marque une pause légère : l’arrêt est obligatoire dans 4 cas ; la liaison est autorisée dans 2 cas.' },
+      { g: 'sin', s: 'Avec ce signe, la liaison est toujours interdite.', a: false, e: 'La liaison est interdite dans 4 cas, mais autorisée dans 2 cas.' },
+      { g: 'dots', s: 'Avec cette paire de signes, on doit s’arrêter aux deux.', a: false, e: 'On s’arrête à l’un des deux seulement (1 des 2).' },
+      { g: 'dots', s: 'Avec cette paire de signes, la liaison est autorisée.', a: true, e: 'Arrêt autorisé à l’un des deux, liaison autorisée.' },
+      { g: 'sajda', s: 'Il est recommandé de se prosterner au niveau de ce symbole.', a: true, e: 'Le mot qui induit la prosternation est surmonté d’un trait horizontal dans le verset.' },
+      { g: 'sajda', s: 'Le mot qui induit la prosternation est souligné par un trait en dessous.', a: false, e: 'Il est marqué par un trait horizontal au-dessus.' },
+      { g: 'hizb', s: 'Ce symbole marque la fin d’un verset.', a: false, e: 'Il marque la fin d’une section : Djouz’, Hizb, Roub’ ou Nisf de Hizb.' },
+      { g: null, s: 'Un Djouz’ représente 1/30 du Coran.', a: true, e: 'Djouz’ : 1/30 du Coran. Hizb : 1/60.' },
+      { g: null, s: 'Un Hizb représente 1/30 du Coran.', a: false, e: 'Un Hizb représente 1/60 du Coran. C’est le Djouz’ qui en représente 1/30.' },
+      { g: null, s: 'Roub’ et Nisf de Hizb désignent le quart et la moitié d’un Hizb.', a: true, e: 'Ce sont aussi des fins de section.' },
+      { g: 'ayah', s: 'Le numéro du verset est inscrit dans ce symbole.', a: true, e: 'Le symbole de fin de verset porte son numéro à l’intérieur.' },
+      { g: 'la', s: 'Ce signe est associé au feu orange.', a: false, e: 'Il est associé au panneau « sens obligatoire » : on continue.' },
+      { g: 'mim', s: 'Ce signe est associé au panneau « Stop ».', a: true, e: 'Stop : arrêt obligatoire, liaison interdite.' },
+      { g: 'qala', s: 'Ce signe est associé au feu orange.', a: true, e: 'Le feu orange signifie qu’on peut s’arrêter ou lier.' }
+    ].map((v) => Object.assign({}, v, { s: fr(v.s), e: fr(v.e) }));
+
+    const trous = [
+      { t: 'Le signe {mim} marque un arrêt [obligatoire] : la liaison est [interdite].', d: ['autorisé', 'autorisée', 'prioritaire'], e: 'C’est le signe associé au « Stop ».' },
+      { t: 'Avec {la}, l’arrêt est [interdit] et la liaison est [obligatoire].', d: ['autorisé', 'prioritaire', 'interdite'], e: 'C’est le signe associé au panneau « sens obligatoire ».' },
+      { t: 'Avec {qala}, l’arrêt est [prioritaire] et la liaison reste [autorisée].', d: ['obligatoire', 'interdite'], e: 'Ne le confonds pas avec Salâ, où c’est la liaison qui est prioritaire.' },
+      { t: 'Avec {sala}, l’arrêt est [autorisé] mais la liaison est [prioritaire].', d: ['interdit', 'obligatoire'], e: 'Ne le confonds pas avec Qalâ, où c’est l’arrêt qui est prioritaire.' },
+      { t: 'Avec {jim}, l’arrêt est autorisé et la liaison est [autorisée].', d: ['interdite', 'obligatoire', 'prioritaire'], e: 'Avec ce signe, arrêt et liaison sont tous deux autorisés.' },
+      { t: 'Le signe {sin} marque un arrêt obligatoire dans [4] cas ; la liaison y est autorisée dans [2] cas.', d: ['3', '6'], e: 'Ce signe correspond à une pause légère.' },
+      { t: 'Avec la paire {dots}, l’arrêt est autorisé à [un seul] des deux signes.', d: ['chacun', 'aucun'], e: 'Arrêt autorisé (1 des 2) : on choisit l’un des deux.' },
+      { t: 'Au symbole {sajda}, il est recommandé de se [prosterner].', d: ['relever', 'taire'], e: 'La prosternation est recommandée au niveau de ce symbole.' },
+      { t: 'Le mot qui induit la prosternation est marqué d’un trait horizontal [au-dessus].', d: ['en dessous', 'à côté'], e: 'Ce trait permet de repérer le mot ou l’expression concerné(e).' },
+      { t: 'Le Djouz’ représente [1/30] du Coran, et le Hizb [1/60].', d: ['1/4', '1/114'], e: 'Un Hizb est donc la moitié d’un Djouz’.' },
+      { t: 'Roub’ et Nisf de Hizb désignent le [quart] et la [moitié] d’un Hizb.', d: ['tiers', 'totalité'], e: 'Ce sont aussi des fins de section, comme le Djouz’ et le Hizb.' },
+      { t: 'Dans le symbole {ayah}, on trouve le [numéro] du verset.', d: ['nom', 'début'], e: 'Le symbole de fin de verset porte son numéro.' },
+      { t: 'Le symbole {hizb} marque la fin d’une [section].', d: ['sourate', 'phrase'], e: 'Une section peut être un Djouz’, un Hizb, ou un Roub’ / Nisf de Hizb.' }
+    ].map((x) => ({ t: fr(x.t), d: x.d, e: fr(x.e) }));
+
+    const EX = {
+      s2v5: { ref: 'Sourate 2 · versets 5 et 6', before: 'وَأُو۟لَـٰٓئِكَ هُمُ ٱلْمُفْلِحُونَ', after: 'إِنَّ ٱلَّذِينَ كَفَرُوا۟' },
+      s2v6: { ref: 'Sourate 2 · versets 6 et 7', before: 'لَا يُؤْمِنُونَ', after: 'خَتَمَ ٱللَّهُ عَلَىٰ قُلُوبِهِمْ وَعَلَىٰ سَمْعِهِمْ' },
+      s1v2a: { ref: 'Sourate 1 · verset 2', text: 'ٱلْحَمْدُ لِلَّهِ' },
+      s1v2b: { ref: 'Sourate 1 · verset 2', text: 'ٱلْحَمْدُ' }
+    };
+    const AR = { hamd: 'ٱلْحَمْدُ', hamdl: 'ٱلْحَمْدُ لِلَّهِ' };
+
+    const types = [
+      { id: 'tamm', num: '1-1', name: 'L’arrêt complet', short: 'Complet', translit: 'Al-Waqf At-tâmm', ar: 'اَلْوَقْفُ التَّامُّ',
+        def: 'Est considéré comme complet tout arrêt sur une phrase compréhensive (au niveau du sens) et qui n’est pas grammaticalement lié à ce qui suit.',
+        after: 'Pour la lecture, il suffit de passer à la phrase suivante.', note: 'En général, en fin de verset.',
+        ex: 's2v5', exLabel: 'Quitter le verset 5 pour le 6.', exNote: 'Ces 2 versets n’ont pas de rapport (sémantique comme grammatical).',
+        sens: true, lienSens: false, lienGram: false },
+      { id: 'kafi', num: '1-2', name: 'L’arrêt suffisant', short: 'Suffisant', translit: 'Al-Waqf Al-Kâfî', ar: 'اَلْوَقْفُ الْكَافِي',
+        def: 'C’est un arrêt sur une phrase dont le sens est complet, et qui est tout de même lié à ce qui suit dans le sens global. Les deux phrases n’ont aucun lien grammatical.',
+        after: 'On continue la lecture sans reprendre ce qui a été lu.', note: '',
+        ex: 's2v6', exLabel: 'Quitter le verset 6 pour le 7.', exNote: '',
+        sens: true, lienSens: true, lienGram: false },
+      { id: 'hasan', num: '1-3', name: 'L’arrêt correct', short: 'Correct', translit: 'Al-Waqf Al-hasan', ar: 'اَلْوَقْفُ الْحَسَنُ',
+        def: 'C’est un arrêt sur une phrase dont le sens est complet, mais qui est lié grammaticalement et sémantiquement à ce qui suit.',
+        after: 'Si cet arrêt se trouve à la fin d’un verset, l’on peut reprendre ce qui a déjà été lu.', note: '',
+        ex: 's1v2a', exLabel: 'L’arrêt sur l’expression :', exNote: '',
+        sens: true, lienSens: true, lienGram: true },
+      { id: 'qabih', num: '1-4', name: 'Le mauvais arrêt', short: 'Mauvais', translit: 'Al-Waqf Al-Qabîh', ar: 'اَلْوَقْفُ الْقَبِيحُ',
+        def: 'C’est un arrêt sur une phrase dont le sens n’est pas complet, car il est lié à ce qui suit dans le sens et au niveau grammatical.',
+        after: 'Il n’est pas permis de faire cet arrêt, sauf si l’on n’a plus de souffle ; on doit alors reprendre ce qui a déjà été lu.', note: '',
+        ex: 's1v2b', exLabel: 'Faire un arrêt sur le mot :', exNote: '',
+        sens: false, lienSens: true, lienGram: true }
+    ].map((t) => Object.assign({}, t, { name: fr(t.name), def: fr(t.def), after: fr(t.after), note: fr(t.note), exLabel: fr(t.exLabel), exNote: fr(t.exNote) }));
+
+    const T4 = ['L’arrêt complet', 'L’arrêt suffisant', 'L’arrêt correct', 'Le mauvais arrêt'];
+    const order = (first) => [first].concat(T4.filter((x) => x !== first));
+    const tqcm = [
+      { p: 'Quel arrêt porte sur une phrase compréhensive, sans aucun lien (ni de sens ni grammatical) avec ce qui suit ?', o: order('L’arrêt complet'), e: 'C’est l’arrêt complet (Al-Waqf At-tâmm) : pour la lecture, il suffit de passer à la phrase suivante.' },
+      { p: 'Sens complet, lié à la suite dans le sens global, mais sans lien grammatical : de quel arrêt s’agit-il ?', o: order('L’arrêt suffisant'), e: 'C’est l’arrêt suffisant (Al-Waqf Al-Kâfî).' },
+      { p: 'Sens complet, mais lié à la suite grammaticalement et par le sens : de quel arrêt s’agit-il ?', o: order('L’arrêt correct'), e: 'C’est l’arrêt correct (Al-Waqf Al-hasan).' },
+      { p: 'Sens incomplet, lié à la suite par le sens et par la grammaire : de quel arrêt s’agit-il ?', o: order('Le mauvais arrêt'), e: 'C’est le mauvais arrêt (Al-Waqf Al-Qabîh).' },
+      { p: 'Quel est le nom arabe de l’arrêt suffisant ?', o: ['Al-Waqf Al-Kâfî', 'Al-Waqf At-tâmm', 'Al-Waqf Al-hasan', 'Al-Waqf Al-Qabîh'], e: 'Al-Kâfî : l’arrêt suffisant.' },
+      { p: 'Que désigne Al-Waqf Al-hasan ?', o: order('L’arrêt correct'), e: 'Al-hasan : l’arrêt correct. Ne le confonds pas avec Al-Qabîh, le mauvais arrêt.' },
+      { p: 'Que désigne Al-Waqf Al-Qabîh ?', o: order('Le mauvais arrêt'), e: 'Al-Qabîh : le mauvais arrêt.' },
+      { p: 'Qu’est-ce qu’Al-Waqf ?', o: ['Un court arrêt à la fin d’un mot, avec l’intention de poursuivre la lecture', 'La fin définitive de la récitation', 'Une pause au milieu d’un mot', 'La reprise de la lecture depuis le début de la sourate'], e: 'Al-Waqf est un court arrêt à la fin d’un mot dans le Coran, avec l’intention de poursuivre la lecture.' },
+      { p: 'Après un arrêt suffisant, que fait-on ?', o: ['On continue sans reprendre ce qui a été lu', 'On reprend ce qui a déjà été lu', 'On recommence le verset', 'On reprend depuis le début de la sourate'], e: 'Après l’arrêt suffisant, on continue la lecture sans reprendre ce qui a été lu.' },
+      { p: 'Dans quel cas le mauvais arrêt est-il permis ?', o: ['Seulement si l’on n’a plus de souffle', 'En fin de verset', 'Toujours', 'Quand le sens est complet'], e: 'Il n’est pas permis, sauf si l’on n’a plus de souffle.' },
+      { p: 'Après un mauvais arrêt (faute de souffle), que doit-on faire ?', o: ['Reprendre ce qui a déjà été lu', 'Continuer avec le mot suivant', 'Passer au verset suivant', 'Recommencer la sourate'], e: 'On doit alors reprendre ce qui a déjà été lu.' },
+      { v: 's2v5', p: 'Quitter le verset 5 de la sourate 2 pour le verset 6 : de quel arrêt s’agit-il ?', o: order('L’arrêt complet'), e: 'Ces 2 versets n’ont pas de rapport, ni de sens ni grammatical : c’est un arrêt complet.' },
+      { v: 's2v6', p: 'Quitter le verset 6 de la sourate 2 pour le verset 7 : de quel arrêt s’agit-il ?', o: order('L’arrêt suffisant'), e: 'Les deux phrases sont liées dans le sens global, sans lien grammatical : c’est un arrêt suffisant.' },
+      { v: 's1v2a', p: 'S’arrêter sur cette expression (sourate 1, verset 2) : de quel arrêt s’agit-il ?', o: order('L’arrêt correct'), e: 'Le sens est complet, mais il reste lié à la suite : c’est un arrêt correct.' },
+      { v: 's1v2b', p: 'S’arrêter sur ce mot (sourate 1, verset 2) : de quel arrêt s’agit-il ?', o: order('Le mauvais arrêt'), e: 'Le sens n’est pas complet : c’est un mauvais arrêt.' },
+      { p: 'Quels arrêts portent sur une phrase dont le sens est complet ?', o: ['Le complet, le suffisant et le correct', 'Seulement le complet', 'Les quatre', 'Le correct et le mauvais'], e: 'Seul le mauvais arrêt porte sur une phrase dont le sens n’est pas complet.' },
+      { p: 'Avec l’arrêt complet, pour la lecture, il suffit de…', o: ['Passer à la phrase suivante', 'Reprendre le mot précédent', 'Relire tout le verset', 'Reprendre ce qui a été lu'], e: 'Pour l’arrêt complet, il suffit de passer à la phrase suivante.' }
+    ].map((q) => Object.assign({}, q, { p: fr(q.p), e: fr(q.e), o: q.o.map(fr) }));
+
+    const tvf = [
+      { s: 'Al-Waqf est un court arrêt à la fin d’un mot, avec l’intention de poursuivre la lecture.', a: true, e: 'C’est la définition d’Al-Waqf.' },
+      { s: 'Lorsqu’on lit le Coran, on peut s’arrêter à n’importe quel moment.', a: false, e: 'On ne peut pas s’arrêter à n’importe quel moment : il faut connaître les différentes sortes d’arrêts.' },
+      { s: 'L’arrêt complet porte sur une phrase grammaticalement liée à ce qui suit.', a: false, e: 'L’arrêt complet n’est pas grammaticalement lié à ce qui suit.' },
+      { v: 's2v5', s: 'Entre ces deux versets, il n’y a aucun rapport, ni de sens ni grammatical.', a: true, e: 'C’est l’exemple de l’arrêt complet.' },
+      { s: 'L’arrêt complet se trouve, en général, en fin de verset.', a: true, e: 'Comme entre les versets 5 et 6 de la sourate 2.' },
+      { s: 'L’arrêt suffisant porte sur une phrase dont le sens est complet.', a: true, e: 'Le sens est complet, mais il reste lié à la suite dans le sens global.' },
+      { s: 'Avec l’arrêt suffisant, les deux phrases sont liées grammaticalement.', a: false, e: 'Les deux phrases n’ont aucun lien grammatical ; elles sont seulement liées dans le sens global.' },
+      { s: 'Après un arrêt suffisant, on reprend ce qui a été lu.', a: false, e: 'On continue la lecture sans reprendre ce qui a été lu.' },
+      { s: 'L’arrêt correct est lié à ce qui suit, grammaticalement et par le sens.', a: true, e: 'Son sens est pourtant complet.' },
+      { v: 's1v2a', s: 'S’arrêter sur cette expression est un arrêt correct.', a: true, e: 'Sourate 1, verset 2 : c’est l’exemple de l’arrêt correct.' },
+      { v: 's1v2b', s: 'S’arrêter sur ce mot est un arrêt suffisant.', a: false, e: 'Le sens n’est pas complet : c’est un mauvais arrêt.' },
+      { s: 'Le mauvais arrêt porte sur une phrase dont le sens est complet.', a: false, e: 'Son sens n’est pas complet : il est lié à la suite dans le sens et au niveau grammatical.' },
+      { s: 'Le mauvais arrêt est permis si l’on n’a plus de souffle.', a: true, e: 'On doit alors reprendre ce qui a déjà été lu.' },
+      { s: 'Après un mauvais arrêt, on continue avec le mot suivant.', a: false, e: 'On doit reprendre ce qui a déjà été lu.' },
+      { s: 'Al-Waqf Al-Qabîh désigne l’arrêt correct.', a: false, e: 'Al-Qabîh désigne le mauvais arrêt ; l’arrêt correct se dit Al-Waqf Al-hasan.' },
+      { s: 'Al-Waqf At-tâmm désigne l’arrêt complet.', a: true, e: 'At-tâmm : complet.' }
+    ].map((v) => Object.assign({}, v, { s: fr(v.s), e: fr(v.e) }));
+
+    const ttrous = [
+      { t: 'Al-Waqf est un court [arrêt] à la fin d’un [mot], avec l’intention de poursuivre la lecture.', d: ['souffle', 'verset'], e: 'On ne peut donc pas s’arrêter à n’importe quel moment.' },
+      { t: 'L’arrêt [complet] porte sur une phrase compréhensive, qui n’est pas [grammaticalement] liée à ce qui suit.', d: ['correct', 'phonétiquement'], e: 'Pour la lecture, il suffit de passer à la phrase suivante.' },
+      { t: 'L’arrêt [suffisant] porte sur une phrase au sens complet, liée à la suite dans le sens [global], sans lien grammatical.', d: ['mauvais', 'littéral'], e: 'C’est Al-Waqf Al-Kâfî.' },
+      { t: 'Après un arrêt suffisant, on [continue] la lecture sans [reprendre] ce qui a été lu.', d: ['interrompt', 'prononcer'], e: 'Rien n’est à reprendre, contrairement au mauvais arrêt.' },
+      { t: 'L’arrêt [correct] porte sur une phrase au sens complet, mais liée à la suite grammaticalement et [sémantiquement].', d: ['complet', 'phonétiquement'], e: 'C’est Al-Waqf Al-hasan.' },
+      { t: 'Le [mauvais] arrêt n’est permis que si l’on n’a plus de [souffle].', d: ['correct', 'temps'], e: 'On doit alors reprendre ce qui a déjà été lu.' },
+      { t: 'Après un mauvais arrêt, on doit [reprendre] ce qui a déjà été [lu].', d: ['sauter', 'écrit'], e: 'Car le sens de la phrase n’était pas complet.' },
+      { t: 'L’arrêt complet se dit Al-Waqf [At-tâmm], et l’arrêt suffisant Al-Waqf [Al-Kâfî].', d: ['Al-hasan', 'Al-Qabîh'], e: 'L’arrêt correct : Al-hasan. Le mauvais arrêt : Al-Qabîh.' },
+      { t: 'S’arrêter sur {hamd} (sourate 1, verset 2) est un [mauvais] arrêt : le sens n’est pas [complet].', d: ['bon', 'long'], e: 'S’arrêter sur l’expression entière ٱلْحَمْدُ لِلَّهِ est un arrêt correct.' },
+      { t: 'S’arrêter sur {hamdl} (sourate 1, verset 2) est un arrêt [correct].', d: ['mauvais', 'complet'], e: 'Le sens est complet, mais il reste lié à la suite.' },
+      { t: 'Quitter le verset 5 pour le verset 6 de la sourate 2 est un arrêt [complet].', d: ['mauvais', 'correct'], e: 'Ces 2 versets n’ont pas de rapport (sémantique comme grammatical).' },
+      { t: 'Quitter le verset 6 pour le verset 7 de la sourate 2 est un arrêt [suffisant].', d: ['complet', 'mauvais'], e: 'Les deux phrases sont liées dans le sens global, sans lien grammatical.' }
+    ].map((x) => ({ t: fr(x.t), d: x.d, e: fr(x.e) }));
+
+    this._d = { fr, signs, map, qcm, vf, trous, EX, AR, types, tqcm, tvf, ttrous };
+    return this._d;
+  }
+
+  S() {
+    return Object.assign({
+      screen: 'home', mode: null, topic: 'signes', queue: [], idx: 0, answered: false, picked: null,
+      fills: [], checked: false, score: 0, mistakes: [],
+      best: { qcm: null, vf: null, trous: null, tqcm: null, tvf: null, ttrous: null }, hide: false, revealed: {}
+    }, this.state || {});
+  }
+
+  componentDidMount() {
+    try {
+      const raw = window.localStorage.getItem('waqf-signes-best');
+      if (raw) this.setState({ best: Object.assign({ qcm: null, vf: null, trous: null, tqcm: null, tvf: null, ttrous: null }, JSON.parse(raw)) });
+    } catch (e) {}
+  }
+
+  save(best) {
+    try { window.localStorage.setItem('waqf-signes-best', JSON.stringify(best)); } catch (e) {}
+  }
+
+  top() {
+    try { window.scrollTo(0, 0); } catch (e) {}
+  }
+
+  count() {
+    const v = parseInt(this.props.questions, 10);
+    return isNaN(v) ? 10 : Math.max(3, Math.min(20, v));
+  }
+
+  shuffle(list) {
+    const a = list.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
+  rgba(hex, alpha) {
+    const m = /^#?([0-9a-f]{6})$/i.exec(String(hex || '').trim());
+    if (!m) return 'rgba(11,93,75,' + alpha + ')';
+    const n = parseInt(m[1], 16);
+    return 'rgba(' + ((n >> 16) & 255) + ',' + ((n >> 8) & 255) + ',' + (n & 255) + ',' + alpha + ')';
+  }
+
+  tile(id, base) {
+    const s = this.D().map[id];
+    const tones = { red: '#A1262B', green: '#1D6B3C', maroon: '#7A2430' };
+    if (!s) return { glyph: '', color: '#14201C', fs: '0px', aria: '', isTxt: false, isSajda: false, isHizb: false, isQala: false, isSala: false, isAyah: false, px: '0px' };
+    const isSajda = s.id === 'sajda';
+    const isHizb = s.id === 'hizb';
+    const isQala = s.id === 'qala';
+    const isSala = s.id === 'sala';
+    const isAyah = s.id === 'ayah';
+    return { glyph: s.glyph, color: tones[s.tone], fs: Math.round(base * (s.scale || 1)) + 'px', aria: s.aria, isTxt: !this.isImg(s.id), isSajda, isHizb, isQala, isSala, isAyah, isMim: s.id === 'mim', isSin: s.id === 'sin', isJim: s.id === 'jim', isLa: s.id === 'la', isDots: s.id === 'dots', px: Math.round(base * 1.15) + 'px' };
+  }
+
+  isImg(id) {
+    return ['mim', 'sin', 'qala', 'jim', 'sala', 'la', 'dots', 'sajda', 'hizb', 'ayah'].indexOf(id) !== -1;
+  }
+
+  parse(t) {
+    const segs = [];
+    const answers = [];
+    const re = /\{(\w+)\}|\[([^\]]+)\]/g;
+    let last = 0;
+    let m;
+    while ((m = re.exec(t))) {
+      if (m.index > last) segs.push({ type: 'text', text: t.slice(last, m.index) });
+      if (m[1]) segs.push({ type: 'glyph', id: m[1] });
+      else { segs.push({ type: 'blank', k: answers.length }); answers.push(m[2]); }
+      last = re.lastIndex;
+    }
+    if (last < t.length) segs.push({ type: 'text', text: t.slice(last) });
+    return { segs, answers };
+  }
+
+  prep(mode, it) {
+    if (mode === 'qcm') {
+      const opts = it.o.map((x, i) => ({ text: it.go ? '' : x, sign: it.go ? x : null, correct: i === 0 }));
+      return { type: 'qcm', g: it.g, v: it.v || null, p: it.p, e: it.e, options: this.shuffle(opts) };
+    }
+    if (mode === 'vf') return { type: 'vf', g: it.g, v: it.v || null, p: it.s, answer: it.a, e: it.e };
+    const parsed = this.parse(it.t);
+    return { type: 'trous', segs: parsed.segs, answers: parsed.answers, bank: this.shuffle(parsed.answers.concat(it.d)), e: it.e };
+  }
+
+  optText(o) {
+    if (!o.sign) return o.text;
+    const sg = this.D().map[o.sign];
+    return sg.id === 'qala' || sg.id === 'sala' ? sg.nom : 'le signe ci-contre';
+  }
+
+  bankKey(mode, topic) {
+    return topic === 'types' ? 't' + mode : mode;
+  }
+
+  verse(id) {
+    const ex = id ? this.D().EX[id] : null;
+    if (!ex) return { isPair: false, isSingle: false, before: '', after: '', text: '', ref: '' };
+    return { isPair: !!ex.before, isSingle: !ex.before, before: ex.before || '', after: ex.after || '', text: ex.text || '', ref: ex.ref };
+  }
+
+  go(screen) {
+    this.setState({ screen });
+    this.top();
+  }
+
+  start(mode, topic) {
+    const D = this.D();
+    const tp = topic === 'types' ? 'types' : 'signes';
+    const bank = D[this.bankKey(mode, tp)];
+    const n = Math.max(1, Math.min(this.count(), bank.length));
+    const queue = this.shuffle(bank).slice(0, n).map((it) => this.prep(mode, it));
+    this.setState({
+      screen: mode, mode, topic: tp, queue, idx: 0, answered: false, picked: null, checked: false,
+      score: 0, mistakes: [], fills: queue[0].type === 'trous' ? queue[0].answers.map(() => null) : []
+    });
+    this.top();
+  }
+
+  pickOption(i) {
+    const s = this.S();
+    if (s.answered) return;
+    const q = s.queue[s.idx];
+    const ok = q.options[i].correct;
+    const right = q.options.find((o) => o.correct);
+    this.setState({
+      answered: true, picked: i, score: s.score + (ok ? 1 : 0),
+      mistakes: ok ? s.mistakes : s.mistakes.concat([{ g: q.g || right.sign, v: q.v, prompt: q.p, answer: this.optText(right), explain: q.e }])
+    });
+  }
+
+  pickVf(v) {
+    const s = this.S();
+    if (s.answered) return;
+    const q = s.queue[s.idx];
+    const ok = v === q.answer;
+    this.setState({
+      answered: true, picked: v, score: s.score + (ok ? 1 : 0),
+      mistakes: ok ? s.mistakes : s.mistakes.concat([{ g: q.g, v: q.v, prompt: q.p, answer: q.answer ? 'Vrai' : 'Faux', explain: q.e }])
+    });
+  }
+
+  pickChip(ci) {
+    const s = this.S();
+    if (s.checked || s.fills.indexOf(ci) !== -1) return;
+    const k = s.fills.indexOf(null);
+    if (k === -1) return;
+    const f = s.fills.slice();
+    f[k] = ci;
+    this.setState({ fills: f });
+  }
+
+  clearBlank(k) {
+    const s = this.S();
+    if (s.checked) return;
+    const f = s.fills.slice();
+    f[k] = null;
+    this.setState({ fills: f });
+  }
+
+  resetFills() {
+    const s = this.S();
+    if (s.checked) return;
+    this.setState({ fills: s.fills.map(() => null) });
+  }
+
+  check() {
+    const s = this.S();
+    const q = s.queue[s.idx];
+    if (s.checked || !q || s.fills.some((x) => x === null)) return;
+    const ok = q.answers.every((a, k) => q.bank[s.fills[k]] === a);
+    const map = this.D().map;
+    const AR = this.D().AR;
+    const ref = (id) => (AR[id] ? AR[id] : id === 'qala' || id === 'sala' ? map[id].nom : 'ci-contre');
+    const first = q.segs.find((g) => g.type === 'glyph' && map[g.id]);
+    const full = q.segs.map((g, i) => {
+      if (g.type === 'text') return g.text;
+      if (g.type !== 'glyph') return q.answers[g.k];
+      const r = ref(g.id);
+      const prev = i > 0 && q.segs[i - 1].type === 'text' ? q.segs[i - 1].text : '';
+      return r === 'ci-contre' && !/(signe|symbole|paire)\s*$/.test(prev) ? 'le signe ci-contre' : r;
+    }).join('');
+    this.setState({
+      checked: true, answered: true, score: s.score + (ok ? 1 : 0),
+      mistakes: ok ? s.mistakes : s.mistakes.concat([{ g: first ? first.id : null, prompt: full, answer: q.answers.join(' · '), explain: q.e }])
+    });
+  }
+
+  next() {
+    const s = this.S();
+    const n = s.idx + 1;
+    if (n >= s.queue.length) {
+      const best = Object.assign({}, s.best);
+      const key = this.bankKey(s.mode, s.topic);
+      const prev = best[key];
+      const ratio = s.score / s.queue.length;
+      if (!prev || ratio > prev.score / prev.total || (ratio === prev.score / prev.total && s.queue.length > prev.total)) {
+        best[key] = { score: s.score, total: s.queue.length };
+      }
+      this.save(best);
+      this.setState({ screen: 'result', best });
+    } else {
+      const nq = s.queue[n];
+      this.setState({ idx: n, answered: false, picked: null, checked: false, fills: nq.type === 'trous' ? nq.answers.map(() => null) : [] });
+    }
+    this.top();
+  }
+
+  toggleHide() {
+    const s = this.S();
+    this.setState({ hide: !s.hide, revealed: {} });
+  }
+
+  reveal(id) {
+    const s = this.S();
+    const r = Object.assign({}, s.revealed);
+    r[id] = true;
+    this.setState({ revealed: r });
+  }
+
+  renderVals() {
+    const D = this.D();
+    const s = this.S();
+    const accent = this.props.accent || '#0B5D4B';
+    const tint = this.rgba(accent, 0.1);
+    const ROSE = '#B42318';
+    const ROSE_T = '#FCEDEB';
+    const LINE = '#DCE0DA';
+    const WHITE = '#FFFFFF';
+    const INK = '#14201C';
+    const empty = { glyph: '', color: INK, fs: '0px', aria: '', isTxt: false, isSajda: false, isHizb: false, isQala: false, isSala: false, isAyah: false, px: '0px' };
+    const n = this.count();
+    const screen = s.screen;
+    const isQcm = screen === 'qcm';
+    const isVf = screen === 'vf';
+    const isTrous = screen === 'trous';
+    const inSession = isQcm || isVf || isTrous;
+    const labels = { qcm: 'QCM', vf: 'Vrai ou faux', trous: 'Texte à trous' };
+    const topicLabels = { signes: 'Signes', types: 'Types d’arrêts' };
+    const q = inSession ? s.queue[s.idx] : null;
+    const total = s.queue.length || 1;
+
+    const units = { qcm: 'questions', vf: 'affirmations', trous: 'phrases' };
+    const metaFor = (m, tp) => {
+      const key = this.bankKey(m, tp);
+      const b = s.best[key];
+      const base = Math.min(n, D[key].length) + ' ' + units[m];
+      return b ? base + ' · record ' + b.score + '/' + b.total : base;
+    };
+
+    const sigLabels = { stop: 'Stop', orange: 'Feu orange', blue: 'Sens obligatoire' };
+    const learnRows = [];
+    const header = (title) => ({ isHeader: true, isHidden: false, isShown: false, title, tile: empty });
+    const card = (sg) => {
+      const hidden = s.hide && !s.revealed[sg.id];
+      return {
+        isHeader: false, isHidden: hidden, isShown: !hidden, title: '',
+        tile: this.tile(sg.id, 38), nom: sg.nom, hasNom: !!sg.nom,
+        designation: sg.designation, hasLiaison: !!sg.liaison, liaison: sg.liaison || '',
+        hasNote: !!sg.note, note: sg.note || '', hasSignal: !!sg.signal,
+        isStop: sg.signal === 'stop', isOrange: sg.signal === 'orange', isBlue: sg.signal === 'blue',
+        signalLabel: sigLabels[sg.signal] || '', reveal: () => this.reveal(sg.id),
+        revealAria: 'Révéler la fiche : ' + sg.aria
+      };
+    };
+    learnRows.push(header('Signes d’arrêt'));
+    D.signs.filter((x) => x.group === 'arret').forEach((x) => learnRows.push(card(x)));
+    learnRows.push(header('Autres symboles'));
+    D.signs.filter((x) => x.group === 'autre').forEach((x) => learnRows.push(card(x)));
+
+    const typeRows = D.types.map((ty) => {
+      const hidden = s.hide && !s.revealed[ty.id];
+      return {
+        isHidden: hidden, isShown: !hidden, num: ty.num, name: ty.name, translit: ty.translit, ar: ty.ar,
+        def: ty.def, after: ty.after, hasNote: !!ty.note, note: ty.note, exLabel: ty.exLabel,
+        hasExNote: !!ty.exNote, exNote: ty.exNote, ex: this.verse(ty.ex), accent, tint,
+        reveal: () => this.reveal(ty.id), revealAria: 'Révéler la fiche : ' + ty.name
+      };
+    });
+    const cell = (v) => ({ yes: v, no: !v, label: v ? 'Oui' : 'Non', bg: v ? tint : '#EEF0EC', fg: v ? accent : '#55625D' });
+    const matrixRows = D.types.map((ty) => ({ name: ty.short, translit: ty.translit, cells: [cell(ty.sens), cell(ty.lienSens), cell(ty.lienGram)] }));
+
+    let qc = { hasGlyph: false, tile: empty, kicker: '', text: '', hasVerse: false, verse: this.verse(null) };
+    if (q && (isQcm || isVf)) {
+      qc = {
+        hasGlyph: !!q.g, tile: q.g ? this.tile(q.g, 62) : empty,
+        kicker: isQcm ? 'Choisis la bonne réponse' : D.fr('Vrai ou faux ?'),
+        text: q.p, hasVerse: !!q.v, verse: this.verse(q.v)
+      };
+    }
+
+    let qcmOptions = [];
+    if (q && isQcm) {
+      qcmOptions = q.options.map((o, i) => {
+        const isRight = o.correct;
+        const isPicked = s.picked === i;
+        let border = LINE, bg = WHITE, op = '1', badgeBg = '#F0F2EE', badgeFg = INK;
+        if (s.answered) {
+          if (isRight) { border = accent; bg = tint; badgeBg = accent; badgeFg = WHITE; }
+          else if (isPicked) { border = ROSE; bg = ROSE_T; badgeBg = ROSE; badgeFg = WHITE; }
+          else { op = '0.5'; }
+        }
+        const sg = o.sign ? D.map[o.sign] : null;
+        const t = sg ? this.tile(sg.id, 34) : empty;
+        const letter = 'ABCD'.charAt(i);
+        return {
+          letter, text: o.text, isText: !sg, isGlyph: !!sg, isGlyphTxt: !!sg && t.isTxt, isQala: t.isQala, isSala: t.isSala, isMim: t.isMim, isJim: t.isJim, isLa: t.isLa, px: t.px, glyph: t.glyph, color: t.color, fs: t.fs,
+          border, bg, op, badgeBg, badgeFg, disabled: s.answered,
+          showLetter: !(s.answered && (isRight || isPicked)),
+          showCheck: s.answered && isRight, showCross: s.answered && isPicked && !isRight,
+          aria: 'Réponse ' + letter + ' : ' + (sg ? sg.aria : o.text),
+          pick: () => this.pickOption(i)
+        };
+      });
+    }
+
+    let vfButtons = [];
+    if (q && isVf) {
+      vfButtons = [true, false].map((v) => {
+        const isRight = v === q.answer;
+        const isPicked = s.picked === v;
+        let border = LINE, bg = WHITE, op = '1', fg = INK;
+        if (s.answered) {
+          if (isRight) { border = accent; bg = tint; fg = accent; }
+          else if (isPicked) { border = ROSE; bg = ROSE_T; fg = ROSE; }
+          else { op = '0.5'; }
+        }
+        return { label: v ? 'Vrai' : 'Faux', isTrue: v, isFalse: !v, border, bg, op, fg, disabled: s.answered, pick: () => this.pickVf(v) };
+      });
+    }
+
+    let tr = { segs: [], chips: [], showActions: false, checkDisabled: true, checkOp: '0.45' };
+    if (q && isTrous) {
+      const segs = q.segs.map((g) => {
+        if (g.type === 'text') return { isText: true, isGlyph: false, isBlank: false, text: g.text };
+        if (g.type === 'glyph' && D.AR[g.id]) {
+          return { isText: false, isGlyph: true, isGlyphTxt: true, isSajda: false, isHizb: false, isQala: false, isSala: false, isAyah: false, isBlank: false, glyph: D.AR[g.id], color: INK, fs: '1.15em', px: '0px' };
+        }
+        if (g.type === 'glyph') {
+          const t = this.tile(g.id, 30);
+          return { isText: false, isGlyph: true, isGlyphTxt: t.isTxt, isSajda: t.isSajda, isHizb: t.isHizb, isQala: t.isQala, isSala: t.isSala, isAyah: t.isAyah, isMim: t.isMim, isSin: t.isSin, isJim: t.isJim, isLa: t.isLa, isDots: t.isDots, isBlank: false, glyph: t.glyph, color: t.color, fs: t.fs, px: t.px };
+        }
+        const ci = s.fills[g.k];
+        const filled = ci !== null && ci !== undefined;
+        const word = filled ? q.bank[ci] : '';
+        let border = '#9AA59F', bg = '#F6F7F3', fg = INK, bs = 'dashed';
+        if (filled) { border = accent; bg = tint; bs = 'solid'; }
+        if (s.checked) {
+          const ok = word === q.answers[g.k];
+          border = ok ? accent : ROSE; bg = ok ? tint : ROSE_T; fg = ok ? accent : ROSE; bs = 'solid';
+        }
+        return {
+          isText: false, isGlyph: false, isBlank: true,
+          label: filled ? word : '…', minw: filled ? '0px' : '6.5em', border, bg, fg, bs,
+          disabled: s.checked || !filled,
+          aria: filled ? 'Retirer le mot ' + word + ' du trou ' + (g.k + 1) : 'Trou ' + (g.k + 1) + ', vide',
+          clear: () => this.clearBlank(g.k)
+        };
+      });
+      const chips = q.bank.map((w, ci) => {
+        const used = s.fills.indexOf(ci) !== -1;
+        return { label: w, disabled: used || s.checked, op: used ? '0.3' : (s.checked ? '0.55' : '1'), pick: () => this.pickChip(ci) };
+      });
+      const complete = s.fills.length > 0 && s.fills.every((x) => x !== null);
+      tr = { segs, chips, showActions: !s.checked, checkDisabled: !complete, checkOp: complete ? '1' : '0.45' };
+    }
+
+    let fb = { show: false, ok: false, ko: false, title: '', explain: '', hasExtra: false, extra: '', bg: WHITE, border: LINE, color: accent, nextLabel: '' };
+    if (q && s.answered) {
+      let ok = false;
+      let extra = '';
+      if (isQcm) {
+        const o = q.options[s.picked];
+        ok = !!(o && o.correct);
+        if (!ok) { const r = q.options.find((x) => x.correct); extra = r.sign ? 'La bonne réponse est cochée ci-dessus.' : 'Bonne réponse : ' + this.optText(r); }
+      } else if (isVf) {
+        ok = s.picked === q.answer;
+        if (!ok) extra = 'C’est ' + (q.answer ? 'vrai' : 'faux') + '.';
+      } else if (isTrous) {
+        ok = q.answers.every((a, k) => q.bank[s.fills[k]] === a);
+        if (!ok) extra = 'Réponses attendues : ' + q.answers.join(' · ');
+      }
+      fb = {
+        show: true, ok, ko: !ok, title: ok ? 'Bonne réponse' : 'Pas tout à fait',
+        explain: q.e, hasExtra: !!extra, extra: D.fr(extra),
+        bg: ok ? tint : ROSE_T, border: ok ? this.rgba(accent, 0.35) : 'rgba(180,35,24,0.3)',
+        color: ok ? accent : ROSE,
+        nextLabel: s.idx + 1 >= s.queue.length ? 'Voir le résultat' : 'Question suivante'
+      };
+    }
+
+    let res = { modeLabel: '', score: 0, total: 0, barW: '0%', message: '', hasMistakes: false, mistakes: [] };
+    if (screen === 'result') {
+      const pct = Math.round((s.score / total) * 100);
+      let message = 'Reprends les fiches tranquillement, puis réessaie.';
+      if (pct === 100) message = 'Sans faute. Les signes sont acquis.';
+      else if (pct >= 80) message = 'Très bien. Encore un tour pour les rendre automatiques.';
+      else if (pct >= 50) message = 'C’est en bonne voie. Relis les points à revoir, puis recommence.';
+      res = {
+        modeLabel: (labels[s.mode] || '') + ' · ' + (topicLabels[s.topic] || ''), score: s.score, total: s.queue.length, barW: pct + '%',
+        message: D.fr(message), hasMistakes: s.mistakes.length > 0,
+        mistakes: s.mistakes.map((m) => ({
+          hasTile: !!m.g, tile: m.g ? this.tile(m.g, 28) : empty, hasVerse: !!m.v, verse: this.verse(m.v),
+          prompt: m.prompt, answer: m.answer, explain: m.explain, accent
+        }))
+      };
+    }
+
+    const doneCount = s.idx + (s.answered ? 1 : 0);
+    const progressNum = inSession ? Math.round((doneCount / total) * 100) : 0;
+
+    return {
+      accent, tint,
+      isHome: screen === 'home', isLearn: screen === 'learn', isLearnTypes: screen === 'learnTypes', isQcm, isVf, isTrous,
+      isCard: isQcm || isVf, isResult: screen === 'result', inSession,
+      modeLabel: (labels[screen] || '') + (inSession ? ' · ' + (topicLabels[s.topic] || '') : ''), qNum: s.idx + 1, total: s.queue.length, score: s.score,
+      progressNum, progressPct: progressNum + '%',
+      strip: D.signs.map((x) => this.tile(x.id, 30)),
+      meta: { qcm: metaFor('qcm', 'signes'), vf: metaFor('vf', 'signes'), trous: metaFor('trous', 'signes') },
+      metaT: { qcm: metaFor('qcm', 'types'), vf: metaFor('vf', 'types'), trous: metaFor('trous', 'types') },
+      typeRows, matrixRows,
+      learnRows, hide: s.hide, toggleHide: () => this.toggleHide(),
+      qc, qcmOptions, vfButtons, tr, fb, res,
+      goHome: () => this.go('home'), goLearn: () => this.go('learn'), goTypes: () => this.go('learnTypes'), quit: () => this.go('home'),
+      goFiches: () => this.go(s.topic === 'types' ? 'learnTypes' : 'learn'),
+      startQcm: () => this.start('qcm', 'signes'), startVf: () => this.start('vf', 'signes'), startTrous: () => this.start('trous', 'signes'),
+      startTQcm: () => this.start('qcm', 'types'), startTVf: () => this.start('vf', 'types'), startTTrous: () => this.start('trous', 'types'),
+      restart: () => this.start(s.mode || 'qcm', s.topic),
+      next: () => this.next(), check: () => this.check(), resetFills: () => this.resetFills()
+    };
+  }
+}
+const comp = new Component();
+const store = PetiteVue.reactive(Object.assign({}, comp.renderVals()));
+render = function () { Object.assign(store, comp.renderVals()); };
+PetiteVue.createApp(store).mount('#app');
+if (comp.componentDidMount) comp.componentDidMount();
+
+// Bouton « retour » du téléphone : revenir à l’accueil au lieu de quitter l’application
+(function () {
+  const go = comp.go.bind(comp), start = comp.start.bind(comp);
+  let fromPop = false;
+  try { history.replaceState({ s: 'home' }, ''); } catch (e) {}
+  comp.go = function (s) {
+    go(s);
+    if (fromPop) return;
+    try { if (s === 'home') history.replaceState({ s: 'home' }, ''); else history.pushState({ s: s }, ''); } catch (e) {}
+  };
+  comp.start = function (m, t) { start(m, t); try { history.pushState({ s: m }, ''); } catch (e) {} };
+  window.addEventListener('popstate', function () { fromPop = true; go('home'); fromPop = false; });
+})();
+
+// Mode hors ligne et installation sur l’écran d’accueil
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
+}
+</script>
+</body>
+</html>
