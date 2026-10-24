@@ -43,7 +43,7 @@ a{color:#0B5D4B}a:hover{color:#08463A}
 <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.02em; line-height: 1.25; color: #24452F; text-transform: uppercase; text-wrap: balance">Centre islamique de formation et de documentation</span>
 </span>
 </button>
-<template v-if="inSession">
+<template v-if="showQuit">
 <button @click="quit" style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1.5px solid #DCE0DA; background: #FFFFFF; font-size: 14px; font-weight: 700">
 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17"></path></svg>
 Quitter
@@ -267,21 +267,35 @@ Mode mémorisation
 </div>
 <div style="display: flex; flex-direction: column; gap: 10px">
 <h2 style="margin: 4px 0 0; font-size: 13px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #55625D">En un coup d’œil</h2>
-<div style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 18px; overflow-x: auto">
-<div role="table" aria-label="Comparaison des quatre types d’arrêts" style="min-width: 400px">
-<div role="row" style="display: grid; grid-template-columns: minmax(112px, 1.3fr) repeat(3, minmax(86px, 1fr)); background: #F6F7F3; align-items: center">
-<span role="columnheader" style="padding: 12px 14px; font-size: 12.5px; font-weight: 800; color: #55625D">Arrêt</span>
-<span role="columnheader" style="padding: 12px 8px; font-size: 12.5px; font-weight: 800; line-height: 1.3; color: #55625D; text-align: center">Sens complet</span>
-<span role="columnheader" style="padding: 12px 8px; font-size: 12.5px; font-weight: 800; line-height: 1.3; color: #55625D; text-align: center">Lié à la suite par le sens</span>
-<span role="columnheader" style="padding: 12px 8px; font-size: 12.5px; font-weight: 800; line-height: 1.3; color: #55625D; text-align: center">Lié à la suite par la grammaire</span>
+<p style="margin: 0; font-size: 13.5px; line-height: 1.5; color: #55625D">« Lié » veut dire : lié à ce qui suit.</p>
+<template v-if="hide">
+<p :style="`margin: 0; font-size: 13.5px; font-weight: 700; line-height: 1.5; color: ${accent}`">Mode mémorisation&nbsp;: retrouve les réponses de tête, puis touche une ligne pour vérifier.</p>
+</template>
+<div style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 18px; overflow: hidden">
+<div role="table" aria-label="Comparaison des quatre types d’arrêts">
+<div role="row" style="display: grid; grid-template-columns: minmax(0, 1.25fr) repeat(3, minmax(0, 1fr)); background: #F6F7F3; align-items: center">
+<span role="columnheader" style="padding: 10px; font-size: 12px; font-weight: 800; color: #55625D">Arrêt</span>
+<span role="columnheader" style="padding: 10px 4px; font-size: 12px; font-weight: 800; line-height: 1.25; color: #55625D; text-align: center">Sens complet</span>
+<span role="columnheader" style="padding: 10px 4px; font-size: 12px; font-weight: 800; line-height: 1.25; color: #55625D; text-align: center">Lié par le sens</span>
+<span role="columnheader" style="padding: 10px 4px; font-size: 12px; font-weight: 800; line-height: 1.25; color: #55625D; text-align: center">Lié par la grammaire</span>
 </div>
 <template v-for="mr in matrixRows">
-<div role="row" style="display: grid; grid-template-columns: minmax(112px, 1.3fr) repeat(3, minmax(86px, 1fr)); border-top: 1px solid #E6E9E3; align-items: center">
-<span role="rowheader" style="padding: 12px 14px; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 800">{{mr.name}}</span><span style="font-size: 12px; font-weight: 600; color: #55625D">{{mr.translit}}</span></span>
+<template v-if="mr.isHidden">
+<button class="lift" @click="mr.reveal" :aria-label="mr.revealAria" style="width: 100%; display: grid; grid-template-columns: minmax(0, 1.25fr) repeat(3, minmax(0, 1fr)); align-items: center; border: 0; border-top: 1px solid #E6E9E3; background: #FFFFFF; padding: 0; text-align: left; color: #14201C">
+<span style="padding: 10px; display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-size: 14px; font-weight: 800">{{mr.name}}</span><span style="font-size: 11.5px; font-weight: 600; color: #55625D">Touche pour vérifier</span></span>
+<span style="padding: 10px 4px; display: flex; justify-content: center"><span style="display: inline-flex; align-items: center; justify-content: center; min-width: 40px; min-height: 28px; padding: 0 8px; border-radius: 999px; border: 1.5px dashed #C9CFC7; background: #F6F7F3; font-size: 13px; font-weight: 800; color: #55625D">?</span></span>
+<span style="padding: 10px 4px; display: flex; justify-content: center"><span style="display: inline-flex; align-items: center; justify-content: center; min-width: 40px; min-height: 28px; padding: 0 8px; border-radius: 999px; border: 1.5px dashed #C9CFC7; background: #F6F7F3; font-size: 13px; font-weight: 800; color: #55625D">?</span></span>
+<span style="padding: 10px 4px; display: flex; justify-content: center"><span style="display: inline-flex; align-items: center; justify-content: center; min-width: 40px; min-height: 28px; padding: 0 8px; border-radius: 999px; border: 1.5px dashed #C9CFC7; background: #F6F7F3; font-size: 13px; font-weight: 800; color: #55625D">?</span></span>
+</button>
+</template>
+<template v-if="mr.isShown">
+<div role="row" style="display: grid; grid-template-columns: minmax(0, 1.25fr) repeat(3, minmax(0, 1fr)); border-top: 1px solid #E6E9E3; align-items: center">
+<span role="rowheader" style="padding: 10px; display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-size: 14px; font-weight: 800">{{mr.name}}</span><span style="font-size: 11.5px; font-weight: 600; color: #55625D; overflow-wrap: anywhere">{{mr.translit}}</span></span>
 <template v-for="c in mr.cells">
-<span role="cell" style="padding: 12px 6px; display: flex; justify-content: center"><span :style="`display: inline-flex; align-items: center; gap: 5px; min-height: 28px; padding: 0 11px; border-radius: 999px; font-size: 13px; font-weight: 800; background: ${c.bg}; color: ${c.fg}`"><template v-if="c.yes"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></template><template v-if="c.no"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17"></path></svg></template><span>{{c.label}}</span></span></span>
+<span role="cell" style="padding: 10px 4px; display: flex; justify-content: center"><span :style="`display: inline-flex; align-items: center; gap: 4px; min-height: 28px; padding: 0 8px; border-radius: 999px; font-size: 12.5px; font-weight: 800; background: ${c.bg}; color: ${c.fg}`"><template v-if="c.yes"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></template><template v-if="c.no"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17"></path></svg></template><span>{{c.label}}</span></span></span>
 </template>
 </div>
+</template>
 </template>
 </div>
 </div>
@@ -995,7 +1009,14 @@ class Component extends DCLogic {
       };
     });
     const cell = (v) => ({ yes: v, no: !v, label: v ? 'Oui' : 'Non', bg: v ? tint : '#EEF0EC', fg: v ? accent : '#55625D' });
-    const matrixRows = D.types.map((ty) => ({ name: ty.short, translit: ty.translit, cells: [cell(ty.sens), cell(ty.lienSens), cell(ty.lienGram)] }));
+    const matrixRows = D.types.map((ty) => {
+      const hid = s.hide && !s.revealed['m_' + ty.id];
+      return {
+        name: ty.short, translit: ty.translit, isHidden: hid, isShown: !hid,
+        cells: [cell(ty.sens), cell(ty.lienSens), cell(ty.lienGram)],
+        reveal: () => this.reveal('m_' + ty.id), revealAria: 'Vérifier la ligne : ' + ty.name
+      };
+    });
 
     let qc = { hasGlyph: false, tile: empty, kicker: '', text: '', hasVerse: false, verse: this.verse(null) };
     if (q && (isQcm || isVf)) {
@@ -1128,7 +1149,8 @@ class Component extends DCLogic {
 
     return {
       accent, tint,
-      isHome: screen === 'home', isLearn: screen === 'learn', isLearnTypes: screen === 'learnTypes', isQcm, isVf, isTrous,
+      isHome: screen === 'home', isLearn: screen === 'learn', isLearnTypes: screen === 'learnTypes',
+      showQuit: inSession || screen === 'learn' || screen === 'learnTypes', isQcm, isVf, isTrous,
       isCard: isQcm || isVf, isResult: screen === 'result', inSession,
       modeLabel: (labels[screen] || '') + (inSession ? ' · ' + (topicLabels[s.topic] || '') : ''), qNum: s.idx + 1, total: s.queue.length, score: s.score,
       progressNum, progressPct: progressNum + '%',
