@@ -26,7 +26,7 @@ L’application s’ouvre ensuite en plein écran depuis l’icône « Niveau 4C
 3. Sur GitHub, dans ce dépôt, choisir **Add file → Upload files**. Glisser le **contenu** du dossier décompressé (et non le dossier lui-même), puis cliquer sur **Commit changes**.
 4. Netlify publie automatiquement la nouvelle version en une minute environ.
 
-À chaque nouvelle version, le numéro `CACHE` du fichier `sw.js` est augmenté, pour que les téléphones chargent bien la mise à jour.
+À chaque nouvelle version, le numéro `CACHE` du fichier `sw.js` est augmenté. Sur les téléphones où l’application est installée, un message « Nouvelle version disponible » apparaît alors en bas de l’écran : le bouton **Mettre à jour** l’applique tout de suite, **Plus tard** la garde pour la prochaine ouverture.
 
 ## Organisation des fichiers
 
