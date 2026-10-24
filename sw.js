@@ -1,7 +1,7 @@
 // Niveau 4C — cache pour une ouverture rapide et hors ligne.
 // Change le numéro de CACHE à chaque nouvelle version pour forcer la mise à jour sur les téléphones.
-const CACHE = 'niveau4c-v4';
-const PRECACHE = ['./', 'index.html', 'manifest.webmanifest', 'assets/apple-touch-icon.png', 'assets/cifod_cercle.png', 'assets/cifod_logo.png', 'assets/dots.svg', 'assets/fin-de-verset.svg', 'assets/hizb.svg', 'assets/icon-192.png', 'assets/icon-512.png', 'assets/icon-maskable-512.png', 'assets/jim.svg', 'assets/la.svg', 'assets/mim.svg', 'assets/petite-vue.iife.js', 'assets/qala.svg', 'assets/sajda.svg', 'assets/sala.svg', 'assets/sin.svg'];
+const CACHE = 'niveau4c-v6';
+const PRECACHE = ['./', 'index.html', 'manifest.webmanifest', 'assets/apple-touch-icon.png', 'assets/cifod_cercle.png', 'assets/cifod_logo.png', 'assets/dots.svg', 'assets/facebook_logo.png', 'assets/fin-de-verset.svg', 'assets/hizb.svg', 'assets/icon-192.png', 'assets/icon-512.png', 'assets/icon-maskable-512.png', 'assets/jim.svg', 'assets/la.svg', 'assets/mim.svg', 'assets/petite-vue.iife.js', 'assets/qala.svg', 'assets/sajda.svg', 'assets/sala.svg', 'assets/sin.svg'];
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(PRECACHE)));
   self.skipWaiting();

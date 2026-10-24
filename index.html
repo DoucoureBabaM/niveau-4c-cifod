@@ -20,7 +20,7 @@ body{margin:0;background:#F3F4F0}
 button,input{font:inherit;color:inherit}
 button{-webkit-tap-highlight-color:transparent}
 button:not(:disabled){cursor:pointer}
-button:focus-visible,input:focus-visible,label:focus-within{outline:3px solid #1F4F8F;outline-offset:2px}
+a:focus-visible,button:focus-visible,input:focus-visible,label:focus-within{outline:3px solid #1F4F8F;outline-offset:2px}
 a{color:#0B5D4B}a:hover{color:#08463A}
 @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .rise{animation:rise .32s cubic-bezier(.2,.7,.2,1) both}
@@ -541,8 +541,21 @@ Recommencer
 
 </main>
 
-<footer style="padding: 20px; border-top: 1px solid #DCE0DA">
-<p style="margin: 0 auto; max-width: 760px; font-size: 13px; line-height: 1.5; color: #55625D">D’après «&nbsp;Le viatique du lecteur&nbsp;» (CIFOD), chapitres 11 (types d’arrêts) et 15 (signes conventionnels).</p>
+<footer style="padding: 24px 20px 28px; border-top: 1px solid #DCE0DA">
+<div style="max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px">
+<p :style="`margin: 0; font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${accent}`">Retrouver le CIFOD</p>
+<div style="display: flex; flex-wrap: wrap; gap: 10px">
+<a class="lift" href="https://www.facebook.com/CIFODCIV" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 7px 18px 7px 7px; border-radius: 999px; border: 1.5px solid #DCE0DA; background: #FFFFFF; color: #14201C; text-decoration: none">
+<img src="assets/facebook_logo.png" alt="" style="width: 38px; height: 38px; display: block; flex-shrink: 0">
+<span style="display: flex; flex-direction: column; gap: 1px; line-height: 1.2"><span style="font-size: 15px; font-weight: 800">Facebook</span><span style="font-size: 12.5px; font-weight: 600; color: #55625D">CIFODCIV</span></span>
+</a>
+<a class="lift" href="https://cifod.org/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 7px 18px 7px 7px; border-radius: 999px; border: 1.5px solid #DCE0DA; background: #FFFFFF; color: #14201C; text-decoration: none">
+<svg width="38" height="38" viewBox="0 0 40 40" fill="none" stroke="#3A5FB4" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display: block; flex-shrink: 0"><circle cx="20" cy="20" r="16.5"></circle><path d="M20 3.5v33"></path><ellipse cx="20" cy="20" rx="8" ry="16.5"></ellipse><path d="M3.5 20h33"></path><path d="M6.5 11.5c8.5 3 18.5 3 27 0"></path><path d="M6.5 28.5c8.5-3 18.5-3 27 0"></path></svg>
+<span style="display: flex; flex-direction: column; gap: 1px; line-height: 1.2"><span style="font-size: 15px; font-weight: 800">Site internet</span><span style="font-size: 12.5px; font-weight: 600; color: #55625D">cifod.org</span></span>
+</a>
+</div>
+<p style="margin: 4px 0 0; font-size: 13px; line-height: 1.5; color: #55625D">D’après «&nbsp;Le viatique du lecteur&nbsp;» (CIFOD), chapitres 11 (types d’arrêts) et 15 (signes conventionnels).</p>
+</div>
 </footer>
 
 </div>
