@@ -42,5 +42,7 @@ L’application s’ouvre ensuite en plein écran depuis l’icône « Niveau 4C
 
 - Contenu : *Le viatique du lecteur*, CIFOD.
 - Logo et banderole : © CIFOD.
+- Le robot Android est reproduit à partir d’une création de Google, utilisée selon les conditions de la licence Creative Commons Attribution 3.0.
+- Le logo Apple est une marque d’Apple Inc. ; le logo Facebook est une marque de Meta Platforms, Inc.
 - Polices : Amiri, Amiri Quran et Manrope, chargées depuis Google Fonts (licence SIL Open Font).
 - Bibliothèque : [petite-vue](https://github.com/vuejs/petite-vue) 0.4.1 (licence MIT), avec une petite correction pour l’affichage des listes imbriquées.
