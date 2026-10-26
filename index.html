@@ -66,7 +66,7 @@ Quitter
 </div>
 </div>
 <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px">
-<img src="assets/cifod_cercle.png" alt="Banderole du CIFOD : Apprendre à lire le Coran en 3 mois" style="width: clamp(88px, 18vw, 128px); height: clamp(88px, 18vw, 128px); border-radius: 999px; display: block; flex-shrink: 0; object-fit: cover; box-shadow: 0 0 0 3px #FFFFFF, 0 0 0 4px #DCE0DA, 0 8px 22px rgba(20,32,28,0.12)">
+<img src="assets/cifod_cercle.png" alt="Banderole du CIFOD : Apprendre à lire le Coran en 3 mois" style="width: 52px; height: 52px; border-radius: 999px; display: block; flex-shrink: 0; object-fit: cover; box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 3px #DCE0DA, 0 4px 12px rgba(20,32,28,0.12)">
 <h1 style="margin: 0; font-size: 24px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 800; color: #14201C; text-transform: uppercase">Niveau 4C</h1>
 </div>
 <p style="margin: 0; font-size: 17px; line-height: 1.55; color: #55625D; max-width: 580px; text-wrap: pretty">Les types d’arrêts et les signes conventionnels&nbsp;: apprends-les avec les fiches, puis révise-les en QCM, en vrai ou faux et en texte à trous.</p>
@@ -245,6 +245,26 @@ Mode mémorisation
 <span style="font-size: 11px; font-weight: 700; line-height: 1.2; text-align: center; color: #55625D">{{row.signalLabel}}</span>
 </div>
 </template>
+<template v-if="row.hasBook">
+<div style="grid-column: 1 / -1; border-top: 1px solid #E6E9E3; padding-top: 14px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 16px">
+<p style="margin: 0; font-size: 15.5px; font-weight: 800; line-height: 1.35">{{row.bookName}}</p>
+<span dir="rtl" lang="ar" :style="`font-family: 'Amiri', serif; font-weight: 700; font-size: 20px; line-height: 1.6; color: ${row.accent}`">{{row.bookAr}}</span>
+</div>
+<p style="margin: -6px 0 0; font-size: 12.5px; font-weight: 600; color: #55625D">{{row.bookTr}}</p>
+<p style="margin: 0; font-size: 14.5px; line-height: 1.6; text-wrap: pretty">{{row.bookDef}}</p>
+<p style="margin: 0; font-size: 14px; line-height: 1.5; color: #55625D">{{row.bookLetter}}</p>
+<template v-for="ex in row.examples">
+<div style="border: 1px dashed #C9CFC7; border-radius: 12px; padding: 8px 14px; display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 11.5px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: #55625D">{{ex.label}}</span>
+<div dir="rtl" lang="ar" style="font-family: 'Amiri Quran', 'Amiri', serif; font-size: 23px; line-height: 2.2; color: #14201C; text-align: right">{{ex.text}}</div>
+</div>
+</template>
+<template v-if="row.hasBookNote">
+<p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: #55625D; text-wrap: pretty"><strong style="color: #14201C">Remarque&nbsp;:</strong> {{row.bookNote}}</p>
+</template>
+</div>
+</template>
 </article>
 </template>
 </template>
@@ -396,7 +416,6 @@ Mode mémorisation
 <li>Ouvrez le lien dans le navigateur <strong>Chrome</strong>.</li>
 <li>Touchez <strong>⋮</strong> en haut à droite.</li>
 <li>Choisissez <strong>Installer l’application</strong> (ou <strong>Ajouter à l’écran d’accueil</strong>).</li>
-<li>Modifiez au besoin le nom de l’application.</li>
 </ol>
 </article>
 <p style="margin: 0; font-size: 12px; line-height: 1.5; color: #55625D">Le robot Android est reproduit à partir d’une création de Google, utilisée selon les conditions de la licence Creative Commons Attribution 3.0.</p>
@@ -411,8 +430,8 @@ Mode mémorisation
 <h1 style="margin: 0; font-size: 34px; line-height: 1.1; letter-spacing: -0.025em; font-weight: 800">À propos de l’application</h1>
 </div>
 <article style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 14px; padding: 22px 24px; gap: 16px">
-<p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">Cette application a été développée par un auditeur du CIFOD dans le but de faciliter à sa propre personne ainsi qu’aux autres apprenants, la révision des cours de Psalmodie du QURÂN. Elle n’a pas vocation à remplacer ni les cours en présentiel, ni ceux dispensés en ligne, mais aspire plutôt à devenir, inchâ Allah, un compagnon ludique sur le chemin de l’apprentissage du Tadjwîd.</p>
-<p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">Par ailleurs, l’application ne s’appuie uniquement que sur l’ouvrage de référence en la matière au CIFOD (niveaux 4 et CPC)&nbsp;: <em>Le Viatique du Lecteur</em>, Règles de la Psalmodie du QURÂN.</p>
+<p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">Cette application a été développée par un auditeur du CIFOD dans le but de faciliter à sa propre personne ainsi qu’aux autres apprenants, la révision des cours de Psalmodie du QUR’ÂN. Elle n’a pas vocation à remplacer ni les cours en présentiel, ni ceux dispensés en ligne, mais aspire plutôt à devenir, inchâ Allah, un compagnon ludique sur le chemin de l’apprentissage du Tadjwîd.</p>
+<p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">Par ailleurs, l’application ne s’appuie uniquement que sur l’ouvrage de référence en la matière au CIFOD (niveaux 4 et CPC)&nbsp;: <em>Le Viatique du Lecteur</em>, Règles de la Psalmodie du QUR’ÂN.</p>
 <p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">C’est une application web totalement gratuite et sans aucune publicité. De plus, elle fonctionne offline (sans connexion internet).</p>
 <p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">Nous espérons que ce modeste travail sera profitable à tous les apprenants.</p>
 </article>
@@ -662,6 +681,49 @@ class Component extends DCLogic {
       { id: 'hizb', glyph: '۞', nom: '', aria: 'Symbole de fin de section', tone: 'maroon', scale: 0.95, group: 'autre', designation: 'Fin d’une section', liaison: null, signal: null, note: 'Fin d’un Djouz’ (1/30 du Coran), d’un Hizb (1/60), ou d’un Roub’ / Nisf de Hizb (quart et moitié de Hizb).' },
       { id: 'ayah', glyph: '۝١', nom: '', aria: 'Symbole de fin de verset', tone: 'maroon', scale: 0.85, group: 'autre', designation: 'Fin de verset', liaison: null, signal: null, note: 'Le numéro du verset est inscrit dans le symbole.' }
     ].map((s) => Object.assign({}, s, { designation: fr(s.designation), note: fr(s.note), liaison: s.liaison ? fr(s.liaison) : null }));
+
+    const book = {
+      mim: { name: 'L’arrêt obligatoire', tr: 'Al-Waqf Al-Lâzim', ar: 'اَلْوَقْفُ اللَّازِمُ',
+        def: 'C’est l’arrêt qui permet à la phrase d’être complète grammaticalement et du point de vue du sens. Ce type d’arrêt est qualifié de « parfait » car le discours est complet et indépendant de ce qui suit.',
+        letter: 'Il est représenté par la lettre Mîm.',
+        ex: [{ label: 'Exemple · Sourate 6, verset 36', text: 'إِنَّمَا يَسْتَجِيبُ ٱلَّذِينَ يَسْمَعُونَ ۘ وَٱلْمَوْتَىٰ يَبْعَثُهُمُ ٱللَّهُ ثُمَّ إِلَيْهِ يُرْجَعُونَ' }] },
+      jim: { name: 'L’arrêt permis', tr: 'Al-Waqf Al-Jâiz', ar: 'اَلْوَقْفُ الْجَائِزُ',
+        def: 'Il indique un endroit où il est permis soit de s’arrêter soit de continuer sans que l’une de ces deux possibilités soit prioritaire.',
+        letter: 'Il est représenté par la lettre Djîm.',
+        ex: [{ label: 'Exemple · Sourate 110, verset 3', text: 'وَٱسْتَغْفِرْهُ ۚ إِنَّهُۥ كَانَ تَوَّابًۢا …' }] },
+      sala: { name: 'L’arrêt permis avec la préférence de continuer', tr: 'Al-Waqf Al-Jâiz ma’a kaw al-wasl awlâ', ar: 'اَلْوَقْفُ الْجَائِزُ مَعَ كَوْنِ الْوَصْلِ الْأَوْلَى',
+        def: 'Il indique un endroit où il est permis de s’arrêter ou de continuer, mais la continuation est préférable.',
+        letter: 'Il est représenté par la lettre Sôd-lam.',
+        ex: [{ label: 'Exemple · Sourate 104, verset 4', text: 'كَلَّا ۖ لَيُنۢبَذَنَّ …' }] },
+      qala: { name: 'L’arrêt permis avec la préférence de s’arrêter', tr: 'Al-Waqf Al-Jâiz ma’a kaw Al-Waqf Awlâ', ar: 'اَلْوَقْفُ الْجَائِزُ مَعَ كَوْنِ الْوَقْفِ الْأَوْلَى',
+        def: 'Il indique un endroit où il est permis de s’arrêter ou de continuer, mais l’arrêt est préférable.',
+        letter: 'Il est représenté par les lettres Qôf-lâm.',
+        ex: [{ label: 'Exemple · Sourate 61, verset 13', text: '… وَفَتْحٌ قَرِيبٌ ۗ وَبَشِّرِ ٱلْمُؤْمِنِينَ' }] },
+      dots: { name: 'L’arrêt lié au suivant', tr: 'Al-Waqf Al-Mouraqqabah', ar: 'اَلْوَقْفُ الْمُرَقَّبَة',
+        def: 'Il s’agit de deux endroits où il est possible de s’arrêter, mais on ne peut s’arrêter que sur l’un d’eux seulement.',
+        letter: 'Il est représenté par ces 2 fois trois points.',
+        ex: [{ label: 'Exemple · Sourate 2, verset 2', text: 'ذَٰلِكَ ٱلْكِتَٰبُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ' }] },
+      la: { name: 'L’arrêt interdit', tr: 'Al-Waqf Al-Mamnoû’', ar: 'اَلْوَقْفُ الْمَمْنُوعُ',
+        def: 'Il indique un endroit où il est défendu de s’arrêter, car, si on le faisait la phrase ne serait pas complète et le sens ne serait pas compréhensible, parce que ce qui précède cet endroit dépend de ce qui le suit grammaticalement et du point de vue du sens.',
+        letter: 'Il est représenté par les lettres Lâm-Alif.',
+        ex: [{ label: 'Exemple · Sourate 73, verset 20', text: '… وَءَاخَرُونَ يُقَٰتِلُونَ فِى سَبِيلِ ٱللَّهِ ۙ فَٱقْرَءُوا۟ مَا تَيَسَّرَ مِنْهُ …' }] },
+      sin: { name: 'La pause légère', tr: 'As-sakta Al-la ṭîfah', ar: 'اَلسَّكْتَةُ اللَّطِيفَةُ',
+        def: 'C’est l’arrêt sur un mot du Coran, sans reprendre sa respiration, pour un bref instant. Cette pause n’existe qu’à 6 endroits dans la lecture selon le lectionnaire Hafs conformément à Châṭubiyy.',
+        letter: 'Il est représenté par la lettre ci-contre. Exemples : 4 obligatoires et 2 autorisés.',
+        ex: [
+          { label: 'Obligatoire · Sourate 18, verset 1', text: '… وَلَمْ يَجْعَل لَّهُۥ عِوَجَا ۜ ۝ قَيِّمًا لِّيُنذِرَ بَأْسًا شَدِيدًا مِّن لَّدُنْهُ …' },
+          { label: 'Obligatoire · Sourate 36, verset 52', text: '… مِن مَّرْقَدِنَا ۜ ۗ هَٰذَا …' },
+          { label: 'Obligatoire · Sourate 75, verset 27', text: 'وَقِيلَ مَنْ ۜ رَاقٍ' },
+          { label: 'Obligatoire · Sourate 83, verset 14', text: 'كَلَّا ۖ بَلْ ۜ رَانَ عَلَىٰ قُلُوبِهِم مَّا كَانُوا۟ يَكْسِبُونَ' },
+          { label: 'Autorisée · Sourate Al-Hâqqah, versets 28 et 29', text: 'مَآ أَغْنَىٰ عَنِّى مَالِيَهْ ۜ ۝ هَلَكَ عَنِّى سُلْطَٰنِيَهْ' },
+          { label: 'Autorisée · Fin d’Al-Anfâl et début d’At-Tawbah', text: '… إِنَّ ٱللَّهَ بِكُلِّ شَىْءٍ عَلِيمٌۢ ۜ بَرَآءَةٌ مِّنَ ٱللَّهِ وَرَسُولِهِۦٓ …' }
+        ],
+        note: 'Lorsque le signe de pause légère coïncide avec la fin d’un verset ou avec un signe d’arrêt, le lecteur a le choix entre l’arrêt et la pause légère (d’où l’obligation d’arrêt). C’est le cas des deux premiers versets des exemples.' }
+    };
+    signs.forEach((s) => {
+      const b = book[s.id];
+      s.book = b ? { name: fr(b.name), tr: b.tr, ar: b.ar, def: fr(b.def), letter: fr(b.letter), note: b.note ? fr(b.note) : '', ex: b.ex.map((e) => ({ label: fr(e.label), text: e.text })) } : null;
+    });
     const map = {};
     signs.forEach((s) => { map[s.id] = s; });
 
@@ -685,7 +747,17 @@ class Component extends DCLogic {
       { g: 'ayah', p: 'Qu’est-ce qui est inscrit dans ce symbole ?', o: ['Le numéro du verset', 'Le numéro de la sourate', 'Le numéro du Hizb', 'Le nombre d’arrêts'], e: 'Le symbole de fin de verset porte le numéro du verset.' },
       { g: 'jim', p: 'Quel signal visuel accompagne ce signe ?', o: ['Feu orange', 'Stop', 'Sens obligatoire', 'Aucun'], e: 'Feu orange : on peut s’arrêter ou lier.' },
       { g: 'la', p: 'Quel signal visuel accompagne ce signe ?', o: ['Sens obligatoire', 'Stop', 'Feu orange', 'Aucun'], e: 'Sens obligatoire : on continue, sans s’arrêter.' },
-      { g: 'mim', p: 'Quel signal visuel accompagne ce signe ?', o: ['Stop', 'Feu orange', 'Sens obligatoire', 'Aucun'], e: 'Stop : on s’arrête, la liaison est interdite.' }
+      { g: 'mim', p: 'Quel signal visuel accompagne ce signe ?', o: ['Stop', 'Feu orange', 'Sens obligatoire', 'Aucun'], e: 'Stop : on s’arrête, la liaison est interdite.' },
+      { g: 'mim', p: 'Comment s’appelle cet arrêt en arabe ?', o: ['Al-Waqf Al-Lâzim', 'Al-Waqf Al-Jâiz', 'Al-Waqf Al-Mamnoû’', 'Al-Waqf Al-Mouraqqabah'], e: 'C’est l’arrêt obligatoire, Al-Waqf Al-Lâzim.' },
+      { g: 'jim', p: 'Comment s’appelle cet arrêt en arabe ?', o: ['Al-Waqf Al-Jâiz', 'Al-Waqf Al-Lâzim', 'Al-Waqf Al-Mamnoû’', 'As-sakta Al-la ṭîfah'], e: 'C’est l’arrêt permis, Al-Waqf Al-Jâiz : s’arrêter ou continuer, sans que l’un soit prioritaire.' },
+      { g: 'la', p: 'Comment s’appelle cet arrêt en arabe ?', o: ['Al-Waqf Al-Mamnoû’', 'Al-Waqf Al-Jâiz', 'Al-Waqf Al-Lâzim', 'Al-Waqf Al-Mouraqqabah'], e: 'C’est l’arrêt interdit, Al-Waqf Al-Mamnoû’.' },
+      { g: 'dots', p: 'Comment s’appelle cet arrêt en arabe ?', o: ['Al-Waqf Al-Mouraqqabah', 'Al-Waqf Al-Jâiz', 'Al-Waqf Al-Lâzim', 'As-sakta Al-la ṭîfah'], e: 'C’est l’arrêt lié au suivant, Al-Waqf Al-Mouraqqabah.' },
+      { g: 'sala', p: 'Comment appelle-t-on cet arrêt ?', o: ['L’arrêt permis avec la préférence de continuer', 'L’arrêt permis avec la préférence de s’arrêter', 'L’arrêt obligatoire', 'L’arrêt lié au suivant'], e: 'Il est permis de s’arrêter ou de continuer, mais la continuation est préférable.' },
+      { g: 'qala', p: 'Comment appelle-t-on cet arrêt ?', o: ['L’arrêt permis avec la préférence de s’arrêter', 'L’arrêt permis avec la préférence de continuer', 'L’arrêt interdit', 'L’arrêt lié au suivant'], e: 'Il est permis de s’arrêter ou de continuer, mais l’arrêt est préférable.' },
+      { g: 'mim', p: 'Pourquoi cet arrêt est-il qualifié de « parfait » ?', o: ['Le discours est complet et indépendant de ce qui suit', 'Il se trouve toujours en fin de sourate', 'Il permet de reprendre son souffle', 'Il est le plus fréquent du Coran'], e: 'La phrase est complète grammaticalement et du point de vue du sens.' },
+      { g: 'sin', p: 'Comment s’appelle ce signe en arabe ?', o: ['As-sakta Al-la ṭîfah', 'Al-Waqf Al-Lâzim', 'Al-Waqf Al-Jâiz', 'Al-Waqf Al-Mamnoû’'], e: 'C’est la pause légère, As-sakta Al-la ṭîfah.' },
+      { g: 'sin', p: 'Pendant la pause légère, que fait le lecteur ?', o: ['Il s’arrête un bref instant sans reprendre sa respiration', 'Il s’arrête et reprend sa respiration', 'Il relit le mot précédent', 'Il continue sans aucune pause'], e: 'C’est un arrêt sur un mot, sans reprendre sa respiration, pour un bref instant.' },
+      { g: 'sin', p: 'À combien d’endroits la pause légère existe-t-elle dans la lecture Hafs ?', o: ['6', '4', '2', '10'], e: '6 endroits selon le lectionnaire Hafs conformément à Châṭubiyy : 4 obligatoires et 2 autorisés.' }
     ].map((q) => Object.assign({}, q, { p: fr(q.p), e: fr(q.e), o: q.go ? q.o : q.o.map(fr) }));
 
     const vf = [
@@ -708,7 +780,14 @@ class Component extends DCLogic {
       { g: 'ayah', s: 'Le numéro du verset est inscrit dans ce symbole.', a: true, e: 'Le symbole de fin de verset porte son numéro à l’intérieur.' },
       { g: 'la', s: 'Ce signe est associé au feu orange.', a: false, e: 'Il est associé au panneau « sens obligatoire » : on continue.' },
       { g: 'mim', s: 'Ce signe est associé au panneau « Stop ».', a: true, e: 'Stop : arrêt obligatoire, liaison interdite.' },
-      { g: 'qala', s: 'Ce signe est associé au feu orange.', a: true, e: 'Le feu orange signifie qu’on peut s’arrêter ou lier.' }
+      { g: 'qala', s: 'Ce signe est associé au feu orange.', a: true, e: 'Le feu orange signifie qu’on peut s’arrêter ou lier.' },
+      { g: 'mim', s: 'Cet arrêt est appelé Al-Waqf Al-Lâzim.', a: true, e: 'C’est l’arrêt obligatoire.' },
+      { g: 'la', s: 'Cet arrêt est appelé Al-Waqf Al-Jâiz.', a: false, e: 'C’est Al-Waqf Al-Mamnoû’, l’arrêt interdit. Al-Waqf Al-Jâiz est l’arrêt permis.' },
+      { g: 'dots', s: 'On appelle cet arrêt « l’arrêt lié au suivant ».', a: true, e: 'Al-Waqf Al-Mouraqqabah : on ne peut s’arrêter que sur l’un des deux endroits.' },
+      { g: 'sin', s: 'Pendant la pause légère, on reprend sa respiration.', a: false, e: 'On s’arrête un bref instant sans reprendre sa respiration.' },
+      { g: 'sin', s: 'La pause légère n’existe qu’à 6 endroits dans la lecture Hafs.', a: true, e: '4 obligatoires et 2 autorisés, conformément à Châṭubiyy.' },
+      { g: 'sin', s: 'Le passage de la fin d’Al-Anfâl au début d’At-Tawbah fait partie des pauses légères autorisées.', a: true, e: 'L’autre pause légère autorisée se trouve dans la sourate Al-Hâqqah, versets 28 et 29.' },
+      { g: 'sin', s: 'Lorsque la pause légère coïncide avec la fin d’un verset, le lecteur a le choix entre l’arrêt et la pause légère.', a: true, e: 'C’est aussi le cas lorsqu’elle coïncide avec un signe d’arrêt.' }
     ].map((v) => Object.assign({}, v, { s: fr(v.s), e: fr(v.e) }));
 
     const trous = [
@@ -724,7 +803,13 @@ class Component extends DCLogic {
       { t: 'Le Djouz’ représente [1/30] du Coran, et le Hizb [1/60].', d: ['1/4', '1/114'], e: 'Un Hizb est donc la moitié d’un Djouz’.' },
       { t: 'Roub’ et Nisf de Hizb désignent le [quart] et la [moitié] d’un Hizb.', d: ['tiers', 'totalité'], e: 'Ce sont aussi des fins de section, comme le Djouz’ et le Hizb.' },
       { t: 'Dans le symbole {ayah}, on trouve le [numéro] du verset.', d: ['nom', 'début'], e: 'Le symbole de fin de verset porte son numéro.' },
-      { t: 'Le symbole {hizb} marque la fin d’une [section].', d: ['sourate', 'phrase'], e: 'Une section peut être un Djouz’, un Hizb, ou un Roub’ / Nisf de Hizb.' }
+      { t: 'Le symbole {hizb} marque la fin d’une [section].', d: ['sourate', 'phrase'], e: 'Une section peut être un Djouz’, un Hizb, ou un Roub’ / Nisf de Hizb.' },
+      { t: 'Le signe {mim} représente Al-Waqf Al-[Lâzim], l’arrêt [obligatoire].', d: ['Jâiz', 'permis'], e: 'Le discours est complet et indépendant de ce qui suit.' },
+      { t: 'Le signe {jim} représente Al-Waqf Al-[Jâiz], l’arrêt [permis].', d: ['Lâzim', 'interdit'], e: 'On peut s’arrêter ou continuer, sans que l’un soit prioritaire.' },
+      { t: 'Le signe {la} représente Al-Waqf Al-[Mamnoû’], l’arrêt [interdit].', d: ['Jâiz', 'permis'], e: 'Ce qui précède dépend de ce qui suit, grammaticalement et par le sens.' },
+      { t: 'La pause légère se fait sans reprendre sa [respiration], pour un [bref] instant.', d: ['lecture', 'long'], e: 'C’est As-sakta Al-la ṭîfah.' },
+      { t: 'La pause légère n’existe qu’à [6] endroits : [4] obligatoires et deux autorisés.', d: ['10', '3'], e: 'Selon le lectionnaire Hafs conformément à Châṭubiyy.' },
+      { t: 'Avec la paire {dots}, Al-Waqf Al-[Mouraqqabah], on ne peut s’arrêter que sur l’un des deux [endroits].', d: ['Lâzim', 'versets'], e: 'C’est l’arrêt lié au suivant.' }
     ].map((x) => ({ t: fr(x.t), d: x.d, e: fr(x.e) }));
 
     const EX = {
@@ -1065,7 +1150,8 @@ class Component extends DCLogic {
     const metaFor = (m, tp) => {
       const key = this.bankKey(m, tp);
       const b = s.best[key];
-      const base = Math.min(n, D[key].length) + ' ' + units[m];
+      const total = D[key].length;
+      const base = total + ' ' + units[m];
       return b ? base + ' · record ' + b.score + '/' + b.total : base;
     };
 
@@ -1081,7 +1167,10 @@ class Component extends DCLogic {
         hasNote: !!sg.note, note: sg.note || '', hasSignal: !!sg.signal,
         isStop: sg.signal === 'stop', isOrange: sg.signal === 'orange', isBlue: sg.signal === 'blue',
         signalLabel: sigLabels[sg.signal] || '', reveal: () => this.reveal(sg.id),
-        revealAria: 'Révéler la fiche : ' + sg.aria
+        revealAria: 'Révéler la fiche : ' + sg.aria,
+        hasBook: !!sg.book, bookName: sg.book ? sg.book.name : '', bookTr: sg.book ? sg.book.tr : '', bookAr: sg.book ? sg.book.ar : '',
+        bookDef: sg.book ? sg.book.def : '', bookLetter: sg.book ? sg.book.letter : '', examples: sg.book ? sg.book.ex : [],
+        hasBookNote: !!(sg.book && sg.book.note), bookNote: sg.book ? sg.book.note : '', accent
       };
     };
     learnRows.push(header('Signes d’arrêt'));
