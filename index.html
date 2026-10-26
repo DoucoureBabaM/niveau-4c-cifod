@@ -15,6 +15,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&amp;family=Amiri+Quran&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap">
 <style>
+@font-face{font-family:'Hafs';src:url('assets/kfgqpc_hafs.ttf') format('truetype');font-display:swap}
 body{margin:0;background:#F3F4F0}
 *{box-sizing:border-box}
 button,input{font:inherit;color:inherit}
@@ -32,7 +33,7 @@ a{color:#0B5D4B}a:hover{color:#08463A}
 </head>
 <body>
 <div id="app" v-cloak>
-<div style="min-height: 100vh; background: #F3F4F0; color: #14201C; font-family: 'Manrope', 'Amiri', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; display: flex; flex-direction: column">
+<div style="min-height: 100vh; background: #F3F4F0; color: #14201C; font-family: 'Manrope', 'Hafs', 'Amiri', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; display: flex; flex-direction: column">
 
 <header style="border-bottom: 1px solid #DCE0DA">
 <div style="max-width: 760px; margin: 0 auto; padding: 10px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px">
@@ -78,7 +79,7 @@ Quitter
 <h2 id="h-types" style="margin: 0; font-size: 24px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 800">Les types d’arrêts</h2>
 <p style="margin: 0; font-size: 15px; line-height: 1.5; color: #55625D; text-wrap: pretty">Complet, suffisant, correct ou mauvais&nbsp;: savoir où l’on peut s’arrêter, et quoi faire ensuite.</p>
 </div>
-<span dir="rtl" lang="ar" aria-hidden="true" :style="`font-family: 'Amiri', serif; font-weight: 700; font-size: 26px; line-height: 1.7; color: ${accent}`">اَلْوَقْفُ وَ الْإِبْتِدَاءُ</span>
+<span dir="rtl" lang="ar" aria-hidden="true" :style="`font-family: 'Hafs', 'Amiri', serif; font-weight: 400; font-size: 26px; line-height: 1.7; color: ${accent}`">اَلۡوَقۡفُ وَ الۡإِبۡتِدَاءُ</span>
 </div>
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(140px, 100%), 1fr)); gap: 10px">
 <button class="lift" @click="goTypes" :style="`text-align: left; background: ${accent}; color: #FFFFFF; border: 1.5px solid ${accent}; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px`">
@@ -106,12 +107,12 @@ Quitter
 <h2 id="h-signes" style="margin: 0; font-size: 24px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 800">Les signes conventionnels</h2>
 <p style="margin: 0; font-size: 15px; line-height: 1.5; color: #55625D; text-wrap: pretty">Les 10 signes des arrêts, leur règle de liaison et leur signal visuel.</p>
 </div>
-<span dir="rtl" lang="ar" :style="`font-family: 'Amiri', serif; font-weight: 700; font-size: 26px; line-height: 1.7; color: ${accent}`">اَلْعَلَامَاتُ الِاصْطِلَاحِيَّةُ</span>
+<span dir="rtl" lang="ar" :style="`font-family: 'Hafs', 'Amiri', serif; font-weight: 400; font-size: 26px; line-height: 1.7; color: ${accent}`">اَلۡعَلَامَاتُ الِاصۡطِلَاحِيَّةُ</span>
 </div>
 <div aria-hidden="true" style="display: flex; flex-wrap: wrap; gap: 8px">
 <template v-for="t in strip">
 <span style="width: 56px; height: 56px; border-radius: 14px; background: #FFFFFF; border: 1px solid #DCE0DA; box-shadow: inset 0 -3px 0 #ECEEE9; display: flex; align-items: center; justify-content: center">
-<template v-if="t.isTxt"><span dir="rtl" lang="ar" :style="`font-family: 'Amiri', 'Noto Naskh Arabic', serif; line-height: 1.3; font-size: ${t.fs}; color: ${t.color}`">{{t.glyph}}</span></template>
+<template v-if="t.isTxt"><span dir="rtl" lang="ar" :style="`font-family: 'Hafs', 'Amiri', 'Noto Naskh Arabic', serif; line-height: 1.3; font-size: ${t.fs}; color: ${t.color}`">{{t.glyph}}</span></template>
 <template v-if="t.isSajda"><img src="assets/sajda.svg" alt="" :style="`width: ${t.px}; height: ${t.px}; display: block`"></template>
 <template v-if="t.isHizb"><img src="assets/hizb.svg" alt="" :style="`width: ${t.px}; height: ${t.px}; display: block`"></template>
 <template v-if="t.isQala"><img src="assets/qala.svg" alt="" :style="`width: ${t.px}; height: ${t.px}; display: block`"></template>
@@ -161,7 +162,7 @@ Quitter
 <section class="rise" style="display: flex; flex-direction: column; gap: 18px">
 <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
 <div style="display: flex; flex-direction: column; gap: 8px; max-width: 460px">
-<span dir="rtl" lang="ar" :style="`align-self: flex-start; font-family: 'Amiri Quran', 'Amiri', serif; font-size: 24px; line-height: 1.7; color: ${accent}`">اَلْعَلَامَاتُ الِاصْطِلَاحِيَّةُ</span>
+<span dir="rtl" lang="ar" :style="`align-self: flex-start; font-family: 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: 24px; line-height: 1.7; color: ${accent}`">اَلۡعَلَامَاتُ الِاصۡطِلَاحِيَّةُ</span>
 <h1 style="margin: 0; font-size: 34px; line-height: 1.1; letter-spacing: -0.025em; font-weight: 800">Les 10 signes</h1>
 <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #55625D">Active le mode mémorisation pour cacher les réponses et te tester signe par signe.</p>
 </div>
@@ -194,7 +195,7 @@ Mode mémorisation
 <template v-if="row.isHidden">
 <button class="lift" @click="row.reveal" :aria-label="row.revealAria" style="width: 100%; text-align: left; background: #FFFFFF; border: 1.5px dashed #C9CFC7; border-radius: 18px; padding: 14px 16px; display: grid; grid-template-columns: 68px minmax(0, 1fr) auto; gap: 16px; align-items: center">
 <span style="width: 68px; height: 68px; border-radius: 16px; background: #F6F7F3; border: 1px solid #DCE0DA; box-shadow: inset 0 -3px 0 #ECEEE9; display: flex; align-items: center; justify-content: center">
-<template v-if="row.tile.isTxt"><span dir="rtl" lang="ar" :style="`font-family: 'Amiri', 'Noto Naskh Arabic', serif; line-height: 1.3; font-size: ${row.tile.fs}; color: ${row.tile.color}`">{{row.tile.glyph}}</span></template>
+<template v-if="row.tile.isTxt"><span dir="rtl" lang="ar" :style="`font-family: 'Hafs', 'Amiri', 'Noto Naskh Arabic', serif; line-height: 1.3; font-size: ${row.tile.fs}; color: ${row.tile.color}`">{{row.tile.glyph}}</span></template>
 <template v-if="row.tile.isSajda"><img src="assets/sajda.svg" alt="" :style="`width: ${row.tile.px}; height: ${row.tile.px}; display: block`"></template>
 <template v-if="row.tile.isHizb"><img src="assets/hizb.svg" alt="" :style="`width: ${row.tile.px}; height: ${row.tile.px}; display: block`"></template>
 <template v-if="row.tile.isQala"><img src="assets/qala.svg" alt="" :style="`width: ${row.tile.px}; height: ${row.tile.px}; display: block`"></template>
@@ -216,7 +217,7 @@ Mode mémorisation
 <template v-if="row.isShown">
 <article style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 18px; padding: 14px 16px; display: grid; grid-template-columns: 68px minmax(0, 1fr) auto; gap: 16px; align-items: center">
 <span role="img" :aria-label="row.tile.aria" style="width: 68px; height: 68px; border-radius: 16px; background: #F6F7F3; border: 1px solid #DCE0DA; box-shadow: inset 0 -3px 0 #ECEEE9; display: flex; align-items: center; justify-content: center">
-<template v-if="row.tile.isTxt"><span dir="rtl" lang="ar" aria-hidden="true" :style="`font-family: 'Amiri', 'Noto Naskh Arabic', serif; line-height: 1.3; font-size: ${row.tile.fs}; color: ${row.tile.color}`">{{row.tile.glyph}}</span></template>
+<template v-if="row.tile.isTxt"><span dir="rtl" lang="ar" aria-hidden="true" :style="`font-family: 'Hafs', 'Amiri', 'Noto Naskh Arabic', serif; line-height: 1.3; font-size: ${row.tile.fs}; color: ${row.tile.color}`">{{row.tile.glyph}}</span></template>
 <template v-if="row.tile.isSajda"><img src="assets/sajda.svg" alt="" :style="`width: ${row.tile.px}; height: ${row.tile.px}; display: block`"></template>
 <template v-if="row.tile.isHizb"><img src="assets/hizb.svg" alt="" :style="`width: ${row.tile.px}; height: ${row.tile.px}; display: block`"></template>
 <template v-if="row.tile.isQala"><img src="assets/qala.svg" alt="" :style="`width: ${row.tile.px}; height: ${row.tile.px}; display: block`"></template>
@@ -249,7 +250,7 @@ Mode mémorisation
 <div style="grid-column: 1 / -1; border-top: 1px solid #E6E9E3; padding-top: 14px; display: flex; flex-direction: column; gap: 10px">
 <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 16px">
 <p style="margin: 0; font-size: 15.5px; font-weight: 800; line-height: 1.35">{{row.bookName}}</p>
-<span dir="rtl" lang="ar" :style="`font-family: 'Amiri', serif; font-weight: 700; font-size: 20px; line-height: 1.6; color: ${row.accent}`">{{row.bookAr}}</span>
+<span dir="rtl" lang="ar" :style="`font-family: 'Hafs', 'Amiri', serif; font-weight: 400; font-size: 20px; line-height: 1.6; color: ${row.accent}`">{{row.bookAr}}</span>
 </div>
 <p style="margin: -6px 0 0; font-size: 12.5px; font-weight: 600; color: #55625D">{{row.bookTr}}</p>
 <p style="margin: 0; font-size: 14.5px; line-height: 1.6; text-wrap: pretty">{{row.bookDef}}</p>
@@ -257,7 +258,7 @@ Mode mémorisation
 <template v-for="ex in row.examples">
 <div style="border: 1px dashed #C9CFC7; border-radius: 12px; padding: 8px 14px; display: flex; flex-direction: column; gap: 2px">
 <span style="font-size: 11.5px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: #55625D">{{ex.label}}</span>
-<div dir="rtl" lang="ar" style="font-family: 'Amiri Quran', 'Amiri', serif; font-size: 23px; line-height: 2.2; color: #14201C; text-align: right">{{ex.text}}</div>
+<div dir="rtl" lang="ar" style="font-family: 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: 23px; line-height: 2.2; color: #14201C; text-align: right">{{ex.text}}</div>
 </div>
 </template>
 <template v-if="row.hasBookNote">
@@ -295,7 +296,7 @@ Mode mémorisation
 </label>
 </div>
 <div style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 18px; padding: 18px 20px; display: flex; flex-direction: column; gap: 8px">
-<span dir="rtl" lang="ar" :style="`align-self: flex-start; font-family: 'Amiri Quran', 'Amiri', serif; font-size: 24px; line-height: 1.7; color: ${accent}`">اَلْوَقْفُ وَ الْإِبْتِدَاءُ</span>
+<span dir="rtl" lang="ar" :style="`align-self: flex-start; font-family: 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: 24px; line-height: 1.7; color: ${accent}`">اَلۡوَقۡفُ وَ الۡإِبۡتِدَاءُ</span>
 <p style="margin: 0; font-size: 16px; line-height: 1.6"><strong>Al-Waqf</strong> est un court arrêt à la fin d’un mot dans le Coran, avec l’intention de poursuivre la lecture.</p>
 <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #55625D">On ne peut pas s’arrêter à n’importe quel moment&nbsp;: il faut connaître les différentes sortes d’arrêts.</p>
 </div>
@@ -343,7 +344,7 @@ Mode mémorisation
 <span :style="`min-width: 46px; height: 30px; padding: 0 8px; border-radius: 9px; background: ${ty.tint}; color: ${ty.accent}; font-size: 13px; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; font-variant-numeric: tabular-nums; flex-shrink: 0`">{{ty.num}}</span>
 <span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 18px; font-weight: 800">{{ty.name}}</span><span style="font-size: 13px; color: #55625D">Touche pour révéler la définition.</span></span>
 </span>
-<span dir="rtl" lang="ar" :style="`font-family: 'Amiri Quran', 'Amiri', serif; font-size: 24px; line-height: 1.6; color: ${ty.accent}`">{{ty.ar}}</span>
+<span dir="rtl" lang="ar" :style="`font-family: 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: 24px; line-height: 1.6; color: ${ty.accent}`">{{ty.ar}}</span>
 </button>
 </template>
 <template v-if="ty.isShown">
@@ -353,7 +354,7 @@ Mode mémorisation
 <span :style="`min-width: 46px; height: 30px; padding: 0 8px; border-radius: 9px; background: ${ty.tint}; color: ${ty.accent}; font-size: 13px; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; font-variant-numeric: tabular-nums; flex-shrink: 0`">{{ty.num}}</span>
 <div style="display: flex; flex-direction: column; gap: 2px"><h3 style="margin: 0; font-size: 19px; line-height: 1.3; font-weight: 800">{{ty.name}}</h3><p style="margin: 0; font-size: 13px; font-weight: 600; color: #55625D">{{ty.translit}}</p></div>
 </div>
-<span dir="rtl" lang="ar" :style="`font-family: 'Amiri Quran', 'Amiri', serif; font-size: 24px; line-height: 1.6; color: ${ty.accent}`">{{ty.ar}}</span>
+<span dir="rtl" lang="ar" :style="`font-family: 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: 24px; line-height: 1.6; color: ${ty.accent}`">{{ty.ar}}</span>
 </div>
 <p style="margin: 0; font-size: 15.5px; line-height: 1.6; text-wrap: pretty">{{ty.def}}</p>
 <div style="display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: 12px; background: #F3F4F0">
@@ -364,7 +365,7 @@ Mode mémorisation
 <div style="border: 1px dashed #C9CFC7; border-radius: 14px; padding: 12px 16px; display: flex; flex-direction: column; gap: 4px">
 <span style="font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #55625D">Exemple · {{ty.ex.ref}}</span>
 <span style="font-size: 14px; line-height: 1.5">{{ty.exLabel}}</span>
-<div dir="rtl" lang="ar" style="font-family: 'Amiri Quran', 'Amiri', serif; font-size: 26px; line-height: 2.1; color: #14201C; text-align: center">
+<div dir="rtl" lang="ar" style="font-family: 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: 26px; line-height: 2.1; color: #14201C; text-align: center">
 <template v-if="ty.ex.isPair"><span>… {{ty.ex.before}}</span><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true" style="vertical-align: middle; margin: 0 8px"><circle cx="10" cy="10" r="7.5" fill="none" stroke="#A1262B" stroke-width="1.6"></circle><circle cx="10" cy="10" r="3" fill="#A1262B"></circle></svg><span>{{ty.ex.after}} …</span></template>
 <template v-if="ty.ex.isSingle"><span>{{ty.ex.text}} …</span></template>
 </div>
@@ -431,12 +432,12 @@ Mode mémorisation
 </div>
 <article style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 14px; padding: 22px 24px; gap: 16px">
 <p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">Cette application a été développée par un auditeur du CIFOD dans le but de faciliter à sa propre personne ainsi qu’aux autres apprenants, la révision des cours de Psalmodie du QUR’ÂN. Elle n’a pas vocation à remplacer ni les cours en présentiel, ni ceux dispensés en ligne, mais aspire plutôt à devenir, inchâ Allah, un compagnon ludique sur le chemin de l’apprentissage du Tadjwîd.</p>
-<p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">Par ailleurs, l’application ne s’appuie uniquement que sur l’ouvrage de référence en la matière au CIFOD (niveaux 4 et CPC)&nbsp;: <em>Le Viatique du Lecteur</em>, Règles de la Psalmodie du QUR’ÂN.</p>
+<p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">Par ailleurs, l’application suit pas à pas l’ouvrage de référence en la matière au CIFOD (niveaux 4 et CPC)&nbsp;: <em>Le Viatique du Lecteur</em>, Règles de la Psalmodie du QUR’ÂN.</p>
 <p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">C’est une application web totalement gratuite et sans aucune publicité. De plus, elle fonctionne offline (sans connexion internet).</p>
 <p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">Nous espérons que ce modeste travail sera profitable à tous les apprenants.</p>
 </article>
 <div :style="`background: ${tint}; border-radius: 20px; padding: 22px 24px; display: flex; flex-direction: column; align-items: center; text-align: center`">
-<p style="margin: 0; width: 100%; font-size: 16.5px; line-height: 1.8; font-style: italic; font-weight: 600; color: #24452F; text-align: center">Seigneur des cieux et de la Terre,<br>Je sais que mes œuvres sont légères,<br>Mais fais que celle-ci soit sincère,<br>Et pardonne à mes pères et mères.</p>
+<p style="margin: 0; width: 100%; font-size: 16.5px; line-height: 1.8; font-style: italic; font-weight: 600; color: #24452F; text-align: center">Seigneur des cieux et de la Terre,<br>Je sais que mes œuvres sont légères,<br>Mais fais que celle-ci soit sincère,<br>Et pardonne à mes père et mère.</p>
 <p style="margin: 10px 0 0; font-size: 16px; font-weight: 800; color: #24452F">Amin.</p>
 </div>
 <div style="display: flex; justify-content: flex-start"><button @click="goHome" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid #DCE0DA; background: #FFFFFF; font-size: 15px; font-weight: 700">Retour à l’accueil</button></div>
@@ -459,7 +460,7 @@ Mode mémorisation
 <div style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 22px; padding: 28px 24px; display: flex; flex-direction: column; align-items: center; gap: 18px; text-align: center">
 <template v-if="qc.hasGlyph">
 <span role="img" :aria-label="qc.tile.aria" style="width: 116px; height: 116px; border-radius: 26px; background: #F6F7F3; border: 1px solid #DCE0DA; box-shadow: inset 0 -4px 0 #ECEEE9; display: flex; align-items: center; justify-content: center">
-<template v-if="qc.tile.isTxt"><span dir="rtl" lang="ar" aria-hidden="true" :style="`font-family: 'Amiri', 'Noto Naskh Arabic', serif; line-height: 1.3; font-size: ${qc.tile.fs}; color: ${qc.tile.color}`">{{qc.tile.glyph}}</span></template>
+<template v-if="qc.tile.isTxt"><span dir="rtl" lang="ar" aria-hidden="true" :style="`font-family: 'Hafs', 'Amiri', 'Noto Naskh Arabic', serif; line-height: 1.3; font-size: ${qc.tile.fs}; color: ${qc.tile.color}`">{{qc.tile.glyph}}</span></template>
 <template v-if="qc.tile.isSajda"><img src="assets/sajda.svg" alt="" :style="`width: ${qc.tile.px}; height: ${qc.tile.px}; display: block`"></template>
 <template v-if="qc.tile.isHizb"><img src="assets/hizb.svg" alt="" :style="`width: ${qc.tile.px}; height: ${qc.tile.px}; display: block`"></template>
 <template v-if="qc.tile.isQala"><img src="assets/qala.svg" alt="" :style="`width: ${qc.tile.px}; height: ${qc.tile.px}; display: block`"></template>
@@ -476,7 +477,7 @@ Mode mémorisation
 <p style="margin: 0; font-size: 22px; font-weight: 700; line-height: 1.4; letter-spacing: -0.01em; max-width: 540px; text-wrap: pretty">{{qc.text}}</p>
 <template v-if="qc.hasVerse">
 <div style="width: 100%; max-width: 560px; border: 1px dashed #C9CFC7; border-radius: 14px; padding: 10px 16px; display: flex; flex-direction: column; gap: 2px">
-<div dir="rtl" lang="ar" style="font-family: 'Amiri Quran', 'Amiri', serif; font-size: 30px; line-height: 2.1; color: #14201C; text-align: center">
+<div dir="rtl" lang="ar" style="font-family: 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: 30px; line-height: 2.1; color: #14201C; text-align: center">
 <template v-if="qc.verse.isPair"><span>… {{qc.verse.before}}</span><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true" style="vertical-align: middle; margin: 0 8px"><circle cx="10" cy="10" r="7.5" fill="none" stroke="#A1262B" stroke-width="1.6"></circle><circle cx="10" cy="10" r="3" fill="#A1262B"></circle></svg><span>{{qc.verse.after}} …</span></template>
 <template v-if="qc.verse.isSingle"><span>{{qc.verse.text}} …</span></template>
 </div>
@@ -496,7 +497,7 @@ Mode mémorisation
 <template v-if="o.showCross"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17"></path></svg></template>
 </span>
 <template v-if="o.isText"><span style="font-size: 16px; font-weight: 600; line-height: 1.35">{{o.text}}</span></template>
-<template v-if="o.isGlyphTxt"><span dir="rtl" lang="ar" :style="`font-family: 'Amiri', 'Noto Naskh Arabic', serif; line-height: 1.25; font-size: ${o.fs}; color: ${o.color}`">{{o.glyph}}</span></template>
+<template v-if="o.isGlyphTxt"><span dir="rtl" lang="ar" :style="`font-family: 'Hafs', 'Amiri', 'Noto Naskh Arabic', serif; line-height: 1.25; font-size: ${o.fs}; color: ${o.color}`">{{o.glyph}}</span></template>
 <template v-if="o.isQala"><img src="assets/qala.svg" alt="" :style="`width: ${o.px}; height: ${o.px}; display: block`"></template>
 <template v-if="o.isSala"><img src="assets/sala.svg" alt="" :style="`width: ${o.px}; height: ${o.px}; display: block`"></template>
 <template v-if="o.isMim"><img src="assets/mim.svg" alt="" :style="`width: ${o.px}; height: ${o.px}; display: block`"></template>
@@ -526,7 +527,7 @@ Mode mémorisation
 <div style="font-size: 21px; font-weight: 600; line-height: 2.3; letter-spacing: -0.005em; text-wrap: pretty">
 <template v-for="g in tr.segs">
 <template v-if="g.isText"><span>{{g.text}}</span></template>
-<template v-if="g.isGlyphTxt"><span dir="rtl" lang="ar" :style="`font-family: 'Amiri', 'Noto Naskh Arabic', serif; font-size: ${g.fs}; line-height: 1; padding: 0 3px; color: ${g.color}`">{{g.glyph}}</span></template>
+<template v-if="g.isGlyphTxt"><span dir="rtl" lang="ar" :style="`font-family: 'Hafs', 'Amiri', 'Noto Naskh Arabic', serif; font-size: ${g.fs}; line-height: 1; padding: 0 3px; color: ${g.color}`">{{g.glyph}}</span></template>
 <template v-if="g.isSajda"><img src="assets/sajda.svg" alt="symbole de prosternation" :style="`width: ${g.px}; height: ${g.px}; display: inline-block; vertical-align: middle; margin: 0 3px`"></template>
 <template v-if="g.isHizb"><img src="assets/hizb.svg" alt="symbole de fin de section" :style="`width: ${g.px}; height: ${g.px}; display: inline-block; vertical-align: middle; margin: 0 3px`"></template>
 <template v-if="g.isQala"><img src="assets/qala.svg" alt="signe Qalâ" :style="`width: ${g.px}; height: ${g.px}; display: inline-block; vertical-align: middle; margin: 0 3px`"></template>
@@ -600,7 +601,7 @@ Recommencer
 <article style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 16px; padding: 16px; display: flex; gap: 14px; align-items: flex-start">
 <template v-if="m.hasTile">
 <span role="img" :aria-label="m.tile.aria" style="width: 52px; height: 52px; flex-shrink: 0; border-radius: 13px; background: #F6F7F3; border: 1px solid #DCE0DA; display: flex; align-items: center; justify-content: center">
-<template v-if="m.tile.isTxt"><span dir="rtl" lang="ar" aria-hidden="true" :style="`font-family: 'Amiri', 'Noto Naskh Arabic', serif; line-height: 1.3; font-size: ${m.tile.fs}; color: ${m.tile.color}`">{{m.tile.glyph}}</span></template>
+<template v-if="m.tile.isTxt"><span dir="rtl" lang="ar" aria-hidden="true" :style="`font-family: 'Hafs', 'Amiri', 'Noto Naskh Arabic', serif; line-height: 1.3; font-size: ${m.tile.fs}; color: ${m.tile.color}`">{{m.tile.glyph}}</span></template>
 <template v-if="m.tile.isSajda"><img src="assets/sajda.svg" alt="" :style="`width: ${m.tile.px}; height: ${m.tile.px}; display: block`"></template>
 <template v-if="m.tile.isHizb"><img src="assets/hizb.svg" alt="" :style="`width: ${m.tile.px}; height: ${m.tile.px}; display: block`"></template>
 <template v-if="m.tile.isQala"><img src="assets/qala.svg" alt="" :style="`width: ${m.tile.px}; height: ${m.tile.px}; display: block`"></template>
@@ -616,7 +617,7 @@ Recommencer
 <div style="display: flex; flex-direction: column; gap: 6px; min-width: 0">
 <p style="margin: 0; font-size: 15px; font-weight: 700; line-height: 1.45">{{m.prompt}}</p>
 <template v-if="m.hasVerse">
-<div dir="rtl" lang="ar" style="font-family: 'Amiri Quran', 'Amiri', serif; font-size: 22px; line-height: 2.1; color: #14201C; text-align: left">
+<div dir="rtl" lang="ar" style="font-family: 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: 22px; line-height: 2.1; color: #14201C; text-align: left">
 <template v-if="m.verse.isPair"><span>… {{m.verse.before}}</span><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true" style="vertical-align: middle; margin: 0 8px"><circle cx="10" cy="10" r="7.5" fill="none" stroke="#A1262B" stroke-width="1.6"></circle><circle cx="10" cy="10" r="3" fill="#A1262B"></circle></svg><span>{{m.verse.after}} …</span></template>
 <template v-if="m.verse.isSingle"><span>{{m.verse.text}} …</span></template>
 </div>
@@ -645,7 +646,6 @@ Recommencer
 <span style="font-size: 16px; font-weight: 800; letter-spacing: 0.01em; color: #55625D">cifod.org</span>
 </a>
 </div>
-<p style="margin: 4px 0 0; font-size: 13px; line-height: 1.5; color: #55625D">D’après «&nbsp;Le viatique du lecteur&nbsp;» (CIFOD), chapitres 11 (types d’arrêts) et 15 (signes conventionnels).</p>
 </div>
 </footer>
 
@@ -683,40 +683,40 @@ class Component extends DCLogic {
     ].map((s) => Object.assign({}, s, { designation: fr(s.designation), note: fr(s.note), liaison: s.liaison ? fr(s.liaison) : null }));
 
     const book = {
-      mim: { name: 'L’arrêt obligatoire', tr: 'Al-Waqf Al-Lâzim', ar: 'اَلْوَقْفُ اللَّازِمُ',
+      mim: { name: 'L’arrêt obligatoire', tr: 'Al-Waqf Al-Lâzim', ar: 'اَلۡوَقۡفُ اللَّازِمُ',
         def: 'C’est l’arrêt qui permet à la phrase d’être complète grammaticalement et du point de vue du sens. Ce type d’arrêt est qualifié de « parfait » car le discours est complet et indépendant de ce qui suit.',
         letter: 'Il est représenté par la lettre Mîm.',
-        ex: [{ label: 'Exemple · Sourate 6, verset 36', text: 'إِنَّمَا يَسْتَجِيبُ ٱلَّذِينَ يَسْمَعُونَ ۘ وَٱلْمَوْتَىٰ يَبْعَثُهُمُ ٱللَّهُ ثُمَّ إِلَيْهِ يُرْجَعُونَ' }] },
-      jim: { name: 'L’arrêt permis', tr: 'Al-Waqf Al-Jâiz', ar: 'اَلْوَقْفُ الْجَائِزُ',
+        ex: [{ label: 'Exemple · Sourate 6, verset 36', text: 'إِنَّمَا يَسۡتَجِيبُ ٱلَّذِينَ يَسۡمَعُونَ ۘ وَٱلۡمَوۡتَىٰ يَبۡعَثُهُمُ ٱللَّهُ ثُمَّ إِلَيۡهِ يُرۡجَعُونَ' }] },
+      jim: { name: 'L’arrêt permis', tr: 'Al-Waqf Al-Jâiz', ar: 'اَلۡوَقۡفُ الۡجَائِزُ',
         def: 'Il indique un endroit où il est permis soit de s’arrêter soit de continuer sans que l’une de ces deux possibilités soit prioritaire.',
         letter: 'Il est représenté par la lettre Djîm.',
-        ex: [{ label: 'Exemple · Sourate 110, verset 3', text: 'وَٱسْتَغْفِرْهُ ۚ إِنَّهُۥ كَانَ تَوَّابًۢا …' }] },
-      sala: { name: 'L’arrêt permis avec la préférence de continuer', tr: 'Al-Waqf Al-Jâiz ma’a kaw al-wasl awlâ', ar: 'اَلْوَقْفُ الْجَائِزُ مَعَ كَوْنِ الْوَصْلِ الْأَوْلَى',
+        ex: [{ label: 'Exemple · Sourate 110, verset 3', text: 'وَٱسۡتَغۡفِرۡهُ ۚ إِنَّهُۥ كَانَ تَوَّابًۢا …' }] },
+      sala: { name: 'L’arrêt permis avec la préférence de continuer', tr: 'Al-Waqf Al-Jâiz ma’a kaw al-wasl awlâ', ar: 'اَلۡوَقۡفُ الۡجَائِزُ مَعَ كَوۡنِ الۡوَصۡلِ الۡأَوۡلَى',
         def: 'Il indique un endroit où il est permis de s’arrêter ou de continuer, mais la continuation est préférable.',
         letter: 'Il est représenté par la lettre Sôd-lam.',
         ex: [{ label: 'Exemple · Sourate 104, verset 4', text: 'كَلَّا ۖ لَيُنۢبَذَنَّ …' }] },
-      qala: { name: 'L’arrêt permis avec la préférence de s’arrêter', tr: 'Al-Waqf Al-Jâiz ma’a kaw Al-Waqf Awlâ', ar: 'اَلْوَقْفُ الْجَائِزُ مَعَ كَوْنِ الْوَقْفِ الْأَوْلَى',
+      qala: { name: 'L’arrêt permis avec la préférence de s’arrêter', tr: 'Al-Waqf Al-Jâiz ma’a kaw Al-Waqf Awlâ', ar: 'اَلۡوَقۡفُ الۡجَائِزُ مَعَ كَوۡنِ الۡوَقۡفِ الۡأَوۡلَى',
         def: 'Il indique un endroit où il est permis de s’arrêter ou de continuer, mais l’arrêt est préférable.',
         letter: 'Il est représenté par les lettres Qôf-lâm.',
-        ex: [{ label: 'Exemple · Sourate 61, verset 13', text: '… وَفَتْحٌ قَرِيبٌ ۗ وَبَشِّرِ ٱلْمُؤْمِنِينَ' }] },
-      dots: { name: 'L’arrêt lié au suivant', tr: 'Al-Waqf Al-Mouraqqabah', ar: 'اَلْوَقْفُ الْمُرَقَّبَة',
+        ex: [{ label: 'Exemple · Sourate 61, verset 13', text: '… وَفَتۡحٌ قَرِيبٌ ۗ وَبَشِّرِ ٱلۡمُؤۡمِنِينَ' }] },
+      dots: { name: 'L’arrêt lié au suivant', tr: 'Al-Waqf Al-Mouraqqabah', ar: 'اَلۡوَقۡفُ الۡمُرَقَّبَة',
         def: 'Il s’agit de deux endroits où il est possible de s’arrêter, mais on ne peut s’arrêter que sur l’un d’eux seulement.',
         letter: 'Il est représenté par ces 2 fois trois points.',
-        ex: [{ label: 'Exemple · Sourate 2, verset 2', text: 'ذَٰلِكَ ٱلْكِتَٰبُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ' }] },
-      la: { name: 'L’arrêt interdit', tr: 'Al-Waqf Al-Mamnoû’', ar: 'اَلْوَقْفُ الْمَمْنُوعُ',
+        ex: [{ label: 'Exemple · Sourate 2, verset 2', text: 'ذَٰلِكَ ٱلۡكِتَٰبُ لَا رَيۡبَ ۛ فِيهِ ۛ هُدًى لِّلۡمُتَّقِينَ' }] },
+      la: { name: 'L’arrêt interdit', tr: 'Al-Waqf Al-Mamnoû’', ar: 'اَلۡوَقۡفُ الۡمَمۡنُوعُ',
         def: 'Il indique un endroit où il est défendu de s’arrêter, car, si on le faisait la phrase ne serait pas complète et le sens ne serait pas compréhensible, parce que ce qui précède cet endroit dépend de ce qui le suit grammaticalement et du point de vue du sens.',
         letter: 'Il est représenté par les lettres Lâm-Alif.',
-        ex: [{ label: 'Exemple · Sourate 73, verset 20', text: '… وَءَاخَرُونَ يُقَٰتِلُونَ فِى سَبِيلِ ٱللَّهِ ۙ فَٱقْرَءُوا۟ مَا تَيَسَّرَ مِنْهُ …' }] },
-      sin: { name: 'La pause légère', tr: 'As-sakta Al-la ṭîfah', ar: 'اَلسَّكْتَةُ اللَّطِيفَةُ',
+        ex: [{ label: 'Exemple · Sourate 73, verset 20', text: '… وَءَاخَرُونَ يُقَٰتِلُونَ فِى سَبِيلِ ٱللَّهِ ۙ فَٱقۡرَءُواْ مَا تَيَسَّرَ مِنۡهُ …' }] },
+      sin: { name: 'La pause légère', tr: 'As-sakta Al-la ṭîfah', ar: 'اَلسَّكۡتَةُ اللَّطِيفَةُ',
         def: 'C’est l’arrêt sur un mot du Coran, sans reprendre sa respiration, pour un bref instant. Cette pause n’existe qu’à 6 endroits dans la lecture selon le lectionnaire Hafs conformément à Châṭubiyy.',
         letter: 'Il est représenté par la lettre ci-contre. Exemples : 4 obligatoires et 2 autorisés.',
         ex: [
-          { label: 'Obligatoire · Sourate 18, verset 1', text: '… وَلَمْ يَجْعَل لَّهُۥ عِوَجَا ۜ ۝ قَيِّمًا لِّيُنذِرَ بَأْسًا شَدِيدًا مِّن لَّدُنْهُ …' },
-          { label: 'Obligatoire · Sourate 36, verset 52', text: '… مِن مَّرْقَدِنَا ۜ ۗ هَٰذَا …' },
-          { label: 'Obligatoire · Sourate 75, verset 27', text: 'وَقِيلَ مَنْ ۜ رَاقٍ' },
-          { label: 'Obligatoire · Sourate 83, verset 14', text: 'كَلَّا ۖ بَلْ ۜ رَانَ عَلَىٰ قُلُوبِهِم مَّا كَانُوا۟ يَكْسِبُونَ' },
-          { label: 'Autorisée · Sourate Al-Hâqqah, versets 28 et 29', text: 'مَآ أَغْنَىٰ عَنِّى مَالِيَهْ ۜ ۝ هَلَكَ عَنِّى سُلْطَٰنِيَهْ' },
-          { label: 'Autorisée · Fin d’Al-Anfâl et début d’At-Tawbah', text: '… إِنَّ ٱللَّهَ بِكُلِّ شَىْءٍ عَلِيمٌۢ ۜ بَرَآءَةٌ مِّنَ ٱللَّهِ وَرَسُولِهِۦٓ …' }
+          { label: 'Obligatoire · Sourate 18, verset 1', text: '… وَلَمۡ يَجۡعَل لَّهُۥ عِوَجَا ۜ ۝ قَيِّمًا لِّيُنذِرَ بَأۡسًا شَدِيدًا مِّن لَّدُنۡهُ …' },
+          { label: 'Obligatoire · Sourate 36, verset 52', text: '… مِن مَّرۡقَدِنَا ۜ ۗ هَٰذَا …' },
+          { label: 'Obligatoire · Sourate 75, verset 27', text: 'وَقِيلَ مَنۡ ۜ رَاقٍ' },
+          { label: 'Obligatoire · Sourate 83, verset 14', text: 'كَلَّا ۖ بَلۡ ۜ رَانَ عَلَىٰ قُلُوبِهِم مَّا كَانُواْ يَكۡسِبُونَ' },
+          { label: 'Autorisée · Sourate Al-Hâqqah, versets 28 et 29', text: 'مَآ أَغۡنَىٰ عَنِّى مَالِيَهۡ ۜ ۝ هَلَكَ عَنِّى سُلۡطَٰنِيَهۡ' },
+          { label: 'Autorisée · Fin d’Al-Anfâl et début d’At-Tawbah', text: '… إِنَّ ٱللَّهَ بِكُلِّ شَىۡءٍ عَلِيمٌۢ ۜ بَرَآءَةٌ مِّنَ ٱللَّهِ وَرَسُولِهِۦٓ …' }
         ],
         note: 'Lorsque le signe de pause légère coïncide avec la fin d’un verset ou avec un signe d’arrêt, le lecteur a le choix entre l’arrêt et la pause légère (d’où l’obligation d’arrêt). C’est le cas des deux premiers versets des exemples.' }
     };
@@ -813,30 +813,30 @@ class Component extends DCLogic {
     ].map((x) => ({ t: fr(x.t), d: x.d, e: fr(x.e) }));
 
     const EX = {
-      s2v5: { ref: 'Sourate 2 · versets 5 et 6', before: 'وَأُو۟لَـٰٓئِكَ هُمُ ٱلْمُفْلِحُونَ', after: 'إِنَّ ٱلَّذِينَ كَفَرُوا۟' },
-      s2v6: { ref: 'Sourate 2 · versets 6 et 7', before: 'لَا يُؤْمِنُونَ', after: 'خَتَمَ ٱللَّهُ عَلَىٰ قُلُوبِهِمْ وَعَلَىٰ سَمْعِهِمْ' },
-      s1v2a: { ref: 'Sourate 1 · verset 2', text: 'ٱلْحَمْدُ لِلَّهِ' },
-      s1v2b: { ref: 'Sourate 1 · verset 2', text: 'ٱلْحَمْدُ' }
+      s2v5: { ref: 'Sourate 2 · versets 5 et 6', before: 'وَأُوْلَٰٓئِكَ هُمُ ٱلۡمُفۡلِحُونَ', after: 'إِنَّ ٱلَّذِينَ كَفَرُواْ' },
+      s2v6: { ref: 'Sourate 2 · versets 6 et 7', before: 'لَا يُؤۡمِنُونَ', after: 'خَتَمَ ٱللَّهُ عَلَىٰ قُلُوبِهِمۡ وَعَلَىٰ سَمۡعِهِمۡ' },
+      s1v2a: { ref: 'Sourate 1 · verset 2', text: 'ٱلۡحَمۡدُ لِلَّهِ' },
+      s1v2b: { ref: 'Sourate 1 · verset 2', text: 'ٱلۡحَمۡدُ' }
     };
-    const AR = { hamd: 'ٱلْحَمْدُ', hamdl: 'ٱلْحَمْدُ لِلَّهِ' };
+    const AR = { hamd: 'ٱلۡحَمۡدُ', hamdl: 'ٱلۡحَمۡدُ لِلَّهِ' };
 
     const types = [
-      { id: 'tamm', num: '1-1', name: 'L’arrêt complet', short: 'Complet', translit: 'Al-Waqf At-tâmm', ar: 'اَلْوَقْفُ التَّامُّ',
+      { id: 'tamm', num: '1-1', name: 'L’arrêt complet', short: 'Complet', translit: 'Al-Waqf At-tâmm', ar: 'اَلۡوَقۡفُ التَّامُّ',
         def: 'Est considéré comme complet tout arrêt sur une phrase compréhensive (au niveau du sens) et qui n’est pas grammaticalement lié à ce qui suit.',
         after: 'Pour la lecture, il suffit de passer à la phrase suivante.', note: 'En général, en fin de verset.',
         ex: 's2v5', exLabel: 'Quitter le verset 5 pour le 6.', exNote: 'Ces 2 versets n’ont pas de rapport (sémantique comme grammatical).',
         sens: true, lienSens: false, lienGram: false },
-      { id: 'kafi', num: '1-2', name: 'L’arrêt suffisant', short: 'Suffisant', translit: 'Al-Waqf Al-Kâfî', ar: 'اَلْوَقْفُ الْكَافِي',
+      { id: 'kafi', num: '1-2', name: 'L’arrêt suffisant', short: 'Suffisant', translit: 'Al-Waqf Al-Kâfî', ar: 'اَلۡوَقۡفُ الۡكَافِي',
         def: 'C’est un arrêt sur une phrase dont le sens est complet, et qui est tout de même lié à ce qui suit dans le sens global. Les deux phrases n’ont aucun lien grammatical.',
         after: 'On continue la lecture sans reprendre ce qui a été lu.', note: '',
         ex: 's2v6', exLabel: 'Quitter le verset 6 pour le 7.', exNote: '',
         sens: true, lienSens: true, lienGram: false },
-      { id: 'hasan', num: '1-3', name: 'L’arrêt correct', short: 'Correct', translit: 'Al-Waqf Al-hasan', ar: 'اَلْوَقْفُ الْحَسَنُ',
+      { id: 'hasan', num: '1-3', name: 'L’arrêt correct', short: 'Correct', translit: 'Al-Waqf Al-hasan', ar: 'اَلۡوَقۡفُ الۡحَسَنُ',
         def: 'C’est un arrêt sur une phrase dont le sens est complet, mais qui est lié grammaticalement et sémantiquement à ce qui suit.',
         after: 'Si cet arrêt se trouve à la fin d’un verset, l’on peut reprendre ce qui a déjà été lu.', note: '',
         ex: 's1v2a', exLabel: 'L’arrêt sur l’expression :', exNote: '',
         sens: true, lienSens: true, lienGram: true },
-      { id: 'qabih', num: '1-4', name: 'Le mauvais arrêt', short: 'Mauvais', translit: 'Al-Waqf Al-Qabîh', ar: 'اَلْوَقْفُ الْقَبِيحُ',
+      { id: 'qabih', num: '1-4', name: 'Le mauvais arrêt', short: 'Mauvais', translit: 'Al-Waqf Al-Qabîh', ar: 'اَلۡوَقۡفُ الۡقَبِيحُ',
         def: 'C’est un arrêt sur une phrase dont le sens n’est pas complet, car il est lié à ce qui suit dans le sens et au niveau grammatical.',
         after: 'Il n’est pas permis de faire cet arrêt, sauf si l’on n’a plus de souffle ; on doit alors reprendre ce qui a déjà été lu.', note: '',
         ex: 's1v2b', exLabel: 'Faire un arrêt sur le mot :', exNote: '',
@@ -893,7 +893,7 @@ class Component extends DCLogic {
       { t: 'Le [mauvais] arrêt n’est permis que si l’on n’a plus de [souffle].', d: ['correct', 'temps'], e: 'On doit alors reprendre ce qui a déjà été lu.' },
       { t: 'Après un mauvais arrêt, on doit [reprendre] ce qui a déjà été [lu].', d: ['sauter', 'écrit'], e: 'Car le sens de la phrase n’était pas complet.' },
       { t: 'L’arrêt complet se dit Al-Waqf [At-tâmm], et l’arrêt suffisant Al-Waqf [Al-Kâfî].', d: ['Al-hasan', 'Al-Qabîh'], e: 'L’arrêt correct : Al-hasan. Le mauvais arrêt : Al-Qabîh.' },
-      { t: 'S’arrêter sur {hamd} (sourate 1, verset 2) est un [mauvais] arrêt : le sens n’est pas [complet].', d: ['bon', 'long'], e: 'S’arrêter sur l’expression entière ٱلْحَمْدُ لِلَّهِ est un arrêt correct.' },
+      { t: 'S’arrêter sur {hamd} (sourate 1, verset 2) est un [mauvais] arrêt : le sens n’est pas [complet].', d: ['bon', 'long'], e: 'S’arrêter sur l’expression entière ٱلۡحَمۡدُ لِلَّهِ est un arrêt correct.' },
       { t: 'S’arrêter sur {hamdl} (sourate 1, verset 2) est un arrêt [correct].', d: ['mauvais', 'complet'], e: 'Le sens est complet, mais il reste lié à la suite.' },
       { t: 'Quitter le verset 5 pour le verset 6 de la sourate 2 est un arrêt [complet].', d: ['mauvais', 'correct'], e: 'Ces 2 versets n’ont pas de rapport (sémantique comme grammatical).' },
       { t: 'Quitter le verset 6 pour le verset 7 de la sourate 2 est un arrêt [suffisant].', d: ['complet', 'mauvais'], e: 'Les deux phrases sont liées dans le sens global, sans lien grammatical.' }
