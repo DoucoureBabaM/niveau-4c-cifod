@@ -70,7 +70,7 @@ Quitter
 <img src="assets/cifod_cercle.png" alt="Banderole du CIFOD : Apprendre à lire le Coran en 3 mois" style="width: 52px; height: 52px; border-radius: 999px; display: block; flex-shrink: 0; object-fit: cover; box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 3px #DCE0DA, 0 4px 12px rgba(20,32,28,0.12)">
 <h1 style="margin: 0; font-size: 24px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 800; color: #14201C; text-transform: uppercase">Niveau 4C</h1>
 </div>
-<p style="margin: 0; font-size: 17px; line-height: 1.55; color: #55625D; max-width: 580px; text-wrap: pretty">Les types d’arrêts et les signes conventionnels&nbsp;: apprends-les avec les fiches, puis révise-les en QCM, en vrai ou faux et en texte à trous.</p>
+<p style="margin: 0; font-size: 17px; line-height: 1.55; color: #55625D; max-width: 580px; text-wrap: pretty">Les types d’arrêts et les signes conventionnels des arrêts&nbsp;: apprends-les avec les fiches, puis révise-les en QCM, en vrai ou faux et en texte à trous.</p>
 </div>
 <section aria-labelledby="h-types" style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 24px; padding: 24px 22px; display: flex; flex-direction: column; gap: 20px">
 <div style="display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 10px 20px">
@@ -99,12 +99,16 @@ Quitter
 <span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Texte à trous</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: #55625D">{{metaT.trous}}</span></span>
 </button>
 </div>
+<button class="lift" @click="startTMix" style="margin-top: -10px; width: 100%; text-align: left; background: #FFFFFF; border: 1.5px solid #DCE0DA; border-radius: 16px; padding: 14px; display: flex; align-items: center; gap: 14px; min-height: 72px">
+<span :style="`width: 38px; height: 38px; border-radius: 11px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center; flex-shrink: 0`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 3h5v5"></path><path d="M4 20L21 3"></path><path d="M21 16v5h-5"></path><path d="M15 15l6 6"></path><path d="M4 4l5 5"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Mélange</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: #55625D">{{metaT.mix}} · QCM, vrai ou faux et texte à trous</span></span>
+</button>
 </section>
 <section aria-labelledby="h-signes" style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 24px; padding: 24px 22px; display: flex; flex-direction: column; gap: 20px">
 <div style="display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 10px 20px">
 <div style="display: flex; flex-direction: column; gap: 6px; max-width: 440px">
 <span :style="`font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${accent}`">Chapitre 15</span>
-<h2 id="h-signes" style="margin: 0; font-size: 24px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 800">Les signes conventionnels</h2>
+<h2 id="h-signes" style="margin: 0; font-size: 24px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 800">Les signes conventionnels des arrêts</h2>
 <p style="margin: 0; font-size: 15px; line-height: 1.5; color: #55625D; text-wrap: pretty">Les 10 signes des arrêts, leur règle de liaison et leur signal visuel.</p>
 </div>
 <span dir="rtl" lang="ar" :style="`font-family: 'Hafs', 'Amiri', serif; font-weight: 400; font-size: 26px; line-height: 1.7; color: ${accent}`">اَلۡعَلَامَاتُ الِاصۡطِلَاحِيَّةُ</span>
@@ -144,6 +148,10 @@ Quitter
 <span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Texte à trous</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: #55625D">{{meta.trous}}</span></span>
 </button>
 </div>
+<button class="lift" @click="startMix" style="margin-top: -10px; width: 100%; text-align: left; background: #FFFFFF; border: 1.5px solid #DCE0DA; border-radius: 16px; padding: 14px; display: flex; align-items: center; gap: 14px; min-height: 72px">
+<span :style="`width: 38px; height: 38px; border-radius: 11px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center; flex-shrink: 0`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 3h5v5"></path><path d="M4 20L21 3"></path><path d="M21 16v5h-5"></path><path d="M15 15l6 6"></path><path d="M4 4l5 5"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Mélange</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: #55625D">{{meta.mix}} · QCM, vrai ou faux et texte à trous</span></span>
+</button>
 </section>
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr)); gap: 12px">
 <button class="lift" @click="goInstall" style="text-align: left; background: #FFFFFF; border: 1.5px solid #DCE0DA; border-radius: 18px; padding: 14px 16px; display: flex; align-items: center; gap: 14px; min-height: 72px">
@@ -431,7 +439,7 @@ Mode mémorisation
 <h1 style="margin: 0; font-size: 34px; line-height: 1.1; letter-spacing: -0.025em; font-weight: 800">À propos de l’application</h1>
 </div>
 <article style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 14px; padding: 22px 24px; gap: 16px">
-<p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">Cette application a été développée par un auditeur du CIFOD dans le but de faciliter à sa propre personne ainsi qu’aux autres apprenants, la révision des cours de Psalmodie du QUR’ÂN. Elle n’a pas vocation à remplacer ni les cours en présentiel, ni ceux dispensés en ligne, mais aspire plutôt à devenir, inchâ Allah, un compagnon ludique sur le chemin de l’apprentissage du Tadjwîd.</p>
+<p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">Cette application a été développée par un auditeur du CIFOD dans le but de faciliter à sa propre personne ainsi qu’aux autres apprenants, la révision des cours théoriques de Psalmodie du QUR’ÂN. Elle n’a vocation à remplacer ni les cours en présentiel, ni ceux dispensés en ligne, mais aspire plutôt à devenir, inchâ Allah, un compagnon ludique sur le chemin de l’apprentissage du Tadjwîd.</p>
 <p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">Par ailleurs, l’application suit pas à pas l’ouvrage de référence en la matière au CIFOD (niveaux 4 et CPC)&nbsp;: <em>Le Viatique du Lecteur</em>, Règles de la Psalmodie du QUR’ÂN.</p>
 <p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">C’est une application web totalement gratuite et sans aucune publicité. De plus, elle fonctionne offline (sans connexion internet).</p>
 <p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">Nous espérons que ce modeste travail sera profitable à tous les apprenants.</p>
@@ -1013,9 +1021,20 @@ class Component extends DCLogic {
   start(mode, topic) {
     const D = this.D();
     const tp = topic === 'types' ? 'types' : 'signes';
-    const bank = D[this.bankKey(mode, tp)];
-    const n = Math.max(1, Math.min(this.count(), bank.length));
-    const queue = this.shuffle(bank).slice(0, n).map((it) => this.prep(mode, it));
+    let queue;
+    if (mode === 'mix') {
+      // Mélange : QCM, vrai ou faux et texte à trous, en parts à peu près égales
+      const pools = ['qcm', 'vf', 'trous'].map((k) => this.shuffle(D[this.bankKey(k, tp)]).map((it) => [k, it]));
+      const all = pools.reduce((a, p) => a + p.length, 0);
+      const n = Math.max(1, Math.min(this.count(), all));
+      const pick = [];
+      for (let r = 0; pick.length < n; r++) { const p = pools[r % 3]; if (p.length) pick.push(p.shift()); }
+      queue = this.shuffle(pick).map((x) => this.prep(x[0], x[1]));
+    } else {
+      const bank = D[this.bankKey(mode, tp)];
+      const n = Math.max(1, Math.min(this.count(), bank.length));
+      queue = this.shuffle(bank).slice(0, n).map((it) => this.prep(mode, it));
+    }
     this.setState({
       screen: mode, mode, topic: tp, queue, idx: 0, answered: false, picked: null, checked: false,
       score: 0, mistakes: [], fills: queue[0].type === 'trous' ? queue[0].answers.map(() => null) : []
@@ -1137,20 +1156,21 @@ class Component extends DCLogic {
     const empty = { glyph: '', color: INK, fs: '0px', aria: '', isTxt: false, isSajda: false, isHizb: false, isQala: false, isSala: false, isAyah: false, px: '0px' };
     const n = this.count();
     const screen = s.screen;
-    const isQcm = screen === 'qcm';
-    const isVf = screen === 'vf';
-    const isTrous = screen === 'trous';
+    const cur = screen === 'mix' ? s.queue[s.idx] : null;
+    const isQcm = screen === 'qcm' || (!!cur && cur.type === 'qcm');
+    const isVf = screen === 'vf' || (!!cur && cur.type === 'vf');
+    const isTrous = screen === 'trous' || (!!cur && cur.type === 'trous');
     const inSession = isQcm || isVf || isTrous;
-    const labels = { qcm: 'QCM', vf: 'Vrai ou faux', trous: 'Texte à trous' };
+    const labels = { qcm: 'QCM', vf: 'Vrai ou faux', trous: 'Texte à trous', mix: 'Mélange' };
     const topicLabels = { signes: 'Signes', types: 'Types d’arrêts' };
     const q = inSession ? s.queue[s.idx] : null;
     const total = s.queue.length || 1;
 
-    const units = { qcm: 'questions', vf: 'affirmations', trous: 'phrases' };
+    const units = { qcm: 'questions', vf: 'affirmations', trous: 'phrases', mix: 'questions' };
     const metaFor = (m, tp) => {
       const key = this.bankKey(m, tp);
       const b = s.best[key];
-      const total = D[key].length;
+      const total = m === 'mix' ? ['qcm', 'vf', 'trous'].reduce((a, k) => a + D[this.bankKey(k, tp)].length, 0) : D[key].length;
       const base = total + ' ' + units[m];
       return b ? base + ' · record ' + b.score + '/' + b.total : base;
     };
@@ -1334,15 +1354,15 @@ class Component extends DCLogic {
       modeLabel: (labels[screen] || '') + (inSession ? ' · ' + (topicLabels[s.topic] || '') : ''), qNum: s.idx + 1, total: s.queue.length, score: s.score,
       progressNum, progressPct: progressNum + '%',
       strip: D.signs.map((x) => this.tile(x.id, 30)),
-      meta: { qcm: metaFor('qcm', 'signes'), vf: metaFor('vf', 'signes'), trous: metaFor('trous', 'signes') },
-      metaT: { qcm: metaFor('qcm', 'types'), vf: metaFor('vf', 'types'), trous: metaFor('trous', 'types') },
+      meta: { qcm: metaFor('qcm', 'signes'), vf: metaFor('vf', 'signes'), trous: metaFor('trous', 'signes'), mix: metaFor('mix', 'signes') },
+      metaT: { qcm: metaFor('qcm', 'types'), vf: metaFor('vf', 'types'), trous: metaFor('trous', 'types'), mix: metaFor('mix', 'types') },
       typeRows, matrixRows,
       learnRows, hide: s.hide, toggleHide: () => this.toggleHide(),
       qc, qcmOptions, vfButtons, tr, fb, res,
       goHome: () => this.go('home'), goLearn: () => this.go('learn'), goTypes: () => this.go('learnTypes'), goInstall: () => this.go('install'), goAbout: () => this.go('about'), quit: () => this.go('home'),
       goFiches: () => this.go(s.topic === 'types' ? 'learnTypes' : 'learn'),
-      startQcm: () => this.start('qcm', 'signes'), startVf: () => this.start('vf', 'signes'), startTrous: () => this.start('trous', 'signes'),
-      startTQcm: () => this.start('qcm', 'types'), startTVf: () => this.start('vf', 'types'), startTTrous: () => this.start('trous', 'types'),
+      startQcm: () => this.start('qcm', 'signes'), startVf: () => this.start('vf', 'signes'), startTrous: () => this.start('trous', 'signes'), startMix: () => this.start('mix', 'signes'),
+      startTQcm: () => this.start('qcm', 'types'), startTVf: () => this.start('vf', 'types'), startTTrous: () => this.start('trous', 'types'), startTMix: () => this.start('mix', 'types'),
       restart: () => this.start(s.mode || 'qcm', s.topic),
       next: () => this.next(), check: () => this.check(), resetFills: () => this.resetFills()
     };
