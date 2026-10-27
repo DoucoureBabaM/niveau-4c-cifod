@@ -70,7 +70,7 @@ Quitter
 <img src="assets/cifod_cercle.png" alt="Banderole du CIFOD : Apprendre à lire le Coran en 3 mois" style="width: 52px; height: 52px; border-radius: 999px; display: block; flex-shrink: 0; object-fit: cover; box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 3px #DCE0DA, 0 4px 12px rgba(20,32,28,0.12)">
 <h1 style="margin: 0; font-size: 24px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 800; color: #14201C; text-transform: uppercase">Niveau 4C</h1>
 </div>
-<p style="margin: 0; font-size: 17px; line-height: 1.55; color: #55625D; max-width: 580px; text-wrap: pretty">Les types d’arrêts et les signes conventionnels des arrêts&nbsp;: apprends-les avec les fiches, puis révise-les en QCM, en vrai ou faux et en texte à trous.</p>
+<p style="margin: 0; font-size: 17px; line-height: 1.55; color: #55625D; max-width: 580px; text-wrap: pretty">Les types d’arrêts et les signes conventionnels des arrêts&nbsp;: apprends-les avec les fiches, puis révise-les en QCM, vrai/faux, texte à trous et mélange.</p>
 </div>
 <section aria-labelledby="h-types" style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 24px; padding: 24px 22px; display: flex; flex-direction: column; gap: 20px">
 <div style="display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 10px 20px">
@@ -266,7 +266,7 @@ Mode mémorisation
 <template v-for="ex in row.examples">
 <div style="border: 1px dashed #C9CFC7; border-radius: 12px; padding: 8px 14px; display: flex; flex-direction: column; gap: 2px">
 <span style="font-size: 11.5px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: #55625D">{{ex.label}}</span>
-<div dir="rtl" lang="ar" style="font-family: 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: 23px; line-height: 2.2; color: #14201C; text-align: right">{{ex.text}}</div>
+<div dir="rtl" lang="ar" style="font-family: 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: 23px; line-height: 2.2; color: #14201C; text-align: right"><template v-for="pt in ex.parts"><span :style="pt.style">{{pt.text}}</span></template></div>
 </div>
 </template>
 <template v-if="row.hasBookNote">
@@ -285,8 +285,10 @@ Mode mémorisation
 <button @click="startQcm" :style="`min-height: 48px; padding: 0 20px; border-radius: 12px; border: 0; background: ${accent}; color: #FFFFFF; font-size: 15px; font-weight: 700`">QCM</button>
 <button @click="startVf" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid #DCE0DA; background: #FFFFFF; font-size: 15px; font-weight: 700">Vrai ou faux</button>
 <button @click="startTrous" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid #DCE0DA; background: #FFFFFF; font-size: 15px; font-weight: 700">Texte à trous</button>
+<button @click="startMix" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid #DCE0DA; background: #FFFFFF; font-size: 15px; font-weight: 700">Mélange</button>
 </div>
 </div>
+<div style="display: flex; justify-content: center; padding-top: 4px"><button class="lift" @click="goHome" style="min-height: 52px; padding: 0 22px; border-radius: 14px; border: 1.5px solid #DCE0DA; background: #FFFFFF; display: inline-flex; align-items: center; gap: 10px; font-size: 15.5px; font-weight: 800"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5"></path><path d="M5 9.5V20h14V9.5"></path><path d="M10 20v-6h4v6"></path></svg>Retour à l’accueil</button></div>
 </section>
 </template>
 
@@ -374,8 +376,8 @@ Mode mémorisation
 <span style="font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #55625D">Exemple · {{ty.ex.ref}}</span>
 <span style="font-size: 14px; line-height: 1.5">{{ty.exLabel}}</span>
 <div dir="rtl" lang="ar" style="font-family: 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: 26px; line-height: 2.1; color: #14201C; text-align: center">
-<template v-if="ty.ex.isPair"><span>… {{ty.ex.before}}</span><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true" style="vertical-align: middle; margin: 0 8px"><circle cx="10" cy="10" r="7.5" fill="none" stroke="#A1262B" stroke-width="1.6"></circle><circle cx="10" cy="10" r="3" fill="#A1262B"></circle></svg><span>{{ty.ex.after}} …</span></template>
-<template v-if="ty.ex.isSingle"><span>{{ty.ex.text}} …</span></template>
+<template v-if="ty.ex.isPair"><span>… <template v-for="pt in ty.ex.beforeParts"><span :style="pt.style">{{pt.text}}</span></template></span> <span aria-label="fin de verset" style="font-family: 'Hafs', 'Amiri Quran', serif; color: #C62828; margin: 0 4px">{{ty.ex.num}}</span> <span><template v-for="pt in ty.ex.afterParts"><span :style="pt.style">{{pt.text}}</span></template> …</span></template>
+<template v-if="ty.ex.isSingle"><span><template v-for="pt in ty.ex.textParts"><span :style="pt.style">{{pt.text}}</span></template> …</span></template>
 </div>
 <template v-if="ty.hasExNote"><p style="margin: 0; font-size: 14px; line-height: 1.5; color: #55625D">{{ty.exNote}}</p></template>
 </div>
@@ -389,8 +391,10 @@ Mode mémorisation
 <button @click="startTQcm" :style="`min-height: 48px; padding: 0 20px; border-radius: 12px; border: 0; background: ${accent}; color: #FFFFFF; font-size: 15px; font-weight: 700`">QCM</button>
 <button @click="startTVf" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid #DCE0DA; background: #FFFFFF; font-size: 15px; font-weight: 700">Vrai ou faux</button>
 <button @click="startTTrous" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid #DCE0DA; background: #FFFFFF; font-size: 15px; font-weight: 700">Texte à trous</button>
+<button @click="startTMix" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid #DCE0DA; background: #FFFFFF; font-size: 15px; font-weight: 700">Mélange</button>
 </div>
 </div>
+<div style="display: flex; justify-content: center; padding-top: 4px"><button class="lift" @click="goHome" style="min-height: 52px; padding: 0 22px; border-radius: 14px; border: 1.5px solid #DCE0DA; background: #FFFFFF; display: inline-flex; align-items: center; gap: 10px; font-size: 15.5px; font-weight: 800"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5"></path><path d="M5 9.5V20h14V9.5"></path><path d="M10 20v-6h4v6"></path></svg>Retour à l’accueil</button></div>
 </section>
 </template>
 
@@ -486,8 +490,8 @@ Mode mémorisation
 <template v-if="qc.hasVerse">
 <div style="width: 100%; max-width: 560px; border: 1px dashed #C9CFC7; border-radius: 14px; padding: 10px 16px; display: flex; flex-direction: column; gap: 2px">
 <div dir="rtl" lang="ar" style="font-family: 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: 30px; line-height: 2.1; color: #14201C; text-align: center">
-<template v-if="qc.verse.isPair"><span>… {{qc.verse.before}}</span><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true" style="vertical-align: middle; margin: 0 8px"><circle cx="10" cy="10" r="7.5" fill="none" stroke="#A1262B" stroke-width="1.6"></circle><circle cx="10" cy="10" r="3" fill="#A1262B"></circle></svg><span>{{qc.verse.after}} …</span></template>
-<template v-if="qc.verse.isSingle"><span>{{qc.verse.text}} …</span></template>
+<template v-if="qc.verse.isPair"><span>… <template v-for="pt in qc.verse.beforeParts"><span :style="pt.style">{{pt.text}}</span></template></span> <span aria-label="fin de verset" style="font-family: 'Hafs', 'Amiri Quran', serif; color: #C62828; margin: 0 4px">{{qc.verse.num}}</span> <span><template v-for="pt in qc.verse.afterParts"><span :style="pt.style">{{pt.text}}</span></template> …</span></template>
+<template v-if="qc.verse.isSingle"><span><template v-for="pt in qc.verse.textParts"><span :style="pt.style">{{pt.text}}</span></template> …</span></template>
 </div>
 <span style="font-size: 12px; font-weight: 700; color: #55625D">{{qc.verse.ref}}</span>
 </div>
@@ -626,8 +630,8 @@ Recommencer
 <p style="margin: 0; font-size: 15px; font-weight: 700; line-height: 1.45">{{m.prompt}}</p>
 <template v-if="m.hasVerse">
 <div dir="rtl" lang="ar" style="font-family: 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: 22px; line-height: 2.1; color: #14201C; text-align: left">
-<template v-if="m.verse.isPair"><span>… {{m.verse.before}}</span><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true" style="vertical-align: middle; margin: 0 8px"><circle cx="10" cy="10" r="7.5" fill="none" stroke="#A1262B" stroke-width="1.6"></circle><circle cx="10" cy="10" r="3" fill="#A1262B"></circle></svg><span>{{m.verse.after}} …</span></template>
-<template v-if="m.verse.isSingle"><span>{{m.verse.text}} …</span></template>
+<template v-if="m.verse.isPair"><span>… <template v-for="pt in m.verse.beforeParts"><span :style="pt.style">{{pt.text}}</span></template></span> <span aria-label="fin de verset" style="font-family: 'Hafs', 'Amiri Quran', serif; color: #C62828; margin: 0 4px">{{m.verse.num}}</span> <span><template v-for="pt in m.verse.afterParts"><span :style="pt.style">{{pt.text}}</span></template> …</span></template>
+<template v-if="m.verse.isSingle"><span><template v-for="pt in m.verse.textParts"><span :style="pt.style">{{pt.text}}</span></template> …</span></template>
 </div>
 </template>
 <p :style="`margin: 0; font-size: 14px; font-weight: 800; line-height: 1.45; color: ${m.accent}`">Bonne réponse&nbsp;: {{m.answer}}</p>
@@ -719,18 +723,18 @@ class Component extends DCLogic {
         def: 'C’est l’arrêt sur un mot du Coran, sans reprendre sa respiration, pour un bref instant. Cette pause n’existe qu’à 6 endroits dans la lecture selon le lectionnaire Hafs conformément à Châṭubiyy.',
         letter: 'Il est représenté par la lettre ci-contre. Exemples : 4 obligatoires et 2 autorisés.',
         ex: [
-          { label: 'Obligatoire · Sourate 18, verset 1', text: '… وَلَمۡ يَجۡعَل لَّهُۥ عِوَجَا ۜ ۝ قَيِّمًا لِّيُنذِرَ بَأۡسًا شَدِيدًا مِّن لَّدُنۡهُ …' },
+          { label: 'Obligatoire · Sourate 18, verset 1', sinShift: { left: '0.3em', top: '-0.18em' }, text: '… وَلَمۡ يَجۡعَل لَّهُۥ عِوَجَا ۜ ١ قَيِّمًا لِّيُنذِرَ بَأۡسًا شَدِيدًا مِّن لَّدُنۡهُ …' },
           { label: 'Obligatoire · Sourate 36, verset 52', text: '… مِن مَّرۡقَدِنَا ۜ ۗ هَٰذَا …' },
-          { label: 'Obligatoire · Sourate 75, verset 27', text: 'وَقِيلَ مَنۡ ۜ رَاقٍ' },
-          { label: 'Obligatoire · Sourate 83, verset 14', text: 'كَلَّا ۖ بَلۡ ۜ رَانَ عَلَىٰ قُلُوبِهِم مَّا كَانُواْ يَكۡسِبُونَ' },
-          { label: 'Autorisée · Sourate Al-Hâqqah, versets 28 et 29', text: 'مَآ أَغۡنَىٰ عَنِّى مَالِيَهۡ ۜ ۝ هَلَكَ عَنِّى سُلۡطَٰنِيَهۡ' },
-          { label: 'Autorisée · Fin d’Al-Anfâl et début d’At-Tawbah', text: '… إِنَّ ٱللَّهَ بِكُلِّ شَىۡءٍ عَلِيمٌۢ ۜ بَرَآءَةٌ مِّنَ ٱللَّهِ وَرَسُولِهِۦٓ …' }
+          { label: 'Obligatoire · Sourate 75, verset 27', sinShift: { left: '0.34em', top: '-0.12em', ws: '-0.2em' }, text: 'وَقِيلَ مَنۡ ۜ رَاقٍ' },
+          { label: 'Obligatoire · Sourate 83, verset 14', sinShift: { left: '0.3em', top: '-0.38em', ws: '-0.2em' }, text: 'كَلَّا ۖ بَلۡ ۜ رَانَ عَلَىٰ قُلُوبِهِم مَّا كَانُواْ يَكۡسِبُونَ' },
+          { label: 'Autorisée · Sourate Al-Hâqqah, versets 28 et 29', sinShift: { left: '0.32em', top: '-0.14em' }, text: 'مَآ أَغۡنَىٰ عَنِّى مَالِيَهۡ ۜ ٢٨ هَلَكَ عَنِّى سُلۡطَٰنِيَهۡ' },
+          { label: 'Autorisée · Fin d’Al-Anfâl et début d’At-Tawbah', sinShift: { left: '0.3em', top: '-0.2em', ws: '-0.2em' }, text: '… إِنَّ ٱللَّهَ بِكُلِّ شَىۡءٍ عَلِيمۡ ۜ بَرَآءَةٌ مِّنَ ٱللَّهِ وَرَسُولِهِۦٓ …' }
         ],
         note: 'Lorsque le signe de pause légère coïncide avec la fin d’un verset ou avec un signe d’arrêt, le lecteur a le choix entre l’arrêt et la pause légère (d’où l’obligation d’arrêt). C’est le cas des deux premiers versets des exemples.' }
     };
     signs.forEach((s) => {
       const b = book[s.id];
-      s.book = b ? { name: fr(b.name), tr: b.tr, ar: b.ar, def: fr(b.def), letter: fr(b.letter), note: b.note ? fr(b.note) : '', ex: b.ex.map((e) => ({ label: fr(e.label), text: e.text })) } : null;
+      s.book = b ? { name: fr(b.name), tr: b.tr, ar: b.ar, def: fr(b.def), letter: fr(b.letter), note: b.note ? fr(b.note) : '', ex: b.ex.map((e) => ({ label: fr(e.label), text: e.text, parts: this.redParts(e.text, e.sinShift) })) } : null;
     });
     const map = {};
     signs.forEach((s) => { map[s.id] = s; });
@@ -821,8 +825,8 @@ class Component extends DCLogic {
     ].map((x) => ({ t: fr(x.t), d: x.d, e: fr(x.e) }));
 
     const EX = {
-      s2v5: { ref: 'Sourate 2 · versets 5 et 6', before: 'وَأُوْلَٰٓئِكَ هُمُ ٱلۡمُفۡلِحُونَ', after: 'إِنَّ ٱلَّذِينَ كَفَرُواْ' },
-      s2v6: { ref: 'Sourate 2 · versets 6 et 7', before: 'لَا يُؤۡمِنُونَ', after: 'خَتَمَ ٱللَّهُ عَلَىٰ قُلُوبِهِمۡ وَعَلَىٰ سَمۡعِهِمۡ' },
+      s2v5: { ref: 'Sourate 2 · versets 5 et 6', num: '٥', before: 'وَأُوْلَٰٓئِكَ هُمُ ٱلۡمُفۡلِحُونَ', after: 'إِنَّ ٱلَّذِينَ كَفَرُواْ' },
+      s2v6: { ref: 'Sourate 2 · versets 6 et 7', num: '٦', before: 'لَا يُؤۡمِنُونَ', after: 'خَتَمَ ٱللَّهُ عَلَىٰ قُلُوبِهِمۡ وَعَلَىٰ سَمۡعِهِمۡ ۖ' },
       s1v2a: { ref: 'Sourate 1 · verset 2', text: 'ٱلۡحَمۡدُ لِلَّهِ' },
       s1v2b: { ref: 'Sourate 1 · verset 2', text: 'ٱلۡحَمۡدُ' }
     };
@@ -1007,10 +1011,26 @@ class Component extends DCLogic {
     return topic === 'types' ? 't' + mode : mode;
   }
 
+  redParts(t, sinShift) {
+    const parts = (t || '').split(/([ \u00A0]?[\u06D6-\u06DC])/).filter((x) => x)
+      .map((x) => ({ text: x, mark: (x.match(/[\u06D6-\u06DC]/) || [''])[0] }));
+    const near = (i, step) => { for (let k = i + step; k >= 0 && k < parts.length; k += step) { if (parts[k].mark || parts[k].text.trim()) return parts[k].mark; } return ''; };
+    return parts.map((p, i) => {
+      let shift = '';
+      if (p.mark === '\u06DC' && near(i, 1) === '\u06D7') shift = ' position: relative; top: -0.2em; left: 0.33em; word-spacing: -0.16em;';
+      if (p.mark === '\u06D7' && near(i, -1) === '\u06DC') shift = ' position: relative; top: 0.04em; left: -0.33em; word-spacing: -0.16em;';
+      if (!shift && sinShift && p.mark === '\u06DC') shift = ' position: relative; left: ' + (sinShift.left || '0') + '; top: ' + (sinShift.top || '0') + ';' + (sinShift.ws ? ' word-spacing: ' + sinShift.ws + ';' : '');
+      const color = p.mark ? '#C62828' : 'inherit';
+      const bold = p.mark ? ' -webkit-text-stroke: 0.01em ' + color + ';' : '';
+      return { text: p.text, color, style: 'color: ' + color + ';' + bold + shift };
+    });
+  }
+
   verse(id) {
     const ex = id ? this.D().EX[id] : null;
-    if (!ex) return { isPair: false, isSingle: false, before: '', after: '', text: '', ref: '' };
-    return { isPair: !!ex.before, isSingle: !ex.before, before: ex.before || '', after: ex.after || '', text: ex.text || '', ref: ex.ref };
+    if (!ex) return { isPair: false, isSingle: false, before: '', after: '', text: '', ref: '', num: '', beforeParts: [], afterParts: [], textParts: [] };
+    return { isPair: !!ex.before, isSingle: !ex.before, before: ex.before || '', after: ex.after || '', text: ex.text || '', ref: ex.ref, num: ex.num || '',
+      beforeParts: this.redParts(ex.before), afterParts: this.redParts(ex.after), textParts: this.redParts(ex.text) };
   }
 
   go(screen) {
