@@ -447,7 +447,7 @@ Mode mémorisation
 Mode mémorisation
 </label>
 <template v-if="hide">
-<p :style="`margin: 0; font-size: 13.5px; font-weight: 700; line-height: 1.5; color: ${accent}`">Mode mémorisation&nbsp;: pour chaque partie, retrouve s’il s’agit de l’emphase, de la légèreté ou du choix&nbsp;; pour chaque cas, retrouve la règle à partir des exemples, puis touche pour vérifier.</p>
+<p :style="`margin: 0; font-size: 13.5px; font-weight: 700; line-height: 1.5; color: ${accent}`">Mode mémorisation&nbsp;: pour chaque cas, retrouve la règle à partir des exemples, puis touche pour vérifier.</p>
 </template>
 <div style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 18px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px">
 <span dir="rtl" lang="ar" :style="`align-self: flex-start; font-family: 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: 26px; line-height: 1.7; color: ${accent}`">أَحۡكَامُ ٱلۡحَرۡفِ ٱلرَّاءِ</span>
@@ -1498,7 +1498,7 @@ class Component extends DCLogic {
 
     const sigLabels = { stop: 'Stop', orange: 'Feu orange', blue: 'Sens obligatoire' };
     const raSections = D.RA.sections.map((sec) => {
-      const secHid = s.hide && !s.revealed['ra_s' + sec.num];
+      const secHid = false; // les titres des parties restent visibles en mode mémorisation
       return {
         num: sec.num, title: sec.title, ar: sec.ar || '', hasAr: !!sec.ar, verdict: sec.verdict, count: sec.cases.length + ' cas',
         chipStyle: 'background: ' + sec.chipBg + '; color: ' + sec.chipFg + ';',
@@ -1509,6 +1509,7 @@ class Component extends DCLogic {
           return {
             n: String(k + 1), rule: c.rule, ruleParts: this.vowelBold(this.hlParts(c.rule)), lead: c.lead || '', hasLead: !!c.lead, note: c.note || '', hasNote: !!c.note && !hid,
             isHidden: hid, isShown: !hid, reveal: () => this.reveal('ra_' + sec.num + '_' + (k + 1)),
+            showVerdict: s.hide && !hid, verdict: sec.verdict, verdictStyle: 'background: ' + sec.chipBg + '; color: ' + sec.chipFg + ';',
             revealAria: 'Révéler la règle du cas ' + (k + 1) + ' de la partie ' + sec.num,
             badgeStyle: 'background: ' + (secHid ? '#E6E9E3' : sec.chipBg) + '; color: ' + (secHid ? '#55625D' : sec.chipFg) + ';',
             examples: c.ex.map((e) => ({ label: e.label, word: e.word || '', hasWord: !!e.word, parts: this.hlParts(e.text) }))
