@@ -1,6 +1,6 @@
 // Niveau 4C — cache pour une ouverture rapide et hors ligne.
 // Change le numéro de CACHE à chaque nouvelle version : les téléphones affichent alors « Nouvelle version disponible ».
-const CACHE = 'niveau4c-v65';
+const CACHE = 'niveau4c-v68';
 const PRECACHE = ['./', 'index.html', 'manifest.webmanifest', 'assets/apple-touch-icon.png', 'assets/cifod_cercle.png', 'assets/cifod_logo.png', 'assets/dots.svg', 'assets/facebook_logo.png', 'assets/fin-de-verset.svg', 'assets/hizb.svg', 'assets/icon-192.png', 'assets/icon-512.png', 'assets/icon-maskable-512.png', 'assets/jim.svg', 'assets/kfgqpc_hafs.ttf', 'assets/la.svg', 'assets/logo_android.png', 'assets/logo_apple.png', 'assets/logo_psalmodie.svg', 'assets/mim.svg', 'assets/petite-vue.iife.js', 'assets/qala.svg', 'assets/sajda.svg', 'assets/sala.svg', 'assets/sin.svg', 'assets/viatique_cercle.jpg'];
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(PRECACHE)));
