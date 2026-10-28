@@ -13,16 +13,18 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Niveau 4C">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&amp;family=Amiri+Quran&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&amp;family=Amiri+Quran&amp;family=Manrope:wght@400;500;600;700;800&amp;family=Noto+Naskh+Arabic:wght@400;600&amp;family=Scheherazade+New:wght@400;700&amp;display=swap">
 <style>
 @font-face{font-family:'Hafs';src:url('assets/kfgqpc_hafs.ttf') format('truetype');font-display:swap}
 body{margin:0;background:#F3F4F0}
+body:has([data-theme="dark"]){background:#0F1513}
 *{box-sizing:border-box}
 button,input{font:inherit;color:inherit}
 button{-webkit-tap-highlight-color:transparent}
 button:not(:disabled){cursor:pointer}
 a:focus-visible,button:focus-visible,input:focus-visible,label:focus-within{outline:3px solid #1F4F8F;outline-offset:2px}
-a{color:#0B5D4B}a:hover{color:#08463A}
+a{color:var(--accent,#0B5D4B)}a:hover{opacity:.85}
+[data-theme="dark"] img[src*="9511bf15"],[data-theme="dark"] img[src*="1bbfc1c8"],[data-theme="dark"] img[src*="72963e90"],[data-theme="dark"] img[src*="2f87fd6e"],[data-theme="dark"] img[src*="0f5b3b11"],[data-theme="dark"] img[src*="6312e7c9"],[data-theme="dark"] img[src*="1b39939e"],[data-theme="dark"] img[src*="73085426"],[data-theme="dark"] img[src*="9fc8aadc"],[data-theme="dark"] img[src*="0e5a54f4"],[data-theme="dark"] img[src*="assets/mim.svg"],[data-theme="dark"] img[src*="assets/sin.svg"],[data-theme="dark"] img[src*="assets/jim.svg"],[data-theme="dark"] img[src*="assets/la.svg"],[data-theme="dark"] img[src*="assets/qala.svg"],[data-theme="dark"] img[src*="assets/sala.svg"],[data-theme="dark"] img[src*="assets/dots.svg"],[data-theme="dark"] img[src*="assets/sajda.svg"],[data-theme="dark"] img[src*="assets/hizb.svg"],[data-theme="dark"] img[src*="assets/ayah2.svg"]{background:#F4F5F1;border-radius:8px}
 @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .rise{animation:rise .32s cubic-bezier(.2,.7,.2,1) both}
 .lift{transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease}
@@ -33,20 +35,20 @@ a{color:#0B5D4B}a:hover{color:#08463A}
 </head>
 <body>
 <div id="app" v-cloak>
-<div style="min-height: 100vh; background: #F3F4F0; color: #14201C; font-family: 'Manrope', 'Hafs', 'Amiri', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; display: flex; flex-direction: column">
+<div :data-theme="themeName" :style="`${themeVars} min-height: 100vh; background: var(--bg); color: var(--ink); font-family: 'Manrope', var(--arfont, 'Hafs'), 'Hafs', 'Amiri', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; display: flex; flex-direction: column`">
 
-<header style="border-bottom: 1px solid #DCE0DA">
+<header style="border-bottom: 1px solid var(--line)">
 <div style="max-width: 760px; margin: 0 auto; padding: 10px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px">
 <div style="display: flex; align-items: center; gap: 12px; min-width: 0">
 <button @click="goHome" aria-label="Retour à l’accueil" style="display: flex; align-items: center; background: none; border: 0; padding: 4px; min-height: 48px; border-radius: 12px; flex-shrink: 0">
 <img src="assets/logo_psalmodie.svg" alt="" style="width: 52px; height: 52px; display: block; flex-shrink: 0">
 </button>
 <figure style="margin: 0; min-width: 0; max-width: 540px">
-<blockquote style="margin: 0; font-size: 11px; font-weight: 700; letter-spacing: 0.02em; line-height: 1.45; color: #24452F; text-transform: uppercase; text-wrap: pretty">«&nbsp;Récitez le Qurân, car le jour de la Résurrection, il viendra intercéder en faveur de ses lecteurs assidus.&nbsp;» <cite style="font-style: normal; font-size: 10px; letter-spacing: 0.06em; color: #55625D; white-space: nowrap">(Muslim)</cite></blockquote>
+<blockquote style="margin: 0; font-size: 11px; font-weight: 700; letter-spacing: 0.02em; line-height: 1.45; color: var(--ink2); text-transform: uppercase; text-wrap: pretty">«&nbsp;Récitez le Qurân, car le jour de la Résurrection, il viendra intercéder en faveur de ses lecteurs assidus.&nbsp;» <cite style="font-style: normal; font-size: 10px; letter-spacing: 0.06em; color: var(--muted); white-space: nowrap">(Muslim)</cite></blockquote>
 </figure>
 </div>
 <template v-if="showQuit">
-<button @click="quit" style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1.5px solid #DCE0DA; background: #FFFFFF; font-size: 14px; font-weight: 700">
+<button @click="quit" style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--surface); font-size: 14px; font-weight: 700">
 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17"></path></svg>
 Quitter
 </button>
@@ -62,93 +64,111 @@ Quitter
 <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center">
 <p :style="`margin: 0; font-size: 13px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${accent}`">Apprendre · Réviser</p>
 <div style="display: flex; align-items: center; justify-content: center; gap: 16px">
-<p style="margin: 0; display: flex; flex-direction: column; align-items: center; gap: 2px; text-align: center"><span style="font-size: clamp(17px, 2.6vw, 22px); font-weight: 800; font-style: italic; line-height: 1.25; color: #14201C">Le viatique du lecteur</span><span style="font-size: clamp(14px, 2vw, 17px); font-weight: 600; line-height: 1.3; color: #55625D">Règles de la Psalmodie du QUR’ÂN</span></p>
-<img src="assets/viatique_cercle.jpg" alt="Couverture du livre « Le Viatique du Lecteur » (CIFOD)" style="width: clamp(88px, 18vw, 128px); height: clamp(88px, 18vw, 128px); display: block; flex-shrink: 0; border-radius: 999px; object-fit: cover; box-shadow: 0 0 0 3px #FFFFFF, 0 0 0 4px #DCE0DA, 0 8px 22px rgba(20,32,28,0.12)">
+<p style="margin: 0; display: flex; flex-direction: column; align-items: center; gap: 2px; text-align: center"><span style="font-size: clamp(17px, 2.6vw, 22px); font-weight: 800; font-style: italic; line-height: 1.25; color: var(--ink)">Le viatique du lecteur</span><span style="font-size: clamp(14px, 2vw, 17px); font-weight: 600; line-height: 1.3; color: var(--muted)">Règles de la Psalmodie du QUR’ÂN</span></p>
+<img src="assets/viatique_cercle.jpg" alt="Couverture du livre « Le Viatique du Lecteur » (CIFOD)" style="width: clamp(88px, 18vw, 128px); height: clamp(88px, 18vw, 128px); display: block; flex-shrink: 0; border-radius: 999px; object-fit: cover; box-shadow: 0 0 0 3px var(--surface), 0 0 0 4px var(--line), 0 8px 22px rgba(20,32,28,0.12)">
 </div>
 </div>
 <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px">
-<img src="assets/cifod_cercle.png" alt="Banderole du CIFOD : Apprendre à lire le Coran en 3 mois" style="width: 52px; height: 52px; border-radius: 999px; display: block; flex-shrink: 0; object-fit: cover; box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 3px #DCE0DA, 0 4px 12px rgba(20,32,28,0.12)">
-<h1 style="margin: 0; font-size: 24px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 800; color: #14201C; text-transform: uppercase">Niveau 4C</h1>
+<img src="assets/cifod_cercle.png" alt="Banderole du CIFOD : Apprendre à lire le Coran en 3 mois" style="width: 52px; height: 52px; border-radius: 999px; display: block; flex-shrink: 0; object-fit: cover; box-shadow: 0 0 0 2px var(--surface), 0 0 0 3px var(--line), 0 4px 12px rgba(20,32,28,0.12)">
+<h1 style="margin: 0; font-size: 24px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 800; color: var(--ink); text-transform: uppercase">Niveau 4C</h1>
 </div>
-<p style="margin: 0; font-size: 17px; line-height: 1.55; color: #55625D; max-width: 580px; text-wrap: pretty">Les règles de la lettre Ra, les types d’arrêts et les signes conventionnels des arrêts&nbsp;: apprends-les avec les fiches, puis révise-les en QCM, vrai/faux, texte à trous et mélange.</p>
+<p style="margin: 0; font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 580px; text-wrap: pretty">Les règles de la lettre Ra, les types d’arrêts et les signes conventionnels des arrêts&nbsp;: apprends-les avec les fiches, puis révise-les en QCM, vrai/faux, texte à trous et mélange.</p>
 </div>
-<section aria-labelledby="h-ra" style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 24px; padding: 24px 22px; display: flex; flex-direction: column; gap: 20px">
+<button class="lift" @click="goProgress" style="text-align: left; width: 100%; background: var(--surface); border: 1.5px solid var(--line); border-radius: 18px; padding: 14px 16px; display: flex; align-items: center; gap: 14px; min-height: 72px">
+<span :style="`width: 44px; height: 44px; border-radius: 13px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center; flex-shrink: 0`"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10"></path><path d="M10 20V4"></path><path d="M16 20v-7"></path><path d="M22 20H2"></path></svg></span>
+<span style="flex: 1; display: flex; flex-direction: column; gap: 6px; min-width: 0"><span style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px"><span style="font-size: 16px; font-weight: 800">Mes progrès</span><span :style="`font-size: 14px; font-weight: 800; color: ${accent}`">{{progAll.pct}}&nbsp;% maîtrisé</span></span><div aria-hidden="true" style="height: 6px; border-radius: 999px; background: var(--surface3); overflow: hidden"><div :style="`height: 100%; width: ${progAll.barW}; background: var(--accent); border-radius: 999px`"></div></div><span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">{{progAll.sub}}</span></span>
+</button>
+<section aria-labelledby="h-ra" style="background: var(--surface); border: 1px solid var(--line); border-radius: 24px; padding: 24px 22px; display: flex; flex-direction: column; gap: 20px">
 <div style="display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 10px 20px">
 <div style="display: flex; flex-direction: column; gap: 6px; max-width: 440px">
 <span :style="`font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${accent}`">Chapitre 9</span>
 <h2 id="h-ra" style="margin: 0; font-size: 24px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 800">Les règles de la lettre Ra</h2>
-<p style="margin: 0; font-size: 15px; line-height: 1.5; color: #55625D; text-wrap: pretty">Emphase, légèreté ou au choix&nbsp;: savoir comment lire la lettre Rô «&nbsp;<bdi>ر</bdi>&nbsp;».</p>
+<p style="margin: 0; font-size: 15px; line-height: 1.5; color: var(--muted); text-wrap: pretty">Emphase, légèreté ou au choix&nbsp;: savoir comment lire la lettre Rô «&nbsp;<bdi>ر</bdi>&nbsp;».</p>
 </div>
-<span dir="rtl" lang="ar" aria-hidden="true" :style="`font-family: 'Hafs', 'Amiri', serif; font-weight: 400; font-size: 26px; line-height: 1.7; color: ${accent}`">أَحۡكَامُ ٱلۡحَرۡفِ ٱلرَّاءِ</span>
+<span dir="rtl" lang="ar" aria-hidden="true" :style="`font-family: var(--arfont, 'Hafs'), 'Hafs', 'Amiri', serif; font-weight: 400; font-size: calc(26px * var(--ar, 1)); line-height: 1.7; color: ${accent}`">أَحۡكَامُ ٱلۡحَرۡفِ ٱلرَّاءِ</span>
 </div>
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(140px, 100%), 1fr)); gap: 10px">
 <button class="lift" @click="goRa" :style="`text-align: left; background: ${accent}; color: #FFFFFF; border: 1.5px solid ${accent}; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px`">
 <span style="width: 38px; height: 38px; border-radius: 11px; background: rgba(255,255,255,0.16); display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5.5C3 4.7 3.7 4 4.5 4H10a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5h-6A1.5 1.5 0 0 1 3 17V5.5Z"></path><path d="M21 5.5c0-.8-.7-1.5-1.5-1.5H14a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5h6A1.5 1.5 0 0 0 21 17V5.5Z"></path></svg></span>
 <span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Fiches</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; opacity: 0.92">14 cas · emphase, légèreté, au choix</span></span>
 </button>
-<button class="lift" @click="startRQcm" style="text-align: left; background: #FFFFFF; border: 1.5px solid #DCE0DA; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px">
+<button class="lift" @click="startRQcm" style="text-align: left; background: var(--surface); border: 1.5px solid var(--line); border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px">
 <span :style="`width: 38px; height: 38px; border-radius: 11px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5.5" cy="6" r="2"></circle><path d="M11 6h9"></path><circle cx="5.5" cy="12" r="2"></circle><path d="M11 12h9"></path><circle cx="5.5" cy="18" r="2"></circle><path d="M11 18h9"></path></svg></span>
-<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">QCM</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: #55625D">{{metaR.qcm}}</span></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">QCM</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: var(--muted)">{{metaR.qcm}}</span></span>
 </button>
-<button class="lift" @click="startRVf" style="text-align: left; background: #FFFFFF; border: 1.5px solid #DCE0DA; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px">
+<button class="lift" @click="startRVf" style="text-align: left; background: var(--surface); border: 1.5px solid var(--line); border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px">
 <span :style="`width: 38px; height: 38px; border-radius: 11px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 12.5l3.2 3.2L11 9.5"></path><path d="M15 9l6 6M21 9l-6 6"></path></svg></span>
-<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Vrai ou faux</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: #55625D">{{metaR.vf}}</span></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Vrai ou faux</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: var(--muted)">{{metaR.vf}}</span></span>
 </button>
-<button class="lift" @click="startRTrous" style="text-align: left; background: #FFFFFF; border: 1.5px solid #DCE0DA; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px">
+<button class="lift" @click="startRTrous" style="text-align: left; background: var(--surface); border: 1.5px solid var(--line); border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px">
 <span :style="`width: 38px; height: 38px; border-radius: 11px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h6"></path><rect x="11" y="5.5" width="10" height="5" rx="1.5" stroke-dasharray="2 2"></rect><path d="M3 16h3"></path><rect x="8" y="13.5" width="8" height="5" rx="1.5" stroke-dasharray="2 2"></rect><path d="M18 16h3"></path></svg></span>
-<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Texte à trous</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: #55625D">{{metaR.trous}}</span></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Texte à trous</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: var(--muted)">{{metaR.trous}}</span></span>
 </button>
 </div>
-<button class="lift" @click="startRMix" style="margin-top: -10px; width: 100%; text-align: left; background: #FFFFFF; border: 1.5px solid #DCE0DA; border-radius: 16px; padding: 14px; display: flex; align-items: center; gap: 14px; min-height: 72px">
+<button class="lift" @click="startRMix" style="margin-top: -10px; width: 100%; text-align: left; background: var(--surface); border: 1.5px solid var(--line); border-radius: 16px; padding: 14px; display: flex; align-items: center; gap: 14px; min-height: 72px">
 <span :style="`width: 38px; height: 38px; border-radius: 11px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center; flex-shrink: 0`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 3h5v5"></path><path d="M4 20L21 3"></path><path d="M21 16v5h-5"></path><path d="M15 15l6 6"></path><path d="M4 4l5 5"></path></svg></span>
-<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Mélange</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: #55625D">{{metaR.mix}} · QCM, vrai ou faux et texte à trous</span></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Mélange</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: var(--muted)">{{metaR.mix}} · QCM, vrai ou faux et texte à trous</span></span>
 </button>
+<template v-if="progR.hasKo">
+<button class="lift" @click="reviewR" style="margin-top: -10px; width: 100%; text-align: left; background: var(--rose-t); border: 1.5px solid var(--rose); border-radius: 16px; padding: 12px 14px; display: flex; align-items: center; gap: 14px; min-height: 64px; color: var(--ink)">
+<span style="width: 38px; height: 38px; border-radius: 11px; background: var(--surface); color: var(--rose); display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"></path><path d="M20 4v7h-7"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 16px; font-weight: 800">Revoir mes erreurs</span><span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">{{progR.koLabel}} à revoir</span></span>
+</button>
+</template>
+<div style="margin-top: -6px; display: flex; flex-direction: column; gap: 6px"><div style="display: flex; justify-content: space-between; gap: 8px; font-size: 12.5px; font-weight: 700; color: var(--muted)"><span>Progression</span><span>{{progR.pct}}&nbsp;% maîtrisé · {{progR.ok}}/{{progR.total}}</span></div><div aria-hidden="true" style="height: 6px; border-radius: 999px; background: var(--surface3); overflow: hidden"><div :style="`height: 100%; width: ${progR.barW}; background: var(--accent); border-radius: 999px`"></div></div></div>
 </section>
-<section aria-labelledby="h-types" style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 24px; padding: 24px 22px; display: flex; flex-direction: column; gap: 20px">
+<section aria-labelledby="h-types" style="background: var(--surface); border: 1px solid var(--line); border-radius: 24px; padding: 24px 22px; display: flex; flex-direction: column; gap: 20px">
 <div style="display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 10px 20px">
 <div style="display: flex; flex-direction: column; gap: 6px; max-width: 440px">
 <span :style="`font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${accent}`">Chapitre 11</span>
 <h2 id="h-types" style="margin: 0; font-size: 24px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 800">Les types d’arrêts</h2>
-<p style="margin: 0; font-size: 15px; line-height: 1.5; color: #55625D; text-wrap: pretty">Complet, suffisant, correct ou mauvais&nbsp;: savoir où l’on peut s’arrêter, et quoi faire ensuite.</p>
+<p style="margin: 0; font-size: 15px; line-height: 1.5; color: var(--muted); text-wrap: pretty">Complet, suffisant, correct ou mauvais&nbsp;: savoir où l’on peut s’arrêter, et quoi faire ensuite.</p>
 </div>
-<span dir="rtl" lang="ar" aria-hidden="true" :style="`font-family: 'Hafs', 'Amiri', serif; font-weight: 400; font-size: 26px; line-height: 1.7; color: ${accent}`">اَلۡوَقۡفُ وَ الۡإِبۡتِدَاءُ</span>
+<span dir="rtl" lang="ar" aria-hidden="true" :style="`font-family: var(--arfont, 'Hafs'), 'Hafs', 'Amiri', serif; font-weight: 400; font-size: calc(26px * var(--ar, 1)); line-height: 1.7; color: ${accent}`">اَلۡوَقۡفُ وَ الۡإِبۡتِدَاءُ</span>
 </div>
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(140px, 100%), 1fr)); gap: 10px">
 <button class="lift" @click="goTypes" :style="`text-align: left; background: ${accent}; color: #FFFFFF; border: 1.5px solid ${accent}; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px`">
 <span style="width: 38px; height: 38px; border-radius: 11px; background: rgba(255,255,255,0.16); display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5.5C3 4.7 3.7 4 4.5 4H10a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5h-6A1.5 1.5 0 0 1 3 17V5.5Z"></path><path d="M21 5.5c0-.8-.7-1.5-1.5-1.5H14a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5h6A1.5 1.5 0 0 0 21 17V5.5Z"></path></svg></span>
 <span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Fiches</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; opacity: 0.92">4 types · tableau comparatif</span></span>
 </button>
-<button class="lift" @click="startTQcm" style="text-align: left; background: #FFFFFF; border: 1.5px solid #DCE0DA; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px">
+<button class="lift" @click="startTQcm" style="text-align: left; background: var(--surface); border: 1.5px solid var(--line); border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px">
 <span :style="`width: 38px; height: 38px; border-radius: 11px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5.5" cy="6" r="2"></circle><path d="M11 6h9"></path><circle cx="5.5" cy="12" r="2"></circle><path d="M11 12h9"></path><circle cx="5.5" cy="18" r="2"></circle><path d="M11 18h9"></path></svg></span>
-<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">QCM</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: #55625D">{{metaT.qcm}}</span></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">QCM</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: var(--muted)">{{metaT.qcm}}</span></span>
 </button>
-<button class="lift" @click="startTVf" style="text-align: left; background: #FFFFFF; border: 1.5px solid #DCE0DA; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px">
+<button class="lift" @click="startTVf" style="text-align: left; background: var(--surface); border: 1.5px solid var(--line); border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px">
 <span :style="`width: 38px; height: 38px; border-radius: 11px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 12.5l3.2 3.2L11 9.5"></path><path d="M15 9l6 6M21 9l-6 6"></path></svg></span>
-<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Vrai ou faux</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: #55625D">{{metaT.vf}}</span></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Vrai ou faux</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: var(--muted)">{{metaT.vf}}</span></span>
 </button>
-<button class="lift" @click="startTTrous" style="text-align: left; background: #FFFFFF; border: 1.5px solid #DCE0DA; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px">
+<button class="lift" @click="startTTrous" style="text-align: left; background: var(--surface); border: 1.5px solid var(--line); border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px">
 <span :style="`width: 38px; height: 38px; border-radius: 11px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h6"></path><rect x="11" y="5.5" width="10" height="5" rx="1.5" stroke-dasharray="2 2"></rect><path d="M3 16h3"></path><rect x="8" y="13.5" width="8" height="5" rx="1.5" stroke-dasharray="2 2"></rect><path d="M18 16h3"></path></svg></span>
-<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Texte à trous</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: #55625D">{{metaT.trous}}</span></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Texte à trous</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: var(--muted)">{{metaT.trous}}</span></span>
 </button>
 </div>
-<button class="lift" @click="startTMix" style="margin-top: -10px; width: 100%; text-align: left; background: #FFFFFF; border: 1.5px solid #DCE0DA; border-radius: 16px; padding: 14px; display: flex; align-items: center; gap: 14px; min-height: 72px">
+<button class="lift" @click="startTMix" style="margin-top: -10px; width: 100%; text-align: left; background: var(--surface); border: 1.5px solid var(--line); border-radius: 16px; padding: 14px; display: flex; align-items: center; gap: 14px; min-height: 72px">
 <span :style="`width: 38px; height: 38px; border-radius: 11px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center; flex-shrink: 0`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 3h5v5"></path><path d="M4 20L21 3"></path><path d="M21 16v5h-5"></path><path d="M15 15l6 6"></path><path d="M4 4l5 5"></path></svg></span>
-<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Mélange</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: #55625D">{{metaT.mix}} · QCM, vrai ou faux et texte à trous</span></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Mélange</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: var(--muted)">{{metaT.mix}} · QCM, vrai ou faux et texte à trous</span></span>
 </button>
+<template v-if="progT.hasKo">
+<button class="lift" @click="reviewT" style="margin-top: -10px; width: 100%; text-align: left; background: var(--rose-t); border: 1.5px solid var(--rose); border-radius: 16px; padding: 12px 14px; display: flex; align-items: center; gap: 14px; min-height: 64px; color: var(--ink)">
+<span style="width: 38px; height: 38px; border-radius: 11px; background: var(--surface); color: var(--rose); display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"></path><path d="M20 4v7h-7"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 16px; font-weight: 800">Revoir mes erreurs</span><span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">{{progT.koLabel}} à revoir</span></span>
+</button>
+</template>
+<div style="margin-top: -6px; display: flex; flex-direction: column; gap: 6px"><div style="display: flex; justify-content: space-between; gap: 8px; font-size: 12.5px; font-weight: 700; color: var(--muted)"><span>Progression</span><span>{{progT.pct}}&nbsp;% maîtrisé · {{progT.ok}}/{{progT.total}}</span></div><div aria-hidden="true" style="height: 6px; border-radius: 999px; background: var(--surface3); overflow: hidden"><div :style="`height: 100%; width: ${progT.barW}; background: var(--accent); border-radius: 999px`"></div></div></div>
 </section>
-<section aria-labelledby="h-signes" style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 24px; padding: 24px 22px; display: flex; flex-direction: column; gap: 20px">
+<section aria-labelledby="h-signes" style="background: var(--surface); border: 1px solid var(--line); border-radius: 24px; padding: 24px 22px; display: flex; flex-direction: column; gap: 20px">
 <div style="display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 10px 20px">
 <div style="display: flex; flex-direction: column; gap: 6px; max-width: 440px">
 <span :style="`font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${accent}`">Chapitre 15</span>
 <h2 id="h-signes" style="margin: 0; font-size: 24px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 800">Les signes conventionnels des arrêts</h2>
-<p style="margin: 0; font-size: 15px; line-height: 1.5; color: #55625D; text-wrap: pretty">Les 10 signes des arrêts, leur règle de liaison et leur signal visuel.</p>
+<p style="margin: 0; font-size: 15px; line-height: 1.5; color: var(--muted); text-wrap: pretty">Les 10 signes des arrêts, leur règle de liaison et leur signal visuel.</p>
 </div>
-<span dir="rtl" lang="ar" :style="`font-family: 'Hafs', 'Amiri', serif; font-weight: 400; font-size: 26px; line-height: 1.7; color: ${accent}`">اَلۡعَلَامَاتُ الِاصۡطِلَاحِيَّةُ</span>
+<span dir="rtl" lang="ar" :style="`font-family: var(--arfont, 'Hafs'), 'Hafs', 'Amiri', serif; font-weight: 400; font-size: calc(26px * var(--ar, 1)); line-height: 1.7; color: ${accent}`">اَلۡعَلَامَاتُ الِاصۡطِلَاحِيَّةُ</span>
 </div>
 <div aria-hidden="true" style="display: flex; flex-wrap: wrap; gap: 8px">
 <template v-for="t in strip">
-<span style="width: 56px; height: 56px; border-radius: 14px; background: #FFFFFF; border: 1px solid #DCE0DA; box-shadow: inset 0 -3px 0 #ECEEE9; display: flex; align-items: center; justify-content: center">
-<template v-if="t.isTxt"><span dir="rtl" lang="ar" :style="`font-family: 'Hafs', 'Amiri', 'Noto Naskh Arabic', serif; line-height: 1.3; font-size: ${t.fs}; color: ${t.color}`">{{t.glyph}}</span></template>
+<span style="width: 56px; height: 56px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); box-shadow: inset 0 -3px 0 var(--line); display: flex; align-items: center; justify-content: center">
+<template v-if="t.isTxt"><span dir="rtl" lang="ar" :style="`font-family: var(--arfont, 'Hafs'), 'Hafs', 'Amiri', 'Noto Naskh Arabic', serif; line-height: 1.3; font-size: ${t.fs}; color: ${t.color}`">{{t.glyph}}</span></template>
 <template v-if="t.isSajda"><img src="assets/sajda.svg" alt="" :style="`width: ${t.px}; height: ${t.px}; display: block`"></template>
 <template v-if="t.isHizb"><img src="assets/hizb.svg" alt="" :style="`width: ${t.px}; height: ${t.px}; display: block`"></template>
 <template v-if="t.isQala"><img src="assets/qala.svg" alt="" :style="`width: ${t.px}; height: ${t.px}; display: block`"></template>
@@ -167,32 +187,35 @@ Quitter
 <span style="width: 38px; height: 38px; border-radius: 11px; background: rgba(255,255,255,0.16); display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5.5C3 4.7 3.7 4 4.5 4H10a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5h-6A1.5 1.5 0 0 1 3 17V5.5Z"></path><path d="M21 5.5c0-.8-.7-1.5-1.5-1.5H14a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5h6A1.5 1.5 0 0 0 21 17V5.5Z"></path></svg></span>
 <span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Fiches</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; opacity: 0.92">10 signes · mode mémorisation</span></span>
 </button>
-<button class="lift" @click="startQcm" style="text-align: left; background: #FFFFFF; border: 1.5px solid #DCE0DA; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px">
+<button class="lift" @click="startQcm" style="text-align: left; background: var(--surface); border: 1.5px solid var(--line); border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px">
 <span :style="`width: 38px; height: 38px; border-radius: 11px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5.5" cy="6" r="2"></circle><path d="M11 6h9"></path><circle cx="5.5" cy="12" r="2"></circle><path d="M11 12h9"></path><circle cx="5.5" cy="18" r="2"></circle><path d="M11 18h9"></path></svg></span>
-<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">QCM</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: #55625D">{{meta.qcm}}</span></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">QCM</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: var(--muted)">{{meta.qcm}}</span></span>
 </button>
-<button class="lift" @click="startVf" style="text-align: left; background: #FFFFFF; border: 1.5px solid #DCE0DA; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px">
+<button class="lift" @click="startVf" style="text-align: left; background: var(--surface); border: 1.5px solid var(--line); border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px">
 <span :style="`width: 38px; height: 38px; border-radius: 11px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 12.5l3.2 3.2L11 9.5"></path><path d="M15 9l6 6M21 9l-6 6"></path></svg></span>
-<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Vrai ou faux</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: #55625D">{{meta.vf}}</span></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Vrai ou faux</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: var(--muted)">{{meta.vf}}</span></span>
 </button>
-<button class="lift" @click="startTrous" style="text-align: left; background: #FFFFFF; border: 1.5px solid #DCE0DA; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px">
+<button class="lift" @click="startTrous" style="text-align: left; background: var(--surface); border: 1.5px solid var(--line); border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px">
 <span :style="`width: 38px; height: 38px; border-radius: 11px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h6"></path><rect x="11" y="5.5" width="10" height="5" rx="1.5" stroke-dasharray="2 2"></rect><path d="M3 16h3"></path><rect x="8" y="13.5" width="8" height="5" rx="1.5" stroke-dasharray="2 2"></rect><path d="M18 16h3"></path></svg></span>
-<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Texte à trous</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: #55625D">{{meta.trous}}</span></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Texte à trous</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: var(--muted)">{{meta.trous}}</span></span>
 </button>
 </div>
-<button class="lift" @click="startMix" style="margin-top: -10px; width: 100%; text-align: left; background: #FFFFFF; border: 1.5px solid #DCE0DA; border-radius: 16px; padding: 14px; display: flex; align-items: center; gap: 14px; min-height: 72px">
+<button class="lift" @click="startMix" style="margin-top: -10px; width: 100%; text-align: left; background: var(--surface); border: 1.5px solid var(--line); border-radius: 16px; padding: 14px; display: flex; align-items: center; gap: 14px; min-height: 72px">
 <span :style="`width: 38px; height: 38px; border-radius: 11px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center; flex-shrink: 0`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 3h5v5"></path><path d="M4 20L21 3"></path><path d="M21 16v5h-5"></path><path d="M15 15l6 6"></path><path d="M4 4l5 5"></path></svg></span>
-<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Mélange</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: #55625D">{{meta.mix}} · QCM, vrai ou faux et texte à trous</span></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Mélange</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: var(--muted)">{{meta.mix}} · QCM, vrai ou faux et texte à trous</span></span>
 </button>
+<template v-if="progS.hasKo">
+<button class="lift" @click="reviewS" style="margin-top: -10px; width: 100%; text-align: left; background: var(--rose-t); border: 1.5px solid var(--rose); border-radius: 16px; padding: 12px 14px; display: flex; align-items: center; gap: 14px; min-height: 64px; color: var(--ink)">
+<span style="width: 38px; height: 38px; border-radius: 11px; background: var(--surface); color: var(--rose); display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"></path><path d="M20 4v7h-7"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 16px; font-weight: 800">Revoir mes erreurs</span><span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">{{progS.koLabel}} à revoir</span></span>
+</button>
+</template>
+<div style="margin-top: -6px; display: flex; flex-direction: column; gap: 6px"><div style="display: flex; justify-content: space-between; gap: 8px; font-size: 12.5px; font-weight: 700; color: var(--muted)"><span>Progression</span><span>{{progS.pct}}&nbsp;% maîtrisé · {{progS.ok}}/{{progS.total}}</span></div><div aria-hidden="true" style="height: 6px; border-radius: 999px; background: var(--surface3); overflow: hidden"><div :style="`height: 100%; width: ${progS.barW}; background: var(--accent); border-radius: 999px`"></div></div></div>
 </section>
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr)); gap: 12px">
-<button class="lift" @click="goInstall" style="text-align: left; background: #FFFFFF; border: 1.5px solid #DCE0DA; border-radius: 18px; padding: 14px 16px; display: flex; align-items: center; gap: 14px; min-height: 72px">
+<button class="lift" @click="goInstall" style="text-align: left; background: var(--surface); border: 1.5px solid var(--line); border-radius: 18px; padding: 14px 16px; display: flex; align-items: center; gap: 14px; min-height: 72px">
 <span :style="`width: 44px; height: 44px; border-radius: 13px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center; flex-shrink: 0`"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"></path><path d="M7 10l5 5 5-5"></path><path d="M5 21h14"></path></svg></span>
-<span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 16px; font-weight: 800">Installer l’application</span><span style="font-size: 13px; font-weight: 600; color: #55625D">Ordinateur, iPhone et Android</span></span>
-</button>
-<button class="lift" @click="goAbout" style="text-align: left; background: #FFFFFF; border: 1.5px solid #DCE0DA; border-radius: 18px; padding: 14px 16px; display: flex; align-items: center; gap: 14px; min-height: 72px">
-<span :style="`width: 44px; height: 44px; border-radius: 13px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center; flex-shrink: 0`"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v6"></path><path d="M12 7.5v.5"></path></svg></span>
-<span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 16px; font-weight: 800">À propos</span><span style="font-size: 13px; font-weight: 600; color: #55625D">Pourquoi et comment cette application</span></span>
+<span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 16px; font-weight: 800">Installer l’application</span><span style="font-size: 13px; font-weight: 600; color: var(--muted)">Ordinateur, iPhone et Android</span></span>
 </button>
 </div>
 </section>
@@ -202,40 +225,40 @@ Quitter
 <section class="rise" style="display: flex; flex-direction: column; gap: 18px">
 <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
 <div style="display: flex; flex-direction: column; gap: 8px; max-width: 460px">
-<span dir="rtl" lang="ar" :style="`align-self: flex-start; font-family: 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: 24px; line-height: 1.7; color: ${accent}`">اَلۡعَلَامَاتُ الِاصۡطِلَاحِيَّةُ</span>
+<span dir="rtl" lang="ar" :style="`align-self: flex-start; font-family: var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: calc(24px * var(--ar, 1)); line-height: 1.7; color: ${accent}`">اَلۡعَلَامَاتُ الِاصۡطِلَاحِيَّةُ</span>
 <h1 style="margin: 0; font-size: 34px; line-height: 1.1; letter-spacing: -0.025em; font-weight: 800">Les 10 signes</h1>
-<p style="margin: 0; font-size: 15px; line-height: 1.55; color: #55625D">Active le mode mémorisation pour cacher les réponses et te tester signe par signe.</p>
+<p style="margin: 0; font-size: 15px; line-height: 1.55; color: var(--muted)">Active le mode mémorisation pour cacher les réponses et te tester signe par signe.</p>
 </div>
-<label style="display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 16px; border: 1.5px solid #DCE0DA; border-radius: 999px; background: #FFFFFF; font-size: 14px; font-weight: 700; cursor: pointer">
+<label style="display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 16px; border: 1.5px solid var(--line); border-radius: 999px; background: var(--surface); font-size: 14px; font-weight: 700; cursor: pointer">
 <input type="checkbox" :checked="hide" @change="toggleHide" :style="`width: 18px; height: 18px; margin: 0; accent-color: ${accent}`">
 Mode mémorisation
 </label>
 </div>
 
-<div style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 18px; padding: 16px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 14px">
+<div style="background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 16px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 14px">
 <div style="display: flex; align-items: center; gap: 12px">
 <svg width="32" height="32" viewBox="0 0 30 30" aria-hidden="true"><polygon points="9,1 21,1 29,9 29,21 21,29 9,29 1,21 1,9" fill="#C62828"></polygon><text x="15" y="17.8" text-anchor="middle" font-family="Manrope, Arial, sans-serif" font-size="7.5" font-weight="800" fill="#FFFFFF">STOP</text></svg>
-<span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 800">Stop</span><span style="font-size: 13px; color: #55625D">On s’arrête, sans lier.</span></span>
+<span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 800">Stop</span><span style="font-size: 13px; color: var(--muted)">On s’arrête, sans lier.</span></span>
 </div>
 <div style="display: flex; align-items: center; gap: 12px">
 <svg width="32" height="32" viewBox="0 0 30 30" aria-hidden="true"><rect x="1" y="1" width="28" height="28" rx="6" fill="#23201C"></rect><circle cx="15" cy="15" r="9.5" fill="#E8820C"></circle><circle cx="12" cy="12" r="3" fill="#F7B867"></circle></svg>
-<span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 800">Feu orange</span><span style="font-size: 13px; color: #55625D">On peut s’arrêter ou lier.</span></span>
+<span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 800">Feu orange</span><span style="font-size: 13px; color: var(--muted)">On peut s’arrêter ou lier.</span></span>
 </div>
 <div style="display: flex; align-items: center; gap: 12px">
 <svg width="32" height="32" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="14" fill="#1F4F8F"></circle><circle cx="15" cy="15" r="12" fill="none" stroke="#FFFFFF" stroke-width="1.2"></circle><path d="M15 22V9M10 13.5L15 8.5l5 5" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-<span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 800">Sens obligatoire</span><span style="font-size: 13px; color: #55625D">On lie, sans s’arrêter.</span></span>
+<span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 800">Sens obligatoire</span><span style="font-size: 13px; color: var(--muted)">On lie, sans s’arrêter.</span></span>
 </div>
 </div>
 
 <div style="display: flex; flex-direction: column; gap: 10px">
 <template v-for="row in learnRows">
 <template v-if="row.isHeader">
-<h2 style="margin: 14px 0 2px; font-size: 13px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #55625D">{{row.title}}</h2>
+<h2 style="margin: 14px 0 2px; font-size: 13px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted)">{{row.title}}</h2>
 </template>
 <template v-if="row.isHidden">
-<button class="lift" @click="row.reveal" :aria-label="row.revealAria" style="width: 100%; text-align: left; background: #FFFFFF; border: 1.5px dashed #C9CFC7; border-radius: 18px; padding: 14px 16px; display: grid; grid-template-columns: 68px minmax(0, 1fr) auto; gap: 16px; align-items: center">
-<span style="width: 68px; height: 68px; border-radius: 16px; background: #F6F7F3; border: 1px solid #DCE0DA; box-shadow: inset 0 -3px 0 #ECEEE9; display: flex; align-items: center; justify-content: center">
-<template v-if="row.tile.isTxt"><span dir="rtl" lang="ar" :style="`font-family: 'Hafs', 'Amiri', 'Noto Naskh Arabic', serif; line-height: 1.3; font-size: ${row.tile.fs}; color: ${row.tile.color}`">{{row.tile.glyph}}</span></template>
+<button class="lift" @click="row.reveal" :aria-label="row.revealAria" style="width: 100%; text-align: left; background: var(--surface); border: 1.5px dashed var(--line2); border-radius: 18px; padding: 14px 16px; display: grid; grid-template-columns: 68px minmax(0, 1fr) auto; gap: 16px; align-items: center">
+<span style="width: 68px; height: 68px; border-radius: 16px; background: var(--surface2); border: 1px solid var(--line); box-shadow: inset 0 -3px 0 var(--line); display: flex; align-items: center; justify-content: center">
+<template v-if="row.tile.isTxt"><span dir="rtl" lang="ar" :style="`font-family: var(--arfont, 'Hafs'), 'Hafs', 'Amiri', 'Noto Naskh Arabic', serif; line-height: 1.3; font-size: ${row.tile.fs}; color: ${row.tile.color}`">{{row.tile.glyph}}</span></template>
 <template v-if="row.tile.isSajda"><img src="assets/sajda.svg" alt="" :style="`width: ${row.tile.px}; height: ${row.tile.px}; display: block`"></template>
 <template v-if="row.tile.isHizb"><img src="assets/hizb.svg" alt="" :style="`width: ${row.tile.px}; height: ${row.tile.px}; display: block`"></template>
 <template v-if="row.tile.isQala"><img src="assets/qala.svg" alt="" :style="`width: ${row.tile.px}; height: ${row.tile.px}; display: block`"></template>
@@ -249,15 +272,15 @@ Mode mémorisation
 </span>
 <span style="display: flex; flex-direction: column; gap: 4px">
 <span style="font-size: 16px; font-weight: 700">Que signifie ce signe&nbsp;?</span>
-<span style="font-size: 13px; color: #55625D">Touche pour révéler la fiche.</span>
+<span style="font-size: 13px; color: var(--muted)">Touche pour révéler la fiche.</span>
 </span>
-<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#55625D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+<svg style="color: var(--muted)" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
 </button>
 </template>
 <template v-if="row.isShown">
-<article style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 18px; padding: 14px 16px; display: grid; grid-template-columns: 68px minmax(0, 1fr) auto; gap: 16px; align-items: center">
-<span role="img" :aria-label="row.tile.aria" style="width: 68px; height: 68px; border-radius: 16px; background: #F6F7F3; border: 1px solid #DCE0DA; box-shadow: inset 0 -3px 0 #ECEEE9; display: flex; align-items: center; justify-content: center">
-<template v-if="row.tile.isTxt"><span dir="rtl" lang="ar" aria-hidden="true" :style="`font-family: 'Hafs', 'Amiri', 'Noto Naskh Arabic', serif; line-height: 1.3; font-size: ${row.tile.fs}; color: ${row.tile.color}`">{{row.tile.glyph}}</span></template>
+<article style="background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 14px 16px; display: grid; grid-template-columns: 68px minmax(0, 1fr) auto; gap: 16px; align-items: center">
+<span role="img" :aria-label="row.tile.aria" style="width: 68px; height: 68px; border-radius: 16px; background: var(--surface2); border: 1px solid var(--line); box-shadow: inset 0 -3px 0 var(--line); display: flex; align-items: center; justify-content: center">
+<template v-if="row.tile.isTxt"><span dir="rtl" lang="ar" aria-hidden="true" :style="`font-family: var(--arfont, 'Hafs'), 'Hafs', 'Amiri', 'Noto Naskh Arabic', serif; line-height: 1.3; font-size: ${row.tile.fs}; color: ${row.tile.color}`">{{row.tile.glyph}}</span></template>
 <template v-if="row.tile.isSajda"><img src="assets/sajda.svg" alt="" :style="`width: ${row.tile.px}; height: ${row.tile.px}; display: block`"></template>
 <template v-if="row.tile.isHizb"><img src="assets/hizb.svg" alt="" :style="`width: ${row.tile.px}; height: ${row.tile.px}; display: block`"></template>
 <template v-if="row.tile.isQala"><img src="assets/qala.svg" alt="" :style="`width: ${row.tile.px}; height: ${row.tile.px}; display: block`"></template>
@@ -272,10 +295,10 @@ Mode mémorisation
 <div style="display: flex; flex-direction: column; gap: 5px; min-width: 0">
 <p style="margin: 0; font-size: 17px; font-weight: 800; line-height: 1.3">{{row.designation}}</p>
 <template v-if="row.hasLiaison">
-<p style="margin: 0; font-size: 14px; line-height: 1.45; color: #55625D">Liaison&nbsp;: <strong style="color: #14201C; font-weight: 700">{{row.liaison}}</strong></p>
+<p style="margin: 0; font-size: 14px; line-height: 1.45; color: var(--muted)">Liaison&nbsp;: <strong style="color: var(--ink); font-weight: 700">{{row.liaison}}</strong></p>
 </template>
 <template v-if="row.hasNote">
-<p style="margin: 0; font-size: 14px; line-height: 1.5; color: #55625D; text-wrap: pretty">{{row.note}}</p>
+<p style="margin: 0; font-size: 14px; line-height: 1.5; color: var(--muted); text-wrap: pretty">{{row.note}}</p>
 </template>
 </div>
 <template v-if="row.hasSignal">
@@ -283,31 +306,31 @@ Mode mémorisation
 <template v-if="row.isStop"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><polygon points="9,1 21,1 29,9 29,21 21,29 9,29 1,21 1,9" fill="#C62828"></polygon><text x="15" y="17.8" text-anchor="middle" font-family="Manrope, Arial, sans-serif" font-size="7.5" font-weight="800" fill="#FFFFFF">STOP</text></svg></template>
 <template v-if="row.isOrange"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><rect x="1" y="1" width="28" height="28" rx="6" fill="#23201C"></rect><circle cx="15" cy="15" r="9.5" fill="#E8820C"></circle><circle cx="12" cy="12" r="3" fill="#F7B867"></circle></svg></template>
 <template v-if="row.isBlue"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><circle cx="15" cy="15" r="14" fill="#1F4F8F"></circle><circle cx="15" cy="15" r="12" fill="none" stroke="#FFFFFF" stroke-width="1.2"></circle><path d="M15 22V9M10 13.5L15 8.5l5 5" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></template>
-<span style="font-size: 11px; font-weight: 700; line-height: 1.2; text-align: center; color: #55625D">{{row.signalLabel}}</span>
+<span style="font-size: 11px; font-weight: 700; line-height: 1.2; text-align: center; color: var(--muted)">{{row.signalLabel}}</span>
 </div>
 </template>
 <template v-if="row.hasBook">
-<div style="grid-column: 1 / -1; border-top: 1px solid #E6E9E3; padding-top: 14px; display: flex; flex-direction: column; gap: 10px">
+<div style="grid-column: 1 / -1; border-top: 1px solid var(--line); padding-top: 14px; display: flex; flex-direction: column; gap: 10px">
 <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 16px">
 <p style="margin: 0; font-size: 15.5px; font-weight: 800; line-height: 1.35">{{row.bookName}}</p>
-<span dir="rtl" lang="ar" :style="`font-family: 'Hafs', 'Amiri', serif; font-weight: 400; font-size: 20px; line-height: 1.6; color: ${row.accent}`">{{row.bookAr}}</span>
+<span dir="rtl" lang="ar" :style="`font-family: var(--arfont, 'Hafs'), 'Hafs', 'Amiri', serif; font-weight: 400; font-size: calc(20px * var(--ar, 1)); line-height: 1.6; color: ${row.accent}`">{{row.bookAr}}</span>
 </div>
-<p style="margin: -6px 0 0; font-size: 12.5px; font-weight: 600; color: #55625D">{{row.bookTr}}</p>
+<p style="margin: -6px 0 0; font-size: 12.5px; font-weight: 600; color: var(--muted)">{{row.bookTr}}</p>
 <p style="margin: 0; font-size: 14.5px; line-height: 1.6; text-wrap: pretty">{{row.bookDef}}</p>
-<p style="margin: 0; font-size: 14px; line-height: 1.5; color: #55625D">{{row.bookLetter}}</p>
+<p style="margin: 0; font-size: 14px; line-height: 1.5; color: var(--muted)">{{row.bookLetter}}</p>
 <template v-for="blk in row.exBlocks">
-<div style="border: 1px dashed #C9CFC7; border-radius: 12px; padding: 8px 14px; display: flex; flex-direction: column; gap: 2px">
-<template v-if="blk.hasTitle"><span style="font-size: 13px; font-weight: 800; color: #14201C; padding: 2px 0 4px">{{blk.title}}</span></template>
+<div style="border: 1px dashed var(--line2); border-radius: 12px; padding: 8px 14px; display: flex; flex-direction: column; gap: 2px">
+<template v-if="blk.hasTitle"><span style="font-size: 13px; font-weight: 800; color: var(--ink); padding: 2px 0 4px">{{blk.title}}</span></template>
 <template v-for="ex in blk.items">
 <div :style="`display: flex; flex-direction: column; gap: 2px; ${ex.sepStyle}`">
-<span style="font-size: 11.5px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: #55625D">{{ex.label}}</span>
-<div dir="rtl" lang="ar" style="font-family: 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: 23px; line-height: 2.2; color: #14201C; text-align: right"><template v-for="pt in ex.parts"><span :style="pt.style">{{pt.text}}</span></template></div>
+<span style="font-size: 11.5px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted)">{{ex.label}}</span>
+<div dir="rtl" lang="ar" style="font-family: var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: calc(23px * var(--ar, 1)); line-height: 2.2; color: var(--ink); text-align: right"><template v-for="pt in ex.parts"><span :style="pt.style">{{pt.text}}</span></template></div>
 </div>
 </template>
 </div>
 </template>
 <template v-if="row.hasBookNote">
-<p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: #55625D; text-wrap: pretty"><strong style="color: #14201C">Remarque&nbsp;:</strong> {{row.bookNote}}</p>
+<p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--muted); text-wrap: pretty"><strong style="color: var(--ink)">Remarque&nbsp;:</strong> {{row.bookNote}}</p>
 </template>
 </div>
 </template>
@@ -316,16 +339,16 @@ Mode mémorisation
 </template>
 </div>
 
-<div style="margin-top: 10px; background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+<div style="margin-top: 10px; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
 <p style="margin: 0; font-size: 17px; font-weight: 800">Prêt à te tester&nbsp;?</p>
 <div style="display: flex; flex-wrap: wrap; gap: 10px">
 <button @click="startQcm" :style="`min-height: 48px; padding: 0 20px; border-radius: 12px; border: 0; background: ${accent}; color: #FFFFFF; font-size: 15px; font-weight: 700`">QCM</button>
-<button @click="startVf" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid #DCE0DA; background: #FFFFFF; font-size: 15px; font-weight: 700">Vrai ou faux</button>
-<button @click="startTrous" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid #DCE0DA; background: #FFFFFF; font-size: 15px; font-weight: 700">Texte à trous</button>
-<button @click="startMix" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid #DCE0DA; background: #FFFFFF; font-size: 15px; font-weight: 700">Mélange</button>
+<button @click="startVf" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Vrai ou faux</button>
+<button @click="startTrous" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Texte à trous</button>
+<button @click="startMix" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Mélange</button>
 </div>
 </div>
-<div style="display: flex; justify-content: center; padding-top: 4px"><button class="lift" @click="goHome" style="min-height: 52px; padding: 0 22px; border-radius: 14px; border: 1.5px solid #DCE0DA; background: #FFFFFF; display: inline-flex; align-items: center; gap: 10px; font-size: 15.5px; font-weight: 800"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5"></path><path d="M5 9.5V20h14V9.5"></path><path d="M10 20v-6h4v6"></path></svg>Retour à l’accueil</button></div>
+<div style="display: flex; justify-content: center; padding-top: 4px"><button class="lift" @click="goHome" style="min-height: 52px; padding: 0 22px; border-radius: 14px; border: 1.5px solid var(--line); background: var(--surface); display: inline-flex; align-items: center; gap: 10px; font-size: 15.5px; font-weight: 800"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5"></path><path d="M5 9.5V20h14V9.5"></path><path d="M10 20v-6h4v6"></path></svg>Retour à l’accueil</button></div>
 </section>
 </template>
 
@@ -335,44 +358,44 @@ Mode mémorisation
 <div style="display: flex; flex-direction: column; gap: 8px; max-width: 460px">
 <span :style="`font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${accent}`">Chapitre 11</span>
 <h1 style="margin: 0; font-size: 34px; line-height: 1.1; letter-spacing: -0.025em; font-weight: 800">Les types d’arrêts</h1>
-<p style="margin: 0; font-size: 15px; line-height: 1.55; color: #55625D">Active le mode mémorisation pour cacher les définitions et te tester type par type.</p>
+<p style="margin: 0; font-size: 15px; line-height: 1.55; color: var(--muted)">Active le mode mémorisation pour cacher les définitions et te tester type par type.</p>
 </div>
-<label style="display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 16px; border: 1.5px solid #DCE0DA; border-radius: 999px; background: #FFFFFF; font-size: 14px; font-weight: 700; cursor: pointer">
+<label style="display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 16px; border: 1.5px solid var(--line); border-radius: 999px; background: var(--surface); font-size: 14px; font-weight: 700; cursor: pointer">
 <input type="checkbox" :checked="hide" @change="toggleHide" :style="`width: 18px; height: 18px; margin: 0; accent-color: ${accent}`">
 Mode mémorisation
 </label>
 </div>
-<div style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 18px; padding: 18px 20px; display: flex; flex-direction: column; gap: 8px">
-<span dir="rtl" lang="ar" :style="`align-self: flex-start; font-family: 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: 24px; line-height: 1.7; color: ${accent}`">اَلۡوَقۡفُ وَ الۡإِبۡتِدَاءُ</span>
+<div style="background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 18px 20px; display: flex; flex-direction: column; gap: 8px">
+<span dir="rtl" lang="ar" :style="`align-self: flex-start; font-family: var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: calc(24px * var(--ar, 1)); line-height: 1.7; color: ${accent}`">اَلۡوَقۡفُ وَ الۡإِبۡتِدَاءُ</span>
 <p style="margin: 0; font-size: 16px; line-height: 1.6"><strong>Al-Waqf</strong> est un court arrêt à la fin d’un mot dans le Coran, avec l’intention de poursuivre la lecture.</p>
-<p style="margin: 0; font-size: 15px; line-height: 1.6; color: #55625D">On ne peut pas s’arrêter à n’importe quel moment&nbsp;: il faut connaître les différentes sortes d’arrêts.</p>
+<p style="margin: 0; font-size: 15px; line-height: 1.6; color: var(--muted)">On ne peut pas s’arrêter à n’importe quel moment&nbsp;: il faut connaître les différentes sortes d’arrêts.</p>
 </div>
 <div style="display: flex; flex-direction: column; gap: 10px">
-<h2 style="margin: 4px 0 0; font-size: 13px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #55625D">En un coup d’œil</h2>
-<p style="margin: 0; font-size: 13.5px; line-height: 1.5; color: #55625D">« Lié » veut dire : lié à ce qui suit.</p>
+<h2 style="margin: 4px 0 0; font-size: 13px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted)">En un coup d’œil</h2>
+<p style="margin: 0; font-size: 13.5px; line-height: 1.5; color: var(--muted)">« Lié » veut dire : lié à ce qui suit.</p>
 <template v-if="hide">
 <p :style="`margin: 0; font-size: 13.5px; font-weight: 700; line-height: 1.5; color: ${accent}`">Mode mémorisation&nbsp;: retrouve les réponses de tête, puis touche une ligne pour vérifier.</p>
 </template>
-<div style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 18px; overflow: hidden">
+<div style="background: var(--surface); border: 1px solid var(--line); border-radius: 18px; overflow: hidden">
 <div role="table" aria-label="Comparaison des quatre types d’arrêts">
-<div role="row" style="display: grid; grid-template-columns: minmax(0, 1.25fr) repeat(3, minmax(0, 1fr)); background: #F6F7F3; align-items: center">
-<span role="columnheader" style="padding: 10px; font-size: 12px; font-weight: 800; color: #55625D">Arrêt</span>
-<span role="columnheader" style="padding: 10px 4px; font-size: 12px; font-weight: 800; line-height: 1.25; color: #55625D; text-align: center">Sens complet</span>
-<span role="columnheader" style="padding: 10px 4px; font-size: 12px; font-weight: 800; line-height: 1.25; color: #55625D; text-align: center">Lié par le sens</span>
-<span role="columnheader" style="padding: 10px 4px; font-size: 12px; font-weight: 800; line-height: 1.25; color: #55625D; text-align: center">Lié par la grammaire</span>
+<div role="row" style="display: grid; grid-template-columns: minmax(0, 1.25fr) repeat(3, minmax(0, 1fr)); background: var(--surface2); align-items: center">
+<span role="columnheader" style="padding: 10px; font-size: 12px; font-weight: 800; color: var(--muted)">Arrêt</span>
+<span role="columnheader" style="padding: 10px 4px; font-size: 12px; font-weight: 800; line-height: 1.25; color: var(--muted); text-align: center">Sens complet</span>
+<span role="columnheader" style="padding: 10px 4px; font-size: 12px; font-weight: 800; line-height: 1.25; color: var(--muted); text-align: center">Lié par le sens</span>
+<span role="columnheader" style="padding: 10px 4px; font-size: 12px; font-weight: 800; line-height: 1.25; color: var(--muted); text-align: center">Lié par la grammaire</span>
 </div>
 <template v-for="mr in matrixRows">
 <template v-if="mr.isHidden">
-<button class="lift" @click="mr.reveal" :aria-label="mr.revealAria" style="width: 100%; display: grid; grid-template-columns: minmax(0, 1.25fr) repeat(3, minmax(0, 1fr)); align-items: center; border: 0; border-top: 1px solid #E6E9E3; background: #FFFFFF; padding: 0; text-align: left; color: #14201C">
-<span style="padding: 10px; display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-size: 14px; font-weight: 800">{{mr.name}}</span><span style="font-size: 11.5px; font-weight: 600; color: #55625D">Touche pour vérifier</span></span>
-<span style="padding: 10px 4px; display: flex; justify-content: center"><span style="display: inline-flex; align-items: center; justify-content: center; min-width: 40px; min-height: 28px; padding: 0 8px; border-radius: 999px; border: 1.5px dashed #C9CFC7; background: #F6F7F3; font-size: 13px; font-weight: 800; color: #55625D">?</span></span>
-<span style="padding: 10px 4px; display: flex; justify-content: center"><span style="display: inline-flex; align-items: center; justify-content: center; min-width: 40px; min-height: 28px; padding: 0 8px; border-radius: 999px; border: 1.5px dashed #C9CFC7; background: #F6F7F3; font-size: 13px; font-weight: 800; color: #55625D">?</span></span>
-<span style="padding: 10px 4px; display: flex; justify-content: center"><span style="display: inline-flex; align-items: center; justify-content: center; min-width: 40px; min-height: 28px; padding: 0 8px; border-radius: 999px; border: 1.5px dashed #C9CFC7; background: #F6F7F3; font-size: 13px; font-weight: 800; color: #55625D">?</span></span>
+<button class="lift" @click="mr.reveal" :aria-label="mr.revealAria" style="width: 100%; display: grid; grid-template-columns: minmax(0, 1.25fr) repeat(3, minmax(0, 1fr)); align-items: center; border: 0; border-top: 1px solid var(--line); background: var(--surface); padding: 0; text-align: left; color: var(--ink)">
+<span style="padding: 10px; display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-size: 14px; font-weight: 800">{{mr.name}}</span><span style="font-size: 11.5px; font-weight: 600; color: var(--muted)">Touche pour vérifier</span></span>
+<span style="padding: 10px 4px; display: flex; justify-content: center"><span style="display: inline-flex; align-items: center; justify-content: center; min-width: 40px; min-height: 28px; padding: 0 8px; border-radius: 999px; border: 1.5px dashed var(--line2); background: var(--surface2); font-size: 13px; font-weight: 800; color: var(--muted)">?</span></span>
+<span style="padding: 10px 4px; display: flex; justify-content: center"><span style="display: inline-flex; align-items: center; justify-content: center; min-width: 40px; min-height: 28px; padding: 0 8px; border-radius: 999px; border: 1.5px dashed var(--line2); background: var(--surface2); font-size: 13px; font-weight: 800; color: var(--muted)">?</span></span>
+<span style="padding: 10px 4px; display: flex; justify-content: center"><span style="display: inline-flex; align-items: center; justify-content: center; min-width: 40px; min-height: 28px; padding: 0 8px; border-radius: 999px; border: 1.5px dashed var(--line2); background: var(--surface2); font-size: 13px; font-weight: 800; color: var(--muted)">?</span></span>
 </button>
 </template>
 <template v-if="mr.isShown">
-<div role="row" style="display: grid; grid-template-columns: minmax(0, 1.25fr) repeat(3, minmax(0, 1fr)); border-top: 1px solid #E6E9E3; align-items: center">
-<span role="rowheader" style="padding: 10px; display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-size: 14px; font-weight: 800">{{mr.name}}</span><span style="font-size: 11.5px; font-weight: 600; color: #55625D; overflow-wrap: anywhere">{{mr.translit}}</span></span>
+<div role="row" style="display: grid; grid-template-columns: minmax(0, 1.25fr) repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); align-items: center">
+<span role="rowheader" style="padding: 10px; display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-size: 14px; font-weight: 800">{{mr.name}}</span><span style="font-size: 11.5px; font-weight: 600; color: var(--muted); overflow-wrap: anywhere">{{mr.translit}}</span></span>
 <template v-for="c in mr.cells">
 <span role="cell" style="padding: 10px 4px; display: flex; justify-content: center"><span :style="`display: inline-flex; align-items: center; gap: 4px; min-height: 28px; padding: 0 8px; border-radius: 999px; font-size: 12.5px; font-weight: 800; background: ${c.bg}; color: ${c.fg}`"><template v-if="c.yes"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></template><template v-if="c.no"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17"></path></svg></template><span>{{c.label}}</span></span></span>
 </template>
@@ -383,55 +406,55 @@ Mode mémorisation
 </div>
 </div>
 <div style="display: flex; flex-direction: column; gap: 12px">
-<h2 style="margin: 10px 0 0; font-size: 13px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #55625D">Les fiches</h2>
+<h2 style="margin: 10px 0 0; font-size: 13px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted)">Les fiches</h2>
 <template v-for="ty in typeRows">
 <template v-if="ty.isHidden">
-<button class="lift" @click="ty.reveal" :aria-label="ty.revealAria" style="width: 100%; text-align: left; background: #FFFFFF; border: 1.5px dashed #C9CFC7; border-radius: 20px; padding: 18px 20px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px">
+<button class="lift" @click="ty.reveal" :aria-label="ty.revealAria" style="width: 100%; text-align: left; background: var(--surface); border: 1.5px dashed var(--line2); border-radius: 20px; padding: 18px 20px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px">
 <span style="display: flex; align-items: center; gap: 12px">
 <span :style="`min-width: 46px; height: 30px; padding: 0 8px; border-radius: 9px; background: ${ty.tint}; color: ${ty.accent}; font-size: 13px; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; font-variant-numeric: tabular-nums; flex-shrink: 0`">{{ty.num}}</span>
-<span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 18px; font-weight: 800">{{ty.name}}</span><span style="font-size: 13px; color: #55625D">Touche pour révéler la définition.</span></span>
+<span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 18px; font-weight: 800">{{ty.name}}</span><span style="font-size: 13px; color: var(--muted)">Touche pour révéler la définition.</span></span>
 </span>
-<span dir="rtl" lang="ar" :style="`font-family: 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: 24px; line-height: 1.6; color: ${ty.accent}`">{{ty.ar}}</span>
+<span dir="rtl" lang="ar" :style="`font-family: var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: calc(24px * var(--ar, 1)); line-height: 1.6; color: ${ty.accent}`">{{ty.ar}}</span>
 </button>
 </template>
 <template v-if="ty.isShown">
-<article style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+<article style="background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
 <div style="display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 6px 16px">
 <div style="display: flex; align-items: flex-start; gap: 12px">
 <span :style="`min-width: 46px; height: 30px; padding: 0 8px; border-radius: 9px; background: ${ty.tint}; color: ${ty.accent}; font-size: 13px; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; font-variant-numeric: tabular-nums; flex-shrink: 0`">{{ty.num}}</span>
-<div style="display: flex; flex-direction: column; gap: 2px"><h3 style="margin: 0; font-size: 19px; line-height: 1.3; font-weight: 800">{{ty.name}}</h3><p style="margin: 0; font-size: 13px; font-weight: 600; color: #55625D">{{ty.translit}}</p></div>
+<div style="display: flex; flex-direction: column; gap: 2px"><h3 style="margin: 0; font-size: 19px; line-height: 1.3; font-weight: 800">{{ty.name}}</h3><p style="margin: 0; font-size: 13px; font-weight: 600; color: var(--muted)">{{ty.translit}}</p></div>
 </div>
-<span dir="rtl" lang="ar" :style="`font-family: 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: 24px; line-height: 1.6; color: ${ty.accent}`">{{ty.ar}}</span>
+<span dir="rtl" lang="ar" :style="`font-family: var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: calc(24px * var(--ar, 1)); line-height: 1.6; color: ${ty.accent}`">{{ty.ar}}</span>
 </div>
 <p style="margin: 0; font-size: 15.5px; line-height: 1.6; text-wrap: pretty">{{ty.def}}</p>
-<div style="display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: 12px; background: #F3F4F0">
+<div style="display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: 12px; background: var(--bg)">
 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" :stroke="ty.accent" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 3px"><path d="M5 4v7a4 4 0 0 0 4 4h10"></path><path d="M15 11l4 4-4 4"></path></svg>
 <p style="margin: 0; font-size: 15px; line-height: 1.55"><strong>Après l’arrêt&nbsp;:</strong> {{ty.after}}</p>
 </div>
-<template v-if="ty.hasNote"><p style="margin: 0; font-size: 14px; line-height: 1.5; color: #55625D"><strong style="color: #14201C">À retenir&nbsp;:</strong> {{ty.note}}</p></template>
-<div style="border: 1px dashed #C9CFC7; border-radius: 14px; padding: 12px 16px; display: flex; flex-direction: column; gap: 4px">
-<span style="font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #55625D">Exemple · {{ty.ex.ref}}</span>
+<template v-if="ty.hasNote"><p style="margin: 0; font-size: 14px; line-height: 1.5; color: var(--muted)"><strong style="color: var(--ink)">À retenir&nbsp;:</strong> {{ty.note}}</p></template>
+<div style="border: 1px dashed var(--line2); border-radius: 14px; padding: 12px 16px; display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted)">Exemple · {{ty.ex.ref}}</span>
 <span style="font-size: 14px; line-height: 1.5">{{ty.exLabel}}</span>
-<div dir="rtl" lang="ar" style="font-family: 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: 26px; line-height: 2.1; color: #14201C; text-align: center">
-<template v-if="ty.ex.isPair"><span>… <template v-for="pt in ty.ex.beforeParts"><span :style="pt.style">{{pt.text}}</span></template></span> <span aria-label="fin de verset" style="font-family: 'Hafs', 'Amiri Quran', serif; color: #C62828; margin: 0 4px">{{ty.ex.num}}</span> <span><template v-for="pt in ty.ex.afterParts"><span :style="pt.style">{{pt.text}}</span></template> …</span></template>
+<div dir="rtl" lang="ar" style="font-family: var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: calc(26px * var(--ar, 1)); line-height: 2.1; color: var(--ink); text-align: center">
+<template v-if="ty.ex.isPair"><span>… <template v-for="pt in ty.ex.beforeParts"><span :style="pt.style">{{pt.text}}</span></template></span> <span aria-label="fin de verset" style="font-family: 'Hafs', 'Amiri Quran', serif; color: var(--red); margin: 0 4px">{{ty.ex.num}}</span> <span><template v-for="pt in ty.ex.afterParts"><span :style="pt.style">{{pt.text}}</span></template> …</span></template>
 <template v-if="ty.ex.isSingle"><span><template v-for="pt in ty.ex.textParts"><span :style="pt.style">{{pt.text}}</span></template> …</span></template>
 </div>
-<template v-if="ty.hasExNote"><p style="margin: 0; font-size: 14px; line-height: 1.5; color: #55625D">{{ty.exNote}}</p></template>
+<template v-if="ty.hasExNote"><p style="margin: 0; font-size: 14px; line-height: 1.5; color: var(--muted)">{{ty.exNote}}</p></template>
 </div>
 </article>
 </template>
 </template>
 </div>
-<div style="margin-top: 10px; background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+<div style="margin-top: 10px; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
 <p style="margin: 0; font-size: 17px; font-weight: 800">Prêt à te tester&nbsp;?</p>
 <div style="display: flex; flex-wrap: wrap; gap: 10px">
 <button @click="startTQcm" :style="`min-height: 48px; padding: 0 20px; border-radius: 12px; border: 0; background: ${accent}; color: #FFFFFF; font-size: 15px; font-weight: 700`">QCM</button>
-<button @click="startTVf" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid #DCE0DA; background: #FFFFFF; font-size: 15px; font-weight: 700">Vrai ou faux</button>
-<button @click="startTTrous" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid #DCE0DA; background: #FFFFFF; font-size: 15px; font-weight: 700">Texte à trous</button>
-<button @click="startTMix" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid #DCE0DA; background: #FFFFFF; font-size: 15px; font-weight: 700">Mélange</button>
+<button @click="startTVf" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Vrai ou faux</button>
+<button @click="startTTrous" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Texte à trous</button>
+<button @click="startTMix" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Mélange</button>
 </div>
 </div>
-<div style="display: flex; justify-content: center; padding-top: 4px"><button class="lift" @click="goHome" style="min-height: 52px; padding: 0 22px; border-radius: 14px; border: 1.5px solid #DCE0DA; background: #FFFFFF; display: inline-flex; align-items: center; gap: 10px; font-size: 15.5px; font-weight: 800"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5"></path><path d="M5 9.5V20h14V9.5"></path><path d="M10 20v-6h4v6"></path></svg>Retour à l’accueil</button></div>
+<div style="display: flex; justify-content: center; padding-top: 4px"><button class="lift" @click="goHome" style="min-height: 52px; padding: 0 22px; border-radius: 14px; border: 1.5px solid var(--line); background: var(--surface); display: inline-flex; align-items: center; gap: 10px; font-size: 15.5px; font-weight: 800"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5"></path><path d="M5 9.5V20h14V9.5"></path><path d="M10 20v-6h4v6"></path></svg>Retour à l’accueil</button></div>
 </section>
 </template>
 
@@ -440,54 +463,54 @@ Mode mémorisation
 <div style="display: flex; flex-direction: column; gap: 8px; max-width: 560px">
 <span :style="`font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${accent}`">Chapitre 9</span>
 <h1 style="margin: 0; font-size: 34px; line-height: 1.1; letter-spacing: -0.025em; font-weight: 800">Les règles de la lettre Ra</h1>
-<p style="margin: 0; font-size: 15px; line-height: 1.55; color: #55625D">Active le mode mémorisation pour cacher les règles et te tester cas par cas, à partir des exemples.</p>
+<p style="margin: 0; font-size: 15px; line-height: 1.55; color: var(--muted)">Active le mode mémorisation pour cacher les règles et te tester cas par cas, à partir des exemples.</p>
 </div>
-<label style="align-self: flex-start; display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 16px; border: 1.5px solid #DCE0DA; border-radius: 999px; background: #FFFFFF; font-size: 14px; font-weight: 700; cursor: pointer">
+<label style="align-self: flex-start; display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 16px; border: 1.5px solid var(--line); border-radius: 999px; background: var(--surface); font-size: 14px; font-weight: 700; cursor: pointer">
 <input type="checkbox" :checked="hide" @change="toggleHide" :style="`width: 18px; height: 18px; margin: 0; accent-color: ${accent}`">
 Mode mémorisation
 </label>
 <template v-if="hide">
 <p :style="`margin: 0; font-size: 13.5px; font-weight: 700; line-height: 1.5; color: ${accent}`">Mode mémorisation&nbsp;: pour chaque cas, retrouve la règle à partir des exemples, puis touche pour vérifier.</p>
 </template>
-<div style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 18px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px">
-<span dir="rtl" lang="ar" :style="`align-self: flex-start; font-family: 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: 26px; line-height: 1.7; color: ${accent}`">أَحۡكَامُ ٱلۡحَرۡفِ ٱلرَّاءِ</span>
+<div style="background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px">
+<span dir="rtl" lang="ar" :style="`align-self: flex-start; font-family: var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: calc(26px * var(--ar, 1)); line-height: 1.7; color: ${accent}`">أَحۡكَامُ ٱلۡحَرۡفِ ٱلرَّاءِ</span>
 <p style="margin: 0; font-size: 16px; line-height: 1.6">Il y a deux façons de lire la lettre Rô «&nbsp;<bdi>ر</bdi>&nbsp;»&nbsp;:</p>
 <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 15.5px; line-height: 1.6">
-<li>Soit <strong>avec emphase</strong>, c’est-à-dire qu’on remplit la bouche en la prononçant. On appelle cela At-Tafkhîm (<span dir="rtl" lang="ar" style="font-family: 'Hafs', 'Amiri Quran', 'Amiri', serif">ٱلتَّفۡخِيمُ</span>)&nbsp;: la grandeur.</li>
-<li>Soit <strong>sans emphase</strong>, cela revient donc à lire légèrement sans remplir la bouche. Dans ce cas on parle d’At-tarqîq (<span dir="rtl" lang="ar" style="font-family: 'Hafs', 'Amiri Quran', 'Amiri', serif">ٱلتَّرۡقِيقُ</span>)&nbsp;: la petitesse.</li>
+<li>Soit <strong>avec emphase</strong>, c’est-à-dire qu’on remplit la bouche en la prononçant. On appelle cela At-Tafkhîm (<span dir="rtl" lang="ar" style="font-family: var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', 'Amiri', serif">ٱلتَّفۡخِيمُ</span>)&nbsp;: la grandeur.</li>
+<li>Soit <strong>sans emphase</strong>, cela revient donc à lire légèrement sans remplir la bouche. Dans ce cas on parle d’At-tarqîq (<span dir="rtl" lang="ar" style="font-family: var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', 'Amiri', serif">ٱلتَّرۡقِيقُ</span>)&nbsp;: la petitesse.</li>
 </ul>
-<p style="margin: 0; font-size: 15px; line-height: 1.6; color: #55625D">Lorsque l’on rencontre la lettre «&nbsp;<bdi>ر</bdi>&nbsp;», 3 possibilités s’offrent à nous&nbsp;: At-tafkhîm (<span dir="rtl" lang="ar" style="font-family: 'Hafs', 'Amiri Quran', 'Amiri', serif">تَفۡخِيم</span>), At-tarqîq (<span dir="rtl" lang="ar" style="font-family: 'Hafs', 'Amiri Quran', 'Amiri', serif">تَرۡقِيق</span>), ou faire l’un ou l’autre.</p>
+<p style="margin: 0; font-size: 15px; line-height: 1.6; color: var(--muted)">Lorsque l’on rencontre la lettre «&nbsp;<bdi>ر</bdi>&nbsp;», 3 possibilités s’offrent à nous&nbsp;: At-tafkhîm (<span dir="rtl" lang="ar" style="font-family: var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', 'Amiri', serif">تَفۡخِيم</span>), At-tarqîq (<span dir="rtl" lang="ar" style="font-family: var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', 'Amiri', serif">تَرۡقِيق</span>), ou faire l’un ou l’autre.</p>
 </div>
 <template v-for="sec in raSections">
 <div style="display: flex; flex-direction: column; gap: 12px; padding-top: 6px">
 <template v-if="sec.isShown">
 <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px">
 <h2 style="margin: 0; font-size: 20px; line-height: 1.3; font-weight: 800; letter-spacing: -0.01em; text-wrap: balance">{{sec.num}}. {{sec.title}}</h2>
-<template v-if="sec.hasAr"><span dir="rtl" lang="ar" :style="`font-family: 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: 22px; line-height: 1.6; color: ${accent}`">{{sec.ar}}</span></template>
+<template v-if="sec.hasAr"><span dir="rtl" lang="ar" :style="`font-family: var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: calc(22px * var(--ar, 1)); line-height: 1.6; color: ${accent}`">{{sec.ar}}</span></template>
 </div>
 <span :style="`align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; min-height: 30px; padding: 0 14px; border-radius: 999px; font-size: 13px; font-weight: 800; ${sec.chipStyle}`">{{sec.verdict}} · {{sec.count}}</span>
 </template>
 <template v-if="sec.isHidden">
-<button class="lift" @click="sec.reveal" :aria-label="sec.revealAria" style="width: 100%; text-align: left; display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; border-radius: 16px; border: 1.5px dashed #C9CFC7; background: #F6F7F3; color: #14201C">
+<button class="lift" @click="sec.reveal" :aria-label="sec.revealAria" style="width: 100%; text-align: left; display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; border-radius: 16px; border: 1.5px dashed var(--line2); background: var(--surface2); color: var(--ink)">
 <span style="font-size: 18px; font-weight: 800">{{sec.num}}. Emphase, légèreté ou au choix&nbsp;?</span>
-<span style="font-size: 12.5px; font-weight: 600; color: #55625D">{{sec.count}} · touche pour vérifier</span>
+<span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">{{sec.count}} · touche pour vérifier</span>
 </button>
 </template>
 <template v-for="c in sec.cases">
-<article style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 18px; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px">
+<article style="background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px">
 <div style="display: flex; align-items: flex-start; gap: 12px">
 <span :style="`flex-shrink: 0; width: 30px; height: 30px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; ${c.badgeStyle}`">{{c.n}}</span>
 <template v-if="c.isShown"><p style="margin: 0; font-size: 15.5px; line-height: 1.6; text-wrap: pretty"><template v-for="pt in c.ruleParts"><template v-if="pt.isImg"><img :src="pt.src" :alt="pt.alt" :style="pt.imgStyle"></template><template v-if="pt.isText"><span :style="pt.style">{{pt.text}}</span></template></template></p></template>
-<template v-if="c.isHidden"><button class="lift" @click="c.reveal" :aria-label="c.revealAria" style="flex: 1; text-align: left; display: flex; flex-direction: column; gap: 2px; min-height: 52px; padding: 10px 14px; border-radius: 12px; border: 1.5px dashed #C9CFC7; background: #F6F7F3; color: #14201C"><span style="font-size: 15px; font-weight: 800">Quelle est la règle&nbsp;?</span><span style="font-size: 12.5px; font-weight: 600; color: #55625D">Regarde les exemples, puis touche pour vérifier</span></button></template>
+<template v-if="c.isHidden"><button class="lift" @click="c.reveal" :aria-label="c.revealAria" style="flex: 1; text-align: left; display: flex; flex-direction: column; gap: 2px; min-height: 52px; padding: 10px 14px; border-radius: 12px; border: 1.5px dashed var(--line2); background: var(--surface2); color: var(--ink)"><span style="font-size: 15px; font-weight: 800">Quelle est la règle&nbsp;?</span><span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">Regarde les exemples, puis touche pour vérifier</span></button></template>
 </div>
 <template v-if="c.hasLead"><p style="margin: 0; font-size: 14.5px; font-weight: 700; line-height: 1.5">{{c.lead}}</p></template>
 <template v-for="ex in c.examples">
-<div style="border: 1px dashed #C9CFC7; border-radius: 12px; padding: 8px 14px; display: flex; flex-direction: column; gap: 2px">
-<div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 12px"><span style="font-size: 11.5px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: #55625D">{{ex.label}}</span><template v-if="ex.hasWord"><span dir="rtl" lang="ar" :style="`font-family: 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: 20px; line-height: 1.6; color: ${accent}`">{{ex.word}}</span></template></div>
-<div dir="rtl" lang="ar" style="font-family: 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: 23px; line-height: 2.2; color: #14201C; text-align: right"><template v-for="pt in ex.parts"><span :style="pt.style">{{pt.text}}</span></template></div>
+<div style="border: 1px dashed var(--line2); border-radius: 12px; padding: 8px 14px; display: flex; flex-direction: column; gap: 2px">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 12px"><span style="font-size: 11.5px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted)">{{ex.label}}</span><template v-if="ex.hasWord"><span dir="rtl" lang="ar" :style="`font-family: var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: calc(20px * var(--ar, 1)); line-height: 1.6; color: ${accent}`">{{ex.word}}</span></template></div>
+<div dir="rtl" lang="ar" style="font-family: var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: calc(23px * var(--ar, 1)); line-height: 2.2; color: var(--ink); text-align: right"><template v-for="pt in ex.parts"><span :style="pt.style">{{pt.text}}</span></template></div>
 </div>
 </template>
-<template v-if="c.hasNote"><p style="margin: 0; font-size: 14px; line-height: 1.55; color: #55625D; text-wrap: pretty">{{c.note}}</p></template>
+<template v-if="c.hasNote"><p style="margin: 0; font-size: 14px; line-height: 1.55; color: var(--muted); text-wrap: pretty">{{c.note}}</p></template>
 </article>
 </template>
 </div>
@@ -496,16 +519,69 @@ Mode mémorisation
 <p style="margin: 0; font-size: 15px; line-height: 1.65; text-wrap: pretty"><strong>Remarque&nbsp;:</strong> <template v-for="pt in raRemarkParts"><span :style="pt.style">{{pt.text}}</span></template></p>
 <p style="margin: 0; font-size: 15px; line-height: 1.65; text-wrap: pretty"><strong>Vocabulaire&nbsp;:</strong> {{raVocab}}</p>
 </div>
-<div style="margin-top: 10px; background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+<div style="margin-top: 10px; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
 <p style="margin: 0; font-size: 17px; font-weight: 800">Prêt à te tester&nbsp;?</p>
 <div style="display: flex; flex-wrap: wrap; gap: 10px">
 <button @click="startRQcm" :style="`min-height: 48px; padding: 0 20px; border-radius: 12px; border: 0; background: ${accent}; color: #FFFFFF; font-size: 15px; font-weight: 700`">QCM</button>
-<button @click="startRVf" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid #DCE0DA; background: #FFFFFF; font-size: 15px; font-weight: 700">Vrai ou faux</button>
-<button @click="startRTrous" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid #DCE0DA; background: #FFFFFF; font-size: 15px; font-weight: 700">Texte à trous</button>
-<button @click="startRMix" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid #DCE0DA; background: #FFFFFF; font-size: 15px; font-weight: 700">Mélange</button>
+<button @click="startRVf" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Vrai ou faux</button>
+<button @click="startRTrous" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Texte à trous</button>
+<button @click="startRMix" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Mélange</button>
 </div>
 </div>
-<div style="display: flex; justify-content: center; padding-top: 4px"><button class="lift" @click="goHome" style="min-height: 52px; padding: 0 22px; border-radius: 14px; border: 1.5px solid #DCE0DA; background: #FFFFFF; display: inline-flex; align-items: center; gap: 10px; font-size: 15.5px; font-weight: 800"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5"></path><path d="M5 9.5V20h14V9.5"></path><path d="M10 20v-6h4v6"></path></svg>Retour à l’accueil</button></div>
+<div style="display: flex; justify-content: center; padding-top: 4px"><button class="lift" @click="goHome" style="min-height: 52px; padding: 0 22px; border-radius: 14px; border: 1.5px solid var(--line); background: var(--surface); display: inline-flex; align-items: center; gap: 10px; font-size: 15.5px; font-weight: 800"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5"></path><path d="M5 9.5V20h14V9.5"></path><path d="M10 20v-6h4v6"></path></svg>Retour à l’accueil</button></div>
+</section>
+</template>
+
+<template v-if="isProgress">
+<section class="rise" style="display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; flex-direction: column; gap: 8px; max-width: 560px">
+<span :style="`font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${accent}`">Suivi</span>
+<h1 style="margin: 0; font-size: 34px; line-height: 1.1; letter-spacing: -0.025em; font-weight: 800">Mes progrès</h1>
+<p style="margin: 0; font-size: 15px; line-height: 1.55; color: var(--muted)">Une question est maîtrisée quand ta dernière réponse est juste. Une erreur reste à revoir jusqu’à ce que tu y répondes correctement.</p>
+</div>
+<template v-for="pc in progCards">
+<article style="background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 18px 20px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 12px"><div style="display: flex; flex-direction: column; gap: 2px; min-width: 0"><span :style="`font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${accent}`">{{pc.chapter}}</span><h2 style="margin: 0; font-size: 19px; line-height: 1.3; font-weight: 800; text-wrap: balance">{{pc.title}}</h2></div><span :style="`font-size: 30px; font-weight: 800; letter-spacing: -0.02em; color: ${accent}; white-space: nowrap; font-variant-numeric: tabular-nums`">{{pc.pct}}&nbsp;%</span></div>
+<div aria-hidden="true" style="height: 8px; border-radius: 999px; background: var(--surface3); overflow: hidden"><div :style="`height: 100%; width: ${pc.barW}; background: var(--accent); border-radius: 999px`"></div></div>
+<p style="margin: 0; font-size: 14px; line-height: 1.5; color: var(--muted)">{{pc.detail}}</p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px"><template v-for="b in pc.bests"><span style="display: inline-flex; align-items: center; gap: 6px; min-height: 30px; padding: 0 12px; border-radius: 999px; background: var(--surface2); border: 1px solid var(--line); font-size: 13px; font-weight: 700">{{b.label}}&nbsp;: <span style="font-variant-numeric: tabular-nums">{{b.value}}</span></span></template></div>
+<template v-if="pc.hasKo"><button class="lift" @click="pc.review" style="align-self: flex-start; min-height: 48px; padding: 0 18px; border-radius: 12px; border: 1.5px solid var(--rose); background: var(--rose-t); color: var(--ink); font-size: 15px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"></path><path d="M20 4v7h-7"></path></svg>Revoir mes erreurs · {{pc.koLabel}}</button></template>
+<template v-if="pc.allGood"><p :style="`margin: 0; font-size: 14px; font-weight: 700; color: ${accent}`">Aucune erreur à revoir.</p></template>
+</article>
+</template>
+<article style="background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px">
+<h2 style="margin: 0; font-size: 19px; font-weight: 800">Dernières parties</h2>
+<template v-if="hasHist"><div style="display: flex; flex-direction: column"><template v-for="h in histRows"><div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 10px 0; border-top: 1px solid var(--line)"><span style="display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-size: 14.5px; font-weight: 700">{{h.what}}</span><span style="font-size: 12.5px; color: var(--muted)">{{h.date}}</span></span><span style="font-size: 16px; font-weight: 800; font-variant-numeric: tabular-nums">{{h.score}}</span></div></template></div></template>
+<template v-if="noHist"><p style="margin: 0; font-size: 14px; color: var(--muted)">Aucune partie terminée pour l’instant.</p></template>
+</article>
+<template v-if="resetIdle"><div style="display: flex; justify-content: center"><button @click="resetAsk" style="min-height: 44px; padding: 0 16px; border-radius: 12px; border: 0; background: transparent; color: var(--muted); font-size: 14px; font-weight: 700; text-decoration: underline">Effacer mes progrès</button></div></template>
+<template v-if="resetConfirm"><div role="alertdialog" aria-label="Confirmer l’effacement" style="background: var(--rose-t); border: 1.5px solid var(--rose); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 12px"><p style="margin: 0; font-size: 15px; line-height: 1.55; font-weight: 600">Effacer tous tes progrès, ton historique et tes records&nbsp;? Cette action est définitive.</p><div style="display: flex; flex-wrap: wrap; gap: 10px"><button @click="resetDo" style="min-height: 46px; padding: 0 18px; border-radius: 12px; border: 0; background: var(--rose); color: #FFFFFF; font-size: 15px; font-weight: 800">Oui, tout effacer</button><button @click="resetCancel" style="min-height: 46px; padding: 0 18px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Annuler</button></div></div></template>
+<div style="display: flex; justify-content: center; padding-top: 4px"><button class="lift" @click="goHome" style="min-height: 52px; padding: 0 22px; border-radius: 14px; border: 1.5px solid var(--line); background: var(--surface); display: inline-flex; align-items: center; gap: 10px; font-size: 15.5px; font-weight: 800"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5"></path><path d="M5 9.5V20h14V9.5"></path><path d="M10 20v-6h4v6"></path></svg>Retour à l’accueil</button></div>
+</section>
+</template>
+
+<template v-if="isSettings">
+<section class="rise" style="display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; flex-direction: column; gap: 8px"><span :style="`font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${accent}`">Réglages</span>
+<h1 style="margin: 0; font-size: 34px; line-height: 1.1; letter-spacing: -0.025em; font-weight: 800">Paramètres</h1></div>
+<div style="background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 18px 20px; display: flex; flex-direction: column; gap: 14px">
+<p style="margin: 0; font-size: 17px; font-weight: 800">Affichage</p>
+<div style="display: flex; flex-direction: column; gap: 8px"><span style="font-size: 13px; font-weight: 700; color: var(--muted)">Thème</span>
+<div role="group" aria-label="Thème" style="display: flex; flex-wrap: wrap; gap: 8px"><template v-for="o in themeOpts"><button @click="o.pick" :aria-pressed="o.pressed" :style="o.style">{{o.label}}</button></template></div></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><span style="font-size: 13px; font-weight: 700; color: var(--muted)">Taille du texte arabe</span>
+<div role="group" aria-label="Taille du texte arabe" style="display: flex; flex-wrap: wrap; gap: 8px"><template v-for="o in arOpts"><button @click="o.pick" :aria-pressed="o.pressed" :style="o.style">{{o.label}}</button></template></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px"><span style="font-size: 13px; font-weight: 700; color: var(--muted)">Police arabe</span>
+<div role="group" aria-label="Police arabe" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px"><template v-for="o in fontOpts"><button @click="o.pick" :aria-pressed="o.pressed" :style="o.style"><span dir="rtl" lang="ar" :style="`font-family: ${o.ff}; font-size: 22px; font-weight: 400; line-height: 1.7`">ٱلرَّحۡمَٰنُ</span><span>{{o.label}}</span></button></template></div>
+<div dir="rtl" lang="ar" style="align-self: flex-end; font-family: var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: calc(23px * var(--ar, 1)); line-height: 2; color: var(--ink)">إِنَّ رَبَّكَ لَبِٱلۡمِرۡصَادِ</div></div>
+</div>
+<div style="background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 14px 20px 6px; display: flex; flex-direction: column">
+<p style="margin: 0 0 8px; font-size: 17px; font-weight: 800">Application</p>
+<button class="lift" @click="goInstall" style="width: 100%; text-align: left; display: flex; align-items: center; gap: 14px; min-height: 64px; padding: 10px 4px; border: 0; border-top: 1px solid var(--line); background: transparent; color: var(--ink)"><span :style="`width: 40px; height: 40px; border-radius: 12px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center; flex-shrink: 0`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"></path><path d="M7 10l5 5 5-5"></path><path d="M5 21h14"></path></svg></span><span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15.5px; font-weight: 800">Installer l’application</span><span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">Ordinateur, iPhone et Android</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--muted)"><path d="M9 6l6 6-6 6"></path></svg></button>
+<button class="lift" @click="goAbout" style="width: 100%; text-align: left; display: flex; align-items: center; gap: 14px; min-height: 64px; padding: 10px 4px; border: 0; border-top: 1px solid var(--line); background: transparent; color: var(--ink)"><span :style="`width: 40px; height: 40px; border-radius: 12px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center; flex-shrink: 0`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v6"></path><path d="M12 7.5v.5"></path></svg></span><span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15.5px; font-weight: 800">À propos</span><span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">Pourquoi et comment cette application</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--muted)"><path d="M9 6l6 6-6 6"></path></svg></button>
+<button class="lift" @click="shareApp" style="width: 100%; text-align: left; display: flex; align-items: center; gap: 14px; min-height: 64px; padding: 10px 4px; border: 0; border-top: 1px solid var(--line); background: transparent; color: var(--ink)"><span :style="`width: 40px; height: 40px; border-radius: 12px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center; flex-shrink: 0`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"></path><path d="M8 7l4-4 4 4"></path><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"></path></svg></span><span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15.5px; font-weight: 800">Partager l’application</span><span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">Envoyer le lien à d’autres auditeurs</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--muted)"><path d="M9 6l6 6-6 6"></path></svg></button>
+</div>
+<div style="display: flex; justify-content: center; padding-top: 4px"><button class="lift" @click="goHome" style="min-height: 52px; padding: 0 22px; border-radius: 14px; border: 1.5px solid var(--line); background: var(--surface); display: inline-flex; align-items: center; gap: 10px; font-size: 15.5px; font-weight: 800"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5"></path><path d="M5 9.5V20h14V9.5"></path><path d="M10 20v-6h4v6"></path></svg>Retour à l’accueil</button></div>
 </section>
 </template>
 
@@ -514,9 +590,9 @@ Mode mémorisation
 <div style="display: flex; flex-direction: column; gap: 8px; max-width: 560px">
 <span :style="`font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${accent}`">Installation</span>
 <h1 style="margin: 0; font-size: 34px; line-height: 1.1; letter-spacing: -0.025em; font-weight: 800">Installer l’application</h1>
-<p style="margin: 0; font-size: 15px; line-height: 1.55; color: #55625D">Adresse de l’application&nbsp;: <a href="https://niveau-4c-cifod.netlify.app" target="_blank" rel="noopener noreferrer" :style="`color: ${accent}; font-weight: 700`">niveau-4c-cifod.netlify.app</a></p>
+<p style="margin: 0; font-size: 15px; line-height: 1.55; color: var(--muted)">Adresse de l’application&nbsp;: <a href="https://niveau-4c-cifod.netlify.app" target="_blank" rel="noopener noreferrer" :style="`color: ${accent}; font-weight: 700`">niveau-4c-cifod.netlify.app</a></p>
 </div>
-<article style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+<article style="background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
 <div style="display: flex; align-items: center; gap: 12px"><span :style="`width: 44px; height: 44px; border-radius: 13px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center; flex-shrink: 0`"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"></rect><path d="M8 20h8"></path><path d="M12 16v4"></path></svg></span><h2 style="margin: 0; font-size: 20px; font-weight: 800; letter-spacing: -0.01em">Ordinateur</h2></div>
 <ol style="margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 8px; font-size: 15.5px; line-height: 1.55">
 <li>Dans la barre d’adresse, à gauche de l’icône des favoris, cliquez sur le carré avec la flèche.</li>
@@ -524,8 +600,8 @@ Mode mémorisation
 <li>Cliquez sur <strong>Installer</strong>.</li>
 </ol>
 </article>
-<article style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
-<div style="display: flex; align-items: center; gap: 12px"><span style="width: 44px; height: 44px; border-radius: 13px; background: #FFFFFF; border: 1px solid #DCE0DA; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><img src="assets/logo_apple.png" alt="" style="width: 26px; height: 26px; display: block"></span><h2 style="margin: 0; font-size: 20px; font-weight: 800; letter-spacing: -0.01em">iPhone</h2></div>
+<article style="background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; align-items: center; gap: 12px"><span style="width: 44px; height: 44px; border-radius: 13px; background: var(--surface); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; flex-shrink: 0"><img src="assets/logo_apple.png" alt="" style="width: 26px; height: 26px; display: block"></span><h2 style="margin: 0; font-size: 20px; font-weight: 800; letter-spacing: -0.01em">iPhone</h2></div>
 <ol style="margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 8px; font-size: 15.5px; line-height: 1.55">
 <li>Ouvrez le lien dans <strong>Safari</strong>.</li>
 <li>Touchez le bouton <strong>Partager</strong> (le carré avec une flèche).</li>
@@ -534,16 +610,16 @@ Mode mémorisation
 <li>Touchez <strong>Ajouter</strong> (ou <strong>Terminé</strong>).</li>
 </ol>
 </article>
-<article style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
-<div style="display: flex; align-items: center; gap: 12px"><span style="width: 44px; height: 44px; border-radius: 13px; background: #FFFFFF; border: 1px solid #DCE0DA; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><img src="assets/logo_android.png" alt="" style="width: 30px; height: 30px; display: block"></span><h2 style="margin: 0; font-size: 20px; font-weight: 800; letter-spacing: -0.01em">Android</h2></div>
+<article style="background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; align-items: center; gap: 12px"><span style="width: 44px; height: 44px; border-radius: 13px; background: var(--surface); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; flex-shrink: 0"><img src="assets/logo_android.png" alt="" style="width: 30px; height: 30px; display: block"></span><h2 style="margin: 0; font-size: 20px; font-weight: 800; letter-spacing: -0.01em">Android</h2></div>
 <ol style="margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 8px; font-size: 15.5px; line-height: 1.55">
 <li>Ouvrez le lien dans le navigateur <strong>Chrome</strong>.</li>
 <li>Touchez <strong>⋮</strong> en haut à droite.</li>
 <li>Choisissez <strong>Installer l’application</strong> (ou <strong>Ajouter à l’écran d’accueil</strong>).</li>
 </ol>
 </article>
-<p style="margin: 0; font-size: 12px; line-height: 1.5; color: #55625D">Le robot Android est reproduit à partir d’une création de Google, utilisée selon les conditions de la licence Creative Commons Attribution 3.0.</p>
-<div style="display: flex; justify-content: flex-start"><button @click="goHome" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid #DCE0DA; background: #FFFFFF; font-size: 15px; font-weight: 700">Retour à l’accueil</button></div>
+<p style="margin: 0; font-size: 12px; line-height: 1.5; color: var(--muted)">Le robot Android est reproduit à partir d’une création de Google, utilisée selon les conditions de la licence Creative Commons Attribution 3.0.</p>
+<div style="display: flex; justify-content: flex-start"><button @click="goHome" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Retour à l’accueil</button></div>
 </section>
 </template>
 
@@ -553,17 +629,17 @@ Mode mémorisation
 <span :style="`font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${accent}`">À propos</span>
 <h1 style="margin: 0; font-size: 34px; line-height: 1.1; letter-spacing: -0.025em; font-weight: 800">À propos de l’application</h1>
 </div>
-<article style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 14px; padding: 22px 24px; gap: 16px">
+<article style="background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 14px; padding: 22px 24px; gap: 16px">
 <p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">Cette application a été développée par un auditeur du CIFOD dans le but de faciliter à sa propre personne ainsi qu’aux autres apprenants, la révision des cours théoriques de Psalmodie du QUR’ÂN. Elle n’a vocation à remplacer ni les cours en présentiel, ni ceux dispensés en ligne, mais aspire plutôt à devenir, inchâ Allah, un compagnon fidèle sur le chemin de l’apprentissage du Tadjwîd.</p>
 <p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">Par ailleurs, l’application suit pas à pas l’ouvrage de référence en la matière au CIFOD (niveaux 4 et CPC)&nbsp;: <em>Le Viatique du Lecteur</em>, Règles de la Psalmodie du QUR’ÂN.</p>
 <p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">C’est une application web totalement gratuite et sans aucune publicité. De plus, elle fonctionne offline (sans connexion internet).</p>
 <p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">Nous espérons que ce modeste travail sera profitable à tous les auditeurs.</p>
 </article>
 <div :style="`background: ${tint}; border-radius: 20px; padding: 22px 24px; display: flex; flex-direction: column; align-items: center; text-align: center`">
-<p style="margin: 0; width: 100%; font-size: 16.5px; line-height: 1.8; font-style: italic; font-weight: 600; color: #24452F; text-align: center">Seigneur des cieux et de la Terre,<br>Je sais que mes œuvres sont légères,<br>Mais fais que celle-ci soit sincère,<br>Et pardonne à mes père et mère.</p>
-<p style="margin: 10px 0 0; font-size: 16px; font-weight: 800; color: #24452F">Amin.</p>
+<p style="margin: 0; width: 100%; font-size: 16.5px; line-height: 1.8; font-style: italic; font-weight: 600; color: var(--ink2); text-align: center">Seigneur des cieux et de la Terre,<br>Je sais que mes œuvres sont légères,<br>Mais fais que celle-ci soit sincère,<br>Et pardonne à mes père et mère.</p>
+<p style="margin: 10px 0 0; font-size: 16px; font-weight: 800; color: var(--ink2)">Amin.</p>
 </div>
-<div style="display: flex; justify-content: flex-start"><button @click="goHome" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid #DCE0DA; background: #FFFFFF; font-size: 15px; font-weight: 700">Retour à l’accueil</button></div>
+<div style="display: flex; justify-content: flex-start"><button @click="goHome" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Retour à l’accueil</button></div>
 </section>
 </template>
 
@@ -571,19 +647,19 @@ Mode mémorisation
 <div style="display: flex; flex-direction: column; gap: 10px">
 <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 16px">
 <span :style="`font-size: 13px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${accent}`">{{modeLabel}}</span>
-<span style="font-size: 14px; font-weight: 600; color: #55625D; font-variant-numeric: tabular-nums">Question {{qNum}}/{{total}} · Score {{score}}</span>
+<span style="font-size: 14px; font-weight: 600; color: var(--muted); font-variant-numeric: tabular-nums">Question {{qNum}}/{{total}} · Score {{score}}</span>
 </div>
-<div role="progressbar" aria-label="Progression" aria-valuemin="0" aria-valuemax="100" :aria-valuenow="progressNum" style="height: 6px; border-radius: 999px; background: #E2E6DF; overflow: hidden">
+<div role="progressbar" aria-label="Progression" aria-valuemin="0" aria-valuemax="100" :aria-valuenow="progressNum" style="height: 6px; border-radius: 999px; background: var(--surface3); overflow: hidden">
 <div :style="`height: 100%; width: ${progressPct}; background: ${accent}; border-radius: 999px; transition: width .35s ease`"></div>
 </div>
 </div>
 </template>
 
 <template v-if="isCard">
-<div style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 22px; padding: 28px 24px; display: flex; flex-direction: column; align-items: center; gap: 18px; text-align: center">
+<div style="background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 28px 24px; display: flex; flex-direction: column; align-items: center; gap: 18px; text-align: center">
 <template v-if="qc.hasGlyph">
-<span role="img" :aria-label="qc.tile.aria" style="width: 116px; height: 116px; border-radius: 26px; background: #F6F7F3; border: 1px solid #DCE0DA; box-shadow: inset 0 -4px 0 #ECEEE9; display: flex; align-items: center; justify-content: center">
-<template v-if="qc.tile.isTxt"><span dir="rtl" lang="ar" aria-hidden="true" :style="`font-family: 'Hafs', 'Amiri', 'Noto Naskh Arabic', serif; line-height: 1.3; font-size: ${qc.tile.fs}; color: ${qc.tile.color}`">{{qc.tile.glyph}}</span></template>
+<span role="img" :aria-label="qc.tile.aria" style="width: 116px; height: 116px; border-radius: 26px; background: var(--surface2); border: 1px solid var(--line); box-shadow: inset 0 -4px 0 var(--line); display: flex; align-items: center; justify-content: center">
+<template v-if="qc.tile.isTxt"><span dir="rtl" lang="ar" aria-hidden="true" :style="`font-family: var(--arfont, 'Hafs'), 'Hafs', 'Amiri', 'Noto Naskh Arabic', serif; line-height: 1.3; font-size: ${qc.tile.fs}; color: ${qc.tile.color}`">{{qc.tile.glyph}}</span></template>
 <template v-if="qc.tile.isSajda"><img src="assets/sajda.svg" alt="" :style="`width: ${qc.tile.px}; height: ${qc.tile.px}; display: block`"></template>
 <template v-if="qc.tile.isHizb"><img src="assets/hizb.svg" alt="" :style="`width: ${qc.tile.px}; height: ${qc.tile.px}; display: block`"></template>
 <template v-if="qc.tile.isQala"><img src="assets/qala.svg" alt="" :style="`width: ${qc.tile.px}; height: ${qc.tile.px}; display: block`"></template>
@@ -596,15 +672,15 @@ Mode mémorisation
 <template v-if="qc.tile.isDots"><img src="assets/dots.svg" alt="" :style="`width: ${qc.tile.px}; height: ${qc.tile.px}; display: block`"></template>
 </span>
 </template>
-<span style="font-size: 13px; font-weight: 700; color: #55625D">{{qc.kicker}}</span>
+<span style="font-size: 13px; font-weight: 700; color: var(--muted)">{{qc.kicker}}</span>
 <p style="margin: 0; font-size: 22px; font-weight: 700; line-height: 1.4; letter-spacing: -0.01em; max-width: 540px; text-wrap: pretty">{{qc.text}}</p>
 <template v-if="qc.hasVerse">
-<div style="width: 100%; max-width: 560px; border: 1px dashed #C9CFC7; border-radius: 14px; padding: 10px 16px; display: flex; flex-direction: column; gap: 2px">
-<div dir="rtl" lang="ar" style="font-family: 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: 30px; line-height: 2.1; color: #14201C; text-align: center">
-<template v-if="qc.verse.isPair"><span>… <template v-for="pt in qc.verse.beforeParts"><span :style="pt.style">{{pt.text}}</span></template></span> <span aria-label="fin de verset" style="font-family: 'Hafs', 'Amiri Quran', serif; color: #C62828; margin: 0 4px">{{qc.verse.num}}</span> <span><template v-for="pt in qc.verse.afterParts"><span :style="pt.style">{{pt.text}}</span></template> …</span></template>
+<div style="width: 100%; max-width: 560px; border: 1px dashed var(--line2); border-radius: 14px; padding: 10px 16px; display: flex; flex-direction: column; gap: 2px">
+<div dir="rtl" lang="ar" style="font-family: var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: calc(30px * var(--ar, 1)); line-height: 2.1; color: var(--ink); text-align: center">
+<template v-if="qc.verse.isPair"><span>… <template v-for="pt in qc.verse.beforeParts"><span :style="pt.style">{{pt.text}}</span></template></span> <span aria-label="fin de verset" style="font-family: 'Hafs', 'Amiri Quran', serif; color: var(--red); margin: 0 4px">{{qc.verse.num}}</span> <span><template v-for="pt in qc.verse.afterParts"><span :style="pt.style">{{pt.text}}</span></template> …</span></template>
 <template v-if="qc.verse.isSingle"><span><template v-for="pt in qc.verse.textParts"><span :style="pt.style">{{pt.text}}</span></template> …</span></template>
 </div>
-<span style="font-size: 12px; font-weight: 700; color: #55625D">{{qc.verse.ref}}</span>
+<span style="font-size: 12px; font-weight: 700; color: var(--muted)">{{qc.verse.ref}}</span>
 </div>
 </template>
 </div>
@@ -613,14 +689,14 @@ Mode mémorisation
 <template v-if="isQcm">
 <div style="display: flex; flex-direction: column; gap: 10px">
 <template v-for="o in qcmOptions">
-<button class="lift" @click="o.pick" :disabled="o.disabled" :aria-label="o.aria" :style="`width: 100%; min-height: 62px; padding: 12px 16px; display: flex; align-items: center; gap: 14px; text-align: left; background: ${o.bg}; border: 1.5px solid ${o.border}; border-radius: 15px; opacity: ${o.op}; color: #14201C`">
+<button class="lift" @click="o.pick" :disabled="o.disabled" :aria-label="o.aria" :style="`width: 100%; min-height: 62px; padding: 12px 16px; display: flex; align-items: center; gap: 14px; text-align: left; background: ${o.bg}; border: 1.5px solid ${o.border}; border-radius: 15px; opacity: ${o.op}; color: var(--ink)`">
 <span :style="`width: 34px; height: 34px; flex-shrink: 0; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; background: ${o.badgeBg}; color: ${o.badgeFg}`">
 <template v-if="o.showLetter"><span>{{o.letter}}</span></template>
 <template v-if="o.showCheck"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></template>
 <template v-if="o.showCross"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17"></path></svg></template>
 </span>
 <template v-if="o.isText"><span style="font-size: 16px; font-weight: 600; line-height: 1.35">{{o.text}}</span></template>
-<template v-if="o.isGlyphTxt"><span dir="rtl" lang="ar" :style="`font-family: 'Hafs', 'Amiri', 'Noto Naskh Arabic', serif; line-height: 1.25; font-size: ${o.fs}; color: ${o.color}`">{{o.glyph}}</span></template>
+<template v-if="o.isGlyphTxt"><span dir="rtl" lang="ar" :style="`font-family: var(--arfont, 'Hafs'), 'Hafs', 'Amiri', 'Noto Naskh Arabic', serif; line-height: 1.25; font-size: ${o.fs}; color: ${o.color}`">{{o.glyph}}</span></template>
 <template v-if="o.isQala"><img src="assets/qala.svg" alt="" :style="`width: ${o.px}; height: ${o.px}; display: block`"></template>
 <template v-if="o.isSala"><img src="assets/sala.svg" alt="" :style="`width: ${o.px}; height: ${o.px}; display: block`"></template>
 <template v-if="o.isMim"><img src="assets/mim.svg" alt="" :style="`width: ${o.px}; height: ${o.px}; display: block`"></template>
@@ -645,12 +721,12 @@ Mode mémorisation
 
 <template v-if="isTrous">
 <div style="display: flex; flex-direction: column; gap: 14px">
-<div style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 22px; padding: 26px 24px; display: flex; flex-direction: column; gap: 14px">
-<span style="font-size: 13px; font-weight: 700; color: #55625D">Complète la phrase</span>
+<div style="background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 26px 24px; display: flex; flex-direction: column; gap: 14px">
+<span style="font-size: 13px; font-weight: 700; color: var(--muted)">Complète la phrase</span>
 <div style="font-size: 21px; font-weight: 600; line-height: 2.3; letter-spacing: -0.005em; text-wrap: pretty">
 <template v-for="g in tr.segs">
 <template v-if="g.isText"><span>{{g.text}}</span></template>
-<template v-if="g.isGlyphTxt"><span dir="rtl" lang="ar" :style="`font-family: 'Hafs', 'Amiri', 'Noto Naskh Arabic', serif; font-size: ${g.fs}; line-height: 1; padding: 0 3px; color: ${g.color}`">{{g.glyph}}</span></template>
+<template v-if="g.isGlyphTxt"><span dir="rtl" lang="ar" :style="`font-family: var(--arfont, 'Hafs'), 'Hafs', 'Amiri', 'Noto Naskh Arabic', serif; font-size: ${g.fs}; line-height: 1; padding: 0 3px; color: ${g.color}`">{{g.glyph}}</span></template>
 <template v-if="g.isSajda"><img src="assets/sajda.svg" alt="symbole de prosternation" :style="`width: ${g.px}; height: ${g.px}; display: inline-block; vertical-align: middle; margin: 0 3px`"></template>
 <template v-if="g.isHizb"><img src="assets/hizb.svg" alt="symbole de fin de section" :style="`width: ${g.px}; height: ${g.px}; display: inline-block; vertical-align: middle; margin: 0 3px`"></template>
 <template v-if="g.isQala"><img src="assets/qala.svg" alt="signe Qalâ" :style="`width: ${g.px}; height: ${g.px}; display: inline-block; vertical-align: middle; margin: 0 3px`"></template>
@@ -666,16 +742,16 @@ Mode mémorisation
 </div>
 </div>
 <div style="display: flex; flex-direction: column; gap: 12px">
-<span style="font-size: 13px; font-weight: 600; color: #55625D">Touche un mot pour remplir le prochain trou&nbsp;; touche un trou pour le vider.</span>
+<span style="font-size: 13px; font-weight: 600; color: var(--muted)">Touche un mot pour remplir le prochain trou&nbsp;; touche un trou pour le vider.</span>
 <div style="display: flex; flex-wrap: wrap; gap: 10px">
 <template v-for="c in tr.chips">
-<button class="lift" @click="c.pick" :disabled="c.disabled" :style="`min-height: 46px; padding: 0 18px; border-radius: 999px; border: 1.5px solid #CFD5CD; background: #FFFFFF; font-size: 16px; font-weight: 700; opacity: ${c.op}; color: #14201C`">{{c.label}}</button>
+<button class="lift" @click="c.pick" :disabled="c.disabled" :style="`min-height: 46px; padding: 0 18px; border-radius: 999px; border: 1.5px solid var(--line2); background: var(--surface); font-size: 16px; font-weight: 700; opacity: ${c.op}; color: var(--ink)`">{{c.label}}</button>
 </template>
 </div>
 </div>
 <template v-if="tr.showActions">
 <div style="display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px">
-<button @click="resetFills" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid #DCE0DA; background: #FFFFFF; font-size: 15px; font-weight: 700">Effacer</button>
+<button @click="resetFills" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Effacer</button>
 <button @click="check" :disabled="tr.checkDisabled" :style="`min-height: 48px; padding: 0 24px; border-radius: 12px; border: 0; background: ${accent}; color: #FFFFFF; font-size: 15px; font-weight: 700; opacity: ${tr.checkOp}`">Vérifier</button>
 </div>
 </template>
@@ -691,11 +767,11 @@ Mode mémorisation
 </span>
 <div style="display: flex; flex-direction: column; gap: 6px; min-width: 0">
 <p :style="`margin: 0; font-size: 17px; font-weight: 800; color: ${fb.color}`">{{fb.title}}</p>
-<template v-if="fb.hasExtra"><p style="margin: 0; font-size: 15px; font-weight: 700; line-height: 1.5; color: #14201C">{{fb.extra}}</p></template>
-<p style="margin: 0; font-size: 15px; line-height: 1.55; color: #33403B; text-wrap: pretty">{{fb.explain}}</p>
+<template v-if="fb.hasExtra"><p style="margin: 0; font-size: 15px; font-weight: 700; line-height: 1.5; color: var(--ink)">{{fb.extra}}</p></template>
+<p style="margin: 0; font-size: 15px; line-height: 1.55; color: var(--ink); text-wrap: pretty">{{fb.explain}}</p>
 </div>
 </div>
-<button @click="next" style="align-self: flex-end; min-height: 48px; padding: 0 22px; border-radius: 12px; border: 0; background: #14201C; color: #FFFFFF; font-size: 15px; font-weight: 700; display: inline-flex; align-items: center; gap: 8px">{{fb.nextLabel}}
+<button @click="next" style="align-self: flex-end; min-height: 48px; padding: 0 22px; border-radius: 12px; border: 0; background: var(--btn); color: #FFFFFF; font-size: 15px; font-weight: 700; display: inline-flex; align-items: center; gap: 8px">{{fb.nextLabel}}
 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
 </button>
 </div>
@@ -703,28 +779,29 @@ Mode mémorisation
 
 <template v-if="isResult">
 <section class="rise" style="display: flex; flex-direction: column; gap: 22px">
-<div style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 24px; padding: 32px 24px; display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center">
+<div style="background: var(--surface); border: 1px solid var(--line); border-radius: 24px; padding: 32px 24px; display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center">
 <span :style="`font-size: 13px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${accent}`">{{res.modeLabel}} · Résultat</span>
-<p style="margin: 0; font-size: 72px; font-weight: 800; letter-spacing: -0.04em; line-height: 1; font-variant-numeric: tabular-nums">{{res.score}}<span style="font-size: 30px; font-weight: 700; color: #55625D; letter-spacing: -0.01em"> / {{res.total}}</span></p>
-<div aria-hidden="true" style="width: 100%; max-width: 320px; height: 8px; border-radius: 999px; background: #E2E6DF; overflow: hidden"><div :style="`height: 100%; width: ${res.barW}; background: ${accent}; border-radius: 999px`"></div></div>
+<p style="margin: 0; font-size: 72px; font-weight: 800; letter-spacing: -0.04em; line-height: 1; font-variant-numeric: tabular-nums">{{res.score}}<span style="font-size: 30px; font-weight: 700; color: var(--muted); letter-spacing: -0.01em"> / {{res.total}}</span></p>
+<div aria-hidden="true" style="width: 100%; max-width: 320px; height: 8px; border-radius: 999px; background: var(--surface3); overflow: hidden"><div :style="`height: 100%; width: ${res.barW}; background: ${accent}; border-radius: 999px`"></div></div>
 <p style="margin: 0; font-size: 17px; line-height: 1.55; max-width: 440px; text-wrap: pretty">{{res.message}}</p>
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 6px">
-<button @click="restart" :style="`min-height: 48px; padding: 0 22px; border-radius: 12px; border: 0; background: ${accent}; color: #FFFFFF; font-size: 15px; font-weight: 700; display: inline-flex; align-items: center; gap: 8px`">
+<template v-if="canRestart"><button @click="restart" :style="`min-height: 48px; padding: 0 22px; border-radius: 12px; border: 0; background: ${accent}; color: #FFFFFF; font-size: 15px; font-weight: 700; display: inline-flex; align-items: center; gap: 8px`">
 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"></path><path d="M20 4v7h-7"></path></svg>
 Recommencer
-</button>
-<button @click="goFiches" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid #DCE0DA; background: #FFFFFF; font-size: 15px; font-weight: 700">Revoir les fiches</button>
-<button @click="goHome" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid #DCE0DA; background: #FFFFFF; font-size: 15px; font-weight: 700">Changer de mode</button>
+</button></template>
+<template v-if="resReview"><button @click="reviewCur" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid var(--rose); background: var(--rose-t); color: var(--ink); font-size: 15px; font-weight: 700">{{resReviewLabel}}</button></template>
+<button @click="goFiches" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Revoir les fiches</button>
+<button @click="goHome" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Changer de mode</button>
 </div>
 </div>
 <template v-if="res.hasMistakes">
 <div style="display: flex; flex-direction: column; gap: 10px">
 <h2 style="margin: 0 0 4px; font-size: 20px; font-weight: 800; letter-spacing: -0.01em">À revoir</h2>
 <template v-for="m in res.mistakes">
-<article style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 16px; padding: 16px; display: flex; gap: 14px; align-items: flex-start">
+<article style="background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px; display: flex; gap: 14px; align-items: flex-start">
 <template v-if="m.hasTile">
-<span role="img" :aria-label="m.tile.aria" style="width: 52px; height: 52px; flex-shrink: 0; border-radius: 13px; background: #F6F7F3; border: 1px solid #DCE0DA; display: flex; align-items: center; justify-content: center">
-<template v-if="m.tile.isTxt"><span dir="rtl" lang="ar" aria-hidden="true" :style="`font-family: 'Hafs', 'Amiri', 'Noto Naskh Arabic', serif; line-height: 1.3; font-size: ${m.tile.fs}; color: ${m.tile.color}`">{{m.tile.glyph}}</span></template>
+<span role="img" :aria-label="m.tile.aria" style="width: 52px; height: 52px; flex-shrink: 0; border-radius: 13px; background: var(--surface2); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center">
+<template v-if="m.tile.isTxt"><span dir="rtl" lang="ar" aria-hidden="true" :style="`font-family: var(--arfont, 'Hafs'), 'Hafs', 'Amiri', 'Noto Naskh Arabic', serif; line-height: 1.3; font-size: ${m.tile.fs}; color: ${m.tile.color}`">{{m.tile.glyph}}</span></template>
 <template v-if="m.tile.isSajda"><img src="assets/sajda.svg" alt="" :style="`width: ${m.tile.px}; height: ${m.tile.px}; display: block`"></template>
 <template v-if="m.tile.isHizb"><img src="assets/hizb.svg" alt="" :style="`width: ${m.tile.px}; height: ${m.tile.px}; display: block`"></template>
 <template v-if="m.tile.isQala"><img src="assets/qala.svg" alt="" :style="`width: ${m.tile.px}; height: ${m.tile.px}; display: block`"></template>
@@ -740,13 +817,13 @@ Recommencer
 <div style="display: flex; flex-direction: column; gap: 6px; min-width: 0">
 <p style="margin: 0; font-size: 15px; font-weight: 700; line-height: 1.45">{{m.prompt}}</p>
 <template v-if="m.hasVerse">
-<div dir="rtl" lang="ar" style="font-family: 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: 22px; line-height: 2.1; color: #14201C; text-align: left">
-<template v-if="m.verse.isPair"><span>… <template v-for="pt in m.verse.beforeParts"><span :style="pt.style">{{pt.text}}</span></template></span> <span aria-label="fin de verset" style="font-family: 'Hafs', 'Amiri Quran', serif; color: #C62828; margin: 0 4px">{{m.verse.num}}</span> <span><template v-for="pt in m.verse.afterParts"><span :style="pt.style">{{pt.text}}</span></template> …</span></template>
+<div dir="rtl" lang="ar" style="font-family: var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: calc(22px * var(--ar, 1)); line-height: 2.1; color: var(--ink); text-align: left">
+<template v-if="m.verse.isPair"><span>… <template v-for="pt in m.verse.beforeParts"><span :style="pt.style">{{pt.text}}</span></template></span> <span aria-label="fin de verset" style="font-family: 'Hafs', 'Amiri Quran', serif; color: var(--red); margin: 0 4px">{{m.verse.num}}</span> <span><template v-for="pt in m.verse.afterParts"><span :style="pt.style">{{pt.text}}</span></template> …</span></template>
 <template v-if="m.verse.isSingle"><span><template v-for="pt in m.verse.textParts"><span :style="pt.style">{{pt.text}}</span></template> …</span></template>
 </div>
 </template>
 <p :style="`margin: 0; font-size: 14px; font-weight: 800; line-height: 1.45; color: ${m.accent}`">Bonne réponse&nbsp;: {{m.answer}}</p>
-<p style="margin: 0; font-size: 14px; line-height: 1.5; color: #55625D; text-wrap: pretty">{{m.explain}}</p>
+<p style="margin: 0; font-size: 14px; line-height: 1.5; color: var(--muted); text-wrap: pretty">{{m.explain}}</p>
 </div>
 </article>
 </template>
@@ -757,24 +834,35 @@ Recommencer
 
 </main>
 
-<footer style="padding: 24px 20px 28px; border-top: 1px solid #DCE0DA">
+<footer style="padding: 24px 20px 28px; border-top: 1px solid var(--line)">
 <div style="max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px">
 <p :style="`margin: 0; font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${accent}`">Retrouver le CIFOD</p>
 <div style="display: flex; flex-wrap: wrap; gap: 10px">
 <a class="lift" href="https://www.facebook.com/CIFODCIV" target="_blank" rel="noopener noreferrer" aria-label="Page Facebook du CIFOD" title="Facebook · CIFODCIV" style="display: inline-flex; align-items: center; justify-content: center; width: 52px; height: 52px; border-radius: 999px; text-decoration: none">
-<img src="assets/facebook_logo.png" alt="" style="width: 44px; height: 44px; display: block">
+<img src="assets/facebook_logo.png" alt="" style="width: 23px; height: 23px; display: block">
 </a>
 <a class="lift" href="https://cifod.org/" target="_blank" rel="noopener noreferrer" aria-label="Site internet du CIFOD : cifod.org" title="cifod.org" style="display: inline-flex; align-items: center; gap: 8px; height: 52px; padding: 0 10px 0 4px; border-radius: 999px; text-decoration: none">
-<svg width="44" height="44" viewBox="0 0 40 40" fill="none" stroke="#55625D" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display: block"><circle cx="20" cy="20" r="16.5"></circle><path d="M20 3.5v33"></path><ellipse cx="20" cy="20" rx="8" ry="16.5"></ellipse><path d="M3.5 20h33"></path><path d="M6.5 11.5c8.5 3 18.5 3 27 0"></path><path d="M6.5 28.5c8.5-3 18.5-3 27 0"></path></svg>
-<span style="font-size: 16px; font-weight: 800; letter-spacing: 0.01em; color: #55625D">cifod.org</span>
+<svg width="23" height="23" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--muted); display: block"><circle cx="20" cy="20" r="16.5"></circle><path d="M20 3.5v33"></path><ellipse cx="20" cy="20" rx="8" ry="16.5"></ellipse><path d="M3.5 20h33"></path><path d="M6.5 11.5c8.5 3 18.5 3 27 0"></path><path d="M6.5 28.5c8.5-3 18.5-3 27 0"></path></svg>
+<span style="font-size: 16px; font-weight: 800; letter-spacing: 0.01em; color: var(--muted)">cifod.org</span>
 </a>
 </div>
 </div>
 </footer>
 
+<div aria-hidden="true" style="height: calc(76px + env(safe-area-inset-bottom, 0px)); flex-shrink: 0"></div>
+<template v-if="toastShow"><div role="status" style="position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(80px + env(safe-area-inset-bottom, 0px)); z-index: 41; max-width: min(92vw, 460px); padding: 12px 16px; border-radius: 14px; background: var(--btn); color: #FFFFFF; font-size: 14px; font-weight: 700; line-height: 1.4; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.25); overflow-wrap: anywhere">{{toast}}</div></template>
+<nav aria-label="Navigation principale" style="position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; background: var(--surface); border-top: 1px solid var(--line); padding-bottom: env(safe-area-inset-bottom, 0px); box-shadow: 0 -6px 20px rgba(0,0,0,0.06)">
+<div style="max-width: 760px; margin: 0 auto; display: flex; align-items: stretch">
+<button @click="goHome" aria-label="Accueil" :aria-current="tabHomeCur" :style="`flex: 1; min-width: 0; min-height: 58px; padding: 6px 4px; border: 0; background: transparent; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-size: 11.5px; font-weight: 800; ${tabHome}`"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5"></path><path d="M5 9.5V20h14V9.5"></path><path d="M10 20v-6h4v6"></path></svg><span>Accueil</span></button>
+<button @click="goProgress" aria-label="Stats" :aria-current="tabStatsCur" :style="`flex: 1; min-width: 0; min-height: 58px; padding: 6px 4px; border: 0; background: transparent; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-size: 11.5px; font-weight: 800; ${tabStats}`"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10"></path><path d="M10 20V4"></path><path d="M16 20v-7"></path><path d="M22 20H2"></path></svg><span>Stats</span></button>
+<button @click="shareApp" aria-label="Partager"  :style="`flex: 1; min-width: 0; min-height: 58px; padding: 6px 4px; border: 0; background: transparent; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-size: 11.5px; font-weight: 800; ${tabShare}`"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"></path><path d="M8 7l4-4 4 4"></path><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"></path></svg><span>Partager</span></button>
+<button @click="goSettings" aria-label="Paramètres" :aria-current="tabSettingsCur" :style="`flex: 1; min-width: 0; min-height: 58px; padding: 6px 4px; border: 0; background: transparent; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-size: 11.5px; font-weight: 800; ${tabSettings}`"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg><span>Paramètres</span></button>
+</div>
+</nav>
+
 </div>
 </div>
-<div id="update-banner" role="status" aria-live="polite" style="display: none; position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); z-index: 50; width: min(92vw, 460px); align-items: center; gap: 10px; padding: 12px 12px 12px 16px; border-radius: 16px; background: #14201C; color: #FFFFFF; box-shadow: 0 10px 30px rgba(0,0,0,0.25); font-family: 'Manrope', system-ui, sans-serif">
+<div id="update-banner" role="status" aria-live="polite" style="display: none; position: fixed; left: 50%; bottom: calc(84px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 50; width: min(92vw, 460px); align-items: center; gap: 10px; padding: 12px 12px 12px 16px; border-radius: 16px; background: #14201C; color: #FFFFFF; box-shadow: 0 10px 30px rgba(0,0,0,0.25); font-family: 'Manrope', system-ui, sans-serif">
 <span style="flex: 1; font-size: 14.5px; font-weight: 700; line-height: 1.35">Nouvelle version disponible</span>
 <button id="update-later" type="button" style="min-height: 44px; padding: 0 12px; border: 0; border-radius: 10px; background: transparent; color: #C9D3CF; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer">Plus tard</button>
 <button id="update-now" type="button" style="min-height: 44px; padding: 0 16px; border: 0; border-radius: 10px; background: #0B5D4B; color: #FFFFFF; font: inherit; font-size: 14px; font-weight: 800; cursor: pointer">Mettre à jour</button>
@@ -1025,7 +1113,7 @@ class Component extends DCLogic {
     // ——— Chapitre 9 : les règles de la lettre Ra (Le Viatique du Lecteur, p. 46 à 51) ———
     const RA = {
       sections: [
-        { id: 'tafkhim', num: '1', title: 'Cas où la lettre « ر » doit être lue avec l’emphase', ar: 'تَفۡخِيمُ ٱلرَّاءِ', verdict: 'Emphase · Tafkhîm', chipBg: '#0B5D4B', chipFg: '#FFFFFF', cases: [
+        { id: 'tafkhim', num: '1', title: 'Cas où la lettre « ر » doit être lue avec l’emphase', ar: 'تَفۡخِيمُ ٱلرَّاءِ', verdict: 'Emphase · Tafkhîm', chipBg: 'var(--accent)', chipFg: '#FFFFFF', cases: [
           { rule: 'La lettre « ر » porte la voyelle brève Ad-Dommah « [[r:ـُ]] ».',
             ex: [{ label: 'Sourate 110, verset 1', text: 'نَصۡرُ ٱللَّهِ …' }] },
           { rule: 'La lettre Rô porte la voyelle brève Al-Fathah « [[r:ـَ]] ».',
@@ -1053,7 +1141,7 @@ class Component extends DCLogic {
           { rule: 'La lettre « ر » porte la voyelle muette [As-soukoûn] à l’arrêt, elle est précédée d’une lettre sâkinah autre que la lettre Yâ, devant laquelle il y a la voyelle [Al-Fathah] ou [Ad-Dommah].',
             ex: [{ label: 'Sourate 103, versets 1 et 2', text: 'وَٱلۡ[[g:عَ]]صۡ[[r:رِ]] ١ إِنَّ ٱلۡإِنسَٰنَ لَفِي [[g:خُ]]سۡرٍ ٢' }] }
         ] },
-        { id: 'tarqiq', num: '2', title: 'Cas où la lettre « ر » doit être lue avec la légèreté', ar: 'تَرۡقِيقُ ٱلرَّاءِ', verdict: 'Légèreté · Tarqîq', chipBg: '#E3EFEA', chipFg: '#0B5D4B', cases: [
+        { id: 'tarqiq', num: '2', title: 'Cas où la lettre « ر » doit être lue avec la légèreté', ar: 'تَرۡقِيقُ ٱلرَّاءِ', verdict: 'Légèreté · Tarqîq', chipBg: 'var(--tint2)', chipFg: 'var(--accent)', cases: [
           { rule: 'La lettre « ر » porte la voyelle brève [Al-Kasrah « [[r:ـِ]] »].',
             ex: [{ label: 'Sourate 113, verset 2', text: 'مِن شَ[[r:رِّ]] مَا خَلَقَ' }] },
           { rule: 'La lettre « ر » porte la voyelle muette [As-soukoûn « [[r:ـۡ]] »], elle est précédée par la voyelle brève [Al-Kasrah « [[r:ـِ]] »] d’origine (qui n’a pas été rajoutée) et n’est pas suivie dans le même mot par l’une des lettres emphatiques regroupées dans l’expression (خُصَّ ضَغۡطٍ قِظۡ) (Khâ, Ṣôd, Dôd, Ghayn, Ṯô, Qôf, Ẕô).',
@@ -1074,7 +1162,7 @@ class Component extends DCLogic {
               { label: 'Sourate 89, verset 5', text: '… قَسَمٌ لِّذِي [[g:حِ]][[b:جۡ]][[r:رٍ]]' }
             ] }
         ] },
-        { id: 'choix', num: '3', title: 'Cas où l’on peut opter pour l’une ou l’autre des 2 solutions', verdict: 'Au choix · l’un ou l’autre', chipBg: '#FBEFD6', chipFg: '#7A4E00', cases: [
+        { id: 'choix', num: '3', title: 'Cas où l’on peut opter pour l’une ou l’autre des 2 solutions', verdict: 'Au choix · l’un ou l’autre', chipBg: 'var(--amber-bg)', chipFg: 'var(--amber-fg)', cases: [
           { rule: 'La lettre Rô porte la voyelle muette [As-soukoûn « [[r:ـۡ]] »], elle est précédée par la voyelle brève [Al-Kasrah « [[r:ـِ]] »] et suivie par une lettre emphatique portant la voyelle brève [Al-Kasrah].',
             lead: 'Il n’existe qu’un exemple dans le Coran :',
             ex: [{ label: 'Sourate 26, verset 63', text: '… فَكَانَ كُلُّ [[g:فِ]][[r:رۡ]][[b:قٍ]] كَٱلطَّوۡدِ ٱلۡعَظِيمِ' }] },
@@ -1164,7 +1252,8 @@ class Component extends DCLogic {
     return Object.assign({
       screen: 'home', mode: null, topic: 'signes', queue: [], idx: 0, answered: false, picked: null,
       fills: [], checked: false, score: 0, mistakes: [],
-      best: { qcm: null, vf: null, trous: null, tqcm: null, tvf: null, ttrous: null }, hide: false, revealed: {}
+      best: { qcm: null, vf: null, trous: null, tqcm: null, tvf: null, ttrous: null }, hide: false, revealed: {},
+      prog: { q: {}, hist: [] }, theme: 'auto', arScale: 1, arFont: 'hafs', sysDark: false, confirmReset: false, toast: ''
     }, this.state || {});
   }
 
@@ -1173,6 +1262,116 @@ class Component extends DCLogic {
       const raw = window.localStorage.getItem('waqf-signes-best');
       if (raw) this.setState({ best: Object.assign({ qcm: null, vf: null, trous: null, tqcm: null, tvf: null, ttrous: null }, JSON.parse(raw)) });
     } catch (e) {}
+    try {
+      const rp = window.localStorage.getItem('waqf-progres');
+      if (rp) { const p = JSON.parse(rp); this.setState({ prog: { q: p.q || {}, hist: p.hist || [] } }); }
+    } catch (e) {}
+    try {
+      const rd = window.localStorage.getItem('waqf-affichage');
+      if (rd) { const d = JSON.parse(rd); this.setState({ theme: d.theme || 'auto', arScale: d.arScale || 1, arFont: d.arFont || 'hafs' }); }
+    } catch (e) {}
+    try {
+      const mq = window.matchMedia('(prefers-color-scheme: dark)');
+      const f = () => this.setState({ sysDark: mq.matches });
+      f();
+      if (mq.addEventListener) mq.addEventListener('change', f); else if (mq.addListener) mq.addListener(f);
+    } catch (e) {}
+  }
+
+  // ——— Suivi des progrès ———
+  hash(t) {
+    let h = 5381; const x = String(t);
+    for (let i = 0; i < x.length; i++) h = ((h << 5) + h + x.charCodeAt(i)) | 0;
+    return (h >>> 0).toString(36);
+  }
+
+  qidOf(mode, it) {
+    return mode + ':' + this.hash(it.p || it.s || it.t || '');
+  }
+
+  qIndex() {
+    if (this._qi) return this._qi;
+    const D = this.D(); const idx = {};
+    ['signes', 'types', 'ra'].forEach((tp) => ['qcm', 'vf', 'trous'].forEach((m) => (D[this.bankKey(m, tp)] || []).forEach((it) => {
+      idx[this.qidOf(m, it)] = { mode: m, item: it, topic: tp };
+    })));
+    this._qi = idx;
+    return idx;
+  }
+
+  topicStats(tp) {
+    const idx = this.qIndex(); const pq = this.S().prog.q || {};
+    let total = 0, seen = 0, ok = 0, ko = 0;
+    Object.keys(idx).forEach((id) => {
+      if (idx[id].topic !== tp) return;
+      total++;
+      const r = pq[id];
+      if (r) { seen++; if (r.ok) ok++; else ko++; }
+    });
+    return { total, seen, ok, ko, pct: total ? Math.round(ok * 100 / total) : 0 };
+  }
+
+  recordAns(q, ok) {
+    const s = this.S();
+    const pq = Object.assign({}, s.prog.q);
+    if (q && q.qid) {
+      const r = pq[q.qid] || { n: 0, miss: 0 };
+      pq[q.qid] = { n: r.n + 1, miss: r.miss + (ok ? 0 : 1), ok: !!ok };
+    }
+    return Object.assign({}, s.prog, { q: pq });
+  }
+
+  saveProg(p) {
+    try { window.localStorage.setItem('waqf-progres', JSON.stringify(p)); } catch (e) {}
+  }
+
+  resetProgress() {
+    const empty = { qcm: null, vf: null, trous: null, tqcm: null, tvf: null, ttrous: null };
+    this.setState({ prog: { q: {}, hist: [] }, best: empty, confirmReset: false });
+    this.saveProg({ q: {}, hist: [] });
+    this.save(empty);
+  }
+
+  // ——— Confort de lecture ———
+  shareApp() {
+    const url = 'https://niveau-4c-cifod.netlify.app/';
+    const data = { title: 'Niveau 4C — CIFOD', text: 'Révise les règles de la lettre Ra, les types d’arrêts et les signes conventionnels des arrêts du Coran.', url };
+    const toast = (m) => {
+      this.setState({ toast: m });
+      clearTimeout(this._toastT);
+      this._toastT = setTimeout(() => this.setState({ toast: '' }), 3500);
+    };
+    const copy = () => {
+      try {
+        navigator.clipboard.writeText(url).then(() => toast('Lien copié : ' + url), () => toast('Lien de l’application : ' + url));
+      } catch (e) { toast('Lien de l’application : ' + url); }
+    };
+    try {
+      if (navigator.share) {
+        navigator.share(data).catch((err) => { if (!err || err.name !== 'AbortError') copy(); });
+        return;
+      }
+    } catch (e) {}
+    copy();
+  }
+
+  saveDisp(theme, arScale, arFont) {
+    try { window.localStorage.setItem('waqf-affichage', JSON.stringify({ theme, arScale, arFont })); } catch (e) {}
+  }
+
+  setTheme(t) {
+    this.setState({ theme: t });
+    this.saveDisp(t, this.S().arScale, this.S().arFont);
+  }
+
+  setAr(v) {
+    this.setState({ arScale: v });
+    this.saveDisp(this.S().theme, v, this.S().arFont);
+  }
+
+  setFont(k) {
+    this.setState({ arFont: k });
+    this.saveDisp(this.S().theme, this.S().arScale, k);
   }
 
   save(best) {
@@ -1197,6 +1396,12 @@ class Component extends DCLogic {
     return a;
   }
 
+  mixHex(a, b, t) {
+    const p = (h) => { const m = /^#?([0-9a-f]{6})$/i.exec(String(h || '')); const n = m ? parseInt(m[1], 16) : 0; return [n >> 16, (n >> 8) & 255, n & 255]; };
+    const x = p(a), y = p(b);
+    return '#' + x.map((v, i) => Math.round(v + (y[i] - v) * t).toString(16).padStart(2, '0')).join('');
+  }
+
   rgba(hex, alpha) {
     const m = /^#?([0-9a-f]{6})$/i.exec(String(hex || '').trim());
     if (!m) return 'rgba(11,93,75,' + alpha + ')';
@@ -1206,8 +1411,8 @@ class Component extends DCLogic {
 
   tile(id, base) {
     const s = this.D().map[id];
-    const tones = { red: '#A1262B', green: '#1D6B3C', maroon: '#7A2430' };
-    if (!s) return { glyph: '', color: '#14201C', fs: '0px', aria: '', isTxt: false, isSajda: false, isHizb: false, isQala: false, isSala: false, isAyah: false, px: '0px' };
+    const tones = { red: 'var(--tone-red)', green: 'var(--tone-green)', maroon: 'var(--tone-maroon)' };
+    if (!s) return { glyph: '', color: 'var(--ink)', fs: '0px', aria: '', isTxt: false, isSajda: false, isHizb: false, isQala: false, isSala: false, isAyah: false, px: '0px' };
     const isSajda = s.id === 'sajda';
     const isHizb = s.id === 'hizb';
     const isQala = s.id === 'qala';
@@ -1265,7 +1470,7 @@ class Component extends DCLogic {
       if (p.mark === '\u06DC' && near(i, 1) === '\u06D7') shift = ' position: relative; top: -0.2em; left: 0.33em; word-spacing: -0.16em;';
       if (p.mark === '\u06D7' && near(i, -1) === '\u06DC') shift = ' position: relative; top: 0.04em; left: -0.33em; word-spacing: -0.16em;';
       if (!shift && sinShift && p.mark === '\u06DC') shift = ' position: relative; left: ' + (sinShift.left || '0') + '; top: ' + (sinShift.top || '0') + ';' + (sinShift.ws ? ' word-spacing: ' + sinShift.ws + ';' : '');
-      const color = p.mark ? '#C62828' : 'inherit';
+      const color = p.mark ? 'var(--red)' : 'inherit';
       const bold = p.mark ? ' -webkit-text-stroke: 0.01em ' + color + ';' : '';
       return { text: p.text, color, style: 'color: ' + color + ';' + bold + shift };
     });
@@ -1283,7 +1488,7 @@ class Component extends DCLogic {
     };
     return parts.map((p) => {
       const core = p.text.replace(/[\u2068\u2069\u200D]/g, '');
-      if (/C62828/.test(p.style) && IMG[core]) {
+      if (/--red/.test(p.style) && IMG[core]) {
         return { isImg: true, isText: false, src: IMG[core], alt: core, text: '', style: '', imgStyle: 'display: inline; height: 1.55em; width: auto; vertical-align: -0.3em;' };
       }
       return { isImg: false, isText: true, text: p.text, style: p.style, src: '', alt: '', imgStyle: '' };
@@ -1300,7 +1505,7 @@ class Component extends DCLogic {
     });
     return blocks.map((b) => ({
       hasTitle: !!b.group, title: b.group,
-      items: b.items.map((e, i) => ({ label: e.label, parts: e.parts, sepStyle: i ? 'border-top: 1px dashed #DCE0DA; margin-top: 6px; padding-top: 8px;' : '' }))
+      items: b.items.map((e, i) => ({ label: e.label, parts: e.parts, sepStyle: i ? 'border-top: 1px dashed var(--line); margin-top: 6px; padding-top: 8px;' : '' }))
     }));
   }
 
@@ -1308,7 +1513,7 @@ class Component extends DCLogic {
     // Couleurs du livre : [[r:…]] rouge (le Rô), [[g:…]] vert, [[b:…]] bleu.
     // À une frontière à l’intérieur d’un mot, on ajoute un « liant invisible » (ZWJ)
     // pour que les lettres restent attachées même si le navigateur traite chaque couleur à part.
-    const COL = { r: '#C62828', g: '#2E7D32', b: '#1F5FA8' };
+    const COL = { r: 'var(--red)', g: 'var(--green)', b: 'var(--blue)' };
     const parts = String(t || '').split(/(\[\[[rgb]:[^\]]*\]\])/).filter((x) => x).map((x) => {
       const m = x.match(/^\[\[([rgb]):([^\]]*)\]\]$/);
       return m ? { text: m[2], color: COL[m[1]] } : { text: x, color: 'inherit' };
@@ -1343,18 +1548,24 @@ class Component extends DCLogic {
     const D = this.D();
     const tp = topic === 'types' || topic === 'ra' ? topic : 'signes';
     let queue;
-    if (mode === 'mix') {
+    if (mode === 'review') {
+      // Revoir mes erreurs : les questions dont la dernière réponse était fausse
+      const idx = this.qIndex(); const pq = this.S().prog.q || {};
+      const ids = this.shuffle(Object.keys(idx).filter((id) => idx[id].topic === tp && pq[id] && !pq[id].ok));
+      if (!ids.length) return;
+      queue = ids.slice(0, Math.max(1, this.count())).map((id) => Object.assign(this.prep(idx[id].mode, idx[id].item), { qid: id }));
+    } else if (mode === 'mix') {
       // Mélange : QCM, vrai ou faux et texte à trous, en parts à peu près égales
       const pools = ['qcm', 'vf', 'trous'].map((k) => this.shuffle(D[this.bankKey(k, tp)]).map((it) => [k, it]));
       const all = pools.reduce((a, p) => a + p.length, 0);
       const n = Math.max(1, Math.min(this.count(), all));
       const pick = [];
       for (let r = 0; pick.length < n; r++) { const p = pools[r % 3]; if (p.length) pick.push(p.shift()); }
-      queue = this.shuffle(pick).map((x) => this.prep(x[0], x[1]));
+      queue = this.shuffle(pick).map((x) => Object.assign(this.prep(x[0], x[1]), { qid: this.qidOf(x[0], x[1]) }));
     } else {
       const bank = D[this.bankKey(mode, tp)];
       const n = Math.max(1, Math.min(this.count(), bank.length));
-      queue = this.shuffle(bank).slice(0, n).map((it) => this.prep(mode, it));
+      queue = this.shuffle(bank).slice(0, n).map((it) => Object.assign(this.prep(mode, it), { qid: this.qidOf(mode, it) }));
     }
     this.setState({
       screen: mode, mode, topic: tp, queue, idx: 0, answered: false, picked: null, checked: false,
@@ -1369,8 +1580,10 @@ class Component extends DCLogic {
     const q = s.queue[s.idx];
     const ok = q.options[i].correct;
     const right = q.options.find((o) => o.correct);
+    const P = this.recordAns(q, ok);
+    this.saveProg(P);
     this.setState({
-      answered: true, picked: i, score: s.score + (ok ? 1 : 0),
+      prog: P, answered: true, picked: i, score: s.score + (ok ? 1 : 0),
       mistakes: ok ? s.mistakes : s.mistakes.concat([{ g: q.g || right.sign, v: q.v, prompt: q.p, answer: this.optText(right), explain: q.e }])
     });
   }
@@ -1380,8 +1593,10 @@ class Component extends DCLogic {
     if (s.answered) return;
     const q = s.queue[s.idx];
     const ok = v === q.answer;
+    const P = this.recordAns(q, ok);
+    this.saveProg(P);
     this.setState({
-      answered: true, picked: v, score: s.score + (ok ? 1 : 0),
+      prog: P, answered: true, picked: v, score: s.score + (ok ? 1 : 0),
       mistakes: ok ? s.mistakes : s.mistakes.concat([{ g: q.g, v: q.v, prompt: q.p, answer: q.answer ? 'Vrai' : 'Faux', explain: q.e }])
     });
   }
@@ -1426,8 +1641,10 @@ class Component extends DCLogic {
       const prev = i > 0 && q.segs[i - 1].type === 'text' ? q.segs[i - 1].text : '';
       return r === 'ci-contre' && !/(signe|symbole|paire)\s*$/.test(prev) ? 'le signe ci-contre' : r;
     }).join('');
+    const P = this.recordAns(q, ok);
+    this.saveProg(P);
     this.setState({
-      checked: true, answered: true, score: s.score + (ok ? 1 : 0),
+      prog: P, checked: true, answered: true, score: s.score + (ok ? 1 : 0),
       mistakes: ok ? s.mistakes : s.mistakes.concat([{ g: first ? first.id : null, prompt: full, answer: q.answers.join(' · '), explain: q.e }])
     });
   }
@@ -1437,14 +1654,19 @@ class Component extends DCLogic {
     const n = s.idx + 1;
     if (n >= s.queue.length) {
       const best = Object.assign({}, s.best);
-      const key = this.bankKey(s.mode, s.topic);
-      const prev = best[key];
-      const ratio = s.score / s.queue.length;
-      if (!prev || ratio > prev.score / prev.total || (ratio === prev.score / prev.total && s.queue.length > prev.total)) {
-        best[key] = { score: s.score, total: s.queue.length };
+      if (s.mode !== 'review') {
+        const key = this.bankKey(s.mode, s.topic);
+        const prev = best[key];
+        const ratio = s.score / s.queue.length;
+        if (!prev || ratio > prev.score / prev.total || (ratio === prev.score / prev.total && s.queue.length > prev.total)) {
+          best[key] = { score: s.score, total: s.queue.length };
+        }
       }
+      const hist = [{ t: Date.now(), topic: s.topic, mode: s.mode, score: s.score, total: s.queue.length }].concat(s.prog.hist || []).slice(0, 50);
+      const P = Object.assign({}, s.prog, { hist });
       this.save(best);
-      this.setState({ screen: 'result', best });
+      this.saveProg(P);
+      this.setState({ screen: 'result', best, prog: P });
     } else {
       const nq = s.queue[n];
       this.setState({ idx: n, answered: false, picked: null, checked: false, fills: nq.type === 'trous' ? nq.answers.map(() => null) : [] });
@@ -1467,22 +1689,38 @@ class Component extends DCLogic {
   renderVals() {
     const D = this.D();
     const s = this.S();
-    const accent = this.props.accent || '#0B5D4B';
-    const tint = this.rgba(accent, 0.1);
-    const ROSE = '#B42318';
-    const ROSE_T = '#FCEDEB';
-    const LINE = '#DCE0DA';
-    const WHITE = '#FFFFFF';
-    const INK = '#14201C';
+    const accentHex = this.props.accent || '#0B5D4B';
+    const dark = s.theme === 'sombre' || (s.theme === 'auto' && !!s.sysDark);
+    const accHex = dark ? (accentHex.toUpperCase() === '#0B5D4B' ? '#3FA585' : this.mixHex(accentHex, '#FFFFFF', 0.4)) : accentHex;
+    const TV = dark ? {
+      bg: '#0F1513', surface: '#18211E', surface2: '#1E2925', surface3: '#26322D', ink: '#E8EEEA', ink2: '#CDE3D5', muted: '#A4B1AB',
+      line: '#2E3A35', line2: '#43514B', accent: accHex, tint: this.rgba(accHex, 0.18), tint2: '#1F3A31', btn: accHex,
+      rose: '#FF8A80', 'rose-t': '#3A1F1D', red: '#FF6B6B', green: '#6FCF7F', blue: '#7DB3F5', 'amber-bg': '#3A2E14', 'amber-fg': '#F2C46B',
+      'tone-red': '#FF8B8B', 'tone-green': '#79D18F', 'tone-maroon': '#E99AA6'
+    } : {
+      bg: '#F3F4F0', surface: '#FFFFFF', surface2: '#F6F7F3', surface3: '#ECEFEA', ink: '#14201C', ink2: '#24452F', muted: '#55625D',
+      line: '#DCE0DA', line2: '#C9CFC7', accent: accHex, tint: this.rgba(accHex, 0.1), tint2: '#E3EFEA', btn: '#14201C',
+      rose: '#B42318', 'rose-t': '#FCEDEB', red: '#C62828', green: '#2E7D32', blue: '#1F5FA8', 'amber-bg': '#FBEFD6', 'amber-fg': '#7A4E00',
+      'tone-red': '#A1262B', 'tone-green': '#1D6B3C', 'tone-maroon': '#7A2430'
+    };
+    const AR_FONTS = { hafs: "'Hafs'", amiri: "'Amiri Quran'", sch: "'Scheherazade New'", noto: "'Noto Naskh Arabic'" };
+    const themeVars = Object.keys(TV).map((k) => '--' + k + ': ' + TV[k] + ';').join(' ') + ' --ar: ' + (s.arScale || 1) + '; --arfont: ' + (AR_FONTS[s.arFont] || AR_FONTS.hafs) + '; color-scheme: ' + (dark ? 'dark' : 'light') + ';';
+    const accent = 'var(--accent)';
+    const tint = 'var(--tint)';
+    const ROSE = 'var(--rose)';
+    const ROSE_T = 'var(--rose-t)';
+    const LINE = 'var(--line)';
+    const WHITE = 'var(--surface)';
+    const INK = 'var(--ink)';
     const empty = { glyph: '', color: INK, fs: '0px', aria: '', isTxt: false, isSajda: false, isHizb: false, isQala: false, isSala: false, isAyah: false, px: '0px' };
     const n = this.count();
     const screen = s.screen;
-    const cur = screen === 'mix' ? s.queue[s.idx] : null;
+    const cur = (screen === 'mix' || screen === 'review') ? s.queue[s.idx] : null;
     const isQcm = screen === 'qcm' || (!!cur && cur.type === 'qcm');
     const isVf = screen === 'vf' || (!!cur && cur.type === 'vf');
     const isTrous = screen === 'trous' || (!!cur && cur.type === 'trous');
     const inSession = isQcm || isVf || isTrous;
-    const labels = { qcm: 'QCM', vf: 'Vrai ou faux', trous: 'Texte à trous', mix: 'Mélange' };
+    const labels = { qcm: 'QCM', vf: 'Vrai ou faux', trous: 'Texte à trous', mix: 'Mélange', review: 'Revoir mes erreurs' };
     const topicLabels = { signes: 'Signes', types: 'Types d’arrêts', ra: 'Lettre Ra' };
     const q = inSession ? s.queue[s.idx] : null;
     const total = s.queue.length || 1;
@@ -1497,6 +1735,47 @@ class Component extends DCLogic {
     };
 
     const sigLabels = { stop: 'Stop', orange: 'Feu orange', blue: 'Sens obligatoire' };
+    // ——— Suivi des progrès ———
+    const plural = (n, a, b) => n + ' ' + (n > 1 ? b : a);
+    const pstat = (tp) => {
+      const st = this.topicStats(tp);
+      return Object.assign(st, { barW: st.pct + '%', hasKo: st.ko > 0, koLabel: plural(st.ko, 'question', 'questions') });
+    };
+    const progR = pstat('ra'), progT = pstat('types'), progS = pstat('signes');
+    const allTotal = progR.total + progT.total + progS.total;
+    const allOk = progR.ok + progT.ok + progS.ok;
+    const allSeen = progR.seen + progT.seen + progS.seen;
+    const allKo = progR.ko + progT.ko + progS.ko;
+    const allPct = allTotal ? Math.round(allOk * 100 / allTotal) : 0;
+    const progAll = { pct: allPct, barW: allPct + '%',
+      sub: allSeen ? plural(allOk, 'question maîtrisée', 'questions maîtrisées') + ' sur ' + allTotal + (allKo ? ' · ' + plural(allKo, 'erreur', 'erreurs') + ' à revoir' : '') : 'Commence un exercice pour suivre tes progrès' };
+    const chapters = [
+      { tp: 'ra', chapter: 'Chapitre 9', title: 'Les règles de la lettre Ra', st: progR },
+      { tp: 'types', chapter: 'Chapitre 11', title: 'Les types d’arrêts', st: progT },
+      { tp: 'signes', chapter: 'Chapitre 15', title: 'Les signes conventionnels des arrêts', st: progS }
+    ];
+    const modeNames = { qcm: 'QCM', vf: 'Vrai ou faux', trous: 'Texte à trous', mix: 'Mélange' };
+    const progCards = chapters.map((c) => ({
+      chapter: c.chapter, title: c.title, pct: c.st.pct, barW: c.st.barW,
+      detail: plural(c.st.ok, 'question maîtrisée', 'questions maîtrisées') + ' sur ' + c.st.total + ' · ' + plural(c.st.seen, 'déjà vue', 'déjà vues'),
+      bests: ['qcm', 'vf', 'trous', 'mix'].map((m) => { const b = s.best[this.bankKey(m, c.tp)]; return { label: modeNames[m], value: b ? b.score + '/' + b.total : '—' }; }),
+      hasKo: c.st.ko > 0, koLabel: plural(c.st.ko, 'question', 'questions'), allGood: c.st.seen > 0 && c.st.ko === 0,
+      review: () => this.start('review', c.tp)
+    }));
+    const pad2 = (x) => String(x).padStart(2, '0');
+    const topicNames = { ra: 'Lettre Ra', types: 'Types d’arrêts', signes: 'Signes' };
+    const histRows = (s.prog.hist || []).slice(0, 12).map((h) => {
+      const d = new Date(h.t);
+      return { date: pad2(d.getDate()) + '/' + pad2(d.getMonth() + 1) + ' à ' + pad2(d.getHours()) + 'h' + pad2(d.getMinutes()),
+        what: (topicNames[h.topic] || '') + ' · ' + (labels[h.mode] || ''), score: h.score + '/' + h.total };
+    });
+    // ——— Affichage ———
+    const optStyle = (on) => 'min-height: 44px; padding: 0 16px; border-radius: 12px; font-size: 14.5px; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; ' +
+      (on ? 'background: var(--accent); color: #FFFFFF; border: 1.5px solid var(--accent);' : 'background: var(--surface); color: var(--ink); border: 1.5px solid var(--line);');
+    const themeOpts = [['auto', 'Automatique'], ['clair', 'Clair'], ['sombre', 'Sombre']].map(([k, l]) => ({ label: l, pressed: s.theme === k ? 'true' : 'false', style: optStyle(s.theme === k), pick: () => this.setTheme(k) }));
+    const fontOpts = [['hafs', 'Mushaf de Médine', "'Hafs', serif"], ['amiri', 'Amiri Quran', "'Amiri Quran', serif"], ['sch', 'Scheherazade', "'Scheherazade New', serif"], ['noto', 'Naskh moderne', "'Noto Naskh Arabic', serif"]]
+      .map(([k, l, ff]) => ({ label: l, ff, pressed: (s.arFont || 'hafs') === k ? 'true' : 'false', style: optStyle((s.arFont || 'hafs') === k) + ' flex-direction: column; justify-content: center; gap: 0; min-height: 72px; padding: 6px 14px;', pick: () => this.setFont(k) }));
+    const arOpts = [[1, 'Normale'], [1.18, 'Grande'], [1.36, 'Très grande']].map(([v, l]) => ({ label: l, pressed: s.arScale === v ? 'true' : 'false', style: optStyle(s.arScale === v), pick: () => this.setAr(v) }));
     const raSections = D.RA.sections.map((sec) => {
       const secHid = false; // les titres des parties restent visibles en mode mémorisation
       return {
@@ -1511,7 +1790,7 @@ class Component extends DCLogic {
             isHidden: hid, isShown: !hid, reveal: () => this.reveal('ra_' + sec.num + '_' + (k + 1)),
             showVerdict: s.hide && !hid, verdict: sec.verdict, verdictStyle: 'background: ' + sec.chipBg + '; color: ' + sec.chipFg + ';',
             revealAria: 'Révéler la règle du cas ' + (k + 1) + ' de la partie ' + sec.num,
-            badgeStyle: 'background: ' + (secHid ? '#E6E9E3' : sec.chipBg) + '; color: ' + (secHid ? '#55625D' : sec.chipFg) + ';',
+            badgeStyle: 'background: ' + (secHid ? 'var(--surface3)' : sec.chipBg) + '; color: ' + (secHid ? 'var(--muted)' : sec.chipFg) + ';',
             examples: c.ex.map((e) => ({ label: e.label, word: e.word || '', hasWord: !!e.word, parts: this.hlParts(e.text) }))
           };
         })
@@ -1548,7 +1827,7 @@ class Component extends DCLogic {
         reveal: () => this.reveal(ty.id), revealAria: 'Révéler la fiche : ' + ty.name
       };
     });
-    const cell = (v) => ({ yes: v, no: !v, label: v ? 'Oui' : 'Non', bg: v ? tint : '#EEF0EC', fg: v ? accent : '#55625D' });
+    const cell = (v) => ({ yes: v, no: !v, label: v ? 'Oui' : 'Non', bg: v ? tint : 'var(--surface3)', fg: v ? accent : 'var(--muted)' });
     const matrixRows = D.types.map((ty) => {
       const hid = s.hide && !s.revealed['m_' + ty.id];
       return {
@@ -1572,10 +1851,10 @@ class Component extends DCLogic {
       qcmOptions = q.options.map((o, i) => {
         const isRight = o.correct;
         const isPicked = s.picked === i;
-        let border = LINE, bg = WHITE, op = '1', badgeBg = '#F0F2EE', badgeFg = INK;
+        let border = LINE, bg = WHITE, op = '1', badgeBg = 'var(--surface3)', badgeFg = INK;
         if (s.answered) {
-          if (isRight) { border = accent; bg = tint; badgeBg = accent; badgeFg = WHITE; }
-          else if (isPicked) { border = ROSE; bg = ROSE_T; badgeBg = ROSE; badgeFg = WHITE; }
+          if (isRight) { border = accent; bg = tint; badgeBg = accent; badgeFg = '#FFFFFF'; }
+          else if (isPicked) { border = ROSE; bg = ROSE_T; badgeBg = ROSE; badgeFg = '#FFFFFF'; }
           else { op = '0.5'; }
         }
         const sg = o.sign ? D.map[o.sign] : null;
@@ -1621,7 +1900,7 @@ class Component extends DCLogic {
         const ci = s.fills[g.k];
         const filled = ci !== null && ci !== undefined;
         const word = filled ? q.bank[ci] : '';
-        let border = '#9AA59F', bg = '#F6F7F3', fg = INK, bs = 'dashed';
+        let border = 'var(--line2)', bg = 'var(--surface2)', fg = INK, bs = 'dashed';
         if (filled) { border = accent; bg = tint; bs = 'solid'; }
         if (s.checked) {
           const ok = word === q.answers[g.k];
@@ -1688,9 +1967,23 @@ class Component extends DCLogic {
     const progressNum = inSession ? Math.round((doneCount / total) * 100) : 0;
 
     return {
-      accent, tint,
+      accent, tint, themeVars, themeName: dark ? 'dark' : 'light',
+      progR, progT, progS, progAll,
+      canRestart: s.mode !== 'review' || (({ ra: progR, types: progT, signes: progS })[s.topic] || progS).ko > 0,
+      resReview: s.mode !== 'review' && (({ ra: progR, types: progT, signes: progS })[s.topic] || progS).ko > 0,
+      resReviewLabel: 'Revoir mes erreurs (' + (({ ra: progR, types: progT, signes: progS })[s.topic] || progS).ko + ')', progCards, histRows, hasHist: histRows.length > 0, noHist: histRows.length === 0, themeOpts, arOpts, fontOpts,
+      isProgress: screen === 'progress', isSettings: screen === 'settings',
+      goSettings: () => this.go('settings'), shareApp: () => this.shareApp(),
+      toast: s.toast || '', toastShow: !!s.toast,
+      tabHome: 'color: ' + (screen === 'home' ? 'var(--accent)' : 'var(--muted)') + ';', tabHomeCur: screen === 'home' ? 'page' : 'false',
+      tabStats: 'color: ' + (screen === 'progress' ? 'var(--accent)' : 'var(--muted)') + ';', tabStatsCur: screen === 'progress' ? 'page' : 'false',
+      tabSettings: 'color: ' + (screen === 'settings' ? 'var(--accent)' : 'var(--muted)') + ';', tabSettingsCur: screen === 'settings' ? 'page' : 'false',
+      tabShare: 'color: var(--muted);', resetIdle: !s.confirmReset, resetConfirm: !!s.confirmReset,
+      goProgress: () => { this.setState({ confirmReset: false }); this.go('progress'); },
+      reviewR: () => this.start('review', 'ra'), reviewT: () => this.start('review', 'types'), reviewS: () => this.start('review', 'signes'),
+      resetAsk: () => this.setState({ confirmReset: true }), resetCancel: () => this.setState({ confirmReset: false }), resetDo: () => this.resetProgress(),
       isHome: screen === 'home', isLearn: screen === 'learn', isLearnTypes: screen === 'learnTypes', isLearnRa: screen === 'learnRa', isInstall: screen === 'install', isAbout: screen === 'about',
-      showQuit: inSession || screen === 'learn' || screen === 'learnTypes' || screen === 'learnRa' || screen === 'install' || screen === 'about', isQcm, isVf, isTrous,
+      showQuit: inSession || screen === 'learn' || screen === 'learnTypes' || screen === 'learnRa' || screen === 'progress' || screen === 'settings' || screen === 'install' || screen === 'about', isQcm, isVf, isTrous,
       isCard: isQcm || isVf, isResult: screen === 'result', inSession,
       modeLabel: (labels[screen] || '') + (inSession ? ' · ' + (topicLabels[s.topic] || '') : ''), qNum: s.idx + 1, total: s.queue.length, score: s.score,
       progressNum, progressPct: progressNum + '%',
@@ -1708,6 +2001,7 @@ class Component extends DCLogic {
       startTQcm: () => this.start('qcm', 'types'), startTVf: () => this.start('vf', 'types'), startTTrous: () => this.start('trous', 'types'), startTMix: () => this.start('mix', 'types'),
       startRQcm: () => this.start('qcm', 'ra'), startRVf: () => this.start('vf', 'ra'), startRTrous: () => this.start('trous', 'ra'), startRMix: () => this.start('mix', 'ra'),
       restart: () => this.start(s.mode || 'qcm', s.topic),
+      reviewCur: () => this.start('review', s.topic),
       next: () => this.next(), check: () => this.check(), resetFills: () => this.resetFills()
     };
   }
