@@ -70,8 +70,40 @@ Quitter
 <img src="assets/cifod_cercle.png" alt="Banderole du CIFOD : Apprendre à lire le Coran en 3 mois" style="width: 52px; height: 52px; border-radius: 999px; display: block; flex-shrink: 0; object-fit: cover; box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 3px #DCE0DA, 0 4px 12px rgba(20,32,28,0.12)">
 <h1 style="margin: 0; font-size: 24px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 800; color: #14201C; text-transform: uppercase">Niveau 4C</h1>
 </div>
-<p style="margin: 0; font-size: 17px; line-height: 1.55; color: #55625D; max-width: 580px; text-wrap: pretty">Les types d’arrêts et les signes conventionnels des arrêts&nbsp;: apprends-les avec les fiches, puis révise-les en QCM, vrai/faux, texte à trous et mélange.</p>
+<p style="margin: 0; font-size: 17px; line-height: 1.55; color: #55625D; max-width: 580px; text-wrap: pretty">Les règles de la lettre Ra, les types d’arrêts et les signes conventionnels des arrêts&nbsp;: apprends-les avec les fiches, puis révise-les en QCM, vrai/faux, texte à trous et mélange.</p>
 </div>
+<section aria-labelledby="h-ra" style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 24px; padding: 24px 22px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 10px 20px">
+<div style="display: flex; flex-direction: column; gap: 6px; max-width: 440px">
+<span :style="`font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${accent}`">Chapitre 9</span>
+<h2 id="h-ra" style="margin: 0; font-size: 24px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 800">Les règles de la lettre Ra</h2>
+<p style="margin: 0; font-size: 15px; line-height: 1.5; color: #55625D; text-wrap: pretty">Emphase, légèreté ou au choix&nbsp;: savoir comment lire la lettre Rô «&nbsp;<bdi>ر</bdi>&nbsp;».</p>
+</div>
+<span dir="rtl" lang="ar" aria-hidden="true" :style="`font-family: 'Hafs', 'Amiri', serif; font-weight: 400; font-size: 26px; line-height: 1.7; color: ${accent}`">أَحۡكَامُ ٱلۡحَرۡفِ ٱلرَّاءِ</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(140px, 100%), 1fr)); gap: 10px">
+<button class="lift" @click="goRa" :style="`text-align: left; background: ${accent}; color: #FFFFFF; border: 1.5px solid ${accent}; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px`">
+<span style="width: 38px; height: 38px; border-radius: 11px; background: rgba(255,255,255,0.16); display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5.5C3 4.7 3.7 4 4.5 4H10a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5h-6A1.5 1.5 0 0 1 3 17V5.5Z"></path><path d="M21 5.5c0-.8-.7-1.5-1.5-1.5H14a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5h6A1.5 1.5 0 0 0 21 17V5.5Z"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Fiches</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; opacity: 0.92">14 cas · emphase, légèreté, au choix</span></span>
+</button>
+<button class="lift" @click="startRQcm" style="text-align: left; background: #FFFFFF; border: 1.5px solid #DCE0DA; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px">
+<span :style="`width: 38px; height: 38px; border-radius: 11px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5.5" cy="6" r="2"></circle><path d="M11 6h9"></path><circle cx="5.5" cy="12" r="2"></circle><path d="M11 12h9"></path><circle cx="5.5" cy="18" r="2"></circle><path d="M11 18h9"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">QCM</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: #55625D">{{metaR.qcm}}</span></span>
+</button>
+<button class="lift" @click="startRVf" style="text-align: left; background: #FFFFFF; border: 1.5px solid #DCE0DA; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px">
+<span :style="`width: 38px; height: 38px; border-radius: 11px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 12.5l3.2 3.2L11 9.5"></path><path d="M15 9l6 6M21 9l-6 6"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Vrai ou faux</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: #55625D">{{metaR.vf}}</span></span>
+</button>
+<button class="lift" @click="startRTrous" style="text-align: left; background: #FFFFFF; border: 1.5px solid #DCE0DA; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px">
+<span :style="`width: 38px; height: 38px; border-radius: 11px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h6"></path><rect x="11" y="5.5" width="10" height="5" rx="1.5" stroke-dasharray="2 2"></rect><path d="M3 16h3"></path><rect x="8" y="13.5" width="8" height="5" rx="1.5" stroke-dasharray="2 2"></rect><path d="M18 16h3"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Texte à trous</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: #55625D">{{metaR.trous}}</span></span>
+</button>
+</div>
+<button class="lift" @click="startRMix" style="margin-top: -10px; width: 100%; text-align: left; background: #FFFFFF; border: 1.5px solid #DCE0DA; border-radius: 16px; padding: 14px; display: flex; align-items: center; gap: 14px; min-height: 72px">
+<span :style="`width: 38px; height: 38px; border-radius: 11px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center; flex-shrink: 0`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 3h5v5"></path><path d="M4 20L21 3"></path><path d="M21 16v5h-5"></path><path d="M15 15l6 6"></path><path d="M4 4l5 5"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Mélange</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: #55625D">{{metaR.mix}} · QCM, vrai ou faux et texte à trous</span></span>
+</button>
+</section>
 <section aria-labelledby="h-types" style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 24px; padding: 24px 22px; display: flex; flex-direction: column; gap: 20px">
 <div style="display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 10px 20px">
 <div style="display: flex; flex-direction: column; gap: 6px; max-width: 440px">
@@ -263,10 +295,15 @@ Mode mémorisation
 <p style="margin: -6px 0 0; font-size: 12.5px; font-weight: 600; color: #55625D">{{row.bookTr}}</p>
 <p style="margin: 0; font-size: 14.5px; line-height: 1.6; text-wrap: pretty">{{row.bookDef}}</p>
 <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #55625D">{{row.bookLetter}}</p>
-<template v-for="ex in row.examples">
+<template v-for="blk in row.exBlocks">
 <div style="border: 1px dashed #C9CFC7; border-radius: 12px; padding: 8px 14px; display: flex; flex-direction: column; gap: 2px">
+<template v-if="blk.hasTitle"><span style="font-size: 13px; font-weight: 800; color: #14201C; padding: 2px 0 4px">{{blk.title}}</span></template>
+<template v-for="ex in blk.items">
+<div :style="`display: flex; flex-direction: column; gap: 2px; ${ex.sepStyle}`">
 <span style="font-size: 11.5px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: #55625D">{{ex.label}}</span>
 <div dir="rtl" lang="ar" style="font-family: 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: 23px; line-height: 2.2; color: #14201C; text-align: right"><template v-for="pt in ex.parts"><span :style="pt.style">{{pt.text}}</span></template></div>
+</div>
+</template>
 </div>
 </template>
 <template v-if="row.hasBookNote">
@@ -392,6 +429,80 @@ Mode mémorisation
 <button @click="startTVf" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid #DCE0DA; background: #FFFFFF; font-size: 15px; font-weight: 700">Vrai ou faux</button>
 <button @click="startTTrous" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid #DCE0DA; background: #FFFFFF; font-size: 15px; font-weight: 700">Texte à trous</button>
 <button @click="startTMix" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid #DCE0DA; background: #FFFFFF; font-size: 15px; font-weight: 700">Mélange</button>
+</div>
+</div>
+<div style="display: flex; justify-content: center; padding-top: 4px"><button class="lift" @click="goHome" style="min-height: 52px; padding: 0 22px; border-radius: 14px; border: 1.5px solid #DCE0DA; background: #FFFFFF; display: inline-flex; align-items: center; gap: 10px; font-size: 15.5px; font-weight: 800"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5"></path><path d="M5 9.5V20h14V9.5"></path><path d="M10 20v-6h4v6"></path></svg>Retour à l’accueil</button></div>
+</section>
+</template>
+
+<template v-if="isLearnRa">
+<section class="rise" style="display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; flex-direction: column; gap: 8px; max-width: 560px">
+<span :style="`font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${accent}`">Chapitre 9</span>
+<h1 style="margin: 0; font-size: 34px; line-height: 1.1; letter-spacing: -0.025em; font-weight: 800">Les règles de la lettre Ra</h1>
+<p style="margin: 0; font-size: 15px; line-height: 1.55; color: #55625D">Active le mode mémorisation pour cacher les règles et te tester cas par cas, à partir des exemples.</p>
+</div>
+<label style="align-self: flex-start; display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 16px; border: 1.5px solid #DCE0DA; border-radius: 999px; background: #FFFFFF; font-size: 14px; font-weight: 700; cursor: pointer">
+<input type="checkbox" :checked="hide" @change="toggleHide" :style="`width: 18px; height: 18px; margin: 0; accent-color: ${accent}`">
+Mode mémorisation
+</label>
+<template v-if="hide">
+<p :style="`margin: 0; font-size: 13.5px; font-weight: 700; line-height: 1.5; color: ${accent}`">Mode mémorisation&nbsp;: pour chaque partie, retrouve s’il s’agit de l’emphase, de la légèreté ou du choix&nbsp;; pour chaque cas, retrouve la règle à partir des exemples, puis touche pour vérifier.</p>
+</template>
+<div style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 18px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px">
+<span dir="rtl" lang="ar" :style="`align-self: flex-start; font-family: 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: 26px; line-height: 1.7; color: ${accent}`">أَحۡكَامُ ٱلۡحَرۡفِ ٱلرَّاءِ</span>
+<p style="margin: 0; font-size: 16px; line-height: 1.6">Il y a deux façons de lire la lettre Rô «&nbsp;<bdi>ر</bdi>&nbsp;»&nbsp;:</p>
+<ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 15.5px; line-height: 1.6">
+<li>Soit <strong>avec emphase</strong>, c’est-à-dire qu’on remplit la bouche en la prononçant. On appelle cela At-Tafkhîm (<span dir="rtl" lang="ar" style="font-family: 'Hafs', 'Amiri Quran', 'Amiri', serif">ٱلتَّفۡخِيمُ</span>)&nbsp;: la grandeur.</li>
+<li>Soit <strong>sans emphase</strong>, cela revient donc à lire légèrement sans remplir la bouche. Dans ce cas on parle d’At-tarqîq (<span dir="rtl" lang="ar" style="font-family: 'Hafs', 'Amiri Quran', 'Amiri', serif">ٱلتَّرۡقِيقُ</span>)&nbsp;: la petitesse.</li>
+</ul>
+<p style="margin: 0; font-size: 15px; line-height: 1.6; color: #55625D">Lorsque l’on rencontre la lettre «&nbsp;<bdi>ر</bdi>&nbsp;», 3 possibilités s’offrent à nous&nbsp;: At-tafkhîm (<span dir="rtl" lang="ar" style="font-family: 'Hafs', 'Amiri Quran', 'Amiri', serif">تَفۡخِيم</span>), At-tarqîq (<span dir="rtl" lang="ar" style="font-family: 'Hafs', 'Amiri Quran', 'Amiri', serif">تَرۡقِيق</span>), ou faire l’un ou l’autre.</p>
+</div>
+<template v-for="sec in raSections">
+<div style="display: flex; flex-direction: column; gap: 12px; padding-top: 6px">
+<template v-if="sec.isShown">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px">
+<h2 style="margin: 0; font-size: 20px; line-height: 1.3; font-weight: 800; letter-spacing: -0.01em; text-wrap: balance">{{sec.num}}. {{sec.title}}</h2>
+<template v-if="sec.hasAr"><span dir="rtl" lang="ar" :style="`font-family: 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: 22px; line-height: 1.6; color: ${accent}`">{{sec.ar}}</span></template>
+</div>
+<span :style="`align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; min-height: 30px; padding: 0 14px; border-radius: 999px; font-size: 13px; font-weight: 800; ${sec.chipStyle}`">{{sec.verdict}} · {{sec.count}}</span>
+</template>
+<template v-if="sec.isHidden">
+<button class="lift" @click="sec.reveal" :aria-label="sec.revealAria" style="width: 100%; text-align: left; display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; border-radius: 16px; border: 1.5px dashed #C9CFC7; background: #F6F7F3; color: #14201C">
+<span style="font-size: 18px; font-weight: 800">{{sec.num}}. Emphase, légèreté ou au choix&nbsp;?</span>
+<span style="font-size: 12.5px; font-weight: 600; color: #55625D">{{sec.count}} · touche pour vérifier</span>
+</button>
+</template>
+<template v-for="c in sec.cases">
+<article style="background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 18px; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: flex-start; gap: 12px">
+<span :style="`flex-shrink: 0; width: 30px; height: 30px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; ${c.badgeStyle}`">{{c.n}}</span>
+<template v-if="c.isShown"><p style="margin: 0; font-size: 15.5px; line-height: 1.6; text-wrap: pretty"><template v-for="pt in c.ruleParts"><span :style="pt.style">{{pt.text}}</span></template></p></template>
+<template v-if="c.isHidden"><button class="lift" @click="c.reveal" :aria-label="c.revealAria" style="flex: 1; text-align: left; display: flex; flex-direction: column; gap: 2px; min-height: 52px; padding: 10px 14px; border-radius: 12px; border: 1.5px dashed #C9CFC7; background: #F6F7F3; color: #14201C"><span style="font-size: 15px; font-weight: 800">Quelle est la règle&nbsp;?</span><span style="font-size: 12.5px; font-weight: 600; color: #55625D">Regarde les exemples, puis touche pour vérifier</span></button></template>
+</div>
+<template v-if="c.hasLead"><p style="margin: 0; font-size: 14.5px; font-weight: 700; line-height: 1.5">{{c.lead}}</p></template>
+<template v-for="ex in c.examples">
+<div style="border: 1px dashed #C9CFC7; border-radius: 12px; padding: 8px 14px; display: flex; flex-direction: column; gap: 2px">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 12px"><span style="font-size: 11.5px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: #55625D">{{ex.label}}</span><template v-if="ex.hasWord"><span dir="rtl" lang="ar" :style="`font-family: 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: 20px; line-height: 1.6; color: ${accent}`">{{ex.word}}</span></template></div>
+<div dir="rtl" lang="ar" style="font-family: 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: 23px; line-height: 2.2; color: #14201C; text-align: right"><template v-for="pt in ex.parts"><span :style="pt.style">{{pt.text}}</span></template></div>
+</div>
+</template>
+<template v-if="c.hasNote"><p style="margin: 0; font-size: 14px; line-height: 1.55; color: #55625D; text-wrap: pretty">{{c.note}}</p></template>
+</article>
+</template>
+</div>
+</template>
+<div :style="`background: ${tint}; border-radius: 18px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px`">
+<p style="margin: 0; font-size: 15px; line-height: 1.65; text-wrap: pretty"><strong>Remarque&nbsp;:</strong> <template v-for="pt in raRemarkParts"><span :style="pt.style">{{pt.text}}</span></template></p>
+<p style="margin: 0; font-size: 15px; line-height: 1.65; text-wrap: pretty"><strong>Vocabulaire&nbsp;:</strong> {{raVocab}}</p>
+</div>
+<div style="margin-top: 10px; background: #FFFFFF; border: 1px solid #DCE0DA; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+<p style="margin: 0; font-size: 17px; font-weight: 800">Prêt à te tester&nbsp;?</p>
+<div style="display: flex; flex-wrap: wrap; gap: 10px">
+<button @click="startRQcm" :style="`min-height: 48px; padding: 0 20px; border-radius: 12px; border: 0; background: ${accent}; color: #FFFFFF; font-size: 15px; font-weight: 700`">QCM</button>
+<button @click="startRVf" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid #DCE0DA; background: #FFFFFF; font-size: 15px; font-weight: 700">Vrai ou faux</button>
+<button @click="startRTrous" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid #DCE0DA; background: #FFFFFF; font-size: 15px; font-weight: 700">Texte à trous</button>
+<button @click="startRMix" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid #DCE0DA; background: #FFFFFF; font-size: 15px; font-weight: 700">Mélange</button>
 </div>
 </div>
 <div style="display: flex; justify-content: center; padding-top: 4px"><button class="lift" @click="goHome" style="min-height: 52px; padding: 0 22px; border-radius: 14px; border: 1.5px solid #DCE0DA; background: #FFFFFF; display: inline-flex; align-items: center; gap: 10px; font-size: 15.5px; font-weight: 800"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5"></path><path d="M5 9.5V20h14V9.5"></path><path d="M10 20v-6h4v6"></path></svg>Retour à l’accueil</button></div>
@@ -723,10 +834,10 @@ class Component extends DCLogic {
         def: 'C’est l’arrêt sur un mot du Coran, sans reprendre sa respiration, pour un bref instant. Cette pause n’existe qu’à 6 endroits dans la lecture selon le lectionnaire Hafs conformément à Châṭubiyy.',
         letter: 'Il est représenté par la lettre ci-contre. Exemples : 4 obligatoires et 2 autorisés.',
         ex: [
-          { label: 'Obligatoire · Sourate 18, verset 1', sinShift: { left: '0.3em', top: '-0.18em' }, text: '… وَلَمۡ يَجۡعَل لَّهُۥ عِوَجَا ۜ ١ قَيِّمًا لِّيُنذِرَ بَأۡسًا شَدِيدًا مِّن لَّدُنۡهُ …' },
-          { label: 'Obligatoire · Sourate 36, verset 52', text: '… مِن مَّرۡقَدِنَا ۜ ۗ هَٰذَا …' },
-          { label: 'Obligatoire · Sourate 75, verset 27', sinShift: { left: '0.34em', top: '-0.12em', ws: '-0.2em' }, text: 'وَقِيلَ مَنۡ ۜ رَاقٍ' },
-          { label: 'Obligatoire · Sourate 83, verset 14', sinShift: { left: '0.3em', top: '-0.38em', ws: '-0.2em' }, text: 'كَلَّا ۖ بَلۡ ۜ رَانَ عَلَىٰ قُلُوبِهِم مَّا كَانُواْ يَكۡسِبُونَ' },
+          { label: 'Sourate 18, verset 1', group: '4 obligatoires', sinShift: { left: '0.3em', top: '-0.18em' }, text: '… وَلَمۡ يَجۡعَل لَّهُۥ عِوَجَا ۜ ١ قَيِّمًا لِّيُنذِرَ بَأۡسًا شَدِيدًا مِّن لَّدُنۡهُ …' },
+          { label: 'Sourate 36, verset 52', group: '4 obligatoires', text: '… مِن مَّرۡقَدِنَا ۜ ۗ هَٰذَا …' },
+          { label: 'Sourate 75, verset 27', group: '4 obligatoires', sinShift: { left: '0.34em', top: '-0.12em', ws: '-0.2em' }, text: 'وَقِيلَ مَنۡ ۜ رَاقٍ' },
+          { label: 'Sourate 83, verset 14', group: '4 obligatoires', sinShift: { left: '0.3em', top: '-0.38em', ws: '-0.2em' }, text: 'كَلَّا ۖ بَلۡ ۜ رَانَ عَلَىٰ قُلُوبِهِم مَّا كَانُواْ يَكۡسِبُونَ' },
           { label: 'Autorisée · Sourate Al-Hâqqah, versets 28 et 29', sinShift: { left: '0.32em', top: '-0.14em' }, text: 'مَآ أَغۡنَىٰ عَنِّى مَالِيَهۡ ۜ ٢٨ هَلَكَ عَنِّى سُلۡطَٰنِيَهۡ' },
           { label: 'Autorisée · Fin d’Al-Anfâl et début d’At-Tawbah', sinShift: { left: '0.3em', top: '-0.2em', ws: '-0.2em' }, text: '… إِنَّ ٱللَّهَ بِكُلِّ شَىۡءٍ عَلِيمۡ ۜ بَرَآءَةٌ مِّنَ ٱللَّهِ وَرَسُولِهِۦٓ …' }
         ],
@@ -734,7 +845,7 @@ class Component extends DCLogic {
     };
     signs.forEach((s) => {
       const b = book[s.id];
-      s.book = b ? { name: fr(b.name), tr: b.tr, ar: b.ar, def: fr(b.def), letter: fr(b.letter), note: b.note ? fr(b.note) : '', ex: b.ex.map((e) => ({ label: fr(e.label), text: e.text, parts: this.redParts(e.text, e.sinShift) })) } : null;
+      s.book = b ? { name: fr(b.name), tr: b.tr, ar: b.ar, def: fr(b.def), letter: fr(b.letter), note: b.note ? fr(b.note) : '', ex: b.ex.map((e) => ({ label: fr(e.label), group: e.group ? fr(e.group) : '', text: e.text, parts: this.redParts(e.text, e.sinShift) })) } : null;
     });
     const map = {};
     signs.forEach((s) => { map[s.id] = s; });
@@ -911,7 +1022,141 @@ class Component extends DCLogic {
       { t: 'Quitter le verset 6 pour le verset 7 de la sourate 2 est un arrêt [suffisant].', d: ['complet', 'mauvais'], e: 'Les deux phrases sont liées dans le sens global, sans lien grammatical.' }
     ].map((x) => ({ t: fr(x.t), d: x.d, e: fr(x.e) }));
 
-    this._d = { fr, signs, map, qcm, vf, trous, EX, AR, types, tqcm, tvf, ttrous };
+    // ——— Chapitre 9 : les règles de la lettre Ra (Le Viatique du Lecteur, p. 46 à 51) ———
+    const RA = {
+      sections: [
+        { id: 'tafkhim', num: '1', title: 'Cas où la lettre « ر » doit être lue avec l’emphase', ar: 'تَفۡخِيمُ ٱلرَّاءِ', verdict: 'Emphase · Tafkhîm', chipBg: '#0B5D4B', chipFg: '#FFFFFF', cases: [
+          { rule: 'La lettre « ر » porte la voyelle brève Ad-Dommah « [[r:ـُ]] ».',
+            ex: [{ label: 'Sourate 110, verset 1', text: 'نَصۡرُ ٱللَّهِ …' }] },
+          { rule: 'La lettre Rô porte la voyelle brève Al-Fathah « [[r:ـَ]] ».',
+            ex: [{ label: 'Sourate 55, verset 1', text: 'ٱل[[r:رَّ]]حۡمَٰنُ' }] },
+          { rule: 'La lettre « ر » porte la voyelle muette As-Soukoûn « [[r:ـۡ]] » et est précédée de la voyelle brève Ad-Dommah « [[r:ـُ]] ».',
+            ex: [{ label: 'Sourate 31, verset 12', text: 'أَنِ ٱشۡ[[r:كُرۡ]] …' }] },
+          { rule: 'La lettre « ر » porte la voyelle muette As-soukoûn « [[r:ـۡ]] » et est précédée de la voyelle brève Al-Fathah « [[r:ـَ]] ».',
+            ex: [{ label: 'Sourate 105, verset 3', text: 'وَ[[g:أَ]][[r:رۡ]]سَلَ …' }] },
+          { rule: 'La lettre « ر » porte la voyelle muette As-soukoûn « [[r:ـۡ]] », elle est précédée de la voyelle brève Al-Kasrah « [[r:ـِ]] » d’origine et est suivie par une lettre emphatique dans le même mot.',
+            lead: 'Seulement cinq mots font référence à ce cas dans le Saint Qur’âne :',
+            ex: [
+              { word: 'قِرۡطَاس', label: 'Sourate 6, verset 7', text: 'وَلَوۡ نَزَّلۡنَا عَلَيۡكَ كِتَٰبًا فِي [[g:قِ]][[r:رۡ]][[b:طَ]]اسٍ …' },
+              { word: 'وَإِرۡصَادًا', label: 'Sourate 9, verset 107', text: '… وَ[[g:إِ]][[r:رۡ]][[b:صَ]]ادًا لِّمَنۡ حَارَبَ ٱللَّهَ وَرَسُولَهُۥ مِن قَبۡلُ …' },
+              { word: 'فِرۡقَة', label: 'Sourate 9, verset 122', text: '… فَلَوۡلَا نَفَرَ مِن كُلِّ [[g:فِ]][[r:رۡ]][[b:قَ]]ةٍ …' },
+              { word: 'مِرۡصَادًا', label: 'Sourate 78, verset 21', text: 'إِنَّ جَهَنَّمَ كَانَتۡ [[g:مِ]][[r:رۡ]][[b:صَ]]ادًا …' },
+              { word: 'لَبِٱلۡمِرۡصَادِ', label: 'Sourate 89, verset 14', text: 'إِنَّ رَبَّكَ لَبِٱلۡ[[g:مِ]][[r:رۡ]][[b:صَ]]ادِ' }
+            ] },
+          { rule: 'La lettre « ر » porte la voyelle muette [As-soukoûn « [[r:ـۡ]] »] et est précédée d’une voyelle instable [Kasroun ‘Arid] due à [Hamzatou-l-wasl « [[r:ٱ]] »] (hamza de liaison).',
+            ex: [
+              { label: 'Sourate 23, verset 99', text: 'رَبِّ [[b:ٱ]][[r:رۡ]]جِعُونِ' },
+              { label: 'Sourate 24, verset 55', text: '… ٱلَّذِي [[b:ٱ]][[r:رۡ]]تَضَىٰ …' },
+              { label: 'Sourate 5, verset 106', text: '… إِ[[g:نِ]] [[b:ٱ]][[r:رۡ]]تَبۡتُمۡ …' },
+              { label: 'Sourate 89, verset 28', text: '[[b:ٱ]][[r:رۡ]]جِعِيٓ …' }
+            ] },
+          { rule: 'La lettre « ر » porte la voyelle muette [As-soukoûn] à l’arrêt, elle est précédée d’une lettre sâkinah autre que la lettre Yâ, devant laquelle il y a la voyelle [Al-Fathah] ou [Ad-Dommah].',
+            ex: [{ label: 'Sourate 103, versets 1 et 2', text: 'وَٱلۡ[[g:عَ]]صۡ[[r:رِ]] ١ إِنَّ ٱلۡإِنسَٰنَ لَفِي [[g:خُ]]سۡرٍ ٢' }] }
+        ] },
+        { id: 'tarqiq', num: '2', title: 'Cas où la lettre « ر » doit être lue avec la légèreté', ar: 'تَرۡقِيقُ ٱلرَّاءِ', verdict: 'Légèreté · Tarqîq', chipBg: '#E3EFEA', chipFg: '#0B5D4B', cases: [
+          { rule: 'La lettre « ر » porte la voyelle brève [Al-Kasrah « [[r:ـِ]] »].',
+            ex: [{ label: 'Sourate 113, verset 2', text: 'مِن شَ[[r:رِّ]] مَا خَلَقَ' }] },
+          { rule: 'La lettre « ر » porte la voyelle muette [As-soukoûn « [[r:ـۡ]] »], elle est précédée par la voyelle brève [Al-Kasrah « [[r:ـِ]] »] d’origine (qui n’a pas été rajoutée) et n’est pas suivie dans le même mot par l’une des lettres emphatiques regroupées dans l’expression (خُصَّ ضَغۡطٍ قِظۡ) (Khâ, Ṣôd, Dôd, Ghayn, Ṯô, Qôf, Ẕô).',
+            ex: [
+              { label: 'Exemple 1 · Sourate 89, verset 10', text: 'وَ[[g:فِ]][[r:رۡ]][[b:عَ]]وۡنَ …' },
+              { label: 'Exemple 1 · Sourate 110, verset 3', text: '… وَٱسۡتَغۡ[[g:فِ]][[r:رۡ]][[b:هُ]] …' },
+              { label: 'Exemple 2 · Sourate 70, verset 5', text: 'فَٱصۡ[[r:بِرۡ]] [[b:صَ]]بۡرًا جَمِيلًا' }
+            ],
+            note: 'Les contre-exemples à ce cas sont les 5 mots du 5e cas d’emphase. Exemple 2 : Tarqîq, car dans ce cas la lettre Rô sâkinah et la lettre emphatique qui suit sont dans deux mots différents.' },
+          { rule: 'La lettre Rô porte la voyelle muette [As-soukoûn « [[r:ـۡ]] »] due à l’arrêt et est précédée par la lettre Yâ sâkinah.',
+            ex: [
+              { label: 'Sourate 100, verset 11', text: '… لَّخَبِ[[r:يرۡ]]' },
+              { label: 'Sourate 67, verset 19', text: '… بَصِ[[r:يرۡ]]' }
+            ] },
+          { rule: 'La lettre Rô porte la voyelle muette [As-soukoûn « [[r:ـۡ]] »] due à l’arrêt et est précédée par une lettre sâkinah autre que la lettre Yâ, elle-même précédée par la voyelle brève [Al-Kasrah « [[r:ـِ]] »].',
+            ex: [
+              { label: 'Sourate 38, verset 1', text: 'وَٱلۡقُرۡءَانِ ذِي ٱل[[g:ذِّ]][[b:كۡ]][[r:رِ]]' },
+              { label: 'Sourate 89, verset 5', text: '… قَسَمٌ لِّذِي [[g:حِ]][[b:جۡ]][[r:رٍ]]' }
+            ] }
+        ] },
+        { id: 'choix', num: '3', title: 'Cas où l’on peut opter pour l’une ou l’autre des 2 solutions', verdict: 'Au choix · l’un ou l’autre', chipBg: '#FBEFD6', chipFg: '#7A4E00', cases: [
+          { rule: 'La lettre Rô porte la voyelle muette [As-soukoûn « [[r:ـۡ]] »], elle est précédée par la voyelle brève [Al-Kasrah « [[r:ـِ]] »] et suivie par une lettre emphatique portant la voyelle brève [Al-Kasrah].',
+            lead: 'Il n’existe qu’un exemple dans le Coran :',
+            ex: [{ label: 'Sourate 26, verset 63', text: '… فَكَانَ كُلُّ [[g:فِ]][[r:رۡ]][[b:قٍ]] كَٱلطَّوۡدِ ٱلۡعَظِيمِ' }] },
+          { rule: 'La lettre Rô porte la voyelle muette [As-soukoûn « [[r:ـۡ]] »] due à l’arrêt et est précédée par une lettre emphatique sâkinah, devant laquelle se trouve la voyelle brève [Al-Kasrah].',
+            lead: 'Ce cas ne se présente que pour deux mots dans le Saint Qur’âne :',
+            ex: [
+              { word: 'ٱلۡقِطۡرِ', label: 'Sourate 34, verset 12', text: '… وَأَسَلۡنَا لَهُۥ عَيۡنَ ٱلۡ[[g:قِ]][[b:طۡ]][[r:رِ]] …' },
+              { word: 'مِصۡرَ', label: 'Sourate 10, verset 87', text: 'وَأَوۡحَيۡنَآ إِلَىٰ مُوسَىٰ وَأَخِيهِ أَن تَبَوَّءَا لِقَوۡمِكُمَا بِ[[g:مِ]][[b:صۡ]][[r:رَ]] …' },
+              { word: 'مِصۡرَ', label: 'Sourate 12, verset 99', text: '… وَقَالَ ٱدۡخُلُواْ [[g:مِ]][[b:صۡ]][[r:رَ]] …' },
+              { word: 'مِصۡرَ', label: 'Sourate 43, verset 51', text: 'وَنَادَىٰ فِرۡعَوۡنُ فِي قَوۡمِهِۦ قَالَ يَٰقَوۡمِ أَلَيۡسَ لِي مُلۡكُ [[g:مِ]][[b:صۡ]][[r:رَ]] …' }
+            ] },
+          { rule: 'La lettre Rô porte la voyelle muette [As-soukoûn « [[r:ـۡ]] »] à l’arrêt, et elle devrait être suivie d’une lettre Yâ sâkinah qui a été supprimée. Cela est plus visible dans les lectionnaires Warch et Qâloûn. Cette règle ne concerne que 2 mots du Saint Qur’âne. Ce sont : نُذُرِ = نُذُرِ[[r:ي]] ; يَسۡرِ = يَسۡرِ[[r:ي]] et dérivés (فَأَسۡرِ et أَسۡرِ).',
+            ex: [
+              { word: 'نُذُرِ', label: 'Sourate 54, verset 16', text: 'فَكَيۡفَ كَانَ عَذَابِي وَنُذُ[[r:رِ]] ١٦' },
+              { word: 'يَسۡرِ', label: 'Sourate 89, verset 4', text: 'وَٱلَّيۡلِ إِذَا يَسۡ[[r:رِ]] ٤' }
+            ] }
+        ] }
+      ],
+      remark: 'La lettre « Rô » dans le lectionnaire Hafs, se lit soit avec emphase, soit sans emphase dans tous les cas sauf dans مَجۡ[[r:ر۪]]ىٰهَا de la sourate 11 (Hoûd) verset 41 où le « Rô » se lit « Ré » tiré en deux temps (d’où madj ré-hâ). La règle s’appelle « Al-Imâlatou-l-Koubrâ » c’est-à-dire la grande déclinaison.',
+      vocab: 'Warch et Qâloûn sont des façons de lire le Coran. Il en existe plusieurs.'
+    };
+    const ARR = '\\u0600-\\u06FF\\u0750-\\u077F\\u08A0-\\u08FF\\uFB50-\\uFDFF\\uFE70-\\uFEFF';
+    const TOK = '\\[\\[[rgb]:|\\]\\]';
+    const isoRe = new RegExp('(?:[' + ARR + ']|' + TOK + ')(?:(?:[' + ARR + '\\s]|' + TOK + ')*(?:[' + ARR + ']|\\]\\]))?', 'g');
+    const iso = (t) => String(t).replace(isoRe, (m) => '\u2068' + m + '\u2069');
+    const fi = (t) => iso(fr(t));
+    RA.sections.forEach((sec) => { sec.title = fr(sec.title); sec.cases.forEach((c) => { c.rule = fi(c.rule); if (c.lead) c.lead = fi(c.lead); if (c.note) c.note = fi(c.note); }); sec.title = iso(sec.title); });
+    RA.remark = fi(RA.remark); RA.vocab = fi(RA.vocab);
+
+    const RD = ['Avec emphase (Tafkhîm)', 'Avec légèreté (Tarqîq)', 'Au choix (l’un ou l’autre)'];
+    const rd = (ok) => [RD[ok]].concat(RD.filter((x, i) => i !== ok));
+    const rqcm = [
+      { p: 'Que signifie At-Tafkhîm ?', o: ['Lire la lettre avec emphase, en remplissant la bouche', 'Lire la lettre légèrement, sans remplir la bouche', 'Allonger la voyelle de deux temps', 'Marquer un bref arrêt'], e: 'At-Tafkhîm (ٱلتَّفۡخِيمُ), « la grandeur » : on remplit la bouche en prononçant la lettre.' },
+      { p: 'Que signifie At-Tarqîq ?', o: ['Lire la lettre légèrement, sans remplir la bouche', 'Lire la lettre avec emphase, en remplissant la bouche', 'Faire une pause légère', 'Nasaliser la lettre'], e: 'At-Tarqîq (ٱلتَّرۡقِيقُ), « la petitesse ».' },
+      { p: 'Combien de possibilités s’offrent à nous lorsqu’on rencontre la lettre « ر » ?', o: ['3', '2', '4', '5'], e: 'At-tafkhîm, at-tarqîq, ou faire l’un ou l’autre.' },
+      { p: 'Comment se lit le « ر » de نَصۡرُ ٱللَّهِ (sourate 110, verset 1) ?', o: rd(0), e: 'Le « ر » porte Ad-Dommah : il se lit avec emphase.' },
+      { p: 'Comment se lit le « ر » de مِن شَرِّ مَا خَلَقَ (sourate 113, verset 2) ?', o: rd(1), e: 'Le « ر » porte Al-Kasrah : il se lit avec légèreté.' },
+      { p: 'Comment se lit le « ر » de أَنِ ٱشۡكُرۡ (sourate 31, verset 12) ?', o: rd(0), e: 'Le « ر » sâkinah est précédé de Ad-Dommah : emphase.' },
+      { p: 'Comment se lit le « ر » de وَفِرۡعَوۡنَ (sourate 89, verset 10) ?', o: rd(1), e: 'Kasrah d’origine avant le « ر » sâkinah, et aucune lettre emphatique après lui dans le même mot : légèreté.' },
+      { p: 'Comment se lit le « ر » de قِرۡطَاسٍ (sourate 6, verset 7) ?', o: rd(0), e: 'Le « ر » sâkinah est précédé d’une Kasrah d’origine mais suivi d’une lettre emphatique (ط) dans le même mot : emphase.' },
+      { p: 'Comment se lit le « ر » de رَبِّ ٱرۡجِعُونِ (sourate 23, verset 99) ?', o: rd(0), e: 'La Kasrah qui précède est instable (Kasroun ‘Arid), due à la hamza de liaison : emphase.' },
+      { p: 'Comment se lit le « ر » de كُلُّ فِرۡقٍ كَٱلطَّوۡدِ (sourate 26, verset 63) ?', o: rd(2), e: 'Le « ر » sâkinah est suivi d’une lettre emphatique portant Al-Kasrah : c’est le seul exemple du Coran où l’on peut choisir.' },
+      { p: 'À l’arrêt sur مِصۡرَ, comment se lit le « ر » ?', o: rd(2), e: 'Le « ر » est précédé d’une lettre emphatique sâkinah, elle-même précédée de Al-Kasrah : au choix.' },
+      { p: 'À l’arrêt sur بَصِيرٌ (sourate 67, verset 19), comment se lit le « ر » ?', o: rd(1), e: 'À l’arrêt, le « ر » est précédé de la lettre Yâ sâkinah : légèreté.' },
+      { p: 'À l’arrêt sur وَٱلۡعَصۡرِ (sourate 103, verset 1), comment se lit le « ر » ?', o: rd(0), e: 'Le « ر » est précédé d’une lettre sâkinah autre que Yâ, devant laquelle il y a Al-Fathah : emphase.' },
+      { p: 'À l’arrêt sur ٱلذِّكۡرِ (sourate 38, verset 1), comment se lit le « ر » ?', o: rd(1), e: 'Le « ر » est précédé d’une lettre sâkinah autre que Yâ, elle-même précédée de Al-Kasrah : légèreté.' },
+      { p: 'Combien de mots du Coran ont un « ر » sâkinah précédé d’une Kasrah d’origine et suivi d’une lettre emphatique dans le même mot ?', o: ['5', '2', '1', '7'], e: 'قِرۡطَاس, وَإِرۡصَادًا, فِرۡقَة, مِرۡصَادًا et لَبِٱلۡمِرۡصَادِ.' },
+      { p: 'Quelle expression regroupe les lettres emphatiques ?', o: ['خُصَّ ضَغۡطٍ قِظۡ', 'يَرۡمَلُونَ', 'قُطۡبُ جَدٍّ', 'أَنۡ بُوكِ'], e: 'Khâ, Ṣôd, Dôd, Ghayn, Ṯô, Qôf, Ẕô.' },
+      { p: 'Dans quel mot le Rô se lit-il « Ré » (Al-Imâlatou-l-Koubrâ) ?', o: ['مَجۡر۪ىٰهَا (sourate 11, verset 41)', 'نُذُرِ (sourate 54, verset 16)', 'مِصۡرَ (sourate 12, verset 99)', 'يَسۡرِ (sourate 89, verset 4)'], e: 'Le « Rô » se lit « Ré », tiré en deux temps : c’est la grande déclinaison.' }
+    ].map((q) => Object.assign({}, q, { p: fi(q.p), e: fi(q.e), o: q.o.map(fi) }));
+
+    const rvf = [
+      { s: 'At-Tafkhîm consiste à lire la lettre en remplissant la bouche.', a: true, e: 'C’est la lecture avec emphase : « la grandeur ».' },
+      { s: 'At-Tarqîq signifie « la grandeur ».', a: false, e: 'At-Tarqîq signifie « la petitesse » : on lit légèrement, sans remplir la bouche.' },
+      { s: 'Le « ر » qui porte Al-Kasrah se lit avec légèreté.', a: true, e: 'Exemple : مِن شَرِّ مَا خَلَقَ.' },
+      { s: 'Le « ر » qui porte Al-Fathah se lit avec légèreté.', a: false, e: 'Il se lit avec emphase, comme dans ٱلرَّحۡمَٰنُ.' },
+      { s: 'Dans رَبِّ ٱرۡجِعُونِ, le « ر » se lit avec emphase car la Kasrah qui le précède est instable.', a: true, e: 'Cette Kasrah est due à la hamza de liaison (Kasroun ‘Arid).' },
+      { s: 'Dans فَٱصۡبِرۡ صَبۡرًا, le « ر » de فَٱصۡبِرۡ se lit avec emphase car il est suivi d’une lettre emphatique.', a: false, e: 'Tarqîq : le « ر » sâkinah et la lettre emphatique qui suit sont dans deux mots différents.' },
+      { s: 'Dans قِرۡطَاسٍ, le « ر » se lit avec emphase.', a: true, e: 'Il est suivi d’une lettre emphatique dans le même mot : c’est l’un des cinq mots de ce cas.' },
+      { s: 'À l’arrêt sur لَّخَبِيرٌ, le « ر » se lit avec emphase.', a: false, e: 'Il se lit avec légèreté : il est précédé de la lettre Yâ sâkinah.' },
+      { s: 'Il n’existe qu’un exemple dans le Coran d’un « ر » sâkinah suivi d’une lettre emphatique portant Al-Kasrah.', a: true, e: 'C’est فِرۡقٍ (sourate 26, verset 63), où l’on peut choisir.' },
+      { s: 'À l’arrêt sur ٱلۡقِطۡرِ, on peut lire le « ر » avec emphase ou avec légèreté.', a: true, e: 'C’est l’un des deux mots de ce cas, avec مِصۡرَ.' },
+      { s: 'La règle de نُذُرِ et يَسۡرِ concerne cinq mots du Coran.', a: false, e: 'Elle ne concerne que 2 mots (et leurs dérivés) : le Yâ sâkinah qui devrait suivre a été supprimé.' },
+      { s: 'Warch et Qâloûn sont des façons de lire le Coran.', a: true, e: 'Il en existe plusieurs.' },
+      { s: 'Dans le lectionnaire Hafs, le Rô de مَجۡر۪ىٰهَا (sourate 11, verset 41) se lit « Ré ».', a: true, e: 'Tiré en deux temps : c’est Al-Imâlatou-l-Koubrâ, la grande déclinaison.' },
+      { s: 'Dans وَأَرۡسَلَ, le « ر » sâkinah est précédé de Al-Fathah : il se lit avec légèreté.', a: false, e: 'Il se lit avec emphase.' },
+      { s: 'À l’arrêt sur وَٱلۡعَصۡرِ, le « ر » se lit avec emphase.', a: true, e: 'La lettre sâkinah qui le précède (ص) est précédée de Al-Fathah.' }
+    ].map((v) => Object.assign({}, v, { s: fi(v.s), e: fi(v.e) }));
+
+    const rtrous = [
+      { t: 'Lire le « ر » avec emphase s’appelle At-[Tafkhîm] ; le lire légèrement s’appelle At-[Tarqîq].', d: ['Tajwîd', 'Tartîl'], e: 'Tafkhîm : la grandeur. Tarqîq : la petitesse.' },
+      { t: 'Le « ر » qui porte Ad-Dommah ou Al-[Fathah] se lit avec [emphase].', d: ['Kasrah', 'légèreté'], e: 'Exemples : نَصۡرُ ٱللَّهِ et ٱلرَّحۡمَٰنُ.' },
+      { t: 'Le « ر » qui porte Al-[Kasrah] se lit avec [légèreté].', d: ['Dommah', 'emphase'], e: 'Exemple : مِن شَرِّ مَا خَلَقَ.' },
+      { t: 'Seulement [cinq] mots du Coran ont un « ر » sâkinah, précédé d’une Kasrah d’origine et suivi d’une lettre [emphatique] dans le même mot.', d: ['deux', 'nasale'], e: 'Dans ces mots, le « ر » se lit avec emphase.' },
+      { t: 'Dans ٱرۡجِعِيٓ, la Kasrah de la hamza de liaison est une voyelle [instable] : le « ر » se lit avec [emphase].', d: ['d’origine', 'légèreté'], e: 'On l’appelle Kasroun ‘Arid.' },
+      { t: 'À l’arrêt, un « ر » précédé de la lettre [Yâ] sâkinah se lit avec [légèreté].', d: ['Wâw', 'emphase'], e: 'Exemples : لَّخَبِيرٌ et بَصِيرٌ.' },
+      { t: 'Le mot فِرۡقٍ (sourate 26, verset 63) est le seul exemple du cas où l’on peut [choisir] entre emphase et [légèreté].', d: ['allonger', 'nasalisation'], e: 'Le « ر » sâkinah y est suivi d’une lettre emphatique portant Al-Kasrah.' },
+      { t: 'نُذُرِ et يَسۡرِ devraient être suivis d’une lettre [Yâ] sâkinah qui a été [supprimée].', d: ['Alif', 'prononcée'], e: 'Cela est plus visible dans les lectionnaires Warch et Qâloûn.' },
+      { t: 'Dans مَجۡر۪ىٰهَا, le Rô se lit « Ré » tiré en [deux] temps : c’est Al-Imâlatou-l-[Koubrâ].', d: ['quatre', 'Soughrâ'], e: 'La grande déclinaison (sourate 11, verset 41).' },
+      { t: 'Warch et [Qâloûn] sont des façons de lire le Coran.', d: ['Tajwîd'], e: 'Il en existe plusieurs.' }
+    ].map((x) => ({ t: fi(x.t), d: x.d, e: fi(x.e) }));
+    this._d = { fr, signs, map, qcm, vf, trous, EX, AR, types, tqcm, tvf, ttrous, RA, rqcm, rvf, rtrous };
     return this._d;
   }
 
@@ -1008,7 +1253,7 @@ class Component extends DCLogic {
   }
 
   bankKey(mode, topic) {
-    return topic === 'types' ? 't' + mode : mode;
+    return topic === 'types' ? 't' + mode : (topic === 'ra' ? 'r' + mode : mode);
   }
 
   redParts(t, sinShift) {
@@ -1026,6 +1271,52 @@ class Component extends DCLogic {
     });
   }
 
+  vowelBold(parts) {
+    // Symboles des voyelles des règles (« ـُ », « ـۡ »…, « ٱ ») : en gras et un peu plus grands
+    return parts.map((p) => {
+      const core = p.text.replace(/[\u2068\u2069\u200D]/g, '');
+      const isVowel = /C62828/.test(p.style) && (/^\u0640[\u064B-\u065F\u06E1]$/.test(core) || core === '\u0671');
+      return isVowel ? { text: p.text, style: p.style + ' font-size: 1.2em; -webkit-text-stroke: 0.008em #C62828;' } : p;
+    });
+  }
+
+  exBlocks(list) {
+    // Exemples d’un même groupe (ex. « 4 obligatoires ») réunis dans un seul cadre
+    const blocks = [];
+    list.forEach((e) => {
+      const last = blocks[blocks.length - 1];
+      if (e.group && last && last.group === e.group) last.items.push(e);
+      else blocks.push({ group: e.group || '', items: [e] });
+    });
+    return blocks.map((b) => ({
+      hasTitle: !!b.group, title: b.group,
+      items: b.items.map((e, i) => ({ label: e.label, parts: e.parts, sepStyle: i ? 'border-top: 1px dashed #DCE0DA; margin-top: 6px; padding-top: 8px;' : '' }))
+    }));
+  }
+
+  hlParts(t) {
+    // Couleurs du livre : [[r:…]] rouge (le Rô), [[g:…]] vert, [[b:…]] bleu.
+    // À une frontière à l’intérieur d’un mot, on ajoute un « liant invisible » (ZWJ)
+    // pour que les lettres restent attachées même si le navigateur traite chaque couleur à part.
+    const COL = { r: '#C62828', g: '#2E7D32', b: '#1F5FA8' };
+    const parts = String(t || '').split(/(\[\[[rgb]:[^\]]*\]\])/).filter((x) => x).map((x) => {
+      const m = x.match(/^\[\[([rgb]):([^\]]*)\]\]$/);
+      return m ? { text: m[2], color: COL[m[1]] } : { text: x, color: 'inherit' };
+    });
+    const MARK = /[\u064B-\u065F\u0670\u06D6-\u06ED\u08F0-\u08FF\u200D]/;
+    const DUAL = 'بتثجحخسشصضطظعغفقكلمنهيئىٮٯـ';
+    const isAr = (ch) => /[\u0620-\u064A\u0671-\u06D3]/.test(ch);
+    for (let k = 0; k < parts.length - 1; k++) {
+      const a = parts[k].text; const b = parts[k + 1].text;
+      let p = a.length - 1; while (p >= 0 && MARK.test(a[p])) p--;
+      const last = p >= 0 ? a[p] : '';
+      if (last && DUAL.indexOf(last) >= 0 && b.length && isAr(b[0])) {
+        parts[k].text = a + '\u200D'; parts[k + 1].text = '\u200D' + b;
+      }
+    }
+    return parts.map((x) => ({ text: x.text, style: 'color: ' + x.color + ';' }));
+  }
+
   verse(id) {
     const ex = id ? this.D().EX[id] : null;
     if (!ex) return { isPair: false, isSingle: false, before: '', after: '', text: '', ref: '', num: '', beforeParts: [], afterParts: [], textParts: [] };
@@ -1040,7 +1331,7 @@ class Component extends DCLogic {
 
   start(mode, topic) {
     const D = this.D();
-    const tp = topic === 'types' ? 'types' : 'signes';
+    const tp = topic === 'types' || topic === 'ra' ? topic : 'signes';
     let queue;
     if (mode === 'mix') {
       // Mélange : QCM, vrai ou faux et texte à trous, en parts à peu près égales
@@ -1182,7 +1473,7 @@ class Component extends DCLogic {
     const isTrous = screen === 'trous' || (!!cur && cur.type === 'trous');
     const inSession = isQcm || isVf || isTrous;
     const labels = { qcm: 'QCM', vf: 'Vrai ou faux', trous: 'Texte à trous', mix: 'Mélange' };
-    const topicLabels = { signes: 'Signes', types: 'Types d’arrêts' };
+    const topicLabels = { signes: 'Signes', types: 'Types d’arrêts', ra: 'Lettre Ra' };
     const q = inSession ? s.queue[s.idx] : null;
     const total = s.queue.length || 1;
 
@@ -1196,6 +1487,25 @@ class Component extends DCLogic {
     };
 
     const sigLabels = { stop: 'Stop', orange: 'Feu orange', blue: 'Sens obligatoire' };
+    const raSections = D.RA.sections.map((sec) => {
+      const secHid = s.hide && !s.revealed['ra_s' + sec.num];
+      return {
+        num: sec.num, title: sec.title, ar: sec.ar || '', hasAr: !!sec.ar, verdict: sec.verdict, count: sec.cases.length + ' cas',
+        chipStyle: 'background: ' + sec.chipBg + '; color: ' + sec.chipFg + ';',
+        isHidden: secHid, isShown: !secHid, reveal: () => this.reveal('ra_s' + sec.num),
+        revealAria: 'Révéler le titre de la partie ' + sec.num,
+        cases: sec.cases.map((c, k) => {
+          const hid = s.hide && !s.revealed['ra_' + sec.num + '_' + (k + 1)];
+          return {
+            n: String(k + 1), rule: c.rule, ruleParts: this.vowelBold(this.hlParts(c.rule)), lead: c.lead || '', hasLead: !!c.lead, note: c.note || '', hasNote: !!c.note && !hid,
+            isHidden: hid, isShown: !hid, reveal: () => this.reveal('ra_' + sec.num + '_' + (k + 1)),
+            revealAria: 'Révéler la règle du cas ' + (k + 1) + ' de la partie ' + sec.num,
+            badgeStyle: 'background: ' + (secHid ? '#E6E9E3' : sec.chipBg) + '; color: ' + (secHid ? '#55625D' : sec.chipFg) + ';',
+            examples: c.ex.map((e) => ({ label: e.label, word: e.word || '', hasWord: !!e.word, parts: this.hlParts(e.text) }))
+          };
+        })
+      };
+    });
     const learnRows = [];
     const header = (title) => ({ isHeader: true, isHidden: false, isShown: false, title, tile: empty });
     const card = (sg) => {
@@ -1209,7 +1519,7 @@ class Component extends DCLogic {
         signalLabel: sigLabels[sg.signal] || '', reveal: () => this.reveal(sg.id),
         revealAria: 'Révéler la fiche : ' + sg.aria,
         hasBook: !!sg.book, bookName: sg.book ? sg.book.name : '', bookTr: sg.book ? sg.book.tr : '', bookAr: sg.book ? sg.book.ar : '',
-        bookDef: sg.book ? sg.book.def : '', bookLetter: sg.book ? sg.book.letter : '', examples: sg.book ? sg.book.ex : [],
+        bookDef: sg.book ? sg.book.def : '', bookLetter: sg.book ? sg.book.letter : '', examples: sg.book ? sg.book.ex : [], exBlocks: this.exBlocks(sg.book ? sg.book.ex : []),
         hasBookNote: !!(sg.book && sg.book.note), bookNote: sg.book ? sg.book.note : '', accent
       };
     };
@@ -1368,21 +1678,24 @@ class Component extends DCLogic {
 
     return {
       accent, tint,
-      isHome: screen === 'home', isLearn: screen === 'learn', isLearnTypes: screen === 'learnTypes', isInstall: screen === 'install', isAbout: screen === 'about',
-      showQuit: inSession || screen === 'learn' || screen === 'learnTypes' || screen === 'install' || screen === 'about', isQcm, isVf, isTrous,
+      isHome: screen === 'home', isLearn: screen === 'learn', isLearnTypes: screen === 'learnTypes', isLearnRa: screen === 'learnRa', isInstall: screen === 'install', isAbout: screen === 'about',
+      showQuit: inSession || screen === 'learn' || screen === 'learnTypes' || screen === 'learnRa' || screen === 'install' || screen === 'about', isQcm, isVf, isTrous,
       isCard: isQcm || isVf, isResult: screen === 'result', inSession,
       modeLabel: (labels[screen] || '') + (inSession ? ' · ' + (topicLabels[s.topic] || '') : ''), qNum: s.idx + 1, total: s.queue.length, score: s.score,
       progressNum, progressPct: progressNum + '%',
       strip: D.signs.map((x) => this.tile(x.id, 30)),
       meta: { qcm: metaFor('qcm', 'signes'), vf: metaFor('vf', 'signes'), trous: metaFor('trous', 'signes'), mix: metaFor('mix', 'signes') },
       metaT: { qcm: metaFor('qcm', 'types'), vf: metaFor('vf', 'types'), trous: metaFor('trous', 'types'), mix: metaFor('mix', 'types') },
+      metaR: { qcm: metaFor('qcm', 'ra'), vf: metaFor('vf', 'ra'), trous: metaFor('trous', 'ra'), mix: metaFor('mix', 'ra') },
+      raSections, raRemark: D.RA.remark, raRemarkParts: this.hlParts(D.RA.remark), raVocab: D.RA.vocab,
       typeRows, matrixRows,
       learnRows, hide: s.hide, toggleHide: () => this.toggleHide(),
       qc, qcmOptions, vfButtons, tr, fb, res,
-      goHome: () => this.go('home'), goLearn: () => this.go('learn'), goTypes: () => this.go('learnTypes'), goInstall: () => this.go('install'), goAbout: () => this.go('about'), quit: () => this.go('home'),
-      goFiches: () => this.go(s.topic === 'types' ? 'learnTypes' : 'learn'),
+      goHome: () => this.go('home'), goLearn: () => this.go('learn'), goTypes: () => this.go('learnTypes'), goRa: () => this.go('learnRa'), goInstall: () => this.go('install'), goAbout: () => this.go('about'), quit: () => this.go('home'),
+      goFiches: () => this.go(s.topic === 'types' ? 'learnTypes' : (s.topic === 'ra' ? 'learnRa' : 'learn')),
       startQcm: () => this.start('qcm', 'signes'), startVf: () => this.start('vf', 'signes'), startTrous: () => this.start('trous', 'signes'), startMix: () => this.start('mix', 'signes'),
       startTQcm: () => this.start('qcm', 'types'), startTVf: () => this.start('vf', 'types'), startTTrous: () => this.start('trous', 'types'), startTMix: () => this.start('mix', 'types'),
+      startRQcm: () => this.start('qcm', 'ra'), startRVf: () => this.start('vf', 'ra'), startRTrous: () => this.start('trous', 'ra'), startRMix: () => this.start('mix', 'ra'),
       restart: () => this.start(s.mode || 'qcm', s.topic),
       next: () => this.next(), check: () => this.check(), resetFills: () => this.resetFills()
     };
