@@ -45,5 +45,6 @@ L’application s’ouvre ensuite en plein écran depuis l’icône « Niveau 4C
 - Police coranique « KFGQPC HAFS Uthmanic Script » : © Complexe du Roi Fahd pour l’impression du Noble Coran (KFGQPC), utilisée et distribuée gratuitement, sans modification, conformément à sa licence (texte intégré au fichier de police).
 - Le robot Android est reproduit à partir d’une création de Google, utilisée selon les conditions de la licence Creative Commons Attribution 3.0.
 - Le logo Apple est une marque d’Apple Inc. ; le logo Facebook est une marque de Meta Platforms, Inc.
-- Polices : Amiri, Amiri Quran et Manrope, chargées depuis Google Fonts (licence SIL Open Font).
+- Polices : Amiri, Amiri Quran, Scheherazade New, Noto Naskh Arabic, Harmattan, Lateef, Noto Sans Arabic, Jomhuria et Manrope, chargées depuis Google Fonts (licence SIL Open Font).
+- Logos WhatsApp et Gmail : marques de leurs propriétaires respectifs (Meta, Google), utilisées uniquement pour signaler les liens de contact. Icône WhatsApp : Freepik.
 - Bibliothèque : [petite-vue](https://github.com/vuejs/petite-vue) 0.4.1 (licence MIT), avec une petite correction pour l’affichage des listes imbriquées.

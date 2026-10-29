@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Niveau 4C — Arrêts et signes du Coran</title>
 <meta name="description" content="Apprendre et réviser les types d’arrêts et les signes conventionnels de la lecture du Coran : fiches, QCM, vrai ou faux et texte à trous.">
 <link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
@@ -13,7 +13,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Niveau 4C">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&amp;family=Amiri+Quran&amp;family=Manrope:wght@400;500;600;700;800&amp;family=Noto+Naskh+Arabic:wght@400;600&amp;family=Scheherazade+New:wght@400;700&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&amp;family=Amiri+Quran&amp;family=Manrope:wght@400;500;600;700;800&amp;family=Noto+Naskh+Arabic:wght@400;600&amp;family=Scheherazade+New:wght@400;700&amp;family=Harmattan:wght@400;700&amp;family=Lateef:wght@400;700&amp;family=Noto+Sans+Arabic:wght@400;600&amp;family=Jomhuria&amp;display=swap">
 <style>
 @font-face{font-family:'Hafs';src:url('assets/kfgqpc_hafs.ttf') format('truetype');font-display:swap}
 body{margin:0;background:#F3F4F0}
@@ -35,7 +35,7 @@ a{color:var(--accent,#0B5D4B)}a:hover{opacity:.85}
 </head>
 <body>
 <div id="app" v-cloak>
-<div :data-theme="themeName" :style="`${themeVars} min-height: 100vh; background: var(--bg); color: var(--ink); font-family: 'Manrope', var(--arfont, 'Hafs'), 'Hafs', 'Amiri', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; display: flex; flex-direction: column`">
+<div :data-theme="themeName" :style="`${themeVars} padding-top: env(safe-area-inset-top, 0px); padding-left: env(safe-area-inset-left, 0px); padding-right: env(safe-area-inset-right, 0px); box-sizing: border-box; min-height: 100vh; background: var(--bg); color: var(--ink); font-family: 'Manrope', var(--arfont, 'Hafs'), 'Hafs', 'Amiri', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; display: flex; flex-direction: column`">
 
 <header style="border-bottom: 1px solid var(--line)">
 <div style="max-width: 760px; margin: 0 auto; padding: 10px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px">
@@ -573,7 +573,13 @@ Mode mémorisation
 </div>
 <div style="display: flex; flex-direction: column; gap: 8px"><span style="font-size: 13px; font-weight: 700; color: var(--muted)">Police arabe</span>
 <div role="group" aria-label="Police arabe" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px"><template v-for="o in fontOpts"><button @click="o.pick" :aria-pressed="o.pressed" :style="o.style"><span dir="rtl" lang="ar" :style="`font-family: ${o.ff}; font-size: 22px; font-weight: 400; line-height: 1.7`">ٱلرَّحۡمَٰنُ</span><span>{{o.label}}</span></button></template></div>
-<div dir="rtl" lang="ar" style="align-self: flex-end; font-family: var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: calc(23px * var(--ar, 1)); line-height: 2; color: var(--ink)">إِنَّ رَبَّكَ لَبِٱلۡمِرۡصَادِ</div></div>
+<div dir="rtl" lang="ar" style="align-self: center; text-align: center; font-family: var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: calc(23px * var(--ar, 1)); line-height: 2; color: var(--ink)">إِنَّ رَبَّكَ لَبِٱلۡمِرۡصَادِ</div></div>
+</div>
+<div style="background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 14px 20px 6px; display: flex; flex-direction: column">
+<p style="margin: 0 0 4px; font-size: 17px; font-weight: 800">Contacter l’auteur</p>
+<p style="margin: 0 0 10px; font-size: 14px; line-height: 1.5; color: var(--muted)">Une question, une erreur à signaler ou une suggestion&nbsp;? Écris à l’auteur de l’application.</p>
+<a href="https://wa.me/2250749158582?text=Assalamou%20alaykoum%2C%20je%20vous%20%C3%A9cris%20au%20sujet%20de%20l%E2%80%99application%20Niveau%204C." target="_blank" rel="noopener" aria-label="Écrire à l’auteur sur WhatsApp" class="lift" style="display: flex; align-items: center; gap: 14px; min-height: 64px; padding: 10px 4px; border-top: 1px solid var(--line); color: var(--ink); text-decoration: none"><img src="assets/logo_whatsapp.png" alt="" style="width: 40px; height: 40px; object-fit: contain; flex-shrink: 0; display: block"><span style="flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-size: 15.5px; font-weight: 800">WhatsApp</span><span style="font-size: 12.5px; font-weight: 600; color: var(--muted); overflow-wrap: anywhere">Ouvrir une discussion</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--muted)"><path d="M14 4h6v6"></path><path d="M20 4l-9 9"></path><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a>
+<a href="mailto:doucourebabam@gmail.com?subject=Application%20Niveau%204C" aria-label="Écrire à l’auteur par e-mail" class="lift" style="display: flex; align-items: center; gap: 14px; min-height: 64px; padding: 10px 4px; border-top: 1px solid var(--line); color: var(--ink); text-decoration: none"><img src="assets/logo_gmail.png" alt="" style="width: 40px; height: 40px; object-fit: contain; flex-shrink: 0; display: block"><span style="flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-size: 15.5px; font-weight: 800">E-mail</span><span style="font-size: 12.5px; font-weight: 600; color: var(--muted); overflow-wrap: anywhere">Écrire un message</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--muted)"><path d="M14 4h6v6"></path><path d="M20 4l-9 9"></path><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg></a>
 </div>
 <div style="background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 14px 20px 6px; display: flex; flex-direction: column">
 <p style="margin: 0 0 8px; font-size: 17px; font-weight: 800">Application</p>
@@ -839,19 +845,19 @@ Recommencer
 <p :style="`margin: 0; font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${accent}`">Retrouver le CIFOD</p>
 <div style="display: flex; flex-wrap: wrap; gap: 10px">
 <a class="lift" href="https://www.facebook.com/CIFODCIV" target="_blank" rel="noopener noreferrer" aria-label="Page Facebook du CIFOD" title="Facebook · CIFODCIV" style="display: inline-flex; align-items: center; justify-content: center; width: 52px; height: 52px; border-radius: 999px; text-decoration: none">
-<img src="assets/facebook_logo.png" alt="" style="width: 23px; height: 23px; display: block">
+<img src="assets/facebook_logo.png" alt="" style="width: 30px; height: 30px; display: block">
 </a>
 <a class="lift" href="https://cifod.org/" target="_blank" rel="noopener noreferrer" aria-label="Site internet du CIFOD : cifod.org" title="cifod.org" style="display: inline-flex; align-items: center; gap: 8px; height: 52px; padding: 0 10px 0 4px; border-radius: 999px; text-decoration: none">
-<svg width="23" height="23" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--muted); display: block"><circle cx="20" cy="20" r="16.5"></circle><path d="M20 3.5v33"></path><ellipse cx="20" cy="20" rx="8" ry="16.5"></ellipse><path d="M3.5 20h33"></path><path d="M6.5 11.5c8.5 3 18.5 3 27 0"></path><path d="M6.5 28.5c8.5-3 18.5-3 27 0"></path></svg>
+<svg width="30" height="30" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--muted); display: block"><circle cx="20" cy="20" r="16.5"></circle><path d="M20 3.5v33"></path><ellipse cx="20" cy="20" rx="8" ry="16.5"></ellipse><path d="M3.5 20h33"></path><path d="M6.5 11.5c8.5 3 18.5 3 27 0"></path><path d="M6.5 28.5c8.5-3 18.5-3 27 0"></path></svg>
 <span style="font-size: 16px; font-weight: 800; letter-spacing: 0.01em; color: var(--muted)">cifod.org</span>
 </a>
 </div>
 </div>
 </footer>
 
-<div aria-hidden="true" style="height: calc(76px + env(safe-area-inset-bottom, 0px)); flex-shrink: 0"></div>
+<div aria-hidden="true" style="height: calc(82px + env(safe-area-inset-bottom, 0px)); flex-shrink: 0"></div>
 <template v-if="toastShow"><div role="status" style="position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(80px + env(safe-area-inset-bottom, 0px)); z-index: 41; max-width: min(92vw, 460px); padding: 12px 16px; border-radius: 14px; background: var(--btn); color: #FFFFFF; font-size: 14px; font-weight: 700; line-height: 1.4; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.25); overflow-wrap: anywhere">{{toast}}</div></template>
-<nav aria-label="Navigation principale" style="position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; background: var(--surface); border-top: 1px solid var(--line); padding-bottom: env(safe-area-inset-bottom, 0px); box-shadow: 0 -6px 20px rgba(0,0,0,0.06)">
+<nav aria-label="Navigation principale" style="position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; background: var(--surface); border-top: 1px solid var(--line); padding: 0 env(safe-area-inset-right, 0px) max(env(safe-area-inset-bottom, 0px), 6px) env(safe-area-inset-left, 0px); box-shadow: 0 -6px 20px rgba(0,0,0,0.06)">
 <div style="max-width: 760px; margin: 0 auto; display: flex; align-items: stretch">
 <button @click="goHome" aria-label="Accueil" :aria-current="tabHomeCur" :style="`flex: 1; min-width: 0; min-height: 58px; padding: 6px 4px; border: 0; background: transparent; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-size: 11.5px; font-weight: 800; ${tabHome}`"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5"></path><path d="M5 9.5V20h14V9.5"></path><path d="M10 20v-6h4v6"></path></svg><span>Accueil</span></button>
 <button @click="goProgress" aria-label="Stats" :aria-current="tabStatsCur" :style="`flex: 1; min-width: 0; min-height: 58px; padding: 6px 4px; border: 0; background: transparent; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-size: 11.5px; font-weight: 800; ${tabStats}`"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10"></path><path d="M10 20V4"></path><path d="M16 20v-7"></path><path d="M22 20H2"></path></svg><span>Stats</span></button>
@@ -1467,9 +1473,9 @@ class Component extends DCLogic {
     const near = (i, step) => { for (let k = i + step; k >= 0 && k < parts.length; k += step) { if (parts[k].mark || parts[k].text.trim()) return parts[k].mark; } return ''; };
     return parts.map((p, i) => {
       let shift = '';
-      if (p.mark === '\u06DC' && near(i, 1) === '\u06D7') shift = ' position: relative; top: -0.2em; left: 0.33em; word-spacing: -0.16em;';
-      if (p.mark === '\u06D7' && near(i, -1) === '\u06DC') shift = ' position: relative; top: 0.04em; left: -0.33em; word-spacing: -0.16em;';
-      if (!shift && sinShift && p.mark === '\u06DC') shift = ' position: relative; left: ' + (sinShift.left || '0') + '; top: ' + (sinShift.top || '0') + ';' + (sinShift.ws ? ' word-spacing: ' + sinShift.ws + ';' : '');
+      if (p.mark === '\u06DC' && near(i, 1) === '\u06D7') shift = ' position: relative; top: calc(-0.2em * var(--hafs, 1)); left: calc(0.33em * var(--hafs, 1)); word-spacing: calc(-0.16em * var(--hafs, 1));';
+      if (p.mark === '\u06D7' && near(i, -1) === '\u06DC') shift = ' position: relative; top: calc(0.04em * var(--hafs, 1)); left: calc(-0.33em * var(--hafs, 1)); word-spacing: calc(-0.16em * var(--hafs, 1));';
+      if (!shift && sinShift && p.mark === '\u06DC') shift = ' position: relative; left: calc(' + (sinShift.left || '0em') + ' * var(--hafs, 1)); top: calc(' + (sinShift.top || '0em') + ' * var(--hafs, 1));' + (sinShift.ws ? ' word-spacing: calc(' + sinShift.ws + ' * var(--hafs, 1));' : '');
       const color = p.mark ? 'var(--red)' : 'inherit';
       const bold = p.mark ? ' -webkit-text-stroke: 0.01em ' + color + ';' : '';
       return { text: p.text, color, style: 'color: ' + color + ';' + bold + shift };
@@ -1703,8 +1709,8 @@ class Component extends DCLogic {
       rose: '#B42318', 'rose-t': '#FCEDEB', red: '#C62828', green: '#2E7D32', blue: '#1F5FA8', 'amber-bg': '#FBEFD6', 'amber-fg': '#7A4E00',
       'tone-red': '#A1262B', 'tone-green': '#1D6B3C', 'tone-maroon': '#7A2430'
     };
-    const AR_FONTS = { hafs: "'Hafs'", amiri: "'Amiri Quran'", sch: "'Scheherazade New'", noto: "'Noto Naskh Arabic'" };
-    const themeVars = Object.keys(TV).map((k) => '--' + k + ': ' + TV[k] + ';').join(' ') + ' --ar: ' + (s.arScale || 1) + '; --arfont: ' + (AR_FONTS[s.arFont] || AR_FONTS.hafs) + '; color-scheme: ' + (dark ? 'dark' : 'light') + ';';
+    const AR_FONTS = { hafs: "'Hafs'", amiri: "'Amiri Quran'", sch: "'Scheherazade New'", noto: "'Noto Naskh Arabic'", harm: "'Harmattan'", lat: "'Lateef'", sans: "'Noto Sans Arabic'", jom: "'Jomhuria'" };
+    const themeVars = Object.keys(TV).map((k) => '--' + k + ': ' + TV[k] + ';').join(' ') + ' --ar: ' + (s.arScale || 1) + '; --arfont: ' + (AR_FONTS[s.arFont] || AR_FONTS.hafs) + '; --hafs: ' + ((s.arFont || 'hafs') === 'hafs' ? 1 : 0) + '; color-scheme: ' + (dark ? 'dark' : 'light') + ';';
     const accent = 'var(--accent)';
     const tint = 'var(--tint)';
     const ROSE = 'var(--rose)';
@@ -1773,7 +1779,7 @@ class Component extends DCLogic {
     const optStyle = (on) => 'min-height: 44px; padding: 0 16px; border-radius: 12px; font-size: 14.5px; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; ' +
       (on ? 'background: var(--accent); color: #FFFFFF; border: 1.5px solid var(--accent);' : 'background: var(--surface); color: var(--ink); border: 1.5px solid var(--line);');
     const themeOpts = [['auto', 'Automatique'], ['clair', 'Clair'], ['sombre', 'Sombre']].map(([k, l]) => ({ label: l, pressed: s.theme === k ? 'true' : 'false', style: optStyle(s.theme === k), pick: () => this.setTheme(k) }));
-    const fontOpts = [['hafs', 'Mushaf de Médine', "'Hafs', serif"], ['amiri', 'Amiri Quran', "'Amiri Quran', serif"], ['sch', 'Scheherazade', "'Scheherazade New', serif"], ['noto', 'Naskh moderne', "'Noto Naskh Arabic', serif"]]
+    const fontOpts = [['hafs', 'Uthmanic (Mushaf de Médine)', "'Hafs', serif"], ['amiri', 'Amiri Quran', "'Amiri Quran', serif"], ['sch', 'Scheherazade', "'Scheherazade New', serif"], ['noto', 'Noto Naskh', "'Noto Naskh Arabic', serif"], ['harm', 'Harmattan', "'Harmattan', serif"], ['lat', 'Lateef', "'Lateef', serif"], ['sans', 'Arabe moderne', "'Noto Sans Arabic', sans-serif"], ['jom', 'Jomhuria', "'Jomhuria', serif"]]
       .map(([k, l, ff]) => ({ label: l, ff, pressed: (s.arFont || 'hafs') === k ? 'true' : 'false', style: optStyle((s.arFont || 'hafs') === k) + ' flex-direction: column; justify-content: center; gap: 0; min-height: 72px; padding: 6px 14px;', pick: () => this.setFont(k) }));
     const arOpts = [[1, 'Normale'], [1.18, 'Grande'], [1.36, 'Très grande']].map(([v, l]) => ({ label: l, pressed: s.arScale === v ? 'true' : 'false', style: optStyle(s.arScale === v), pick: () => this.setAr(v) }));
     const raSections = D.RA.sections.map((sec) => {
