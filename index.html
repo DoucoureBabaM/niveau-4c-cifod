@@ -1360,21 +1360,21 @@ class Component extends DCLogic {
       { t: 'Warch et [Qâloûn] sont des façons de lire le Coran.', d: ['Tajwîd'], e: 'Il en existe plusieurs.' }
     ].map((x) => ({ t: fi(x.t), d: x.d, e: fi(x.e) }));
     const COMP = [
-      { num: 1, ref: 'IX-6', title: 'Être à l’abri des injustes', intro: '', blocks: [
+      { num: 1, ref: 'IX-6', page: 'page 39', title: 'Être à l’abri des injustes', intro: '', blocks: [
         { lead: '', ar: '[[r:رَبَّنَا]] لَا تَجۡعَلۡنَا مَعَ ٱلۡقَوۡمِ ٱلظَّٰلِمِينَ', fr: 'Seigneur, ne nous place pas parmi les injustes.', src: 'Coran 7/47', nb: '' }
       ] },
-      { num: 2, ref: 'II-13', title: 'Après l’appel à la prière (Al-Azhan)', intro: 'Le Prophète (SAW) dit que son intercession sera acquise le jour de la résurrection pour quiconque fait cette invocation pour lui après l’Azhan.', blocks: [
+      { num: 2, ref: 'II-13', page: 'pages 12-13', title: 'Après l’appel à la prière (Al-Azhan)', intro: 'Le Prophète (SAW) dit que son intercession sera acquise le jour de la résurrection pour quiconque fait cette invocation pour lui après l’Azhan.', blocks: [
         { lead: '', ar: 'ٱللَّهُمَّ رَبَّ هَٰذِهِ ٱلدَّعۡوَةِ ٱلتَّامَّةِ وَٱلصَّلَاةِ ٱلۡقَائِمَةِ آتِ مُحَمَّدًا ٱلۡوَسِيلَةَ وَٱلۡفَضِيلَةَ، وَٱبۡعَثۡهُ مَقَامًا مَحۡمُودًا ٱلَّذِي وَعَدۡتَهُ', fr: 'Seigneur Dieu ! Seigneur de cet appel parfait, et la prière éternelle, accorde à Mohammad la place éminente et la supériorité, et envoie-le au poste glorieux que Tu lui as promis, certainement.', src: '', nb: 'Chacun doit faire des invocations pour soi-même ; l’invocation entre l’azhan et al iqamat est toujours exaucée.' }
       ] },
-      { num: 3, ref: 'IV-7', title: 'En sortant de la maison', intro: '', blocks: [
+      { num: 3, ref: 'IV-7', page: 'pages 23-24', title: 'En sortant de la maison', intro: '', blocks: [
         { lead: '', ar: 'بِسۡمِ ٱللَّهِ تَوَكَّلۡتُ عَلَى ٱللَّهِ، وَلَا حَوۡلَ وَلَا قُوَّةَ إِلَّا بِٱللَّهِ', fr: 'Au nom de Dieu, je m’en remets entièrement à Dieu, il n’y a ni de force ni puissance que par Dieu.', src: '', nb: '' }
       ] },
-      { num: 4, ref: 'IV-8', title: 'En montant sur une monture (ou n’importe quel moyen de transport)', intro: '', blocks: [
+      { num: 4, ref: 'IV-8', page: 'page 24', title: 'En montant sur une monture (ou n’importe quel moyen de transport)', intro: '', blocks: [
         { lead: '', ar: 'بِسۡمِ ٱللَّهِ، ٱلۡحَمۡدُ لِلَّهِ، سُبۡحَٰنَ ٱلَّذِي سَخَّرَ لَنَا هَٰذَا وَمَا كُنَّا لَهُۥ مُقۡرِنِينَ ١٣ وَإِنَّآ إِلَىٰ رَبِّنَا لَمُنقَلِبُونَ ١٤', fr: 'Au nom d’Allah, louange à Allah. Gloire à celui qui nous a soumis ceci, alors que nous n’eussions pu le dominer. En vérité, nous retournerons vers notre Seigneur.', src: 'Coran 43/13-14', nb: '' },
         { lead: 'On peut aussi ajouter :', ar: 'بِسۡمِ ٱللَّهِ مَجۡر۪ىٰهَا وَمُرۡسَىٰهَآۚ إِنَّ رَبِّي لَغَفُورٞ رَّحِيمٞ', fr: 'Que sa course et son mouillage soient au nom d’Allah. Certes mon Seigneur est pardonneur et Miséricordieux.', src: 'Coran 11/41', nb: 'C’est cette invocation qu’avait faite le prophète Noûh (Noé), paix sur lui, lorsqu’il était dans l’arche.' },
         { lead: 'Lorsque la monture perd l’équilibre, il faut dire :', ar: 'بِسۡمِ ٱللَّهِ', fr: 'Au nom d’Allah.', src: '', nb: '' }
       ] },
-      { num: 5, ref: 'IV-10', title: 'En rentrant à la maison', intro: '', blocks: [
+      { num: 5, ref: 'IV-10', page: 'pages 24-25', title: 'En rentrant à la maison', intro: '', blocks: [
         { lead: '', ar: 'بِسۡمِ ٱللَّهِ وَلَجۡنَا، وَبِسۡمِ ٱللَّهِ خَرَجۡنَا، وَعَلَىٰ رَبِّنَا تَوَكَّلۡنَا', fr: 'Au nom d’Allah, nous sommes rentrés et au nom d’Allah nous sommes sortis. À Dieu notre Seigneur nous nous en remettons.', src: '', nb: '' }
       ] }
     ];
@@ -1457,7 +1457,7 @@ class Component extends DCLogic {
     } catch (e) {}
     try {
       const rd = window.localStorage.getItem('waqf-affichage');
-      if (rd) { const d = JSON.parse(rd); this.setState({ theme: d.theme || 'auto', arScale: d.arScale || 1, arFont: d.arFont || 'hafs' }); }
+      if (rd) { const d = JSON.parse(rd); this.setState({ theme: d.theme || 'auto', arScale: d.arScale || 1, arFont: d.fv === 2 ? (d.arFont || 'hafs') : 'hafs' }); }
     } catch (e) {}
     try {
       const mq = window.matchMedia('(prefers-color-scheme: dark)');
@@ -1545,7 +1545,7 @@ class Component extends DCLogic {
   }
 
   saveDisp(theme, arScale, arFont) {
-    try { window.localStorage.setItem('waqf-affichage', JSON.stringify({ theme, arScale, arFont })); } catch (e) {}
+    try { window.localStorage.setItem('waqf-affichage', JSON.stringify({ theme, arScale, arFont, fv: 2 })); } catch (e) {}
   }
 
   setTheme(t) {
@@ -2000,7 +2000,7 @@ class Component extends DCLogic {
     });
     // ——— Le Compagnon : fiches ———
     const compCards = D.COMP.map((h) => ({
-      num: String(h.num), title: h.title, ref: 'Le Compagnon · ' + h.ref, hasIntro: !!h.intro, intro: h.intro,
+      num: String(h.num), title: h.title, ref: 'Le Compagnon · ' + h.ref + ' · ' + h.page, hasIntro: !!h.intro, intro: h.intro,
       blocks: h.blocks.map((b, k) => {
         const key = 'comp_' + h.num + '_' + k;
         const hid = !!s.hide && !s.revealed[key];
