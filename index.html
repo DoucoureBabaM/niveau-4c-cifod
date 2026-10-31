@@ -1382,7 +1382,6 @@ class Component extends DCLogic {
     const E2 = 'Après l’appel à la prière : « Seigneur de cet appel parfait et de la prière éternelle, accorde à Mohammad la place éminente et la supériorité, et envoie-le au poste glorieux que Tu lui as promis. »';
     const E3 = 'En sortant de la maison : « Au nom de Dieu, je m’en remets entièrement à Dieu, il n’y a ni de force ni puissance que par Dieu. »';
     const E4 = 'En montant sur une monture (Coran 43/13-14) : « Gloire à celui qui nous a soumis ceci, alors que nous n’eussions pu le dominer. En vérité, nous retournerons vers notre Seigneur. »';
-    const E5 = 'Invocation de Noûh (Noé) dans l’arche (Coran 11/41) : « Que sa course et son mouillage soient au nom d’Allah. Certes mon Seigneur est pardonneur et Miséricordieux. »';
     const E6 = 'En rentrant à la maison : « Au nom d’Allah, nous sommes rentrés et au nom d’Allah nous sommes sortis. À Dieu notre Seigneur nous nous en remettons. »';
     const ctrous = [
       { ar: true, t: 'رَبَّنَا لَا [تَجۡعَلۡنَا] مَعَ ٱلۡقَوۡمِ ٱلظَّٰلِمِينَ', d: ['تُؤَاخِذۡنَا', 'تُحَمِّلۡنَا'], e: E1 },
@@ -1394,7 +1393,6 @@ class Component extends DCLogic {
       { ar: true, t: 'بِسۡمِ ٱللَّهِ تَوَكَّلۡتُ عَلَى ٱللَّهِ، وَلَا [حَوۡلَ] وَلَا [قُوَّةَ] إِلَّا بِٱللَّهِ', d: ['قُدۡرَةَ', 'عِلۡمَ'], e: E3 },
       { ar: true, t: 'سُبۡحَٰنَ ٱلَّذِي [سَخَّرَ] لَنَا هَٰذَا وَمَا كُنَّا لَهُۥ [مُقۡرِنِينَ]', d: ['خَلَقَ', 'مُنقَلِبِينَ'], e: E4 },
       { ar: true, t: 'وَإِنَّآ إِلَىٰ [رَبِّنَا] [لَمُنقَلِبُونَ]', d: ['ٱللَّهِ', 'لَرَٰجِعُونَ'], e: E4 },
-      { ar: true, t: 'بِسۡمِ ٱللَّهِ [مَجۡر۪ىٰهَا] وَمُرۡسَىٰهَآۚ إِنَّ رَبِّي [لَغَفُورٞ] رَّحِيمٞ', d: ['سَيۡرُهَا', 'لَرَءُوفٞ'], e: E5 },
       { ar: true, t: 'بِسۡمِ ٱللَّهِ [وَلَجۡنَا]، وَبِسۡمِ ٱللَّهِ [خَرَجۡنَا]، وَعَلَىٰ رَبِّنَا تَوَكَّلۡنَا', d: ['دَخَلۡتُ', 'رَجَعۡنَا'], e: E6 },
       { ar: true, t: 'بِسۡمِ ٱللَّهِ وَلَجۡنَا، وَبِسۡمِ ٱللَّهِ خَرَجۡنَا، وَعَلَىٰ [رَبِّنَا] [تَوَكَّلۡنَا]', d: ['ٱللَّهِ', 'تَوَكَّلۡتُ'], e: E6 }
     ];
@@ -1404,22 +1402,19 @@ class Component extends DCLogic {
       c2: { text: 'ٱللَّهُمَّ رَبَّ هَٰذِهِ ٱلدَّعۡوَةِ ٱلتَّامَّةِ وَٱلصَّلَاةِ ٱلۡقَائِمَةِ آتِ مُحَمَّدًا ٱلۡوَسِيلَةَ وَٱلۡفَضِيلَةَ', ref: '' },
       c3: { text: 'بِسۡمِ ٱللَّهِ تَوَكَّلۡتُ عَلَى ٱللَّهِ، وَلَا حَوۡلَ وَلَا قُوَّةَ إِلَّا بِٱللَّهِ', ref: '' },
       c4: { text: 'سُبۡحَٰنَ ٱلَّذِي سَخَّرَ لَنَا هَٰذَا وَمَا كُنَّا لَهُۥ مُقۡرِنِينَ', ref: '' },
-      c5: { text: 'بِسۡمِ ٱللَّهِ مَجۡر۪ىٰهَا وَمُرۡسَىٰهَآۚ إِنَّ رَبِّي لَغَفُورٞ رَّحِيمٞ', ref: '' },
       c6: { text: 'بِسۡمِ ٱللَّهِ وَلَجۡنَا، وَبِسۡمِ ٱللَّهِ خَرَجۡنَا، وَعَلَىٰ رَبِّنَا تَوَكَّلۡنَا', ref: '' }
     });
-    const SIT = { inj: 'Pour être à l’abri des injustes', azh: 'Après l’appel à la prière (Al-Azhan)', sort: 'En sortant de la maison', mont: 'En montant sur une monture', rent: 'En rentrant à la maison', eq: 'Lorsque la monture perd l’équilibre' };
-    const AINV = { inj: 'رَبَّنَا لَا تَجۡعَلۡنَا مَعَ ٱلۡقَوۡمِ ٱلظَّٰلِمِينَ', azh: 'ٱللَّهُمَّ رَبَّ هَٰذِهِ ٱلدَّعۡوَةِ ٱلتَّامَّةِ', sort: 'بِسۡمِ ٱللَّهِ تَوَكَّلۡتُ عَلَى ٱللَّهِ', mont: 'سُبۡحَٰنَ ٱلَّذِي سَخَّرَ لَنَا هَٰذَا', rent: 'بِسۡمِ ٱللَّهِ وَلَجۡنَا، وَبِسۡمِ ٱللَّهِ خَرَجۡنَا', noe: 'بِسۡمِ ٱللَّهِ مَجۡر۪ىٰهَا وَمُرۡسَىٰهَآ' };
+    const SIT = { inj: 'Pour être à l’abri des injustes', azh: 'Après l’appel à la prière (Al-Azhan)', sort: 'En sortant de la maison', mont: 'En montant sur une monture', rent: 'En rentrant à la maison' };
+    const AINV = { inj: 'رَبَّنَا لَا تَجۡعَلۡنَا مَعَ ٱلۡقَوۡمِ ٱلظَّٰلِمِينَ', azh: 'ٱللَّهُمَّ رَبَّ هَٰذِهِ ٱلدَّعۡوَةِ ٱلتَّامَّةِ', sort: 'بِسۡمِ ٱللَّهِ تَوَكَّلۡتُ عَلَى ٱللَّهِ', mont: 'سُبۡحَٰنَ ٱلَّذِي سَخَّرَ لَنَا هَٰذَا', rent: 'بِسۡمِ ٱللَّهِ وَلَجۡنَا، وَبِسۡمِ ٱللَّهِ خَرَجۡنَا' };
     const QS = 'Dans quelle situation dit-on cette invocation ?';
     const cqcm = [
       { p: QS, k: 'c1', v: 'c1', o: [SIT.inj, SIT.azh, SIT.sort, SIT.rent], e: 'Fiche 1 : « Seigneur, ne nous place pas parmi les injustes » (Coran 7/47).' },
       { p: QS, k: 'c2', v: 'c2', o: [SIT.azh, SIT.sort, SIT.mont, SIT.inj], e: 'Fiche 2 : on la dit après l’Azhan ; le Prophète (SAW) promet son intercession à celui qui la fait.' },
       { p: QS, k: 'c3', v: 'c3', o: [SIT.sort, SIT.rent, SIT.mont, SIT.azh], e: 'Fiche 3 : « Au nom de Dieu, je m’en remets entièrement à Dieu… » se dit en sortant de la maison.' },
       { p: QS, k: 'c4', v: 'c4', o: [SIT.mont, SIT.sort, SIT.rent, SIT.inj], e: 'Fiche 4 : « Gloire à celui qui nous a soumis ceci… » (Coran 43/13-14) se dit en montant sur une monture ou dans un moyen de transport.' },
-      { p: QS, k: 'c5', v: 'c5', o: [SIT.mont, SIT.eq, SIT.rent, SIT.azh], e: 'Fiche 4 : on peut l’ajouter en montant sur une monture ; c’est l’invocation de Noûh (Noé) dans l’arche (Coran 11/41).' },
       { p: QS, k: 'c6', v: 'c6', o: [SIT.rent, SIT.sort, SIT.mont, SIT.inj], e: 'Fiche 5 : « … nous sommes rentrés et … nous sommes sortis » se dit en rentrant à la maison.' },
-      { p: 'Que faut-il dire lorsque la monture perd l’équilibre ?', ar: true, o: ['بِسۡمِ ٱللَّهِ', 'ٱلۡحَمۡدُ لِلَّهِ', 'سُبۡحَٰنَ ٱللَّهِ', 'ٱللَّهُ أَكۡبَرُ'], e: 'Fiche 4 : lorsque la monture perd l’équilibre, il faut dire « Au nom d’Allah ».' },
       { p: 'Quelle invocation dit-on en sortant de la maison ?', ar: true, o: [AINV.sort, AINV.rent, AINV.mont, AINV.inj], e: 'Fiche 3 : « Au nom de Dieu, je m’en remets entièrement à Dieu… ».' },
-      { p: 'Quelle invocation dit-on en rentrant à la maison ?', ar: true, o: [AINV.rent, AINV.sort, AINV.azh, AINV.noe], e: 'Fiche 5 : « Au nom d’Allah, nous sommes rentrés et au nom d’Allah nous sommes sortis… ».' },
+      { p: 'Quelle invocation dit-on en rentrant à la maison ?', ar: true, o: [AINV.rent, AINV.sort, AINV.azh, AINV.inj], e: 'Fiche 5 : « Au nom d’Allah, nous sommes rentrés et au nom d’Allah nous sommes sortis… ».' },
       { p: 'Quelle invocation dit-on en montant sur une monture ?', ar: true, o: [AINV.mont, AINV.sort, AINV.rent, AINV.azh], e: 'Fiche 4 : « Gloire à celui qui nous a soumis ceci… » (Coran 43/13-14).' },
       { p: 'Quelle invocation dit-on après l’appel à la prière ?', ar: true, o: [AINV.azh, AINV.inj, AINV.sort, AINV.mont], e: 'Fiche 2 : « Seigneur de cet appel parfait et de la prière éternelle… ».' }
     ];
@@ -1430,7 +1425,6 @@ class Component extends DCLogic {
       { w: 'بِسۡمِ ٱللَّهِ تَوَكَّلۡتُ عَلَى ٱللَّهِ، وَلَا حَوۡلَ وَلَا قُوَّةَ إِلَّا بِٱللَّهِ', fr: 'Au nom de Dieu, je m’en remets entièrement à Dieu, il n’y a ni de force ni puissance que par Dieu.', e: 'Fiche 3 · En sortant de la maison.' },
       { w: 'سُبۡحَٰنَ ٱلَّذِي سَخَّرَ لَنَا هَٰذَا وَمَا كُنَّا لَهُۥ مُقۡرِنِينَ', fr: 'Gloire à celui qui nous a soumis ceci, alors que nous n’eussions pu le dominer.', e: 'Fiche 4 · En montant sur une monture (Coran 43/13).' },
       { w: 'وَإِنَّآ إِلَىٰ رَبِّنَا لَمُنقَلِبُونَ', fr: 'En vérité, nous retournerons vers notre Seigneur.', e: 'Fiche 4 · En montant sur une monture (Coran 43/14).' },
-      { w: 'بِسۡمِ ٱللَّهِ مَجۡر۪ىٰهَا وَمُرۡسَىٰهَآۚ إِنَّ رَبِّي لَغَفُورٞ رَّحِيمٞ', fr: 'Que sa course et son mouillage soient au nom d’Allah. Certes mon Seigneur est pardonneur et Miséricordieux.', e: 'Fiche 4 · Invocation de Noûh (Coran 11/41).' },
       { w: 'بِسۡمِ ٱللَّهِ وَلَجۡنَا، وَبِسۡمِ ٱللَّهِ خَرَجۡنَا، وَعَلَىٰ رَبِّنَا تَوَكَّلۡنَا', fr: 'Au nom d’Allah, nous sommes rentrés et au nom d’Allah nous sommes sortis. À Dieu notre Seigneur nous nous en remettons.', e: 'Fiche 5 · En rentrant à la maison.' }
     ];
     this._d = { fr, signs, map, qcm, vf, trous, EX, AR, types, tqcm, tvf, ttrous, RA, rqcm, rvf, rtrous, COMP, ctrous, cqcm, cordre };
