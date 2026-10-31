@@ -46,5 +46,6 @@ L’application s’ouvre ensuite en plein écran depuis l’icône « Niveau 4C
 - Le robot Android est reproduit à partir d’une création de Google, utilisée selon les conditions de la licence Creative Commons Attribution 3.0.
 - Le logo Apple est une marque d’Apple Inc. ; le logo Facebook est une marque de Meta Platforms, Inc.
 - Polices : Amiri, Amiri Quran, Scheherazade New, Noto Naskh Arabic, Harmattan, Lateef, Noto Sans Arabic, Jomhuria et Manrope, chargées depuis Google Fonts (licence SIL Open Font).
+- Ponctuation arabe (virgule, point-virgule, point d’interrogation) : sous-ensemble de la police Amiri (licence SIL Open Font), car la police du Mushaf ne dessine pas ces signes.
 - Logos WhatsApp, Gmail et Google Maps : marques de leurs propriétaires respectifs (Meta, Google), utilisées uniquement pour signaler les liens de contact et de localisation. Icône WhatsApp : Freepik.
 - Bibliothèque : [petite-vue](https://github.com/vuejs/petite-vue) 0.4.1 (licence MIT), avec une petite correction pour l’affichage des listes imbriquées.
