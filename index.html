@@ -69,16 +69,16 @@ Quitter
 <img src="assets/cifod_cercle.png" alt="Banderole du CIFOD : Apprendre à lire le Coran en 3 mois" style="width: clamp(88px, 18vw, 128px); height: clamp(88px, 18vw, 128px); border-radius: 999px; display: block; flex-shrink: 0; object-fit: cover; box-shadow: 0 0 0 3px var(--surface), 0 0 0 4px var(--line), 0 8px 22px rgba(20,32,28,0.12)">
 <h1 style="margin: 0; font-size: 24px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 800; color: var(--ink); text-transform: uppercase">Niveau 4C</h1>
 </div>
+<button class="lift" @click="goProgress" style="text-align: left; width: 100%; background: var(--surface); border: 1.5px solid var(--line); border-radius: 18px; padding: 14px 16px; display: flex; align-items: center; gap: 14px; min-height: 72px">
+<span :style="`width: 44px; height: 44px; border-radius: 13px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center; flex-shrink: 0`"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10"></path><path d="M10 20V4"></path><path d="M16 20v-7"></path><path d="M22 20H2"></path></svg></span>
+<span style="flex: 1; display: flex; flex-direction: column; gap: 6px; min-width: 0"><span style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px"><span style="font-size: 16px; font-weight: 800">Mes progrès</span><span :style="`font-size: 14px; font-weight: 800; color: ${accent}`">{{progAll.pct}}&nbsp;% maîtrisé</span></span><div aria-hidden="true" style="height: 6px; border-radius: 999px; background: var(--surface3); overflow: hidden"><div :style="`height: 100%; width: ${progAll.barW}; background: var(--accent); border-radius: 999px`"></div></div><span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">{{progAll.sub}}</span></span>
+</button>
 <div style="display: flex; align-items: center; justify-content: center; gap: 16px">
 <p style="margin: 0; display: flex; flex-direction: column; align-items: center; gap: 2px; text-align: center"><span style="font-size: clamp(17px, 2.6vw, 22px); font-weight: 800; font-style: italic; line-height: 1.25; color: var(--ink)">Le viatique du lecteur</span><span style="font-size: clamp(14px, 2vw, 17px); font-weight: 600; line-height: 1.3; color: var(--muted)">Règles de la Psalmodie du QUR’ÂN</span></p>
 <img src="assets/viatique_cercle.jpg" alt="Couverture du livre « Le Viatique du Lecteur » (CIFOD)" style="width: clamp(72px, 15vw, 104px); height: clamp(72px, 15vw, 104px); display: block; flex-shrink: 0; border-radius: 999px; object-fit: cover; box-shadow: 0 0 0 3px var(--surface), 0 0 0 4px var(--line), 0 8px 22px rgba(20,32,28,0.12)">
 </div>
 <p style="margin: 0; font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 580px; text-wrap: pretty">Les règles de la lettre Ra, les types d’arrêts et les signes conventionnels des arrêts&nbsp;: apprends-les avec les fiches, puis révise-les en QCM, vrai/faux, texte à trous et mélange.</p>
 </div>
-<button class="lift" @click="goProgress" style="text-align: left; width: 100%; background: var(--surface); border: 1.5px solid var(--line); border-radius: 18px; padding: 14px 16px; display: flex; align-items: center; gap: 14px; min-height: 72px">
-<span :style="`width: 44px; height: 44px; border-radius: 13px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center; flex-shrink: 0`"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10"></path><path d="M10 20V4"></path><path d="M16 20v-7"></path><path d="M22 20H2"></path></svg></span>
-<span style="flex: 1; display: flex; flex-direction: column; gap: 6px; min-width: 0"><span style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px"><span style="font-size: 16px; font-weight: 800">Mes progrès</span><span :style="`font-size: 14px; font-weight: 800; color: ${accent}`">{{progAll.pct}}&nbsp;% maîtrisé</span></span><div aria-hidden="true" style="height: 6px; border-radius: 999px; background: var(--surface3); overflow: hidden"><div :style="`height: 100%; width: ${progAll.barW}; background: var(--accent); border-radius: 999px`"></div></div><span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">{{progAll.sub}}</span></span>
-</button>
 <section aria-labelledby="h-ra" style="background: var(--surface); border: 1px solid var(--line); border-radius: 24px; padding: 24px 22px; display: flex; flex-direction: column; gap: 20px">
 <div style="display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 10px 20px">
 <div style="display: flex; flex-direction: column; gap: 6px; max-width: 440px">
@@ -213,14 +213,17 @@ Quitter
 </template>
 <div style="margin-top: -6px; display: flex; flex-direction: column; gap: 6px"><div style="display: flex; justify-content: space-between; gap: 8px; font-size: 12.5px; font-weight: 700; color: var(--muted)"><span>Progression</span><span>{{progS.pct}}&nbsp;% maîtrisé · {{progS.ok}}/{{progS.total}}</span></div><div aria-hidden="true" style="height: 6px; border-radius: 999px; background: var(--surface3); overflow: hidden"><div :style="`height: 100%; width: ${progS.barW}; background: var(--accent); border-radius: 999px`"></div></div></div>
 </section>
-<section aria-labelledby="h-comp" style="background: var(--surface); border: 1px solid var(--line); border-radius: 24px; padding: 24px 22px; display: flex; flex-direction: column; gap: 20px">
-<div style="display: flex; align-items: center; justify-content: space-between; gap: 14px">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 8px 4px 0">
 <div style="display: flex; flex-direction: column; gap: 6px; min-width: 0">
-<span :style="`font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${accent}`">Invocations</span>
-<h2 id="h-comp" style="margin: 0; font-size: 24px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 800">Le compagnon</h2>
-<p style="margin: 0; font-size: 15px; line-height: 1.5; color: var(--muted); text-wrap: pretty">Invocation du Qour’ane &amp; de la Sounna</p>
+<h2 id="h-comp" style="margin: 0; font-size: clamp(17px, 2.6vw, 22px); line-height: 1.25; font-weight: 800; font-style: italic">Le compagnon</h2>
+<p style="margin: 0; font-size: clamp(14px, 2vw, 17px); font-weight: 600; line-height: 1.3; color: var(--muted); text-wrap: pretty">Invocation du Qour’ane &amp; de la Sounna</p>
 </div>
 <img src="assets/compagnon_cercle.jpg" alt="Couverture du livre « Le Compagnon : Invocation du Qour’ane &amp; de la Sounna » (CIFOD)" style="width: clamp(72px, 15vw, 104px); height: clamp(72px, 15vw, 104px); display: block; flex-shrink: 0; border-radius: 999px; object-fit: cover; box-shadow: 0 0 0 3px var(--surface), 0 0 0 4px var(--line), 0 8px 22px rgba(20,32,28,0.12)">
+</div>
+<section aria-labelledby="h-comp" style="background: var(--surface); border: 1px solid var(--line); border-radius: 24px; padding: 24px 22px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span role="heading" aria-level="3" style="margin: 0; font-size: 24px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 800; color: var(--ink)">Invocations</span>
+<p style="margin: 0; font-size: 15.5px; line-height: 1.55; color: var(--muted); text-wrap: pretty">Invocations prophétiques touchant à la fois, la vie cultuelle et la vie mondaine du musulman.</p>
 </div>
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(140px, 100%), 1fr)); gap: 10px">
 <button class="lift" @click="goComp" :style="`text-align: left; background: ${accent}; color: #FFFFFF; border: 1.5px solid ${accent}; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px`">
@@ -240,6 +243,10 @@ Quitter
 <span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Texte à trous</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: var(--muted)">{{metaC.trous}}</span></span>
 </button>
 </div>
+<button class="lift" @click="startCMix" style="margin-top: -10px; width: 100%; text-align: left; background: var(--surface); border: 1.5px solid var(--line); border-radius: 16px; padding: 14px; display: flex; align-items: center; gap: 14px; min-height: 72px">
+<span :style="`width: 38px; height: 38px; border-radius: 11px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center; flex-shrink: 0`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 3h5v5"></path><path d="M4 20L21 3"></path><path d="M21 16v5h-5"></path><path d="M15 15l6 6"></path><path d="M4 4l5 5"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Mélange</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: var(--muted)">{{metaC.mix}} · situations, ordre et texte à trous</span></span>
+</button>
 <template v-if="progC.hasKo">
 <button class="lift" @click="reviewComp" style="margin-top: -10px; width: 100%; text-align: left; background: var(--rose-t); border: 1.5px solid var(--rose); border-radius: 16px; padding: 12px 14px; display: flex; align-items: center; gap: 14px; min-height: 64px; color: var(--ink)">
 <span style="width: 38px; height: 38px; border-radius: 11px; background: var(--surface); color: var(--rose); display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"></path><path d="M20 4v7h-7"></path></svg></span>
@@ -247,6 +254,13 @@ Quitter
 </button>
 </template>
 <div style="margin-top: -6px; display: flex; flex-direction: column; gap: 6px"><div style="display: flex; justify-content: space-between; gap: 8px; font-size: 12.5px; font-weight: 700; color: var(--muted)"><span>Progression</span><span>{{progC.pct}}&nbsp;% maîtrisé · {{progC.ok}}/{{progC.total}}</span></div><div aria-hidden="true" style="height: 6px; border-radius: 999px; background: var(--surface3); overflow: hidden"><div :style="`height: 100%; width: ${progC.barW}; background: var(--accent); border-radius: 999px`"></div></div></div>
+</section>
+<div style="display: flex; align-items: center; justify-content: center; gap: 18px; padding: 8px 4px 0"><div style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 2px; min-width: 0; position: relative; left: -12px"><span style="font-size: clamp(17px, 2.6vw, 22px); line-height: 1.25; font-weight: 800; font-style: italic; color: var(--ink)">Programme</span><h2 id="h-prog" style="margin: 0; font-size: clamp(14px, 2vw, 17px); line-height: 1.3; font-weight: 600; color: var(--muted)">Fiche de progression</h2></div><img src="assets/cifod_logo_prog.png" alt="Logo du Centre Islamique de Formation et de Documentation (CIFOD)" style="width: clamp(72px, 15vw, 104px); height: clamp(72px, 15vw, 104px); display: block; flex-shrink: 0; border-radius: 999px; object-fit: cover; background: #FFFFFF; box-shadow: 0 0 0 3px var(--surface), 0 0 0 4px var(--line), 0 8px 22px rgba(20,32,28,0.12)">
+</div>
+<section aria-labelledby="h-prog" style="background: var(--surface); border: 1px solid var(--line); border-radius: 24px; padding: 22px; display: flex; flex-direction: column; gap: 14px">
+<p style="margin: 0; font-size: 15px; line-height: 1.55; color: var(--muted); text-wrap: pretty">Le déroulement du programme de formation du niveau 4C : initiation au tadjwid, en 12 semaines.</p>
+<div style="display: flex; flex-direction: column; gap: 6px"><div style="display: flex; justify-content: space-between; gap: 8px; font-size: 12.5px; font-weight: 700; color: var(--muted)"><span>Avancement</span><span>{{progProgramme.label}}</span></div><div aria-hidden="true" style="height: 6px; border-radius: 999px; background: var(--surface3); overflow: hidden"><div :style="`height: 100%; width: ${progProgramme.barW}; background: var(--accent); border-radius: 999px`"></div></div></div>
+<button class="lift" @click="goProgramme" :style="`align-self: flex-start; min-height: 48px; padding: 0 20px; border-radius: 12px; border: 0; background: ${accent}; color: #FFFFFF; font-size: 15px; font-weight: 700`">Voir le programme</button>
 </section>
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr)); gap: 12px">
 <button class="lift" @click="goInstall" style="text-align: left; background: var(--surface); border: 1.5px solid var(--line); border-radius: 18px; padding: 14px 16px; display: flex; align-items: center; gap: 14px; min-height: 72px">
@@ -509,7 +523,7 @@ Mode mémorisation
 <p :style="`margin: 0; font-size: 13.5px; font-weight: 700; line-height: 1.5; color: ${accent}`">Mode mémorisation&nbsp;: lis la traduction, récite l’invocation en arabe, puis touche pour vérifier.</p>
 </template>
 <template v-for="h in compCards">
-<article style="background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+<article :id="`comp-${h.num}`" style="scroll-margin-top: 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
 <div style="display: flex; align-items: flex-start; gap: 12px"><span :style="`width: 32px; height: 32px; border-radius: 999px; background: ${accent}; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; flex-shrink: 0`">{{h.num}}</span><div style="display: flex; flex-direction: column; gap: 2px; min-width: 0"><h2 style="margin: 0; font-size: 18px; line-height: 1.35; font-weight: 800; text-wrap: balance">{{h.title}}</h2><span style="font-size: 12px; font-weight: 700; color: var(--muted)">{{h.ref}}</span></div></div>
 <template v-if="h.hasIntro"><p style="margin: 0; font-size: 15px; line-height: 1.6; text-wrap: pretty">{{h.intro}}</p></template>
 <template v-for="b in h.blocks">
@@ -526,7 +540,7 @@ Mode mémorisation
 </template>
 <div style="margin-top: 10px; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
 <p style="margin: 0; font-size: 17px; font-weight: 800">Prêt à te tester&nbsp;?</p>
-<div style="display: flex; flex-wrap: wrap; gap: 10px"><button @click="startCQcm" :style="`min-height: 48px; padding: 0 20px; border-radius: 12px; border: 0; background: ${accent}; color: #FFFFFF; font-size: 15px; font-weight: 700`">Dans quelle situation&nbsp;?</button><button @click="startCOrdre" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Remets dans l’ordre</button><button @click="startCTrous" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Texte à trous</button></div>
+<div style="display: flex; flex-wrap: wrap; gap: 10px"><button @click="startCQcm" :style="`min-height: 48px; padding: 0 20px; border-radius: 12px; border: 0; background: ${accent}; color: #FFFFFF; font-size: 15px; font-weight: 700`">Dans quelle situation&nbsp;?</button><button @click="startCOrdre" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Remets dans l’ordre</button><button @click="startCTrous" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Texte à trous</button><button @click="startCMix" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Mélange</button></div>
 </div>
 <div style="display: flex; justify-content: center; padding-top: 4px"><button class="lift" @click="goHome" style="min-height: 52px; padding: 0 22px; border-radius: 14px; border: 1.5px solid var(--line); background: var(--surface); display: inline-flex; align-items: center; gap: 10px; font-size: 15.5px; font-weight: 800"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5"></path><path d="M5 9.5V20h14V9.5"></path><path d="M10 20v-6h4v6"></path></svg>Retour à l’accueil</button></div>
 </section>
@@ -556,7 +570,7 @@ Mode mémorisation
 <p style="margin: 0; font-size: 15px; line-height: 1.6; color: var(--muted)">Lorsque l’on rencontre la lettre «&nbsp;<bdi>ر</bdi>&nbsp;», 3 possibilités s’offrent à nous&nbsp;: At-tafkhîm (<span dir="rtl" lang="ar" style="font-family: 'ArPunct', var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', 'Amiri', serif">تَفۡخِيم</span>), At-tarqîq (<span dir="rtl" lang="ar" style="font-family: 'ArPunct', var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', 'Amiri', serif">تَرۡقِيق</span>), ou faire l’un ou l’autre.</p>
 </div>
 <template v-for="sec in raSections">
-<div style="display: flex; flex-direction: column; gap: 12px; padding-top: 6px">
+<div :id="`ra-${sec.num}`" style="display: flex; flex-direction: column; gap: 12px; padding-top: 6px; scroll-margin-top: 16px">
 <template v-if="sec.isShown">
 <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px">
 <h2 style="margin: 0; font-size: 20px; line-height: 1.3; font-weight: 800; letter-spacing: -0.01em; text-wrap: balance">{{sec.num}}. {{sec.title}}</h2>
@@ -661,6 +675,38 @@ Mode mémorisation
 <button class="lift" @click="goAbout" style="width: 100%; text-align: left; display: flex; align-items: center; gap: 14px; min-height: 64px; padding: 10px 4px; border: 0; border-top: 1px solid var(--line); background: transparent; color: var(--ink)"><span :style="`width: 40px; height: 40px; border-radius: 12px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center; flex-shrink: 0`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v6"></path><path d="M12 7.5v.5"></path></svg></span><span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15.5px; font-weight: 800">À propos</span><span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">Pourquoi et comment cette application</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--muted)"><path d="M9 6l6 6-6 6"></path></svg></button>
 <button class="lift" @click="shareApp" style="width: 100%; text-align: left; display: flex; align-items: center; gap: 14px; min-height: 64px; padding: 10px 4px; border: 0; border-top: 1px solid var(--line); background: transparent; color: var(--ink)"><span :style="`width: 40px; height: 40px; border-radius: 12px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center; flex-shrink: 0`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"></path><path d="M8 7l4-4 4 4"></path><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"></path></svg></span><span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15.5px; font-weight: 800">Partager l’application</span><span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">Envoyer le lien à d’autres auditeurs</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--muted)"><path d="M9 6l6 6-6 6"></path></svg></button>
 </div>
+<div style="display: flex; justify-content: center; padding-top: 4px"><button class="lift" @click="goHome" style="min-height: 52px; padding: 0 22px; border-radius: 14px; border: 1.5px solid var(--line); background: var(--surface); display: inline-flex; align-items: center; gap: 10px; font-size: 15.5px; font-weight: 800"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5"></path><path d="M5 9.5V20h14V9.5"></path><path d="M10 20v-6h4v6"></path></svg>Retour à l’accueil</button></div>
+</section>
+</template>
+
+<template v-if="isProgramme">
+<section class="rise" style="display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; flex-direction: column; gap: 8px; max-width: 600px">
+<span :style="`font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${accent}`">Fiche de progression</span>
+<h1 style="margin: 0; font-size: 32px; line-height: 1.12; letter-spacing: -0.025em; font-weight: 800; text-wrap: balance">Programme du niveau 4C&nbsp;: initiation au tadjwid</h1>
+<p style="margin: 0; font-size: 13px; line-height: 1.5; color: var(--muted)">Centre Islamique de Formation et de Documentation (C.I.FO.D) · Arrêté n°&nbsp;191/MEMIS/DGAT/DAG/SDVA du 14 avril 2014</p>
+</div>
+<div :style="`background: ${tint}; border-radius: 16px; padding: 14px 16px`"><p style="margin: 0; font-size: 15px; line-height: 1.55"><strong>Objectif du niveau&nbsp;:</strong> maîtriser de façon théorique et pratique les règles de tadjwid (niveau 3 sur 3).</p></div>
+<div style="background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 16px 18px; display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; justify-content: space-between; align-items: baseline; gap: 10px"><span style="font-size: 15px; font-weight: 800">Avancement</span><span :style="`font-size: 14px; font-weight: 800; color: ${accent}`">{{progProgramme.label}}</span></div><div aria-hidden="true" style="height: 8px; border-radius: 999px; background: var(--surface3); overflow: hidden"><div :style="`height: 100%; width: ${progProgramme.barW}; background: var(--accent); border-radius: 999px`"></div></div>
+<p style="margin: 0; font-size: 13px; line-height: 1.5; color: var(--muted)">Coche une semaine seulement quand elle est réellement terminée en classe.</p>
+</div>
+<ol style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column">
+<template v-for="w in progWeeks">
+<li style="display: flex; gap: 12px">
+<div aria-hidden="true" style="display: flex; flex-direction: column; align-items: center; flex-shrink: 0; width: 34px"><span :style="`width: 34px; height: 34px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; flex-shrink: 0; ${w.dotStyle}`"><template v-if="w.isDone"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></template><template v-if="w.isTodo">{{w.num}}</template></span><span :style="`flex: 1; width: 2px; min-height: 12px; ${w.railStyle}`"></span></div>
+<article :style="`flex: 1; min-width: 0; margin-bottom: 14px; background: var(--surface); border: 1.5px solid var(--line); border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 12px; ${w.cardStyle}`">
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px"><h2 style="margin: 0; font-size: 18px; font-weight: 800">{{w.title}}</h2><span :style="`font-size: 12px; font-weight: 800; border-radius: 999px; padding: 4px 10px; ${w.modStyle}`">{{w.modLabel}}</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted)">Objectifs</span><ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px"><template v-for="o in w.obj"><li style="font-size: 14.5px; line-height: 1.5">{{o.t}}</li></template></ul></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted)">Thème du cours</span><div style="display: flex; flex-wrap: wrap; gap: 6px"><template v-for="t in w.themes"><span style="font-size: 14px; font-weight: 700; line-height: 1.4; background: var(--surface2); border: 1px solid var(--line); border-radius: 10px; padding: 6px 10px">{{t.t}}</span></template></div></div>
+<template v-if="w.hasInv"><button class="lift" @click="w.openInv" style="text-align: left; display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 14px; border: 1.5px solid var(--line); background: var(--surface2); color: var(--ink)"><span style="display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0"><span style="font-size: 12px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted)">Invocation</span><span style="font-size: 15px; font-weight: 800">{{w.invTitle}}</span><span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">{{w.invRef}}</span></span><span :style="`font-size: 13px; font-weight: 800; color: ${accent}; white-space: nowrap`">Ouvrir la fiche</span></button></template>
+<template v-if="w.hasHome"><p style="margin: 0; font-size: 14.5px; line-height: 1.5"><strong>Exercice à domicile&nbsp;:</strong> {{w.home}}</p></template>
+<template v-if="w.hasLinks"><div style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 12px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted)">Réviser dans l’application</span><div style="display: flex; flex-wrap: wrap; gap: 8px"><template v-for="l in w.links"><button class="lift" @click="l.run" :style="`min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--surface); color: ${accent}; font-size: 13.5px; font-weight: 800`">{{l.label}}</button></template></div></div></template>
+<label style="align-self: flex-start; display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--surface); font-size: 14px; font-weight: 700; cursor: pointer"><input type="checkbox" :checked="w.done" @change="w.toggle" :style="`width: 18px; height: 18px; margin: 0; accent-color: ${accent}`">{{w.checkLabel}}</label>
+</article>
+</li>
+</template>
+</ol>
 <div style="display: flex; justify-content: center; padding-top: 4px"><button class="lift" @click="goHome" style="min-height: 52px; padding: 0 22px; border-radius: 14px; border: 1.5px solid var(--line); background: var(--surface); display: inline-flex; align-items: center; gap: 10px; font-size: 15.5px; font-weight: 800"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5"></path><path d="M5 9.5V20h14V9.5"></path><path d="M10 20v-6h4v6"></path></svg>Retour à l’accueil</button></div>
 </section>
 </template>
@@ -944,21 +990,22 @@ Recommencer
 <footer style="padding: 24px 20px 28px; border-top: 1px solid var(--line)">
 <div style="max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px">
 <p :style="`margin: 0; font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${accent}`">Retrouver le CIFOD</p>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: clamp(4px, 3vw, 18px)">
-<a class="lift" href="https://maps.app.goo.gl/DhxKjHN1X8hfVdNj9" target="_blank" rel="noopener noreferrer" aria-label="Localisation du CIFOD sur Google Maps" title="Google Maps · CIFOD" style="display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; flex-shrink: 0; border-radius: 999px; text-decoration: none">
-<img src="assets/logo_google_maps.png" alt="" style="width: 38px; height: 38px; object-fit: contain; display: block">
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 2px; max-width: 460px">
+<a class="lift" href="https://maps.app.goo.gl/DhxKjHN1X8hfVdNj9" target="_blank" rel="noopener noreferrer" aria-label="Localisation du CIFOD sur Google Maps" title="Google Maps · CIFOD" style="display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 44px; flex-shrink: 0; border-radius: 999px; text-decoration: none">
+<img src="assets/logo_google_maps.png" alt="" style="width: 32px; height: 32px; object-fit: contain; display: block">
 </a>
-<a class="lift" href="https://www.facebook.com/CIFODCIV" target="_blank" rel="noopener noreferrer" aria-label="Page Facebook du CIFOD" title="Facebook · CIFODCIV" style="display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; flex-shrink: 0; border-radius: 999px; text-decoration: none">
-<img src="assets/facebook_logo.png" alt="" style="width: 38px; height: 38px; object-fit: contain; display: block">
+<a class="lift" href="https://www.facebook.com/CIFODCIV" target="_blank" rel="noopener noreferrer" aria-label="Page Facebook du CIFOD" title="Facebook · CIFODCIV" style="display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 44px; flex-shrink: 0; border-radius: 999px; text-decoration: none">
+<img src="assets/facebook_logo.png" alt="" style="width: 32px; height: 32px; object-fit: contain; display: block">
 </a>
-<a class="lift" href="https://wa.me/2250779600006" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp du CIFOD" title="WhatsApp · CIFOD" style="display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; flex-shrink: 0; border-radius: 999px; text-decoration: none">
-<img src="assets/logo_whatsapp.png" alt="" style="width: 38px; height: 38px; object-fit: contain; display: block">
+<a class="lift" href="https://wa.me/2250779600006" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp du CIFOD" title="WhatsApp · CIFOD" style="display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 44px; flex-shrink: 0; border-radius: 999px; text-decoration: none">
+<img src="assets/logo_whatsapp.png" alt="" style="width: 32px; height: 32px; object-fit: contain; display: block">
 </a>
-<a class="lift" href="mailto:cifodecotedivoire@gmail.com" aria-label="E-mail du CIFOD" title="E-mail · CIFOD" style="display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; flex-shrink: 0; border-radius: 999px; text-decoration: none">
-<img src="assets/logo_gmail.png" alt="" style="width: 38px; height: 38px; object-fit: contain; display: block">
+<a class="lift" href="mailto:cifodecotedivoire@gmail.com" aria-label="E-mail du CIFOD" title="E-mail · CIFOD" style="display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 44px; flex-shrink: 0; border-radius: 999px; text-decoration: none">
+<img src="assets/logo_gmail.png" alt="" style="width: 32px; height: 32px; object-fit: contain; display: block">
 </a>
-<a class="lift" href="https://cifodenligne.tech/" target="_blank" rel="noopener noreferrer" aria-label="Site internet du CIFOD : cifodenligne.tech" title="cifodenligne.tech" style="display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; flex-shrink: 0; border-radius: 999px; text-decoration: none">
-<img src="assets/logo_web_globe.png" alt="" style="width: 38px; height: 38px; object-fit: contain; flex-shrink: 0; display: block">
+<a class="lift" href="https://cifodenligne.tech/" target="_blank" rel="noopener noreferrer" aria-label="Site internet du CIFOD : cifodenligne.tech" title="cifodenligne.tech" style="display: inline-flex; align-items: center; gap: 5px; height: 44px; padding: 0 2px; flex-shrink: 0; white-space: nowrap; border-radius: 999px; text-decoration: none">
+<img src="assets/logo_web_globe.png" alt="" style="width: 32px; height: 32px; object-fit: contain; flex-shrink: 0; display: block">
+<span style="font-size: clamp(10.5px, 3vw, 15px); font-weight: 800; color: var(--muted)">cifodenligne.tech</span>
 </a>
 </div>
 </div>
@@ -1427,7 +1474,23 @@ class Component extends DCLogic {
       { w: 'وَإِنَّآ إِلَىٰ رَبِّنَا لَمُنقَلِبُونَ', fr: 'En vérité, nous retournerons vers notre Seigneur.', e: 'Fiche 4 · En montant sur une monture (Coran 43/14).' },
       { w: 'بِسۡمِ ٱللَّهِ وَلَجۡنَا، وَبِسۡمِ ٱللَّهِ خَرَجۡنَا، وَعَلَىٰ رَبِّنَا تَوَكَّلۡنَا', fr: 'Au nom d’Allah, nous sommes rentrés et au nom d’Allah nous sommes sortis. À Dieu notre Seigneur nous nous en remettons.', e: 'Fiche 5 · En rentrant à la maison.' }
     ];
-    this._d = { fr, signs, map, qcm, vf, trous, EX, AR, types, tqcm, tvf, ttrous, RA, rqcm, rvf, rtrous, COMP, ctrous, cqcm, cordre };
+    const L_TYPES = { label: 'Les types d’arrêts', go: 'learnTypes' };
+    const L_SIGNES = { label: 'Les signes', go: 'learn' };
+    const PROG = [
+      { n: 1, mod: 'regles', obj: ['Revenir sur les notions de tadjwid vues aux niveaux 4A et 4B.'], themes: ['Révision des règles des niveaux 4A et 4B'], inv: { t: 'Être à l’abri des injustes', ref: 'IX-6, p. 39', comp: 1 }, home: 'Sourate 69', links: [] },
+      { n: 2, mod: 'regles', obj: ['Identifier les différents types d’arrêt.', 'Identifier les signes conventionnels que l’on retrouve dans le mushaf.'], themes: ['Wouqouf', 'Signes conventionnels (1re partie)'], inv: null, home: 'Sourate 68', links: [L_TYPES, L_SIGNES] },
+      { n: 3, mod: 'regles', obj: ['Identifier le reste des signes conventionnels que l’on retrouve dans le mushaf.', 'Appliquer de façon rigoureuse l’emphase aux lettres qui y sont soumises.'], themes: ['Signes conventionnels (suite et fin)', 'Lecture des lettres emphatiques'], inv: { t: 'Après l’appel à la prière (Azhan)', ref: 'II-13, pp. 12-13', comp: 2 }, home: 'Sourate 67', links: [L_SIGNES] },
+      { n: 4, mod: 'regles', obj: ['Appliquer l’emphase à la lecture du « Ra » selon le cas.'], themes: ['Règles sur le « Ra » : Tafkhîm'], inv: null, home: 'Sourate 66', links: [{ label: 'Le Ra · emphase', go: 'learnRa', anchor: 'ra-1' }] },
+      { n: 5, mod: 'regles', obj: ['Appliquer la petitesse à la lecture du « Ra » selon le cas.'], themes: ['Règles sur le « Ra » : Tarqîq'], inv: { t: 'Lorsqu’on sort de la maison', ref: 'IV-7, pp. 23-24', comp: 3 }, home: 'Sourate 65', links: [{ label: 'Le Ra · légèreté', go: 'learnRa', anchor: 'ra-2' }] },
+      { n: 6, mod: 'regles', obj: ['Résumer l’ensemble des règles liées à la lecture du « Ra ».'], themes: ['Règles sur le « Ra » : Synthèse'], inv: null, home: 'Sourate 64', links: [{ label: 'Le Ra · fiches', go: 'learnRa' }, { label: 'Le Ra · mélange', start: ['mix', 'ra'] }] },
+      { n: 7, mod: 'eval', obj: ['Réviser les règles de tadjwid.', 'Évaluer leur compréhension.'], themes: ['Révision / Évaluation'], inv: null, home: '', links: [{ label: 'Mélange · Ra', start: ['mix', 'ra'] }, { label: 'Mélange · types d’arrêts', start: ['mix', 'types'] }, { label: 'Mélange · signes', start: ['mix', 'signes'] }, { label: 'Mes progrès', go: 'progress' }] },
+      { n: 8, mod: 'lecture', obj: ['Appliquer les règles de tadjwid à la lecture des sourates 70 à 67.'], themes: ['Sourate 70 (pp. 568-570)'], inv: { t: 'En montant sur une monture', ref: 'IV-8, p. 24', comp: 4 }, home: 'Sourate 25 (pp. 363-364)', links: [] },
+      { n: 9, mod: 'lecture', obj: ['Appliquer les règles de tadjwid à la lecture des sourates 70 à 67.'], themes: ['Sourate 69 (pp. 566-568)'], inv: null, home: 'Sourate 25 (pp. 365-366)', links: [] },
+      { n: 10, mod: 'lecture', obj: ['Appliquer les règles de tadjwid à la lecture des sourates 70 à 67.'], themes: ['Sourate 68 (pp. 564-566)'], inv: { t: 'En rentrant à la maison', ref: 'IV-10, pp. 24-25', comp: 5 }, home: 'Sourate 47 (pp. 507-508)', links: [] },
+      { n: 11, mod: 'lecture', obj: ['Appliquer les règles de tadjwid à la lecture des sourates 70 à 67.'], themes: ['Sourate 67 (pp. 562-564)'], inv: null, home: 'Sourate 47 (pp. 509-510)', links: [] },
+      { n: 12, mod: 'eval', obj: ['Réviser les règles de tadjwid.', 'Évaluer leur application aux sourates ci-dessus.'], themes: ['Révision / Évaluation'], inv: null, home: '', links: [{ label: 'Mélange · Ra', start: ['mix', 'ra'] }, { label: 'Mélange · types d’arrêts', start: ['mix', 'types'] }, { label: 'Mélange · signes', start: ['mix', 'signes'] }, { label: 'Mélange · invocations', start: ['mix', 'comp'] }, { label: 'Mes progrès', go: 'progress' }] }
+    ];
+    this._d = { fr, signs, map, qcm, vf, trous, EX, AR, types, tqcm, tvf, ttrous, RA, rqcm, rvf, rtrous, COMP, ctrous, cqcm, cordre, PROG };
     return this._d;
   }
 
@@ -1436,7 +1499,7 @@ class Component extends DCLogic {
       screen: 'home', mode: null, topic: 'signes', queue: [], idx: 0, answered: false, picked: null,
       fills: [], checked: false, score: 0, mistakes: [],
       best: { qcm: null, vf: null, trous: null, tqcm: null, tvf: null, ttrous: null }, hide: false, revealed: {},
-      prog: { q: {}, hist: [] }, theme: 'auto', arScale: 1, arFont: 'hafs', sysDark: false, confirmReset: false, toast: ''
+      prog: { q: {}, hist: [] }, weeksDone: {}, theme: 'auto', arScale: 1, arFont: 'hafs', sysDark: false, confirmReset: false, toast: ''
     }, this.state || {});
   }
 
@@ -1448,6 +1511,10 @@ class Component extends DCLogic {
     try {
       const rp = window.localStorage.getItem('waqf-progres');
       if (rp) { const p = JSON.parse(rp); this.setState({ prog: { q: p.q || {}, hist: p.hist || [] } }); }
+    } catch (e) {}
+    try {
+      const rw = window.localStorage.getItem('waqf-programme');
+      if (rw) this.setState({ weeksDone: JSON.parse(rw) || {} });
     } catch (e) {}
     try {
       const rd = window.localStorage.getItem('waqf-affichage');
@@ -1513,6 +1580,19 @@ class Component extends DCLogic {
     this.setState({ prog: { q: {}, hist: [] }, best: empty, confirmReset: false });
     this.saveProg({ q: {}, hist: [] });
     this.save(empty);
+  }
+
+  // ——— Fiche de progression ———
+  toggleWeek(n) {
+    const w = Object.assign({}, this.S().weeksDone || {});
+    if (w[n]) delete w[n]; else w[n] = true;
+    this.setState({ weeksDone: w });
+    try { window.localStorage.setItem('waqf-programme', JSON.stringify(w)); } catch (e) {}
+  }
+
+  goTo(screen, anchor) {
+    this.go(screen);
+    if (anchor) setTimeout(() => { try { const el = document.getElementById(anchor); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (e) {} }, 250);
   }
 
   // ——— Confort de lecture ———
@@ -1745,7 +1825,8 @@ class Component extends DCLogic {
       queue = ids.slice(0, Math.max(1, this.count())).map((id) => Object.assign(this.prep(idx[id].mode, idx[id].item), { qid: id }));
     } else if (mode === 'mix') {
       // Mélange : QCM, vrai ou faux et texte à trous, en parts à peu près égales
-      const pools = ['qcm', 'vf', 'trous'].map((k) => this.shuffle(D[this.bankKey(k, tp)]).map((it) => [k, it]));
+      const kinds = tp === 'comp' ? ['qcm', 'ordre', 'trous'] : ['qcm', 'vf', 'trous'];
+      const pools = kinds.map((k) => this.shuffle(D[this.bankKey(k, tp)]).map((it) => [k, it]));
       const all = pools.reduce((a, p) => a + p.length, 0);
       const n = Math.max(1, Math.min(this.count(), all));
       const pick = [];
@@ -1951,7 +2032,7 @@ class Component extends DCLogic {
     const metaFor = (m, tp) => {
       const key = this.bankKey(m, tp);
       const b = s.best[key];
-      const total = m === 'mix' ? ['qcm', 'vf', 'trous'].reduce((a, k) => a + D[this.bankKey(k, tp)].length, 0) : D[key].length;
+      const total = m === 'mix' ? (tp === 'comp' ? ['qcm', 'ordre', 'trous'] : ['qcm', 'vf', 'trous']).reduce((a, k) => a + D[this.bankKey(k, tp)].length, 0) : D[key].length;
       const base = total + ' ' + units[m];
       return b ? base + ' · record ' + b.score + '/' + b.total : base;
     };
@@ -1975,7 +2056,7 @@ class Component extends DCLogic {
       { tp: 'ra', chapter: 'Chapitre 9', title: 'Les règles de la lettre Ra', st: progR },
       { tp: 'types', chapter: 'Chapitre 11', title: 'Les types d’arrêts', st: progT },
       { tp: 'signes', chapter: 'Chapitre 15', title: 'Les signes conventionnels des arrêts', st: progS },
-      { tp: 'comp', chapter: 'Le Compagnon', title: 'Invocations du Qour’ane & de la Sounna', st: progC, modes: ['qcm', 'ordre', 'trous'] }
+      { tp: 'comp', chapter: 'Le Compagnon', title: 'Invocations du Qour’ane & de la Sounna', st: progC, modes: ['qcm', 'ordre', 'trous', 'mix'] }
     ];
     const modeNames = { qcm: 'QCM', vf: 'Vrai ou faux', trous: 'Texte à trous', mix: 'Mélange', ordre: 'Dans l’ordre' };
     const progCards = chapters.map((c) => ({
@@ -2006,6 +2087,34 @@ class Component extends DCLogic {
         };
       })
     }));
+    // ——— Fiche de progression ———
+    const MODS = {
+      regles: { label: 'Règles', style: 'background: ' + tint + '; color: ' + accent + ';' },
+      eval: { label: 'Révision / Évaluation', style: 'background: var(--amber-bg); color: var(--amber-fg);' },
+      lecture: { label: 'Lecture', style: 'background: var(--surface3); color: var(--blue);' }
+    };
+    const wd = s.weeksDone || {};
+    const weeksDoneCount = D.PROG.filter((w) => wd[w.n]).length;
+    const progWeeks = D.PROG.map((w, i) => {
+      const done = !!wd[w.n];
+      return {
+        num: String(w.n), title: 'Semaine ' + w.n, modLabel: MODS[w.mod].label, modStyle: MODS[w.mod].style,
+        obj: w.obj.map((t) => ({ t })), themes: w.themes.map((t) => ({ t })),
+        hasInv: !!w.inv, invTitle: w.inv ? w.inv.t : '', invRef: w.inv ? 'Le Compagnon · ' + w.inv.ref : '',
+        openInv: () => { if (w.inv) this.goTo('learnComp', 'comp-' + w.inv.comp); },
+        hasHome: !!w.home, home: w.home,
+        hasLinks: w.links.length > 0,
+        links: w.links.map((l) => ({ label: l.label, run: () => { if (l.start) this.start(l.start[0], l.start[1]); else this.goTo(l.go, l.anchor); } })),
+        done, toggle: () => this.toggleWeek(w.n), checkLabel: done ? 'Semaine terminée' : 'Marquer la semaine comme terminée',
+        dotStyle: done ? 'background: ' + accent + '; color: #FFFFFF; border: 2px solid ' + accent + ';' : 'background: var(--surface); color: var(--ink); border: 2px solid var(--line2);',
+        isDone: done, isTodo: !done,
+        railStyle: i === D.PROG.length - 1 ? 'visibility: hidden;' : (done ? 'background: ' + accent + ';' : 'background: var(--line);'),
+        cardStyle: done ? 'border-color: ' + accent + ';' : ''
+      };
+    });
+    const progProgramme = { done: weeksDoneCount, total: D.PROG.length, pct: Math.round(weeksDoneCount * 100 / D.PROG.length), barW: Math.round(weeksDoneCount * 100 / D.PROG.length) + '%',
+      label: weeksDoneCount + ' semaine' + (weeksDoneCount > 1 ? 's' : '') + ' terminée' + (weeksDoneCount > 1 ? 's' : '') + ' sur ' + D.PROG.length };
+
     // ——— Affichage ———
     const optStyle = (on) => 'min-height: 44px; padding: 0 16px; border-radius: 12px; font-size: 14.5px; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; ' +
       (on ? 'background: var(--accent); color: #FFFFFF; border: 1.5px solid var(--accent);' : 'background: var(--surface); color: var(--ink); border: 1.5px solid var(--line);');
@@ -2247,9 +2356,11 @@ class Component extends DCLogic {
       resetAsk: () => this.setState({ confirmReset: true }), resetCancel: () => this.setState({ confirmReset: false }), resetDo: () => this.resetProgress(),
       compCards, isLearnComp: screen === 'learnComp', goComp: () => this.go('learnComp'),
       startCTrous: () => this.start('trous', 'comp'), reviewComp: () => this.start('review', 'comp'),
-      metaC: { trous: metaFor('trous', 'comp'), qcm: metaFor('qcm', 'comp'), ordre: metaFor('ordre', 'comp') },
+      metaC: { trous: metaFor('trous', 'comp'), qcm: metaFor('qcm', 'comp'), ordre: metaFor('ordre', 'comp'), mix: metaFor('mix', 'comp') },
+      startCMix: () => this.start('mix', 'comp'),
+      progWeeks, progProgramme, isProgramme: screen === 'programme', goProgramme: () => this.go('programme'),
       isHome: screen === 'home', isLearn: screen === 'learn', isLearnTypes: screen === 'learnTypes', isLearnRa: screen === 'learnRa', isInstall: screen === 'install', isAbout: screen === 'about',
-      showQuit: inSession || screen === 'learn' || screen === 'learnTypes' || screen === 'learnRa' || screen === 'learnComp' || screen === 'progress' || screen === 'settings' || screen === 'install' || screen === 'about', isQcm, isVf, isTrous,
+      showQuit: inSession || screen === 'learn' || screen === 'learnTypes' || screen === 'learnRa' || screen === 'learnComp' || screen === 'progress' || screen === 'settings' || screen === 'programme' || screen === 'install' || screen === 'about', isQcm, isVf, isTrous,
       isCard: isQcm || isVf, isResult: screen === 'result', inSession,
       modeLabel: (labels[screen] || '') + (inSession ? ' · ' + (topicLabels[s.topic] || '') : ''), qNum: s.idx + 1, total: s.queue.length, score: s.score,
       progressNum, progressPct: progressNum + '%',
