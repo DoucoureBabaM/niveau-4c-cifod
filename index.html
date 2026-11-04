@@ -64,10 +64,11 @@ Quitter
 <div style="display: flex; flex-direction: column; gap: 14px">
 <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center">
 <p :style="`margin: 0; font-size: 13px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${accent}`">Apprendre · Réviser</p>
+<div role="group" aria-label="Choix du niveau" style="display: flex; gap: 8px; padding: 4px; border-radius: 999px; background: var(--surface3)"><template v-for="o in lvl.opts"><button @click="o.pick" :aria-pressed="o.pressed" :style="o.style">{{o.label}}</button></template></div>
 </div>
 <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px">
 <img src="assets/cifod_cercle.png" alt="Banderole du CIFOD : Apprendre à lire le Coran en 3 mois" style="width: clamp(88px, 18vw, 128px); height: clamp(88px, 18vw, 128px); border-radius: 999px; display: block; flex-shrink: 0; object-fit: cover; box-shadow: 0 0 0 3px var(--surface), 0 0 0 4px var(--line), 0 8px 22px rgba(20,32,28,0.12)">
-<h1 style="margin: 0; font-size: 24px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 800; color: var(--ink); text-transform: uppercase">Niveau 4C</h1>
+<h1 style="margin: 0; font-size: 24px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 800; color: var(--ink); text-transform: uppercase">{{lvl.title}}</h1>
 </div>
 <button class="lift" @click="goProgress" style="text-align: left; width: 100%; background: var(--surface); border: 1.5px solid var(--line); border-radius: 18px; padding: 14px 16px; display: flex; align-items: center; gap: 14px; min-height: 72px">
 <span :style="`width: 44px; height: 44px; border-radius: 13px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center; flex-shrink: 0`"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10"></path><path d="M10 20V4"></path><path d="M16 20v-7"></path><path d="M22 20H2"></path></svg></span>
@@ -77,8 +78,11 @@ Quitter
 <p style="margin: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; text-align: left"><span style="font-size: clamp(17px, 2.6vw, 22px); font-weight: 800; font-style: italic; line-height: 1.25; color: var(--ink)">Le viatique du lecteur</span><span style="font-size: clamp(14px, 2vw, 17px); font-weight: 600; line-height: 1.3; color: var(--muted)">Règles de la Psalmodie du QUR’ÂN</span></p>
 <img src="assets/viatique_cercle.jpg" alt="Couverture du livre « Le Viatique du Lecteur » (CIFOD)" style="width: clamp(72px, 15vw, 104px); height: clamp(72px, 15vw, 104px); display: block; flex-shrink: 0; border-radius: 999px; object-fit: cover; box-shadow: 0 0 0 3px var(--surface), 0 0 0 4px var(--line), 0 8px 22px rgba(20,32,28,0.12)">
 </div>
-<p style="margin: 0; font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 580px; text-wrap: pretty">Les règles de la lettre Ra, les types d’arrêts et les signes conventionnels des arrêts&nbsp;: apprends-les avec les fiches, puis révise-les en QCM, vrai/faux, texte à trous et mélange.</p>
+<template v-if="lvl.is4C"><p style="margin: 0; font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 580px; text-wrap: pretty">Les règles de la lettre Ra, les types d’arrêts et les signes conventionnels des arrêts&nbsp;: apprends-les avec les fiches, puis révise-les en QCM, vrai/faux, texte à trous et mélange.</p></template>
+<template v-if="lvl.is4B"><p style="margin: 0; font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 580px; text-wrap: pretty">Les différents types d’assimilations et les prolongations&nbsp;: apprends-les avec les fiches, puis révise-les avec les exercices. Les chapitres du niveau 4B sont en préparation.</p></template>
 </div>
+<template v-if="lvl.is4C">
+<div style="display: flex; flex-direction: column; gap: 26px">
 <section aria-labelledby="h-ra" style="background: var(--surface); border: 1px solid var(--line); border-radius: 24px; padding: 24px 22px; display: flex; flex-direction: column; gap: 20px">
 <div style="display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 10px 20px">
 <div style="display: flex; flex-direction: column; gap: 6px; max-width: 440px">
@@ -213,6 +217,90 @@ Quitter
 </template>
 <div style="margin-top: -6px; display: flex; flex-direction: column; gap: 6px"><div style="display: flex; justify-content: space-between; gap: 8px; font-size: 12.5px; font-weight: 700; color: var(--muted)"><span>Progression</span><span>{{progS.pct}}&nbsp;% maîtrisé · {{progS.ok}}/{{progS.total}}</span></div><div aria-hidden="true" style="height: 6px; border-radius: 999px; background: var(--surface3); overflow: hidden"><div :style="`height: 100%; width: ${progS.barW}; background: var(--accent); border-radius: 999px`"></div></div></div>
 </section>
+</div>
+</template>
+<template v-if="lvl.is4B">
+<div style="display: flex; flex-direction: column; gap: 26px">
+<section aria-labelledby="h-id" style="background: var(--surface); border: 1px solid var(--line); border-radius: 24px; padding: 24px 22px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 10px 20px">
+<div style="display: flex; flex-direction: column; gap: 6px; max-width: 440px">
+<span :style="`font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${accent}`">Chapitre 8</span>
+<h2 id="h-id" style="margin: 0; font-size: 24px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 800">Les différents types d’assimilations</h2>
+<p style="margin: 0; font-size: 15px; line-height: 1.5; color: var(--muted); text-wrap: pretty">Idghâm moutamâthilayn, moutadjânissayn et moutaqâribayn&nbsp;: quand deux lettres se suivent et fusionnent.</p>
+</div>
+<span dir="rtl" lang="ar" aria-hidden="true" :style="`font-family: 'ArPunct', var(--arfont, 'Hafs'), 'Hafs', 'Amiri', serif; font-weight: 400; font-size: calc(26px * var(--ar, 1)); line-height: 1.7; color: ${accent}`">ٱلۡإِدۡغَامُ</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(140px, 100%), 1fr)); gap: 10px">
+<button class="lift" @click="goId" :style="`text-align: left; background: ${accent}; color: #FFFFFF; border: 1.5px solid ${accent}; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px`">
+<span style="width: 38px; height: 38px; border-radius: 11px; background: rgba(255,255,255,0.16); display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5.5C3 4.7 3.7 4 4.5 4H10a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5h-6A1.5 1.5 0 0 1 3 17V5.5Z"></path><path d="M21 5.5c0-.8-.7-1.5-1.5-1.5H14a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5h6A1.5 1.5 0 0 0 21 17V5.5Z"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Fiches</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; opacity: 0.92">11 cas · 3 types d’assimilation</span></span>
+</button>
+<button class="lift" @click="startIQcm" style="text-align: left; background: var(--surface); border: 1.5px solid var(--line); border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px">
+<span :style="`width: 38px; height: 38px; border-radius: 11px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5.5" cy="6" r="2"></circle><path d="M11 6h9"></path><circle cx="5.5" cy="12" r="2"></circle><path d="M11 12h9"></path><circle cx="5.5" cy="18" r="2"></circle><path d="M11 18h9"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">QCM</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: var(--muted)">{{metaI.qcm}}</span></span>
+</button>
+<button class="lift" @click="startIVf" style="text-align: left; background: var(--surface); border: 1.5px solid var(--line); border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px">
+<span :style="`width: 38px; height: 38px; border-radius: 11px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 12.5l3.2 3.2L11 9.5"></path><path d="M15 9l6 6M21 9l-6 6"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Vrai ou faux</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: var(--muted)">{{metaI.vf}}</span></span>
+</button>
+<button class="lift" @click="startITrous" style="text-align: left; background: var(--surface); border: 1.5px solid var(--line); border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px">
+<span :style="`width: 38px; height: 38px; border-radius: 11px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h6"></path><rect x="11" y="5.5" width="10" height="5" rx="1.5" stroke-dasharray="2 2"></rect><path d="M3 16h3"></path><rect x="8" y="13.5" width="8" height="5" rx="1.5" stroke-dasharray="2 2"></rect><path d="M18 16h3"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Texte à trous</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: var(--muted)">{{metaI.trous}}</span></span>
+</button>
+</div>
+<button class="lift" @click="startIMix" style="margin-top: -10px; width: 100%; text-align: left; background: var(--surface); border: 1.5px solid var(--line); border-radius: 16px; padding: 14px; display: flex; align-items: center; gap: 14px; min-height: 72px">
+<span :style="`width: 38px; height: 38px; border-radius: 11px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center; flex-shrink: 0`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 3h5v5"></path><path d="M4 20L21 3"></path><path d="M21 16v5h-5"></path><path d="M15 15l6 6"></path><path d="M4 4l5 5"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Mélange</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: var(--muted)">{{metaI.mix}} · QCM, vrai ou faux et texte à trous</span></span>
+</button>
+<template v-if="progI.hasKo">
+<button class="lift" @click="reviewI" style="margin-top: -10px; width: 100%; text-align: left; background: var(--rose-t); border: 1.5px solid var(--rose); border-radius: 16px; padding: 12px 14px; display: flex; align-items: center; gap: 14px; min-height: 64px; color: var(--ink)">
+<span style="width: 38px; height: 38px; border-radius: 11px; background: var(--surface); color: var(--rose); display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"></path><path d="M20 4v7h-7"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 16px; font-weight: 800">Revoir mes erreurs</span><span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">{{progI.koLabel}} à revoir</span></span>
+</button>
+</template>
+<div style="margin-top: -6px; display: flex; flex-direction: column; gap: 6px"><div style="display: flex; justify-content: space-between; gap: 8px; font-size: 12.5px; font-weight: 700; color: var(--muted)"><span>Progression</span><span>{{progI.pct}}&nbsp;% maîtrisé · {{progI.ok}}/{{progI.total}}</span></div><div aria-hidden="true" style="height: 6px; border-radius: 999px; background: var(--surface3); overflow: hidden"><div :style="`height: 100%; width: ${progI.barW}; background: var(--accent); border-radius: 999px`"></div></div></div>
+</section>
+<section aria-labelledby="h-md" style="background: var(--surface); border: 1px solid var(--line); border-radius: 24px; padding: 24px 22px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 10px 20px">
+<div style="display: flex; flex-direction: column; gap: 6px; max-width: 440px">
+<span :style="`font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${accent}`">Chapitre 10</span>
+<h2 id="h-md" style="margin: 0; font-size: 24px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 800">Les prolongations</h2>
+<p style="margin: 0; font-size: 15px; line-height: 1.5; color: var(--muted); text-wrap: pretty">Al-Madd&nbsp;: les prolongations de base, et celles liées au Hamzah ou au soukoûn, de 2 à 6 temps.</p>
+</div>
+<span dir="rtl" lang="ar" aria-hidden="true" :style="`font-family: 'ArPunct', var(--arfont, 'Hafs'), 'Hafs', 'Amiri', serif; font-weight: 400; font-size: calc(26px * var(--ar, 1)); line-height: 1.7; color: ${accent}`">ٱلۡمُدُودُ</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(140px, 100%), 1fr)); gap: 10px">
+<button class="lift" @click="goMd" :style="`text-align: left; background: ${accent}; color: #FFFFFF; border: 1.5px solid ${accent}; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px`">
+<span style="width: 38px; height: 38px; border-radius: 11px; background: rgba(255,255,255,0.16); display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5.5C3 4.7 3.7 4 4.5 4H10a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5h-6A1.5 1.5 0 0 1 3 17V5.5Z"></path><path d="M21 5.5c0-.8-.7-1.5-1.5-1.5H14a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5h6A1.5 1.5 0 0 0 21 17V5.5Z"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Fiches</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; opacity: 0.92">17 cas · 2 familles de prolongations</span></span>
+</button>
+<button class="lift" @click="startMQcm" style="text-align: left; background: var(--surface); border: 1.5px solid var(--line); border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px">
+<span :style="`width: 38px; height: 38px; border-radius: 11px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5.5" cy="6" r="2"></circle><path d="M11 6h9"></path><circle cx="5.5" cy="12" r="2"></circle><path d="M11 12h9"></path><circle cx="5.5" cy="18" r="2"></circle><path d="M11 18h9"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">QCM</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: var(--muted)">{{metaM.qcm}}</span></span>
+</button>
+<button class="lift" @click="startMVf" style="text-align: left; background: var(--surface); border: 1.5px solid var(--line); border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px">
+<span :style="`width: 38px; height: 38px; border-radius: 11px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 12.5l3.2 3.2L11 9.5"></path><path d="M15 9l6 6M21 9l-6 6"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Vrai ou faux</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: var(--muted)">{{metaM.vf}}</span></span>
+</button>
+<button class="lift" @click="startMTrous" style="text-align: left; background: var(--surface); border: 1.5px solid var(--line); border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px">
+<span :style="`width: 38px; height: 38px; border-radius: 11px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h6"></path><rect x="11" y="5.5" width="10" height="5" rx="1.5" stroke-dasharray="2 2"></rect><path d="M3 16h3"></path><rect x="8" y="13.5" width="8" height="5" rx="1.5" stroke-dasharray="2 2"></rect><path d="M18 16h3"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Texte à trous</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: var(--muted)">{{metaM.trous}}</span></span>
+</button>
+</div>
+<button class="lift" @click="startMMix" style="margin-top: -10px; width: 100%; text-align: left; background: var(--surface); border: 1.5px solid var(--line); border-radius: 16px; padding: 14px; display: flex; align-items: center; gap: 14px; min-height: 72px">
+<span :style="`width: 38px; height: 38px; border-radius: 11px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center; flex-shrink: 0`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 3h5v5"></path><path d="M4 20L21 3"></path><path d="M21 16v5h-5"></path><path d="M15 15l6 6"></path><path d="M4 4l5 5"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Mélange</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: var(--muted)">{{metaM.mix}} · QCM, vrai ou faux et texte à trous</span></span>
+</button>
+<template v-if="progM.hasKo">
+<button class="lift" @click="reviewM" style="margin-top: -10px; width: 100%; text-align: left; background: var(--rose-t); border: 1.5px solid var(--rose); border-radius: 16px; padding: 12px 14px; display: flex; align-items: center; gap: 14px; min-height: 64px; color: var(--ink)">
+<span style="width: 38px; height: 38px; border-radius: 11px; background: var(--surface); color: var(--rose); display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"></path><path d="M20 4v7h-7"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 16px; font-weight: 800">Revoir mes erreurs</span><span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">{{progM.koLabel}} à revoir</span></span>
+</button>
+</template>
+<div style="margin-top: -6px; display: flex; flex-direction: column; gap: 6px"><div style="display: flex; justify-content: space-between; gap: 8px; font-size: 12.5px; font-weight: 700; color: var(--muted)"><span>Progression</span><span>{{progM.pct}}&nbsp;% maîtrisé · {{progM.ok}}/{{progM.total}}</span></div><div aria-hidden="true" style="height: 6px; border-radius: 999px; background: var(--surface3); overflow: hidden"><div :style="`height: 100%; width: ${progM.barW}; background: var(--accent); border-radius: 999px`"></div></div></div>
+</section>
+</div>
+</template>
 <div style="display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 8px 4px 0">
 <div style="display: flex; flex-direction: column; gap: 6px; min-width: 0">
 <h2 id="h-comp" style="margin: 0; font-size: clamp(17px, 2.6vw, 22px); line-height: 1.25; font-weight: 800; font-style: italic">Le compagnon</h2>
@@ -228,7 +316,7 @@ Quitter
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(140px, 100%), 1fr)); gap: 10px">
 <button class="lift" @click="goComp" :style="`text-align: left; background: ${accent}; color: #FFFFFF; border: 1.5px solid ${accent}; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px`">
 <span style="width: 38px; height: 38px; border-radius: 11px; background: rgba(255,255,255,0.16); display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5.5C3 4.7 3.7 4 4.5 4H10a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5h-6A1.5 1.5 0 0 1 3 17V5.5Z"></path><path d="M21 5.5c0-.8-.7-1.5-1.5-1.5H14a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5h6A1.5 1.5 0 0 0 21 17V5.5Z"></path></svg></span>
-<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Fiches</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; opacity: 0.92">5 invocations · arabe et traduction</span></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Fiches</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; opacity: 0.92">{{metaC.fiches}}</span></span>
 </button>
 <button class="lift" @click="startCQcm" style="text-align: left; background: var(--surface); border: 1.5px solid var(--line); border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px">
 <span :style="`width: 38px; height: 38px; border-radius: 11px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0C18.5 15.4 12 21 12 21z"></path><circle cx="12" cy="10" r="2.3"></circle></svg></span>
@@ -258,7 +346,7 @@ Quitter
 <div style="display: flex; align-items: center; justify-content: center; gap: 18px; padding: 8px 4px 0"><div style="display: flex; flex-direction: column; align-items: flex-start; text-align: left; gap: 2px; min-width: 0; position: relative; left: -12px"><span style="font-size: clamp(17px, 2.6vw, 22px); line-height: 1.25; font-weight: 800; font-style: italic; color: var(--ink)">Programme de formation</span><h2 id="h-prog" style="margin: 0; font-size: clamp(14px, 2vw, 17px); line-height: 1.3; font-weight: 600; color: var(--muted)">Fiche de progression</h2></div><img src="assets/cifod_logo_prog.png" alt="Logo du Centre Islamique de Formation et de Documentation (CIFOD)" style="width: clamp(72px, 15vw, 104px); height: clamp(72px, 15vw, 104px); display: block; flex-shrink: 0; border-radius: 999px; object-fit: cover; background: #FFFFFF; box-shadow: 0 0 0 3px var(--surface), 0 0 0 4px var(--line), 0 8px 22px rgba(20,32,28,0.12)">
 </div>
 <section aria-labelledby="h-prog" style="background: var(--surface); border: 1px solid var(--line); border-radius: 24px; padding: 22px; display: flex; flex-direction: column; gap: 14px">
-<p style="margin: 0; font-size: 15px; line-height: 1.55; color: var(--muted); text-wrap: pretty">Le déroulement du programme de formation du niveau 4C : initiation au tadjwid, en 12 semaines.</p>
+<p style="margin: 0; font-size: 15px; line-height: 1.55; color: var(--muted); text-wrap: pretty">{{lvl.progCard}}</p>
 <div style="display: flex; flex-direction: column; gap: 6px"><div style="display: flex; justify-content: space-between; gap: 8px; font-size: 12.5px; font-weight: 700; color: var(--muted)"><span>Avancement</span><span>{{progProgramme.label}}</span></div><div aria-hidden="true" style="height: 6px; border-radius: 999px; background: var(--surface3); overflow: hidden"><div :style="`height: 100%; width: ${progProgramme.barW}; background: var(--accent); border-radius: 999px`"></div></div></div>
 <button class="lift" @click="goProgramme" :style="`align-self: flex-start; min-height: 48px; padding: 0 20px; border-radius: 12px; border: 0; background: ${accent}; color: #FFFFFF; font-size: 15px; font-weight: 700`">Voir le programme</button>
 </section>
@@ -620,6 +708,175 @@ Mode mémorisation
 </section>
 </template>
 
+<template v-if="isLearnId">
+<section class="rise" style="display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; flex-direction: column; gap: 8px; max-width: 560px">
+<span :style="`font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${accent}`">Chapitre 8</span>
+<h1 style="margin: 0; font-size: 34px; line-height: 1.1; letter-spacing: -0.025em; font-weight: 800">Les différents types d’assimilations</h1>
+<p style="margin: 0; font-size: 15px; line-height: 1.55; color: var(--muted)">Active le mode mémorisation pour cacher les règles et te tester cas par cas, à partir des exemples.</p>
+</div>
+<label style="align-self: flex-start; display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 16px; border: 1.5px solid var(--line); border-radius: 999px; background: var(--surface); font-size: 14px; font-weight: 700; cursor: pointer">
+<input type="checkbox" :checked="hide" @change="toggleHide" :style="`width: 18px; height: 18px; margin: 0; accent-color: ${accent}`">
+Mode mémorisation
+</label>
+<template v-if="hide">
+<p :style="`margin: 0; font-size: 13.5px; font-weight: 700; line-height: 1.5; color: ${accent}`">Mode mémorisation&nbsp;: pour chaque cas, retrouve la règle à partir des exemples, puis touche pour vérifier.</p>
+</template>
+<div style="background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px">
+<span dir="rtl" lang="ar" :style="`align-self: flex-start; font-family: 'ArPunct', var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: calc(26px * var(--ar, 1)); line-height: 1.7; color: ${accent}`">ٱلۡإِدۡغَامُ</span>
+<p style="margin: 0; font-size: 16px; line-height: 1.6">Il existe trois types d’assimilation ou Idghâm&nbsp;:</p>
+<ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 15.5px; line-height: 1.6">
+<li><strong>Idghâm al-Moutamâthilayn</strong>&nbsp;: deux lettres identiques.</li>
+<li><strong>Idghâm al-Moutadjânissayn</strong>&nbsp;: deux lettres de même point de sortie, aux attributs différents.</li>
+<li><strong>Idghâm al-Moutaqâribayn</strong>&nbsp;: deux lettres aux points de sortie et attributs proches.</li>
+</ul>
+<p style="margin: 0; font-size: 15px; line-height: 1.6; color: var(--muted)">La présence du signe «&nbsp;Ach-chaddah&nbsp;» sur la seconde lettre montre que la fusion est complète, alors que son absence fait appliquer la règle des fusions incomplètes ou partielles.</p>
+</div>
+<template v-for="sec in idSections">
+<div :id="`id-${sec.num}`" style="display: flex; flex-direction: column; gap: 12px; padding-top: 6px; scroll-margin-top: 16px">
+<template v-if="sec.isShown">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px">
+<h2 style="margin: 0; font-size: 20px; line-height: 1.3; font-weight: 800; letter-spacing: -0.01em; text-wrap: balance">{{sec.num}}. {{sec.title}}</h2>
+<template v-if="sec.hasAr"><span dir="rtl" lang="ar" :style="`font-family: 'ArPunct', var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: calc(22px * var(--ar, 1)); line-height: 1.6; color: ${accent}`">{{sec.ar}}</span></template>
+</div>
+<span :style="`align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; min-height: 30px; padding: 0 14px; border-radius: 999px; font-size: 13px; font-weight: 800; ${sec.chipStyle}`">{{sec.verdict}} · {{sec.count}}</span>
+<template v-if="sec.hasDef"><p style="margin: 0; font-size: 15px; line-height: 1.6; text-wrap: pretty">{{sec.def}}</p></template>
+</template>
+<template v-if="sec.isHidden">
+<button class="lift" @click="sec.reveal" :aria-label="sec.revealAria" style="width: 100%; text-align: left; display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; border-radius: 16px; border: 1.5px dashed var(--line2); background: var(--surface2); color: var(--ink)">
+<span style="font-size: 18px; font-weight: 800">{{sec.num}}. Emphase, légèreté ou au choix&nbsp;?</span>
+<span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">{{sec.count}} · touche pour vérifier</span>
+</button>
+</template>
+<template v-for="c in sec.cases">
+<article style="background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: flex-start; gap: 12px">
+<span :style="`flex-shrink: 0; width: 30px; height: 30px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; ${c.badgeStyle}`">{{c.n}}</span>
+<template v-if="c.isShown"><p style="margin: 0; font-size: 15.5px; line-height: 1.6; text-wrap: pretty"><template v-for="pt in c.ruleParts"><template v-if="pt.isImg"><img :src="pt.src" :alt="pt.alt" :style="pt.imgStyle"></template><template v-if="pt.isText"><span :style="pt.style">{{pt.text}}</span></template></template></p></template>
+<template v-if="c.isHidden"><button class="lift" @click="c.reveal" :aria-label="c.revealAria" style="flex: 1; text-align: left; display: flex; flex-direction: column; gap: 2px; min-height: 52px; padding: 10px 14px; border-radius: 12px; border: 1.5px dashed var(--line2); background: var(--surface2); color: var(--ink)"><span style="font-size: 15px; font-weight: 800">Quelle est la règle&nbsp;?</span><span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">Regarde les exemples, puis touche pour vérifier</span></button></template>
+</div>
+<template v-if="c.hasLead"><p style="margin: 0; font-size: 14.5px; font-weight: 700; line-height: 1.5">{{c.lead}}</p></template>
+<template v-for="ex in c.examples">
+<div style="border: 1px dashed var(--line2); border-radius: 12px; padding: 8px 14px; display: flex; flex-direction: column; gap: 2px">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 12px"><span style="font-size: 11.5px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted)">{{ex.label}}</span><template v-if="ex.hasWord"><span dir="rtl" lang="ar" :style="`font-family: 'ArPunct', var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: calc(20px * var(--ar, 1)); line-height: 1.6; color: ${accent}`">{{ex.word}}</span></template></div>
+<div dir="rtl" lang="ar" style="font-family: 'ArPunct', var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: calc(23px * var(--ar, 1)); line-height: 2.2; color: var(--ink); text-align: right"><template v-for="pt in ex.parts"><span :style="pt.style">{{pt.text}}</span></template></div>
+</div>
+</template>
+<template v-if="c.hasNote"><p style="margin: 0; font-size: 14px; line-height: 1.55; color: var(--muted); text-wrap: pretty">{{c.note}}</p></template>
+</article>
+</template>
+</div>
+</template>
+<div :style="`background: ${tint}; border-radius: 18px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px`">
+<template v-for="n in idNotes"><p style="margin: 0; font-size: 15px; line-height: 1.65; text-wrap: pretty"><strong>{{n.title}}&nbsp;:</strong> {{n.text}}</p></template>
+</div>
+<section aria-labelledby="h-arbre8" style="background: var(--surface2); border: 1px solid var(--line); border-radius: 20px; padding: 18px 16px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 12px"><h2 id="h-arbre8" style="margin: 0; font-size: 20px; line-height: 1.3; font-weight: 800">Résumé&nbsp;: l’arbre des assimilations</h2><span dir="rtl" lang="ar" style="font-family: 'ArPunct', var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', serif; font-size: calc(21px * var(--ar, 1)); line-height: 1.9; color: var(--accent)">ٱلۡإِدۡغَامُ</span></div>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 0"><span style="font-size: 16px; font-weight: 800; color: #FFFFFF; background: var(--accent); padding: 6px 22px; border-radius: 999px">Idghâm</span><span aria-hidden="true" style="width: 2px; height: 16px; background: var(--line2)"></span><span aria-hidden="true" style="width: 70%; height: 2px; background: var(--line2)"></span></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr)); gap: 12px; align-items: start">
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 14px 14px 16px; border-radius: 16px; background: var(--surface); border: 1.5px solid var(--line); border-top: 5px solid var(--accent)"><span style="align-self: flex-start; font-size: 15px; font-weight: 800; padding: 4px 12px; border-radius: 999px; background: var(--surface3)">1. Idghâm al-Moutamâthilayn</span><p style="margin: 0; font-size: 14.5px; line-height: 1.55; text-wrap: pretty">Si <strong>2 lettres identiques</strong> se suivent, la 1<sup>re</sup> étant neutre et la 2<sup>e</sup> vocalisée, elles fusionnent <strong>sans nasillement</strong>.</p><div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 10px; padding: 4px 10px; border-radius: 10px; background: var(--surface2)"><span></span><span dir="rtl" lang="ar" style="font-family: 'ArPunct', var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', serif; font-size: calc(21px * var(--ar, 1)); line-height: 1.9">إِ<span style="color: var(--red)">ذ ذَّ</span>هَبَ</span></div><div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 10px; padding: 4px 10px; border-radius: 10px; background: var(--surface2)"><span></span><span dir="rtl" lang="ar" style="font-family: 'ArPunct', var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', serif; font-size: calc(21px * var(--ar, 1)); line-height: 1.9">وَقَ‍<span style="color: var(--red)">‍د دَّ</span>خَلُواْ</span></div><p style="margin: 0; font-size: 14.5px; line-height: 1.55; text-wrap: pretty">Pour les lettres <strong>Mîm (م) et Noûn (ن)</strong>, un nasillement de 2 temps est <strong>obligatoire</strong>.</p><div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 10px; padding: 4px 10px; border-radius: 10px; background: var(--surface2)"><span style="font-size: 12.5px; font-weight: 700; color: var(--muted)">Idghâm bi ghunna</span><span dir="rtl" lang="ar" style="font-family: 'ArPunct', var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', serif; font-size: calc(21px * var(--ar, 1)); line-height: 1.9">مِّ‍<span style="color: var(--red)">‍ن نَّ‍</span>‍خِيلٖ</span></div><div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 10px; padding: 4px 10px; border-radius: 10px; background: var(--surface2)"><span style="font-size: 12.5px; font-weight: 700; color: var(--muted)">Idghâm chafawy</span><span dir="rtl" lang="ar" style="font-family: 'ArPunct', var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', serif; font-size: calc(21px * var(--ar, 1)); line-height: 1.9">وَءَامَنَهُ‍<span style="color: var(--red)">‍م مِّ‍</span>‍نۡ خَوۡفِۭ</span></div></div>
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 14px 14px 16px; border-radius: 16px; background: var(--surface); border: 1.5px solid var(--line); border-top: 5px solid var(--green)"><span style="align-self: flex-start; font-size: 15px; font-weight: 800; padding: 4px 12px; border-radius: 999px; background: var(--surface3)">2. Idghâm al-Moutadjânissayn</span><p style="margin: 0; font-size: 14.5px; line-height: 1.55; text-wrap: pretty">C’est la rencontre de <strong>2 lettres affinitaires</strong> (qui ont des affinités) : elles ont le <strong>même point de sortie</strong> mais des <strong>attributs différents</strong>. Il y a fusion de la 1<sup>re</sup> lettre dans la 2<sup>e</sup>.</p><p style="margin: 0; font-size: 14.5px; line-height: 1.55; text-wrap: pretty">Il y a <strong>7 cas</strong> possibles dans le Qur’ân :</p><ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; font-size: 14px; line-height: 1.5"><li>Dâl (د) dans Tâ (ت)</li><li>Tâ (ت) dans Dâl (د)</li><li>Tâ (ت) dans Ṯô (ط)</li><li>Ṯô (ط) dans Tâ (ت) — <strong>fusion partielle</strong></li><li>Dzâl (ذ) dans Ẕô (ظ)</li><li>Thâ (ث) dans Dzâl (ذ)</li><li>Bâ (ب) dans Mîm (م)</li></ul></div>
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 14px 14px 16px; border-radius: 16px; background: var(--surface); border: 1.5px solid var(--line); border-top: 5px solid var(--amber-fg)"><span style="align-self: flex-start; font-size: 15px; font-weight: 800; padding: 4px 12px; border-radius: 999px; background: var(--surface3)">3. Idghâm al-Moutaqâribayn</span><p style="margin: 0; font-size: 14.5px; line-height: 1.55; text-wrap: pretty">C’est la rencontre de 2 lettres, la 1<sup>re</sup> étant neutre et la 2<sup>e</sup> vocalisée, dont les <strong>points de sortie</strong> et les <strong>attributs</strong> sont <strong>proches</strong>. Il y a fusion de la 1<sup>re</sup> dans la 2<sup>e</sup>.</p><p style="margin: 0; font-size: 14.5px; line-height: 1.55; text-wrap: pretty">Il y a <strong>2 cas</strong> dans le Qur’ân :</p><div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 10px; padding: 4px 10px; border-radius: 10px; background: var(--surface2)"><span style="font-size: 12.5px; font-weight: 700; color: var(--muted)">Lâm (ل) dans Rô (ر)</span><span dir="rtl" lang="ar" style="font-family: 'ArPunct', var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', serif; font-size: calc(21px * var(--ar, 1)); line-height: 1.9">وَقُ‍<span style="color: var(--red)">‍ل رَّ</span>بِّ</span></div><div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 10px; padding: 4px 10px; border-radius: 10px; background: var(--surface2)"><span style="font-size: 12.5px; font-weight: 700; color: var(--muted)">Qôf (ق) dans Kâf (ك)</span><span dir="rtl" lang="ar" style="font-family: 'ArPunct', var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', serif; font-size: calc(21px * var(--ar, 1)); line-height: 1.9">أَلَمۡ نَخۡلُ‍<span style="color: var(--red)">‍قكُّ‍</span>‍م</span></div></div>
+</div>
+</section>
+<div style="margin-top: 10px; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+<p style="margin: 0; font-size: 17px; font-weight: 800">Prêt à te tester&nbsp;?</p>
+<div style="display: flex; flex-wrap: wrap; gap: 10px">
+<button @click="startIQcm" :style="`min-height: 48px; padding: 0 20px; border-radius: 12px; border: 0; background: ${accent}; color: #FFFFFF; font-size: 15px; font-weight: 700`">QCM</button>
+<button @click="startIVf" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Vrai ou faux</button>
+<button @click="startITrous" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Texte à trous</button>
+<button @click="startIMix" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Mélange</button>
+</div>
+</div>
+<div style="display: flex; justify-content: center; padding-top: 4px"><button class="lift" @click="goHome" style="min-height: 52px; padding: 0 22px; border-radius: 14px; border: 1.5px solid var(--line); background: var(--surface); display: inline-flex; align-items: center; gap: 10px; font-size: 15.5px; font-weight: 800"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5"></path><path d="M5 9.5V20h14V9.5"></path><path d="M10 20v-6h4v6"></path></svg>Retour à l’accueil</button></div>
+</section>
+</template>
+
+<template v-if="isLearnMd">
+<section class="rise" style="display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; flex-direction: column; gap: 8px; max-width: 560px">
+<span :style="`font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${accent}`">Chapitre 10</span>
+<h1 style="margin: 0; font-size: 34px; line-height: 1.1; letter-spacing: -0.025em; font-weight: 800">Les prolongations</h1>
+<p style="margin: 0; font-size: 15px; line-height: 1.55; color: var(--muted)">Active le mode mémorisation pour cacher les règles et te tester cas par cas, à partir des exemples.</p>
+</div>
+<label style="align-self: flex-start; display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 16px; border: 1.5px solid var(--line); border-radius: 999px; background: var(--surface); font-size: 14px; font-weight: 700; cursor: pointer">
+<input type="checkbox" :checked="hide" @change="toggleHide" :style="`width: 18px; height: 18px; margin: 0; accent-color: ${accent}`">
+Mode mémorisation
+</label>
+<template v-if="hide">
+<p :style="`margin: 0; font-size: 13.5px; font-weight: 700; line-height: 1.5; color: ${accent}`">Mode mémorisation&nbsp;: pour chaque cas, retrouve la règle à partir des exemples, puis touche pour vérifier.</p>
+</template>
+<div style="background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px">
+<span dir="rtl" lang="ar" style="align-self: flex-start; font-family: 'ArPunct', var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', serif; font-size: calc(26px * var(--ar, 1)); line-height: 1.7; color: var(--accent)">ٱلۡمُدُودُ</span>
+<p style="margin: 0; font-size: 16px; line-height: 1.6">Al-Madd est une prolongation de son de la lettre. Elle a lieu au moyen des trois lettres suivantes&nbsp;:</p>
+<ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 15.5px; line-height: 1.6">
+<li>la lettre <strong>Alif (ا)</strong> sâkinah lorsqu’elle est précédée de la voyelle brève Al-Fathah&nbsp;;</li>
+<li>la lettre <strong>Wâw (و)</strong> sâkinah lorsqu’elle est précédée de la voyelle brève Ad-Dommah&nbsp;;</li>
+<li>la lettre <strong>Yâ (ي)</strong> sâkinah lorsqu’elle est précédée de la voyelle brève Al-Kasrah.</li>
+</ul>
+<p style="margin: 0; font-size: 15.5px; line-height: 1.6; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px">Exemple d’expression regroupant le tout&nbsp;: <span dir="rtl" lang="ar" style="font-family: 'ArPunct', var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', serif; font-size: calc(26px * var(--ar, 1)); line-height: 1.8">نُ‍<span style="color: var(--red)">‍و</span>حِ‍<span style="color: var(--red)">‍ي‍</span>‍هَ‍<span style="color: var(--red)">‍ا</span></span></p>
+<p style="margin: 0; font-size: 15px; line-height: 1.6; color: var(--muted)">Il existe deux (2) grandes familles d’Al-Madd&nbsp;: <strong>Al-Madd Al-Asliyy</strong> (notes de cours&nbsp;: «&nbsp;basique&nbsp;») et <strong>Al-Madd Al-Far’iyy</strong>, qui lui est opposé.</p>
+</div>
+<template v-for="sec in mdSections">
+<div :id="`md-${sec.num}`" style="display: flex; flex-direction: column; gap: 12px; padding-top: 6px; scroll-margin-top: 16px">
+<template v-if="sec.isShown">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px">
+<h2 style="margin: 0; font-size: 20px; line-height: 1.3; font-weight: 800; letter-spacing: -0.01em; text-wrap: balance">{{sec.num}}. {{sec.title}}</h2>
+<template v-if="sec.hasAr"><span dir="rtl" lang="ar" :style="`font-family: 'ArPunct', var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: calc(22px * var(--ar, 1)); line-height: 1.6; color: ${accent}`">{{sec.ar}}</span></template>
+</div>
+<span :style="`align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; min-height: 30px; padding: 0 14px; border-radius: 999px; font-size: 13px; font-weight: 800; ${sec.chipStyle}`">{{sec.verdict}} · {{sec.count}}</span>
+<template v-if="sec.hasDef"><p style="margin: 0; font-size: 15px; line-height: 1.6; text-wrap: pretty">{{sec.def}}</p></template>
+</template>
+<template v-if="sec.isHidden">
+<button class="lift" @click="sec.reveal" :aria-label="sec.revealAria" style="width: 100%; text-align: left; display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; border-radius: 16px; border: 1.5px dashed var(--line2); background: var(--surface2); color: var(--ink)">
+<span style="font-size: 18px; font-weight: 800">{{sec.num}}. Emphase, légèreté ou au choix&nbsp;?</span>
+<span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">{{sec.count}} · touche pour vérifier</span>
+</button>
+</template>
+<template v-for="c in sec.cases">
+<article style="background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: flex-start; gap: 12px">
+<span :style="`flex-shrink: 0; width: 30px; height: 30px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; ${c.badgeStyle}`">{{c.n}}</span>
+<template v-if="c.isShown"><p style="margin: 0; font-size: 15.5px; line-height: 1.6; text-wrap: pretty"><template v-for="pt in c.ruleParts"><template v-if="pt.isImg"><img :src="pt.src" :alt="pt.alt" :style="pt.imgStyle"></template><template v-if="pt.isText"><span :style="pt.style">{{pt.text}}</span></template></template></p></template>
+<template v-if="c.isHidden"><button class="lift" @click="c.reveal" :aria-label="c.revealAria" style="flex: 1; text-align: left; display: flex; flex-direction: column; gap: 2px; min-height: 52px; padding: 10px 14px; border-radius: 12px; border: 1.5px dashed var(--line2); background: var(--surface2); color: var(--ink)"><span style="font-size: 15px; font-weight: 800">Quelle est la règle&nbsp;?</span><span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">Regarde les exemples, puis touche pour vérifier</span></button></template>
+</div>
+<template v-if="c.hasLead"><p style="margin: 0; font-size: 14.5px; font-weight: 700; line-height: 1.5">{{c.lead}}</p></template>
+<template v-for="ex in c.examples">
+<div style="border: 1px dashed var(--line2); border-radius: 12px; padding: 8px 14px; display: flex; flex-direction: column; gap: 2px">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 12px"><span style="font-size: 11.5px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted)">{{ex.label}}</span><template v-if="ex.hasWord"><span dir="rtl" lang="ar" :style="`font-family: 'ArPunct', var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: calc(20px * var(--ar, 1)); line-height: 1.6; color: ${accent}`">{{ex.word}}</span></template></div>
+<div dir="rtl" lang="ar" style="font-family: 'ArPunct', var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: calc(23px * var(--ar, 1)); line-height: 2.2; color: var(--ink); text-align: right"><template v-for="pt in ex.parts"><span :style="pt.style">{{pt.text}}</span></template></div>
+</div>
+</template>
+<template v-if="c.hasNote"><p style="margin: 0; font-size: 14px; line-height: 1.55; color: var(--muted); text-wrap: pretty">{{c.note}}</p></template>
+</article>
+</template>
+</div>
+</template>
+<div :style="`background: ${tint}; border-radius: 18px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px`">
+<template v-for="n in mdNotes"><p style="margin: 0; font-size: 15px; line-height: 1.65; text-wrap: pretty"><strong>{{n.title}}&nbsp;:</strong> {{n.text}}</p></template>
+</div>
+<section aria-labelledby="h-arbre10" style="background: var(--surface2); border: 1px solid var(--line); border-radius: 20px; padding: 18px 16px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 12px"><h2 id="h-arbre10" style="margin: 0; font-size: 20px; line-height: 1.3; font-weight: 800">Résumé&nbsp;: l’arbre des prolongations</h2><span dir="rtl" lang="ar" style="font-family: 'ArPunct', var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', serif; font-size: calc(21px * var(--ar, 1)); line-height: 1.8; color: var(--accent)">ٱلۡمُدُودُ</span></div>
+<p style="margin: 0; font-size: 13.5px; line-height: 1.5; color: var(--muted)">Les chiffres indiquent la durée en temps (degrés).</p>
+<div style="display: flex; flex-direction: column; align-items: center"><span style="font-size: 16px; font-weight: 800; color: #FFFFFF; background: var(--accent); padding: 6px 22px; border-radius: 999px">Al-Madd</span><span aria-hidden="true" style="width: 2px; height: 16px; background: var(--line2)"></span><span aria-hidden="true" style="width: 60%; height: 2px; background: var(--line2)"></span></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 12px; align-items: start">
+<div style="display: flex; flex-direction: column; gap: 8px; padding: 14px; border-radius: 16px; background: var(--surface); border: 1.5px solid var(--line); border-top: 5px solid var(--accent)"><div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px"><span style="font-size: 16px; font-weight: 800">Al-Asliyy</span><span style="font-size: 13px; color: var(--muted)">basique</span></div><div style="display: flex; flex-direction: column; gap: 4px; padding: 10px 12px; border-radius: 12px; background: var(--surface2); border: 1px solid var(--line)"><div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px"><strong style="font-size: 14.5px">At-Tôbî’iyy</strong><span style="flex-shrink: 0; font-size: 12px; font-weight: 800; padding: 2px 9px; border-radius: 999px; background: var(--accent); color: #FFFFFF">2</span></div><span style="font-size: 13px; line-height: 1.45; color: var(--muted)">ni Hamzah ni soukoûn</span></div><div style="display: flex; flex-direction: column; gap: 4px; padding: 10px 12px; border-radius: 12px; background: var(--surface2); border: 1px solid var(--line)"><div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px"><strong style="font-size: 14.5px">Al-Badal</strong><span style="flex-shrink: 0; font-size: 12px; font-weight: 800; padding: 2px 9px; border-radius: 999px; background: var(--accent); color: #FFFFFF">2</span></div><span style="font-size: 13px; line-height: 1.45; color: var(--muted)">le Hamzah est prolongé</span></div><div style="display: flex; flex-direction: column; gap: 4px; padding: 10px 12px; border-radius: 12px; background: var(--surface2); border: 1px solid var(--line)"><div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px"><strong style="font-size: 14.5px">Al-’Iwadî</strong><span style="flex-shrink: 0; font-size: 12px; font-weight: 800; padding: 2px 9px; border-radius: 999px; background: var(--accent); color: #FFFFFF">2</span></div><span style="font-size: 13px; line-height: 1.45; color: var(--muted)">arrêt sur le fathatân «&nbsp;ـً&nbsp;»</span></div><div style="display: flex; flex-direction: column; gap: 4px; padding: 10px 12px; border-radius: 12px; background: var(--surface2); border: 1px solid var(--line)"><div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px"><strong style="font-size: 14.5px">As-Silah As-Soughrâ</strong><span style="flex-shrink: 0; font-size: 12px; font-weight: 800; padding: 2px 9px; border-radius: 999px; background: var(--accent); color: #FFFFFF">2</span></div><span style="font-size: 13px; line-height: 1.45; color: var(--muted)"><bdi>ـهُۥ</bdi> / <bdi>ـهِۦ</bdi> non suivi de Hamzah</span></div></div>
+<div style="display: flex; flex-direction: column; gap: 8px; padding: 14px; border-radius: 16px; background: var(--surface); border: 1.5px solid var(--line); border-top: 5px solid var(--amber-fg)"><div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px"><span style="font-size: 16px; font-weight: 800">Al-Far’iyy</span><span style="font-size: 13px; color: var(--muted)">opposé à Al-Asliyy</span></div><span style="align-self: flex-start; font-size: 12.5px; font-weight: 800; padding: 3px 10px; border-radius: 999px; background: var(--surface3)">Suivi du Hamzah (ء)</span><div style="display: flex; flex-direction: column; gap: 4px; padding: 10px 12px; border-radius: 12px; background: var(--surface2); border: 1px solid var(--line)"><div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px"><strong style="font-size: 14.5px">Al-Wâjib Al-Mouttasil</strong><span style="flex-shrink: 0; font-size: 12px; font-weight: 800; padding: 2px 9px; border-radius: 999px; background: var(--accent); color: #FFFFFF">4, 5</span></div><span style="font-size: 13px; line-height: 1.45; color: var(--muted)">madd et Hamzah dans le même mot</span></div><div style="display: flex; flex-direction: column; gap: 4px; padding: 10px 12px; border-radius: 12px; background: var(--surface2); border: 1px solid var(--line)"><div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px"><strong style="font-size: 14.5px">Al-Djâ’iz Al-Mounfasil</strong><span style="flex-shrink: 0; font-size: 12px; font-weight: 800; padding: 2px 9px; border-radius: 999px; background: var(--accent); color: #FFFFFF">2, 4, 5</span></div><span style="font-size: 13px; line-height: 1.45; color: var(--muted)">madd et Hamzah dans deux mots différents</span></div><div style="display: flex; flex-direction: column; gap: 4px; padding: 10px 12px; border-radius: 12px; background: var(--surface2); border: 1px solid var(--line)"><div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px"><strong style="font-size: 14.5px">As-Silatoul-Koubrâ</strong><span style="flex-shrink: 0; font-size: 12px; font-weight: 800; padding: 2px 9px; border-radius: 999px; background: var(--accent); color: #FFFFFF">2, 4, 5</span></div><span style="font-size: 13px; line-height: 1.45; color: var(--muted)"><bdi>ـهُۥ</bdi> / <bdi>ـهِۦ</bdi> suivi de Hamzah</span></div><span style="align-self: flex-start; font-size: 12.5px; font-weight: 800; padding: 3px 10px; border-radius: 999px; background: var(--surface3)">Suivi du soukoûn (ـۡ)</span><div style="display: flex; flex-direction: column; gap: 4px; padding: 10px 12px; border-radius: 12px; background: var(--surface2); border: 1px solid var(--line)"><div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px"><strong style="font-size: 14.5px">Al-’Âridou li-s-soukoûn</strong><span style="flex-shrink: 0; font-size: 12px; font-weight: 800; padding: 2px 9px; border-radius: 999px; background: var(--accent); color: #FFFFFF">2, 4, 6</span></div><span style="font-size: 13px; line-height: 1.45; color: var(--muted)">soukoûn dû à l’arrêt</span></div><div style="display: flex; flex-direction: column; gap: 4px; padding: 10px 12px; border-radius: 12px; background: var(--surface2); border: 1px solid var(--line)"><div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px"><strong style="font-size: 14.5px">Al-Lîn</strong><span style="flex-shrink: 0; font-size: 12px; font-weight: 800; padding: 2px 9px; border-radius: 999px; background: var(--accent); color: #FFFFFF">2, 4, 6</span></div><span style="font-size: 13px; line-height: 1.45; color: var(--muted)"><bdi>و</bdi> ou <bdi>ي</bdi> sâkinah précédé de «&nbsp;<bdi>ـَ</bdi>&nbsp;», arrêt sur un mot</span></div><div style="display: flex; flex-direction: column; gap: 4px; padding: 10px 12px; border-radius: 12px; background: var(--surface2); border: 1px solid var(--line)"><div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px"><strong style="font-size: 14.5px">Al-Lâzim</strong><span style="flex-shrink: 0; font-size: 12px; font-weight: 800; padding: 2px 9px; border-radius: 999px; background: var(--accent); color: #FFFFFF">6</span></div><span style="font-size: 13px; line-height: 1.45; color: var(--muted)">quatre catégories&nbsp;:</span><ul style="margin: 2px 0 0; padding-left: 18px; display: flex; flex-direction: column; gap: 3px; font-size: 13px; line-height: 1.45"><li><strong>Al-Kalimiyy Al-Mouthaqqal</strong> (6)&nbsp;: madd suivi d’une chaddah «&nbsp;ـّ&nbsp;»</li><li><strong>Al-Kalimiyy Al-Moukhaffaf</strong> (6)&nbsp;: madd suivi d’une lettre sâkinah dans un mot</li><li><strong>Al-Harfiyy Al-Mouthaqqal</strong> (6)</li><li><strong>Al-Harfiyy Al-Moukhaffaf</strong> (6)</li></ul></div></div>
+</div>
+</section>
+<div style="margin-top: 10px; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+<p style="margin: 0; font-size: 17px; font-weight: 800">Prêt à te tester&nbsp;?</p>
+<div style="display: flex; flex-wrap: wrap; gap: 10px">
+<button @click="startMQcm" :style="`min-height: 48px; padding: 0 20px; border-radius: 12px; border: 0; background: ${accent}; color: #FFFFFF; font-size: 15px; font-weight: 700`">QCM</button>
+<button @click="startMVf" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Vrai ou faux</button>
+<button @click="startMTrous" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Texte à trous</button>
+<button @click="startMMix" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Mélange</button>
+</div>
+</div>
+<div style="display: flex; justify-content: center; padding-top: 4px"><button class="lift" @click="goHome" style="min-height: 52px; padding: 0 22px; border-radius: 14px; border: 1.5px solid var(--line); background: var(--surface); display: inline-flex; align-items: center; gap: 10px; font-size: 15.5px; font-weight: 800"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5"></path><path d="M5 9.5V20h14V9.5"></path><path d="M10 20v-6h4v6"></path></svg>Retour à l’accueil</button></div>
+</section>
+</template>
+
 <template v-if="isProgress">
 <section class="rise" style="display: flex; flex-direction: column; gap: 18px">
 <div style="display: flex; flex-direction: column; gap: 8px; max-width: 560px">
@@ -683,10 +940,10 @@ Mode mémorisation
 <section class="rise" style="display: flex; flex-direction: column; gap: 18px">
 <div style="display: flex; flex-direction: column; gap: 8px; max-width: 600px">
 <span :style="`font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${accent}`">Fiche de progression</span>
-<h1 style="margin: 0; font-size: 32px; line-height: 1.12; letter-spacing: -0.025em; font-weight: 800; text-wrap: balance">Programme du niveau 4C&nbsp;: initiation au tadjwid</h1>
-<p style="margin: 0; font-size: 13px; line-height: 1.5; color: var(--muted)">Centre Islamique de Formation et de Documentation (C.I.FO.D) · Arrêté n°&nbsp;191/MEMIS/DGAT/DAG/SDVA du 14 avril 2014</p>
+<h1 style="margin: 0; font-size: 32px; line-height: 1.12; letter-spacing: -0.025em; font-weight: 800; text-wrap: balance">{{lvl.progH1}}</h1>
+<p style="margin: 0; font-size: 13px; line-height: 1.5; color: var(--muted)">{{lvl.progOrg}}</p>
 </div>
-<div :style="`background: ${tint}; border-radius: 16px; padding: 14px 16px`"><p style="margin: 0; font-size: 15px; line-height: 1.55"><strong>Objectif du niveau&nbsp;:</strong> maîtriser de façon théorique et pratique les règles de tadjwid (niveau 3 sur 3).</p></div>
+<div :style="`background: ${tint}; border-radius: 16px; padding: 14px 16px`"><p style="margin: 0; font-size: 15px; line-height: 1.55"><strong>Objectif du niveau&nbsp;:</strong> {{lvl.progObj}}</p></div>
 <div style="background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 16px 18px; display: flex; flex-direction: column; gap: 8px">
 <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 10px"><span style="font-size: 15px; font-weight: 800">Avancement</span><span :style="`font-size: 14px; font-weight: 800; color: ${accent}`">{{progProgramme.label}}</span></div><div aria-hidden="true" style="height: 8px; border-radius: 999px; background: var(--surface3); overflow: hidden"><div :style="`height: 100%; width: ${progProgramme.barW}; background: var(--accent); border-radius: 999px`"></div></div>
 <p style="margin: 0; font-size: 13px; line-height: 1.5; color: var(--muted)">Coche une semaine seulement quand elle est réellement terminée en classe.</p>
@@ -699,7 +956,7 @@ Mode mémorisation
 <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px"><h2 style="margin: 0; font-size: 18px; font-weight: 800">{{w.title}}</h2><span :style="`font-size: 12px; font-weight: 800; border-radius: 999px; padding: 4px 10px; ${w.modStyle}`">{{w.modLabel}}</span></div>
 <div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted)">Objectifs</span><ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px"><template v-for="o in w.obj"><li style="font-size: 14.5px; line-height: 1.5">{{o.t}}</li></template></ul></div>
 <div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted)">Thème du cours</span><div style="display: flex; flex-wrap: wrap; gap: 6px"><template v-for="t in w.themes"><span style="font-size: 14px; font-weight: 700; line-height: 1.4; background: var(--surface2); border: 1px solid var(--line); border-radius: 10px; padding: 6px 10px">{{t.t}}</span></template></div></div>
-<template v-if="w.hasInv"><button class="lift" @click="w.openInv" style="text-align: left; display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 14px; border: 1.5px solid var(--line); background: var(--surface2); color: var(--ink)"><span style="display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0"><span style="font-size: 12px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted)">Invocation</span><span style="font-size: 15px; font-weight: 800">{{w.invTitle}}</span><span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">{{w.invRef}}</span></span><span :style="`font-size: 13px; font-weight: 800; color: ${accent}; white-space: nowrap`">Ouvrir la fiche</span></button></template>
+<template v-if="w.hasInv"><button class="lift" @click="w.openInv" style="text-align: left; display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 14px; border: 1.5px solid var(--line); background: var(--surface2); color: var(--ink)"><span style="display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0"><span style="font-size: 12px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted)">Invocation</span><span style="font-size: 15px; font-weight: 800">{{w.invTitle}}</span><span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">{{w.invRef}}</span></span><span :style="`font-size: 13px; font-weight: 800; color: ${accent}; white-space: nowrap`">{{w.invAction}}</span></button></template>
 <template v-if="w.hasHome"><p style="margin: 0; font-size: 14.5px; line-height: 1.5"><strong>Exercice à domicile&nbsp;:</strong> {{w.home}}</p></template>
 <template v-if="w.hasLinks"><div style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 12px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted)">Réviser dans l’application</span><div style="display: flex; flex-wrap: wrap; gap: 8px"><template v-for="l in w.links"><button class="lift" @click="l.run" :style="`min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--surface); color: ${accent}; font-size: 13.5px; font-weight: 800`">{{l.label}}</button></template></div></div></template>
 <label style="align-self: flex-start; display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--surface); font-size: 14px; font-weight: 700; cursor: pointer"><input type="checkbox" :checked="w.done" @change="w.toggle" :style="`width: 18px; height: 18px; margin: 0; accent-color: ${accent}`">{{w.checkLabel}}</label>
@@ -1490,7 +1747,311 @@ class Component extends DCLogic {
       { n: 11, mod: 'lecture', obj: ['Appliquer les règles de tadjwid à la lecture des sourates 70 à 67.'], themes: ['Sourate 67 (pp. 562-564)'], inv: null, home: 'Sourate 47 (pp. 509-510)', links: [] },
       { n: 12, mod: 'eval', obj: ['Réviser les règles de tadjwid.', 'Évaluer leur application aux sourates ci-dessus.'], themes: ['Révision / Évaluation'], inv: null, home: '', links: [{ label: 'Mélange · Ra', start: ['mix', 'ra'] }, { label: 'Mélange · types d’arrêts', start: ['mix', 'types'] }, { label: 'Mélange · signes', start: ['mix', 'signes'] }, { label: 'Mélange · invocations', start: ['mix', 'comp'] }, { label: 'Mes progrès', go: 'progress' }] }
     ];
-    this._d = { fr, signs, map, qcm, vf, trous, EX, AR, types, tqcm, tvf, ttrous, RA, rqcm, rvf, rtrous, COMP, ctrous, cqcm, cordre, PROG };
+    const INV_ISTI = { t: 'Pour la consultation du sort (Al-Istikhâra)', ref: 'II-17, p. 13', comp: 1 };
+    const PROG4B = [
+      { n: 1, mod: 'regles', obj: ['Revenir sur les notions de tadjwid vues au niveau 4A.'], themes: ['Révision des règles du niveau 4A'], inv: INV_ISTI, home: 'Sourate 73', links: [] },
+      { n: 2, mod: 'regles', obj: ['Identifier les différents cas de fusion.'], themes: ['Cas particuliers de Idghâm', 'Idghâm moutaqâribayn, moutadjânissayn et moutamâthilayn'], inv: null, home: 'Sourate 72', links: [{ label: 'Les assimilations · fiches', go: 'learnId' }, { label: 'Les assimilations · mélange', start: ['mix', 'idgham'] }] },
+      { n: 3, mod: 'regles', obj: ['Appliquer les prolongations de deux (2) degrés selon le cas.'], themes: ['Al-Moudoûd : 2 degrés'], inv: INV_ISTI, home: 'Sourate 71', links: [{ label: 'Prolongations de 2 temps', go: 'learnMd', anchor: 'md-1' }] },
+      { n: 4, mod: 'regles', obj: ['Appliquer les prolongations de quatre (4) ou cinq (5) degrés selon le cas.'], themes: ['Al-Moudoûd : 4/5 degrés'], inv: null, home: 'Sourate 70', links: [{ label: 'Prolongations de 4 ou 5 temps', go: 'learnMd', anchor: 'md-2' }] },
+      { n: 5, mod: 'regles', obj: ['Appliquer les prolongations de deux (2), quatre (4) ou six (6) degrés selon le cas.'], themes: ['Al-Moudoûd : 2/4/6 degrés'], inv: INV_ISTI, home: 'Sourate 69', links: [{ label: 'Prolongations suivies du soukoûn', go: 'learnMd', anchor: 'md-3' }] },
+      { n: 6, mod: 'regles', obj: ['Appliquer les prolongations de six (6) degrés selon le cas.'], themes: ['Al-Moudoûd : 6 degrés (1)'], inv: null, home: 'Sourate 68', links: [{ label: 'Al-Madd Al-Lâzim', go: 'learnMd', anchor: 'md-3' }] },
+      { n: 7, mod: 'regles', obj: ['Appliquer les prolongations de six (6) degrés selon le cas.'], themes: ['Al-Moudoûd : 6 degrés (2)'], inv: INV_ISTI, home: 'Sourate 67', links: [{ label: 'Al-Madd Al-Lâzim', go: 'learnMd', anchor: 'md-3' }, { label: 'Prolongations · mélange', start: ['mix', 'madd'] }] },
+      { n: 8, mod: 'eval', obj: ['Réviser les règles.', 'Évaluer leur compréhension.'], themes: ['Révision / Évaluation'], inv: null, home: '', links: [{ label: 'Mélange · assimilations', start: ['mix', 'idgham'] }, { label: 'Mélange · prolongations', start: ['mix', 'madd'] }, { label: 'Mes progrès', go: 'progress' }] },
+      { n: 9, mod: 'lecture', obj: ['Appliquer les règles de tadjwid à la lecture des sourates 73 à 71.'], themes: ['Sourate 73 (pp. 574-575)'], inv: { t: 'Lorsqu’on est malade', ref: 'VI-6, p. 30', comp: 2 }, home: 'Sourate 18 (pp. 302-304)', links: [] },
+      { n: 10, mod: 'lecture', obj: ['Appliquer les règles de tadjwid à la lecture des sourates 73 à 71.'], themes: ['Sourate 72 (pp. 572-573)'], inv: null, home: 'Sourate 25 (pp. 359-361)', links: [] },
+      { n: 11, mod: 'lecture', obj: ['Appliquer les règles de tadjwid à la lecture des sourates 73 à 71.'], themes: ['Sourate 71 (pp. 570-571)'], inv: { t: 'Contre le mauvais œil et la sorcellerie', ref: 'IV-8, p. 31', comp: 3 }, home: 'Sourate 25 (pp. 362-363)', links: [] },
+      { n: 12, mod: 'eval', obj: ['Réviser les règles.', 'Évaluer leur application aux sourates ci-dessus.'], themes: ['Révision / Évaluation'], inv: null, home: '', links: [{ label: 'Mélange · assimilations', start: ['mix', 'idgham'] }, { label: 'Mélange · prolongations', start: ['mix', 'madd'] }, { label: 'Mélange · invocations', start: ['mix', 'comp4b'] }, { label: 'Mes progrès', go: 'progress' }] }
+    ];
+    const COMP4B = [
+      { num: 1, ref: 'II-17', page: 'pp. 14-15', title: 'Pour la consultation du sort (Al-Istikhâra)',
+        intro: 'Cette prière est un bienfait dont dispose notre communauté. En effet, elle nous permet de consulter notre Seigneur avant d’effectuer un choix, en particulier dans nos affaires, entreprises ou projets. Elle nous ferme les portes des devins, charlatans ou escrocs. À travers elle, nous plaçons toute notre confiance en Allah (Swt). Elle permet d’éviter de tomber dans l’erreur, etc. Jâber Ibn ’Abdullah – qu’Allah les agrée tous les deux – a rapporté : « Le Messager d’Allah (SAW) nous enseignait la consultation dans toutes les décisions à prendre comme il nous enseignait le Coran. » Il disait : « Lorsque l’un de vous décide de faire quelque chose, qu’il fasse deux rak’ât autres que les prières obligatoires, puis qu’il dise : »',
+        blocks: [
+          { lead: '1re partie', ar: 'ٱللَّهُمَّ إِنِّي أَسۡتَخِيرُكَ بِعِلۡمِكَ، وَأَسۡتَقۡدِرُكَ بِقُدۡرَتِكَ، وَأَسۡأَلُكَ مِنۡ فَضۡلِكَ ٱلۡعَظِيمِ، فَإِنَّكَ تَقۡدِرُ وَلَا أَقۡدِرُ، وَتَعۡلَمُ وَلَا أَعۡلَمُ، وَأَنۡتَ عَلَّامُ ٱلۡغُيُوبِ', fr: 'Seigneur, je Te demande de m’indiquer le bien grâce à Ton savoir, je Te demande de m’accorder la puissance grâce à Ta puissance et je Te demande de me faire bénéficier de Ta grâce sublime. En vérité, Tu peux tout et je ne peux rien. Tu possèdes le savoir alors que je ne le possède pas, et Tu détiens la science des mystères.', src: '', nb: '' },
+          { lead: '2e partie', ar: 'ٱللَّهُمَّ إِنۡ كُنۡتَ تَعۡلَمُ أَنَّ هَٰذَا ٱلۡأَمۡرَ (هنا تسمي حاجتك) خَيۡرٌ لِي فِي دِينِي وَمَعَاشِي وَعَاقِبَةِ أَمۡرِي (أو قال: عَاجِلِ أَمۡرِي وَآجِلِهِ)، فَٱقۡدُرۡهُ لِي وَيَسِّرۡهُ لِي، ثُمَّ بَارِكۡ لِي فِيهِ', fr: '(Ensuite il peut révéler son besoin.) Seigneur, si Tu sais que cette affaire est un bien pour moi dans ma religion, dans ma vie et dans ma fin, alors fais qu’elle soit la mienne, facilite-la et bénis-la pour moi.', src: '', nb: '' },
+          { lead: '3e partie', ar: 'ٱللَّهُمَّ وَإِنۡ كُنۡتَ تَعۡلَمُ أَنَّ هَٰذَا ٱلۡأَمۡرَ (هنا تسمي حاجتك) شَرٌّ لِي فِي دِينِي وَمَعَاشِي وَعَاقِبَةِ أَمۡرِي', fr: 'Et si Tu sais que cette affaire est un mal pour moi dans ma religion, dans ma vie et dans ma fin,', src: '', nb: '' },
+          { lead: '4e partie', ar: '(أو قال: عَاجِلِ أَمۡرِي وَآجِلِهِ)، فَٱصۡرِفۡهُ عَنِّي وَٱصۡرِفۡنِي عَنۡهُ، وَٱقۡدُرۡ لِيَ ٱلۡخَيۡرَ حَيۡثُ كَانَ، ثُمَّ ٱرۡضِنِي بِهِ', fr: 'ou suivant une variante, dans ma vie présente ou future, alors éloigne-la de moi et éloigne-moi d’elle, dirige-moi vers le bien là où il se trouve, puis fais que j’en sois satisfait.', src: '', nb: '' }
+        ] },
+      { num: 2, ref: 'VI-6', page: 'p. 30', title: 'Invocations à dire lorsqu’on est malade',
+        intro: 'Allah (Swt) éprouva le prophète Ayyoub (Job), paix sur lui, par plusieurs années de maladies. Voici l’invocation qui fut la cause de sa guérison :',
+        blocks: [
+          { lead: '', ar: 'رَبِّ إِنِّي مَسَّنِيَ ٱلضُّرُّ وَأَنتَ أَرۡحَمُ ٱلرَّٰحِمِينَ', fr: '« Seigneur ! Le mal m’a touché. Mais Toi, Tu es le plus miséricordieux des miséricordieux ! »', src: '', nb: '' },
+          { lead: 'Et aussi : l’invocation du prophète Abraham (Ibrahim), paix sur lui :', ar: 'وَإِذَا مَرِضۡتُ فَهُوَ يَشۡفِينِ', fr: 'Et quand je suis malade, c’est Lui qui me guérit.', src: '', nb: '' },
+          { lead: '', ar: 'ٱللَّهُمَّ رَبَّ ٱلنَّاسِ، أَذۡهِبِ ٱلۡبَأۡسَ، وَٱشۡفِ، أَنۡتَ ٱلشَّافِي لَا شِفَاءَ إِلَّا شِفَاؤُكَ، شِفَاءً لَا يُغَادِرُ سَقَمًا', fr: 'Ô Dieu, Seigneur des hommes, fais partir le mal et guéris. Tu es le Guérisseur, il n’y a de guérison que la Tienne, une guérison qui ne laisse aucun mal.', src: '', nb: '' }
+        ] },
+      { num: 3, ref: 'IV-8', page: 'p. 31', title: 'Pour la prévention et la préservation contre le mauvais œil et la sorcellerie', intro: '',
+        blocks: [
+          { lead: '', ar: 'أَعُوذُ بِكَلِمَاتِ ٱللَّهِ ٱلتَّامَّةِ مِنۡ كُلِّ شَيۡطَانٍ وَهَامَّةٍ، وَمِنۡ كُلِّ عَيۡنٍ لَامَّةٍ', fr: '« Je m’appuie sur les paroles parfaites d’Allah contre tout démon, tout méfait et tout mauvais œil envieux. »', src: '', nb: '' },
+          { lead: '', ar: 'أَعُوذُ بِكَلِمَاتِ ٱللَّهِ ٱلتَّامَّاتِ مِنۡ شَرِّ مَا خَلَقَ', fr: '« Je prends refuge dans les paroles parfaites d’Allah contre tout mal qu’Il a créé. »', src: '', nb: '' },
+          { lead: 'VI-9 : pour la prévention du mauvais œil et la sorcellerie', ar: 'أَعُوذُ بِكَلِمَاتِ ٱللَّهِ ٱلتَّامَّاتِ مِنۡ غَضَبِهِ وَعِقَابِهِ، وَمِنۡ شَرِّ عِبَادِهِ، وَمِنۡ هَمَزَاتِ ٱلشَّيَاطِينِ، وَأَنۡ يَحۡضُرُونَ', fr: '« Je puise ma force dans les paroles sublimes d’Allah contre Sa colère, Son châtiment, le mal de Ses sujets, les suggestions des diables et contre leur hantise. »', src: '', nb: '' }
+        ] }
+    ];
+    Object.assign(EX, {
+      b1: { text: 'ٱللَّهُمَّ إِنِّي أَسۡتَخِيرُكَ بِعِلۡمِكَ، وَأَسۡتَقۡدِرُكَ بِقُدۡرَتِكَ', ref: '' },
+      b2: { text: 'رَبِّ إِنِّي مَسَّنِيَ ٱلضُّرُّ وَأَنتَ أَرۡحَمُ ٱلرَّٰحِمِينَ', ref: '' },
+      b3: { text: 'وَإِذَا مَرِضۡتُ فَهُوَ يَشۡفِينِ', ref: '' },
+      b4: { text: 'ٱللَّهُمَّ رَبَّ ٱلنَّاسِ، أَذۡهِبِ ٱلۡبَأۡسَ، وَٱشۡفِ، أَنۡتَ ٱلشَّافِي', ref: '' },
+      b5: { text: 'أَعُوذُ بِكَلِمَاتِ ٱللَّهِ ٱلتَّامَّةِ مِنۡ كُلِّ شَيۡطَانٍ وَهَامَّةٍ، وَمِنۡ كُلِّ عَيۡنٍ لَامَّةٍ', ref: '' },
+      b6: { text: 'أَعُوذُ بِكَلِمَاتِ ٱللَّهِ ٱلتَّامَّاتِ مِنۡ شَرِّ مَا خَلَقَ', ref: '' }
+    });
+    const SB = { isti: 'Pour la consultation du sort (Al-Istikhâra)', mal: 'Lorsqu’on est malade', oeil: 'Contre le mauvais œil et la sorcellerie', sort: 'En sortant de la maison' };
+    const AB = { isti: 'ٱللَّهُمَّ إِنِّي أَسۡتَخِيرُكَ بِعِلۡمِكَ', mal: 'رَبِّ إِنِّي مَسَّنِيَ ٱلضُّرُّ وَأَنتَ أَرۡحَمُ ٱلرَّٰحِمِينَ', rabb: 'ٱللَّهُمَّ رَبَّ ٱلنَّاسِ، أَذۡهِبِ ٱلۡبَأۡسَ', oeil: 'أَعُوذُ بِكَلِمَاتِ ٱللَّهِ ٱلتَّامَّةِ مِنۡ كُلِّ شَيۡطَانٍ وَهَامَّةٍ', shar: 'أَعُوذُ بِكَلِمَاتِ ٱللَّهِ ٱلتَّامَّاتِ مِنۡ شَرِّ مَا خَلَقَ', ibr: 'وَإِذَا مَرِضۡتُ فَهُوَ يَشۡفِينِ', inj: 'رَبَّنَا لَا تَجۡعَلۡنَا مَعَ ٱلۡقَوۡمِ ٱلظَّٰلِمِينَ' };
+    const QSB = 'Dans quelle situation dit-on cette invocation ?';
+    const dqcm = [
+      { p: QSB, k: 'b1', v: 'b1', o: [SB.isti, SB.mal, SB.oeil, SB.sort], e: 'Fiche 1 : l’Istikhâra permet de consulter Allah avant d’effectuer un choix.' },
+      { p: QSB, k: 'b2', v: 'b2', o: [SB.mal, SB.isti, SB.oeil, SB.sort], e: 'Fiche 2 : l’invocation du prophète Ayyoub (Job), cause de sa guérison.' },
+      { p: QSB, k: 'b3', v: 'b3', o: [SB.mal, SB.oeil, SB.isti, SB.sort], e: 'Fiche 2 : l’invocation du prophète Ibrahim (Abraham) : « Et quand je suis malade, c’est Lui qui me guérit. »' },
+      { p: QSB, k: 'b4', v: 'b4', o: [SB.mal, SB.oeil, SB.sort, SB.isti], e: 'Fiche 2 : « Ô Dieu, Seigneur des hommes, fais partir le mal et guéris… »' },
+      { p: QSB, k: 'b5', v: 'b5', o: [SB.oeil, SB.mal, SB.isti, SB.sort], e: 'Fiche 3 : « Je m’appuie sur les paroles parfaites d’Allah contre tout démon, tout méfait et tout mauvais œil envieux. »' },
+      { p: QSB, k: 'b6', v: 'b6', o: [SB.oeil, SB.sort, SB.mal, SB.isti], e: 'Fiche 3 : « Je prends refuge dans les paroles parfaites d’Allah contre tout mal qu’Il a créé. »' },
+      { p: 'Quelle invocation dit-on lorsqu’on est malade ?', ar: true, o: [AB.mal, AB.shar, AB.isti, AB.inj], e: 'Fiche 2 : l’invocation du prophète Ayyoub (Job).' },
+      { p: 'Quelle invocation protège contre le mauvais œil et la sorcellerie ?', ar: true, o: [AB.oeil, AB.rabb, AB.isti, AB.ibr], e: 'Fiche 3 : « Je m’appuie sur les paroles parfaites d’Allah… »' },
+      { p: 'Par quelle invocation consulte-t-on Allah avant de faire un choix ?', ar: true, o: [AB.isti, AB.shar, AB.mal, AB.rabb], e: 'Fiche 1 : l’Istikhâra, la consultation du sort.' },
+      { p: 'Avant de dire l’Istikhâra, que faut-il faire ?', o: ['Prier deux rak’ât autres que les prières obligatoires', 'Prier quatre rak’ât obligatoires', 'Donner une aumône', 'Jeûner un jour'], e: 'Le Prophète (SAW) a dit : « … qu’il fasse deux rak’ât autres que les prières obligatoires, puis qu’il dise… »' },
+      { p: 'De quel prophète vient l’invocation « رَبِّ إِنِّي مَسَّنِيَ ٱلضُّرُّ » ?', o: ['Ayyoub (Job)', 'Ibrahim (Abraham)', 'Noûh (Noé)', 'Moûssâ (Moïse)'], e: 'Allah (Swt) éprouva Ayyoub (Job) par plusieurs années de maladies ; cette invocation fut la cause de sa guérison.' },
+      { p: 'De quel prophète vient l’invocation « وَإِذَا مَرِضۡتُ فَهُوَ يَشۡفِينِ » ?', o: ['Ibrahim (Abraham)', 'Ayyoub (Job)', 'Noûh (Noé)', 'Yoûnous (Jonas)'], e: 'C’est l’invocation du prophète Ibrahim (Abraham), paix sur lui.' }
+    ];
+    const dordre = [
+      { w: 'ٱللَّهُمَّ إِنِّي أَسۡتَخِيرُكَ بِعِلۡمِكَ، وَأَسۡتَقۡدِرُكَ بِقُدۡرَتِكَ، وَأَسۡأَلُكَ مِنۡ فَضۡلِكَ ٱلۡعَظِيمِ', fr: 'Seigneur, je Te demande de m’indiquer le bien grâce à Ton savoir, je Te demande de m’accorder la puissance grâce à Ta puissance et je Te demande de me faire bénéficier de Ta grâce sublime.', e: 'Fiche 1 · Istikhâra, 1re partie (début).' },
+      { w: 'فَإِنَّكَ تَقۡدِرُ وَلَا أَقۡدِرُ، وَتَعۡلَمُ وَلَا أَعۡلَمُ، وَأَنۡتَ عَلَّامُ ٱلۡغُيُوبِ', fr: 'En vérité, Tu peux tout et je ne peux rien. Tu possèdes le savoir alors que je ne le possède pas, et Tu détiens la science des mystères.', e: 'Fiche 1 · Istikhâra, 1re partie (fin).' },
+      { w: 'ٱللَّهُمَّ إِنۡ كُنۡتَ تَعۡلَمُ أَنَّ هَٰذَا ٱلۡأَمۡرَ خَيۡرٌ لِي فِي دِينِي وَمَعَاشِي وَعَاقِبَةِ أَمۡرِي', fr: 'Seigneur, si Tu sais que cette affaire est un bien pour moi dans ma religion, dans ma vie et dans ma fin,', e: 'Fiche 1 · Istikhâra, 2e partie (début).' },
+      { w: 'فَٱقۡدُرۡهُ لِي وَيَسِّرۡهُ لِي، ثُمَّ بَارِكۡ لِي فِيهِ', fr: 'alors fais qu’elle soit la mienne, facilite-la, puis bénis-la pour moi.', e: 'Fiche 1 · Istikhâra, 2e partie (fin).' },
+      { w: 'ٱللَّهُمَّ وَإِنۡ كُنۡتَ تَعۡلَمُ أَنَّ هَٰذَا ٱلۡأَمۡرَ شَرٌّ لِي فِي دِينِي وَمَعَاشِي وَعَاقِبَةِ أَمۡرِي', fr: 'Et si Tu sais que cette affaire est un mal pour moi dans ma religion, dans ma vie et dans ma fin,', e: 'Fiche 1 · Istikhâra, 3e partie.' },
+      { w: 'فَٱصۡرِفۡهُ عَنِّي وَٱصۡرِفۡنِي عَنۡهُ، وَٱقۡدُرۡ لِيَ ٱلۡخَيۡرَ حَيۡثُ كَانَ، ثُمَّ ٱرۡضِنِي بِهِ', fr: 'alors éloigne-la de moi et éloigne-moi d’elle, dirige-moi vers le bien là où il se trouve, puis fais que j’en sois satisfait.', e: 'Fiche 1 · Istikhâra, 4e partie.' },
+      { w: 'رَبِّ إِنِّي مَسَّنِيَ ٱلضُّرُّ وَأَنتَ أَرۡحَمُ ٱلرَّٰحِمِينَ', fr: 'Seigneur ! Le mal m’a touché. Mais Toi, Tu es le plus miséricordieux des miséricordieux !', e: 'Fiche 2 · L’invocation du prophète Ayyoub (Job).' },
+      { w: 'وَإِذَا مَرِضۡتُ فَهُوَ يَشۡفِينِ', fr: 'Et quand je suis malade, c’est Lui qui me guérit.', e: 'Fiche 2 · L’invocation du prophète Ibrahim (Abraham).' },
+      { w: 'ٱللَّهُمَّ رَبَّ ٱلنَّاسِ، أَذۡهِبِ ٱلۡبَأۡسَ، وَٱشۡفِ، أَنۡتَ ٱلشَّافِي لَا شِفَاءَ إِلَّا شِفَاؤُكَ', fr: 'Ô Dieu, Seigneur des hommes, fais partir le mal et guéris. Tu es le Guérisseur, il n’y a de guérison que la Tienne,', e: 'Fiche 2 · Lorsqu’on est malade.' },
+      { w: 'أَعُوذُ بِكَلِمَاتِ ٱللَّهِ ٱلتَّامَّةِ مِنۡ كُلِّ شَيۡطَانٍ وَهَامَّةٍ، وَمِنۡ كُلِّ عَيۡنٍ لَامَّةٍ', fr: 'Je m’appuie sur les paroles parfaites d’Allah contre tout démon, tout méfait et tout mauvais œil envieux.', e: 'Fiche 3 · Contre le mauvais œil et la sorcellerie.' },
+      { w: 'أَعُوذُ بِكَلِمَاتِ ٱللَّهِ ٱلتَّامَّاتِ مِنۡ شَرِّ مَا خَلَقَ', fr: 'Je prends refuge dans les paroles parfaites d’Allah contre tout mal qu’Il a créé.', e: 'Fiche 3 · Contre le mauvais œil et la sorcellerie.' },
+      { w: 'أَعُوذُ بِكَلِمَاتِ ٱللَّهِ ٱلتَّامَّاتِ مِنۡ غَضَبِهِ وَعِقَابِهِ، وَمِنۡ شَرِّ عِبَادِهِ', fr: 'Je puise ma force dans les paroles sublimes d’Allah contre Sa colère, Son châtiment, le mal de Ses sujets…', e: 'Fiche 3 · VI-9, pour la prévention du mauvais œil et la sorcellerie.' }
+    ];
+    const B1 = 'Istikhâra : « Seigneur, je Te demande de m’indiquer le bien grâce à Ton savoir… Tu détiens la science des mystères. »';
+    const B2 = 'Istikhâra : « Seigneur, si Tu sais que cette affaire est un bien pour moi… facilite-la et bénis-la pour moi. »';
+    const B3 = 'Istikhâra : « Et si Tu sais que cette affaire est un mal pour moi… alors éloigne-la de moi et éloigne-moi d’elle… puis fais que j’en sois satisfait. »';
+    const B4 = 'Lorsqu’on est malade (fiche 2).';
+    const B5 = 'Contre le mauvais œil et la sorcellerie (fiche 3).';
+    const dtrous = [
+      { ar: true, t: 'ٱللَّهُمَّ إِنِّي [أَسۡتَخِيرُكَ] بِعِلۡمِكَ، [وَأَسۡتَقۡدِرُكَ] بِقُدۡرَتِكَ، وَأَسۡأَلُكَ مِنۡ فَضۡلِكَ ٱلۡعَظِيمِ', d: ['أَسۡتَغۡفِرُكَ', 'وَأَسۡتَعِينُكَ'], e: B1 },
+      { ar: true, t: 'فَإِنَّكَ [تَقۡدِرُ] وَلَا أَقۡدِرُ، وَتَعۡلَمُ وَلَا أَعۡلَمُ، وَأَنۡتَ عَلَّامُ [ٱلۡغُيُوبِ]', d: ['تَشَاءُ', 'ٱلۡقُلُوبِ'], e: B1 },
+      { ar: true, t: 'ٱللَّهُمَّ إِنۡ كُنۡتَ تَعۡلَمُ أَنَّ هَٰذَا ٱلۡأَمۡرَ [خَيۡرٌ] لِي فِي [دِينِي] وَمَعَاشِي وَعَاقِبَةِ أَمۡرِي', d: ['شَرٌّ', 'دُنۡيَايَ'], e: B2 },
+      { ar: true, t: 'فَٱقۡدُرۡهُ لِي [وَيَسِّرۡهُ] لِي، ثُمَّ [بَارِكۡ] لِي فِيهِ', d: ['وَٱصۡرِفۡهُ', 'ٱغۡفِرۡ'], e: B2 },
+      { ar: true, t: 'ٱللَّهُمَّ وَإِنۡ كُنۡتَ تَعۡلَمُ أَنَّ هَٰذَا ٱلۡأَمۡرَ [شَرٌّ] لِي فِي دِينِي [وَمَعَاشِي] وَعَاقِبَةِ أَمۡرِي', d: ['خَيۡرٌ', 'وَآخِرَتِي'], e: B3 },
+      { ar: true, t: '[فَٱصۡرِفۡهُ] عَنِّي [وَٱصۡرِفۡنِي] عَنۡهُ، وَٱقۡدُرۡ لِيَ ٱلۡخَيۡرَ حَيۡثُ كَانَ، ثُمَّ ٱرۡضِنِي بِهِ', d: ['فَٱقۡدُرۡهُ', 'وَيَسِّرۡهُ'], e: B3 },
+      { ar: true, t: 'وَٱقۡدُرۡ لِيَ [ٱلۡخَيۡرَ] حَيۡثُ [كَانَ]، ثُمَّ [ٱرۡضِنِي] بِهِ', d: ['ٱلۡأَمۡرَ', 'بَارِكۡ'], e: B3 },
+      { ar: true, t: 'رَبِّ إِنِّي [مَسَّنِيَ] ٱلضُّرُّ وَأَنتَ [أَرۡحَمُ] ٱلرَّٰحِمِينَ', d: ['أَصَابَنِيَ', 'خَيۡرُ'], e: B4 },
+      { ar: true, t: 'وَإِذَا [مَرِضۡتُ] فَهُوَ [يَشۡفِينِ]', d: ['سَقِمۡتُ', 'يَهۡدِينِ'], e: B4 },
+      { ar: true, t: 'ٱللَّهُمَّ رَبَّ ٱلنَّاسِ، [أَذۡهِبِ] ٱلۡبَأۡسَ، وَٱشۡفِ، أَنۡتَ [ٱلشَّافِي] لَا شِفَاءَ إِلَّا شِفَاؤُكَ', d: ['أَبۡعِدِ', 'ٱلۡكَافِي'], e: B4 },
+      { ar: true, t: 'لَا شِفَاءَ إِلَّا [شِفَاؤُكَ]، شِفَاءً لَا يُغَادِرُ [سَقَمًا]', d: ['رَحۡمَتُكَ', 'أَلَمًا'], e: B4 },
+      { ar: true, t: 'أَعُوذُ بِكَلِمَاتِ ٱللَّهِ [ٱلتَّامَّةِ] مِنۡ كُلِّ [شَيۡطَانٍ] وَهَامَّةٍ، وَمِنۡ كُلِّ عَيۡنٍ لَامَّةٍ', d: ['ٱلۡكَامِلَةِ', 'إِنۡسَانٍ'], e: B5 },
+      { ar: true, t: 'أَعُوذُ بِكَلِمَاتِ ٱللَّهِ ٱلتَّامَّاتِ مِنۡ [شَرِّ] مَا [خَلَقَ]', d: ['خَيۡرِ', 'صَنَعَ'], e: B5 },
+      { ar: true, t: 'أَعُوذُ بِكَلِمَاتِ ٱللَّهِ ٱلتَّامَّاتِ مِنۡ [غَضَبِهِ] وَعِقَابِهِ، وَمِنۡ شَرِّ عِبَادِهِ، وَمِنۡ [هَمَزَاتِ] ٱلشَّيَاطِينِ', d: ['رَحۡمَتِهِ', 'وَسَاوِسِ'], e: B5 }
+    ];
+    const ID = {
+      sections: [
+        { num: '1', title: 'Idghâm al-Moutamâthilayn', ar: 'إِدۡغَامُ ٱلۡمُتَمَاثِلَيۡنِ', verdict: 'Deux lettres identiques', chipBg: 'var(--accent)', chipFg: '#FFFFFF',
+          def: 'Si deux lettres identiques se suivent, la première ayant la voyelle neutre [étant sâkinah] et la seconde ayant une voyelle [Moutaharrik], elles fusionnent (fusion de 2 lettres identiques ou similaires) et la lecture se fait sans nasillement [Ghounnah].',
+          cases: [
+            { rule: 'Deux lettres identiques se suivent : la première est sâkinah, la seconde porte une voyelle. Elles fusionnent, sans nasillement [Ghounnah].',
+              ex: [{ label: 'Sourate 5, verset 61', text: '… وَقَ[[r:د]] [[r:دَّ]]خَلُواْ …' }, { label: 'Sourate 21, verset 87', text: '… إِ[[r:ذ]] [[r:ذَّ]]هَبَ …' }] },
+            { rule: 'Pour les lettres Mîm (م) et Noûn (ن), l’application de cette règle se fait obligatoirement avec le nasillement de 2 temps, et nous renvoie à deux assimilations vues précédemment.',
+              ex: [{ label: 'Sourate 106, verset 4 · Idghâm chafawy', text: 'وَءَامَنَهُ[[r:م]] [[r:مِّ]]نۡ خَوۡفِۭ' }, { label: 'Sourate 2, verset 266 · Idghâm bi ghounnah', text: '… جَنَّةٞ مِّ[[r:ن]] [[r:نَّ]]خِيلٖ وَأَعۡنَابٖ …' }] }
+          ] },
+        { num: '2', title: 'Idghâm al-Moutadjânissayn', ar: 'إِدۡغَامُ ٱلۡمُتَجَانِسَيۡنِ', verdict: 'Même point de sortie', chipBg: 'var(--tint2)', chipFg: 'var(--accent)',
+          def: 'Lorsque deux lettres ont le même point de sortie [Makhradj] mais des attributs [Sifât] différents, la première lettre portant la voyelle neutre [étant sâkinah] et la seconde ayant une voyelle [Moutaharrik], il y a alors assimilation de la première lettre dans la seconde (fusion de 2 lettres affinitaires). Il existe sept cas possibles dans le Coran :',
+          cases: [
+            { rule: 'Assimilation de la lettre Dâl (د) dans la lettre Tâ (ت) : assimilation totale.', ex: [{ label: 'Sourate 2, verset 256', text: '… قَ[[r:د]] [[r:تَّ]]بَيَّنَ …' }] },
+            { rule: 'Assimilation de la lettre Tâ (ت) dans la lettre Dâl (د) : assimilation totale.', ex: [{ label: 'Sourate 7, verset 189', text: '… أَثۡقَلَ[[r:ت]] [[r:دَّ]]عَوَا …' }] },
+            { rule: 'Assimilation de la lettre Tâ (ت) dans la lettre Ṯô (ط) : assimilation totale.', ex: [{ label: 'Sourate 61, verset 14', text: '… فَـَٔامَنَ[[r:ت]] [[r:طَّ]]آئِفَةٞ …' }] },
+            { rule: 'Assimilation de la lettre Ṯô (ط) dans la lettre Tâ (ت) : assimilation partielle.', ex: [{ label: 'Sourate 5, verset 28', text: '… لَئِنۢ بَسَ[[r:ط]][[r:تَ]] …' }],
+              note: 'Seule assimilation partielle (إِدۡغَامٌ نَاقِصٌ) : la lettre Ṯô (ط) est ressentie à travers son attribut [Al-Itbâq]. On emprisonne le son de Ṯô entre la langue et le palais, puis on le relâche pour prononcer la lettre Tâ (ت). Notes de cours : Ṯô (ط) est une lettre emphatique (lourde) ; Tâ (ت) est une lettre mince, faible.' },
+            { rule: 'Assimilation de la lettre Dzâl (ذ) dans la lettre Ẕô (ظ) : assimilation totale.', ex: [{ label: 'Sourate 43, verset 39', text: '… إِ[[r:ذ]] [[r:ظَّ]]لَمۡتُمۡ …' }] },
+            { rule: 'Assimilation de la lettre Thâ (ث) dans la lettre Dzâl (ذ) : assimilation totale.', ex: [{ label: 'Sourate 7, verset 176', text: '… يَلۡهَ[[r:ث]] [[r:ذَّ]]ٰلِكَ …' }] },
+            { rule: 'Assimilation de la lettre Bâ (ب) dans la lettre Mîm (م) : assimilation totale.', ex: [{ label: 'Sourate 11, verset 42', text: '… ٱرۡكَ[[r:ب]] [[r:مَّ]]عَنَا …' }] }
+          ] },
+        { num: '3', title: 'Idghâm al-Moutaqâribayn', ar: 'إِدۡغَامُ ٱلۡمُتَقَارِبَيۡنِ', verdict: 'Points de sortie proches', chipBg: 'var(--amber-bg)', chipFg: 'var(--amber-fg)',
+          def: 'La rencontre de deux lettres, la première ayant la voyelle neutre [étant sâkinah] et la seconde ayant une voyelle [Moutaharrik], dont les points de sortie [Makhâridj] et les attributs [Sifât] sont proches : l’on aura alors une fusion de la 1re dans la 2de (fusion de 2 lettres proches). Ce cas se présente deux (2) fois seulement dans le Coran :',
+          cases: [
+            { rule: 'Assimilation de la lettre Lâm (ل) dans la lettre Rô (ر).', ex: [{ label: 'Sourate 23, verset 118', text: 'وَقُ[[r:ل]] [[r:رَّ]]بِّ …' }] },
+            { rule: 'Assimilation de la lettre Qôf (ق) dans la lettre Kâf (ك).', ex: [{ label: 'Sourate 77, verset 20', text: 'أَلَمۡ نَخۡلُ[[r:ق]][[r:كُّ]]م …' }] }
+          ] }
+      ],
+      notes: [
+        { title: 'NB', text: 'Toutes les assimilations Moutadjânissayn sont des fusions totales (إِدۡغَامٌ كَامِلٌ) où la première lettre disparaît totalement dans la seconde, excepté celle de la lettre Ṯô (ط) dans celle de Tâ (ت), dite partielle (إِدۡغَامٌ نَاقِصٌ).' },
+        { title: 'Remarque', text: 'La présence du signe « Ach-chaddah » sur la seconde lettre montre que la fusion est complète : la première lettre se fond totalement dans la seconde. Par contre, son absence nous fait appliquer la règle des fusions incomplètes ou partielles.' },
+        { title: 'À venir', text: 'Le cours sur les points de sortie et les attributs des lettres sera couvert au niveau CPC.' }
+      ]
+    };
+    const IDT = { m: 'Idghâm al-Moutamâthilayn', j: 'Idghâm al-Moutadjânissayn', q: 'Idghâm al-Moutaqâribayn', g: 'Idghâm bi-ghounnah' };
+    const iqcm = [
+      { p: 'Deux lettres identiques se suivent, la première sâkinah et la seconde mue : de quelle assimilation s’agit-il ?', o: [IDT.m, IDT.j, IDT.q, IDT.g], e: 'C’est l’Idghâm al-Moutamâthilayn : fusion de deux lettres identiques, sans nasillement.' },
+      { p: 'Deux lettres ont le même point de sortie [Makhradj] mais des attributs [Sifât] différents : de quelle assimilation s’agit-il ?', o: [IDT.j, IDT.m, IDT.q, IDT.g], e: 'C’est l’Idghâm al-Moutadjânissayn : fusion de deux lettres affinitaires.' },
+      { p: 'Les points de sortie et les attributs des deux lettres sont proches : de quelle assimilation s’agit-il ?', o: [IDT.q, IDT.m, IDT.j, IDT.g], e: 'C’est l’Idghâm al-Moutaqâribayn : fusion de deux lettres proches.' },
+      { p: 'Dans « وَقَد دَّخَلُواْ » (sourate 5, verset 61), de quelle assimilation s’agit-il ?', o: [IDT.m, IDT.j, IDT.q, IDT.g], e: 'Deux Dâl identiques se suivent : Idghâm al-Moutamâthilayn.' },
+      { p: 'Dans « قَد تَّبَيَّنَ » (sourate 2, verset 256), quelle lettre s’assimile dans quelle autre ?', o: ['Dâl (د) dans Tâ (ت)', 'Tâ (ت) dans Dâl (د)', 'Ṯô (ط) dans Tâ (ت)', 'Dzâl (ذ) dans Ẕô (ظ)'], e: 'Le Dâl (د) sâkinah s’assimile dans le Tâ (ت) : Idghâm al-Moutadjânissayn.' },
+      { p: 'Dans « أَثۡقَلَت دَّعَوَا » (sourate 7, verset 189), quelle lettre s’assimile dans quelle autre ?', o: ['Tâ (ت) dans Dâl (د)', 'Dâl (د) dans Tâ (ت)', 'Thâ (ث) dans Dzâl (ذ)', 'Tâ (ت) dans Ṯô (ط)'], e: 'Le Tâ (ت) sâkinah s’assimile dans le Dâl (د).' },
+      { p: 'Dans « فَـَٔامَنَت طَّآئِفَةٞ » (sourate 61, verset 14), quelle lettre s’assimile dans quelle autre ?', o: ['Tâ (ت) dans Ṯô (ط)', 'Ṯô (ط) dans Tâ (ت)', 'Tâ (ت) dans Dâl (د)', 'Dâl (د) dans Tâ (ت)'], e: 'Le Tâ (ت) sâkinah s’assimile dans le Ṯô (ط).' },
+      { p: 'Dans « إِذ ظَّلَمۡتُمۡ » (sourate 43, verset 39), quelle lettre s’assimile dans quelle autre ?', o: ['Dzâl (ذ) dans Ẕô (ظ)', 'Ẕô (ظ) dans Dzâl (ذ)', 'Dâl (د) dans Tâ (ت)', 'Thâ (ث) dans Dzâl (ذ)'], e: 'Le Dzâl (ذ) sâkinah s’assimile dans le Ẕô (ظ).' },
+      { p: 'Dans « يَلۡهَث ذَّٰلِكَ » (sourate 7, verset 176), quelle lettre s’assimile dans quelle autre ?', o: ['Thâ (ث) dans Dzâl (ذ)', 'Dzâl (ذ) dans Thâ (ث)', 'Dzâl (ذ) dans Ẕô (ظ)', 'Tâ (ت) dans Dâl (د)'], e: 'Le Thâ (ث) sâkinah s’assimile dans le Dzâl (ذ).' },
+      { p: 'Dans « ٱرۡكَب مَّعَنَا » (sourate 11, verset 42), quelle lettre s’assimile dans quelle autre ?', o: ['Bâ (ب) dans Mîm (م)', 'Mîm (م) dans Bâ (ب)', 'Noûn (ن) dans Mîm (م)', 'Kâf (ك) dans Bâ (ب)'], e: 'Le Bâ (ب) sâkinah s’assimile dans le Mîm (م).' },
+      { p: 'Laquelle de ces assimilations est partielle (إِدۡغَامٌ نَاقِصٌ) ?', o: ['Ṯô (ط) dans Tâ (ت)', 'Tâ (ت) dans Ṯô (ط)', 'Dâl (د) dans Tâ (ت)', 'Bâ (ب) dans Mîm (م)'], e: 'Seule l’assimilation de Ṯô (ط) dans Tâ (ت) est partielle ; toutes les autres sont totales.' },
+      { p: 'Dans l’assimilation de Ṯô (ط) dans Tâ (ت), quel attribut de la lettre Ṯô reste perceptible ?', o: ['Al-Itbâq', 'Al-Ghounnah', 'Al-Qalqalah', 'Al-Hams'], e: 'La lettre Ṯô est ressentie à travers son attribut [Al-Itbâq] : on emprisonne son son entre la langue et le palais.' },
+      { p: 'Combien de cas d’Idghâm al-Moutadjânissayn existe-t-il dans le Coran ?', o: ['Sept', 'Deux', 'Cinq', 'Trois'], e: 'Il existe sept cas possibles d’Idghâm al-Moutadjânissayn dans le Coran.' },
+      { p: 'Dans « وَقُل رَّبِّ » (sourate 23, verset 118), de quelle assimilation s’agit-il ?', o: [IDT.q, IDT.m, IDT.j, IDT.g], e: 'Le Lâm (ل) s’assimile dans le Rô (ر) : Idghâm al-Moutaqâribayn.' },
+      { p: 'Dans « أَلَمۡ نَخۡلُقكُّم » (sourate 77, verset 20), quelle lettre s’assimile dans quelle autre ?', o: ['Qôf (ق) dans Kâf (ك)', 'Kâf (ك) dans Qôf (ق)', 'Lâm (ل) dans Rô (ر)', 'Kâf (ك) dans Mîm (م)'], e: 'Le Qôf (ق) s’assimile dans le Kâf (ك) : Idghâm al-Moutaqâribayn.' },
+      { p: 'Avec les lettres Mîm (م) et Noûn (ن), l’Idghâm al-Moutamâthilayn se fait :', o: ['Avec un nasillement [Ghounnah] de 2 temps', 'Sans aucun nasillement', 'Avec une prolongation de 4 temps', 'Avec une pause légère'], e: 'Pour Mîm et Noûn, la règle s’applique obligatoirement avec le nasillement de 2 temps.' },
+      { p: 'Que montre le signe Ach-chaddah « ـّ » sur la seconde lettre ?', o: ['La fusion est complète', 'La fusion est partielle', 'Il n’y a pas de fusion', 'Il faut s’arrêter'], e: 'La chaddah montre que la fusion est complète ; son absence fait appliquer la règle des fusions incomplètes ou partielles.' }
+    ];
+    const ivf = [
+      { s: 'Dans l’Idghâm al-Moutamâthilayn, les deux lettres sont identiques.', a: true, e: 'Exemple : وَقَد دَّخَلُواْ (sourate 5, verset 61).' },
+      { s: 'L’Idghâm al-Moutamâthilayn se lit toujours avec un nasillement [Ghounnah].', a: false, e: 'Il se lit sans nasillement, sauf avec les lettres Mîm et Noûn.' },
+      { s: 'Avec Mîm (م) et Noûn (ن), l’Idghâm al-Moutamâthilayn se fait avec un nasillement de 2 temps.', a: true, e: 'Exemples : وَءَامَنَهُم مِّنۡ خَوۡفِۭ et مِّن نَّخِيلٖ.' },
+      { s: 'Dans l’Idghâm al-Moutadjânissayn, les deux lettres ont le même point de sortie mais des attributs différents.', a: true, e: 'Ce sont deux lettres affinitaires.' },
+      { s: 'Il existe cinq cas d’Idghâm al-Moutadjânissayn dans le Coran.', a: false, e: 'Il en existe sept.' },
+      { s: 'Dans « قَد تَّبَيَّنَ », la lettre Tâ (ت) s’assimile dans la lettre Dâl (د).', a: false, e: 'C’est l’inverse : le Dâl (د) s’assimile dans le Tâ (ت).' },
+      { s: 'Dans « ٱرۡكَب مَّعَنَا », la lettre Bâ (ب) s’assimile dans la lettre Mîm (م).', a: true, e: 'Sourate 11, verset 42.' },
+      { s: 'Toutes les assimilations Moutadjânissayn sont totales, sauf celle de Ṯô (ط) dans Tâ (ت).', a: true, e: 'Celle-ci est partielle (إِدۡغَامٌ نَاقِصٌ).' },
+      { s: 'Dans l’assimilation de Ṯô (ط) dans Tâ (ت), la lettre Ṯô disparaît totalement.', a: false, e: 'Elle reste ressentie à travers son attribut [Al-Itbâq].' },
+      { s: 'L’Idghâm al-Moutaqâribayn concerne deux lettres dont les points de sortie et les attributs sont proches.', a: true, e: 'Exemple : وَقُل رَّبِّ (sourate 23, verset 118).' },
+      { s: 'L’Idghâm al-Moutaqâribayn se présente sept fois dans le Coran.', a: false, e: 'Ce cas se présente deux fois seulement : Lâm dans Rô, et Qôf dans Kâf.' },
+      { s: 'Dans « أَلَمۡ نَخۡلُقكُّم », le Qôf (ق) s’assimile dans le Kâf (ك).', a: true, e: 'Sourate 77, verset 20.' },
+      { s: 'L’absence du signe Ach-chaddah sur la seconde lettre indique une fusion complète.', a: false, e: 'C’est sa présence qui indique une fusion complète ; son absence indique une fusion incomplète ou partielle.' },
+      { s: 'Dans les trois types d’Idghâm, la première lettre est sâkinah et la seconde porte une voyelle.', a: true, e: 'La première porte la voyelle neutre [sâkinah], la seconde une voyelle [Moutaharrik].' }
+    ];
+    const itrous = [
+      { t: 'Si deux lettres [identiques] se suivent, la première étant sâkinah et la seconde mue, elles fusionnent : c’est l’Idghâm al-[Moutamâthilayn].', d: ['proches', 'Moutaqâribayn'], e: 'Exemple : إِذ ذَّهَبَ (sourate 21, verset 87).' },
+      { t: 'L’Idghâm al-Moutamâthilayn se lit sans [nasillement], sauf avec les lettres Mîm et [Noûn].', d: ['prolongation', 'Lâm'], e: 'Avec Mîm et Noûn, on fait un nasillement de 2 temps.' },
+      { t: 'Dans l’Idghâm al-Moutadjânissayn, les deux lettres ont le même point de [sortie] mais des [attributs] différents.', d: ['voyelle', 'signes'], e: 'Makhradj : point de sortie ; Sifât : attributs.' },
+      { t: 'Il existe [sept] cas d’Idghâm al-Moutadjânissayn dans le Coran.', d: ['deux', 'cinq'], e: 'Dâl/Tâ, Tâ/Dâl, Tâ/Ṯô, Ṯô/Tâ, Dzâl/Ẕô, Thâ/Dzâl, Bâ/Mîm.' },
+      { t: 'Dans « قَد تَّبَيَّنَ », la lettre [Dâl] s’assimile dans la lettre [Tâ].', d: ['Dzâl', 'Ṯô'], e: 'Sourate 2, verset 256.' },
+      { t: 'Dans « إِذ ظَّلَمۡتُمۡ », la lettre [Dzâl] s’assimile dans la lettre [Ẕô].', d: ['Dâl', 'Ṯô'], e: 'Sourate 43, verset 39.' },
+      { t: 'L’assimilation de Ṯô dans Tâ est dite [partielle] : on garde l’attribut [Al-Itbâq] de Ṯô.', d: ['totale', 'Al-Ghounnah'], e: 'Exemple : لَئِنۢ بَسَطتَ.' },
+      { t: 'Dans l’Idghâm al-Moutaqâribayn, les points de sortie et les attributs des deux lettres sont [proches].', d: ['identiques', 'différents'], e: 'Fusion de deux lettres proches.' },
+      { t: 'Dans « وَقُل رَّبِّ », la lettre [Lâm] s’assimile dans la lettre [Rô].', d: ['Noûn', 'Mîm'], e: 'Sourate 23, verset 118.' },
+      { t: 'La présence du signe Ach-[chaddah] sur la seconde lettre montre que la fusion est [complète].', d: ['soukoûn', 'partielle'], e: 'Son absence fait appliquer la règle des fusions incomplètes ou partielles.' }
+    ];
+    const MD = {
+      sections: [
+        { num: '1', title: 'Al-Madd Al-Asliyy · la prolongation de base', ar: 'ٱلۡمَدُّ ٱلۡأَصۡلِيُّ', verdict: '2 temps', chipBg: 'var(--accent)', chipFg: '#FFFFFF',
+          def: 'C’est une prolongation de base qui dure toujours 2 temps [harakatayn] et qui n’est ni liée à la lettre [Hamzah « ء »] ni au [As-soukoûn]. Cette famille de Madd est composée de 4 éléments. Notes de cours : « basique » ; absence de Hamzah et de soukoûn.',
+          cases: [
+            { rule: 'Al-Madd At-Tôbî’iyy (ٱلۡمَدُّ ٱلطَّبِيعِيُّ), notes de cours : « originel ». C’est une prolongation normale qui n’est ni suivie, ni précédée de la lettre Hamza ou d’un soukoûn. Elle se fait en deux temps et pas plus.',
+              ex: [{ label: 'Alif (ا) · Sourate 51, verset 25', text: '… قَ[[r:ا]]لَ سَلَٰمٞ …' }, { label: 'Yâ (ي) · Sourate 75, verset 27', text: 'وَقِ[[r:ي]]لَ مَنۡۜ رَاقٖ' }, { label: 'Wâw (و) · Sourate 75, verset 10', text: 'يَقُ[[r:و]]لُ ٱلۡإِنسَٰنُ …' }] },
+            { rule: 'Al-Madd Al-Badal (ٱلۡمَدُّ ٱلۡبَدَلُ) : lorsque la prolongation est précédée de la lettre Hamzah, il s’agit d’Al-Madd Al-Badal et sa durée est de deux temps. Notes de cours : le Hamzah est prolongé.',
+              ex: [{ label: 'Alif (ا) · Sourate 10, verset 63', text: 'ٱلَّذِينَ [[r:ءَا]]مَنُواْ وَكَانُواْ يَتَّقُونَ' }, { label: 'Yâ (ي) · Sourate 3, verset 173', text: '… فَزَادَهُمۡ [[r:إِي]]مَٰنٗا …' }, { label: 'Wâw (و) · Sourate 4, verset 47', text: 'يَٰٓأَيُّهَا ٱلَّذِينَ [[r:أُو]]تُواْ ٱلۡكِتَٰبَ …' }] },
+            { rule: 'Al-Madd Al-’Iwadî (ٱلۡمَدُّ ٱلۡعِوَضِيُّ), notes de cours : « remplaçant ». Lorsqu’on s’arrête sur la voyelle double [fathatayn « an = ـً »], elle laisse place à une prolongation de deux temps.',
+              ex: [{ label: 'Sourate 100, verset 1', text: 'وَٱلۡعَٰدِيَٰتِ ضَبۡ[[r:حٗا]]' }, { label: 'Sourate 77, verset 1', text: 'وَٱلۡمُرۡسَلَٰتِ عُرۡ[[r:فٗا]]' }, { label: 'ةً se lit Hâ sâkinah · Sourate 89, verset 28', text: '… رَاضِيَةٗ مَّرۡضِيَّ[[r:ةٗ]]' }, { label: 'ءً · Sourate 56, verset 35', text: 'إِنَّآ أَنشَأۡنَٰهُنَّ إِنشَآ[[r:ءٗ]]' }],
+              note: 'NB : les lettres portant fathatân sont toujours suivies d’Alif (ا) à l’écrit, sauf ءً et ةً. Al-Madd Al-’Iwadî s’applique à toutes les lettres (même ءً), sauf la lettre ةً qui se lit Hâ sâkinah (ـهۡ).' },
+            { rule: 'Al-Madd As-Silah As-Soughrâ (ٱلۡمَدُّ ٱلصِّلَةُ ٱلصُّغۡرَى), notes de cours : « liaison ». As-silah désigne le pronom de la 3e personne du singulier ـهِۦ ou ـهُۥ (toujours en position finale dans le mot). Lorsque ce pronom masculin n’est pas suivi d’un Hamza, on le prolonge de deux temps.',
+              ex: [{ label: 'Sourate 100, verset 4', text: 'فَأَثَرۡنَ بِ[[r:هِۦ]] نَقۡعٗا' }, { label: 'Sourate 112, verset 4', text: 'وَلَمۡ يَكُن لَّ[[r:هُۥ]] كُفُوًا أَحَدُۢ' }] }
+          ] },
+        { num: '2', title: 'Al-Madd Al-Far’iyy · la prolongation suivie du Hamzah', ar: 'ٱلۡمَدُّ ٱلۡفَرۡعِيُّ', verdict: 'Hamzah · 4 ou 5 temps', chipBg: 'var(--tint2)', chipFg: 'var(--accent)',
+          def: 'C’est une prolongation qui est liée à la lettre Hamzah ou à la voyelle As-soukoûn. De ce fait, elle est opposée à la prolongation de base [Al-Madd Al-Asliyy]. Lorsque la prolongation est suivie de la lettre Hamzah, on a les trois cas suivants :',
+          cases: [
+            { rule: 'Al-Madd Al-Wâjib Al-Mouttasil (ٱلۡمَدُّ ٱلۡوَاجِبُ ٱلۡمُتَّصِلُ) : si dans un même mot la lettre de prolongation est suivie de celle de Hamzah, on peut la faire durer 4 ou 5 temps. Notes de cours : (ءا) même mot.',
+              ex: [{ label: 'Sourate 107, verset 6', text: 'ٱلَّذِينَ هُمۡ يُرَ[[r:آ]][[b:ءُ]]ونَ' }, { label: 'Sourate 17, verset 81', text: 'وَقُلۡ جَ[[r:آ]][[b:ءَ]] ٱلۡحَقُّ …' }, { label: 'Sourate 65, verset 4', text: '… وَٱ[[r:لَّٰٓ]][[b:ـِٔ]]ي لَمۡ يَحِضۡنَ …' }, { label: 'Sourate 93, verset 10', text: 'وَأَمَّا ٱلسَّ[[r:آ]][[b:ئِ]]لَ فَلَا تَنۡهَرۡ' }, { label: 'Sourate 69, verset 19', text: '… هَ[[r:آ]][[b:ؤُ]]مُ ٱقۡرَءُواْ كِتَٰبِيَهۡ' }, { label: 'Sourate 12, verset 75', text: '… فَهُوَ جَ[[r:زَٰٓ]][[b:ؤُ]]هُۥ …' }, { label: 'Sourate 85, verset 1', text: 'وَٱلسَّمَ[[r:آ]][[b:ءِ]] ذَاتِ ٱلۡبُرُوجِ' }],
+              note: 'Remarque : lorsqu’on a le choix de la durée de la prolongation, il faut s’en tenir tout au long de la lecture du Coran. Si la lettre Hamzah a pour support Wâw (و) ou Yâ (ى), elle ne débute pas un mot : elle est donc du même mot que la lettre d’Al-Madd qui la précède. Idem pour la lettre Hamzah sans support suivie d’une lettre différente d’Alif. Dans ces deux cas, on applique Al-Madd Al-Wâjib Al-Mouttasil.' },
+            { rule: 'Exceptions : pour les mots « تَبُوٓأَ », « لَتَنُوٓأُ » et « ٱلسُّوٓأَىٰٓ », on applique Al-Madd Al-Wâjib Al-Mouttasil, car la lettre Hamzah ayant un support Alif et la lettre d’Al-Madd font bel et bien partie du même mot. À l’inverse, pour le mot « هَٰٓؤُلَآءِ », on applique Al-Madd Al-Djâ’iz Al-Mounfasil.',
+              ex: [{ label: 'Sourate 5, verset 29', text: 'إِنِّيٓ أُرِيدُ أَن تَبُ[[r:وٓ]][[b:أَ]] بِإِثۡمِي وَإِثۡمِكَ …' }, { label: 'Sourate 28, verset 76', text: '… مَآ إِنَّ مَفَاتِحَهُۥ لَتَنُ[[r:وٓ]][[b:أُ]] بِٱلۡعُصۡبَةِ أُوْلِي ٱلۡقُوَّةِ …' }, { label: 'Sourate 30, verset 10', text: 'ثُمَّ كَانَ عَٰقِبَةَ ٱلَّذِينَ أَسَٰٓـُٔواْ ٱلسُّ[[r:وٓ]][[b:أَ]]ىٰٓ أَن كَذَّبُواْ …' }, { label: 'Djâ’iz Al-Mounfasil · Sourate 26, verset 54', text: 'إِنَّ [[r:هَٰٓ]][[b:ؤُ]]لَآءِ لَشِرۡذِمَةٞ قَلِيلُونَ' }] },
+            { rule: 'Al-Madd Al-Djâ’iz Al-Mounfasil (ٱلۡمَدُّ ٱلۡجَائِزُ ٱلۡمُنۡفَصِلُ) : si la prolongation est à la fin d’un mot et que le Hamza se trouve au début du mot qui le suit, on la fait durer 4 ou 5 temps (et 2 temps pour certaines lectures). Notes de cours : (ء/ا) mots différents.',
+              ex: [{ label: 'Sourate 108, verset 1', text: 'إِنَّ[[r:آ]] [[b:أَ]]عۡطَيۡنَٰكَ ٱلۡكَوۡثَرَ' }, { label: 'Sourate 97, verset 1', text: 'إِنَّ[[r:آ]] [[b:أَ]]نزَلۡنَٰهُ …' }, { label: 'Sourate 40, verset 69', text: '… فِ[[r:يٓ]] [[b:ءَ]]ايَٰتِ ٱللَّهِ …' }],
+              note: 'Si la lettre Hamzah a pour support Alif (ا), ou si elle est sans support et suivie de (ا), alors elle est en début de mot : elle n’est donc pas du même mot que la lettre d’Al-Madd qui la précède. On applique Al-Madd Al-Djâ’iz Al-Mounfasil.' },
+            { rule: 'Al-Madd As-Silatoul-Koubrâ (ٱلۡمَدُّ ٱلصِّلَةُ ٱلۡكُبۡرَى) : lorsque le pronom masculin singulier est suivi d’un Hamza, on le prolonge de 4 ou 5 temps (et 2 temps pour certaines lectures).',
+              ex: [{ label: 'Sourate 90, verset 7', text: '… أَن لَّمۡ يَرَ[[r:هُۥٓ]] [[b:أَ]]حَدٌ' }, { label: 'Sourate 22, verset 34', text: '… إِلَٰهٞ وَٰحِدٞ فَلَ[[r:هُۥٓ]] [[b:أَ]]سۡلِمُواْ …' }, { label: 'Sourate 6, verset 99', text: '… ثَمَرِ[[r:هِۦٓ]] [[b:إِ]]ذَآ أَثۡمَرَ …' }, { label: 'Sourate 83, verset 12', text: 'وَمَا يُكَذِّبُ بِ[[r:هِۦٓ]] [[b:إِ]]لَّا …' }] }
+          ] },
+        { num: '3', title: 'Al-Madd Al-Far’iyy · la prolongation suivie du soukoûn', ar: 'ٱلۡمَدُّ ٱلۡفَرۡعِيُّ', verdict: 'Soukoûn · 2, 4 ou 6 temps', chipBg: 'var(--amber-bg)', chipFg: 'var(--amber-fg)',
+          def: 'Lorsque la prolongation est suivie de la voyelle As-soukoûn, on a les trois cas suivants : Al-’Âridou li-s-soukoûn, Al-Lîn et Al-Lâzim, ce dernier se divisant en quatre catégories.',
+          cases: [
+            { rule: 'Al-Madd Al-’Âridou li-s-soukoûn (ٱلۡمَدُّ ٱلۡعَارِضُ لِلسُّكُونِ) : si une prolongation est suivie de la voyelle As-soukoûn due à l’arrêt, sa durée sera de 2, 4 ou 6 temps.',
+              ex: [{ label: 'Sourate 50, verset 45', text: 'نَّحۡنُ أَعۡلَمُ بِمَا يَقُولُ[[r:و]]نَۖ وَمَآ أَنتَ عَلَيۡهِم بِجَبَّ[[r:ا]]رٖۖ فَذَكِّرۡ بِٱلۡقُرۡءَانِ مَن يَخَافُ وَعِ[[r:ي]]دِ' }] },
+            { rule: 'Al-Madd Al-Lîn (ٱلۡمَدُّ ٱللِّينُ) : lorsqu’on s’arrête sur un mot dont l’avant-dernière lettre est Wâw (و) ou Yâ (ي) à soukoûn, précédée de la voyelle Al-Fathah, la prolongation de ces deux lettres sera de 2, 4 ou 6 temps.',
+              ex: [{ label: 'Sourate 106, verset 4', text: '… وَءَامَنَهُم مِّنۡ خَ[[r:وۡ]]فِۭ' }, { label: 'Sourate 106, verset 1', text: 'لِإِيلَٰفِ قُرَ[[r:يۡ]]شٍ' }] },
+            { rule: 'Al-Madd Al-Lâzim (ٱلۡمَدُّ ٱللَّازِمُ), notes de cours : « ce qui est constant ». Que l’on s’arrête sur le mot ou pas, une prolongation suivie du soukoûn obligatoire [Lâzim] a 6 temps de durée. 1re catégorie, Al-Lâzim Al-Kalimiyy Al-Mouthaqqal (notes de cours : « relatif au mot », « lourd, renforcé ») : la prolongation est suivie d’une lettre doublée (surmontée du signe Ach-Chaddah) dans un mot.',
+              ex: [{ label: 'Sourate 1, verset 7', text: '… وَلَا ٱلضَّ[[r:آ]]لِّينَ' }] },
+            { rule: '2e catégorie, Al-Lâzim Al-Kalimiyy Al-Moukhaffaf (ٱلۡمَدُّ ٱللَّازِمُ ٱلۡكَلِمِيُّ ٱلۡمُخَفَّفُ) : la prolongation est suivie d’une lettre sâkinah dans un mot. Cette règle n’existe que 2 fois dans le Coran, et pour le même mot.',
+              ex: [{ label: 'Sourate 10, verset 51', text: '[[b:ءَ]][[r:آ]]لۡـَٰٔنَ وَقَدۡ كُنتُم بِهِۦ تَسۡتَعۡجِلُونَ' }] },
+            { rule: '3e catégorie, Al-Lâzim Al-Harfiyy Al-Mouthaqqal (ٱلۡمَدُّ ٱللَّازِمُ ٱلۡحَرۡفِيُّ ٱلۡمُثَقَّلُ), notes de cours : « relatif à la lettre ». C’est la prolongation qui se trouve dans les lettres qui débutent certaines sourates. Il faut 3 conditions : la phonétique arabe est composée de 3 lettres (Lâm = لَامۡ) ; la lettre du milieu est une voyelle longue (prolongement au milieu) ; la 3e lettre s’assimile [Idghâm] avec la lettre suivante.',
+              ex: [{ label: 'Sourate 2, verset 1 · الٓمٓ', text: 'أَلِفۡ لَآ[[r:مۡ]] [[b:مِّ]]يمۡ' }, { label: 'Sourate 26, verset 1 · طسٓمٓ', text: 'طَا سِيٓ[[r:نۡ]] [[b:مِّ]]يمۡ' }] },
+            { rule: '4e catégorie, Al-Lâzim Al-Harfiyy Al-Moukhaffaf (ٱلۡمَدُّ ٱللَّازِمُ ٱلۡحَرۡفِيُّ ٱلۡمُخَفَّفُ), « permanent littéral allégé » : même règle que la précédente, seule la 3e condition diffère : la 3e lettre ne s’assimile pas dans la lettre qui suit.',
+              ex: [{ label: 'Sourate 50, verset 1 · قٓ', text: 'قَ[[r:آ]]فۡ' }, { label: 'Sourate 36, verset 1 · يسٓ', text: 'يَا سِ[[r:يٓ]]نۡ' }, { label: 'Sourate 19, verset 1 · كٓهيعٓصٓ', text: 'كَ[[r:آ]]فۡ هَا يَا عَ[[r:يٓ]]نۡ صَ[[r:آ]]دۡ' }],
+              note: 'NB : pour tous les cas de prolongations « Lâzim Al-Harfiyy » dans le Coran, seules les lettres Lâm (ل) et Sîn (س) sont « alourdies » (Al-Mouthaqqal), lorsqu’elles sont suivies de la lettre Mîm (م). Tout autre cas de Lâzim Al-Harfiyy est « allégé » (Al-Moukhaffaf).' }
+          ] },
+        { num: '4', title: 'Les autres prolongations', ar: '', verdict: 'Remarques', chipBg: 'var(--surface3)', chipFg: 'var(--ink)',
+          def: 'Il existe d’autres types de prolongations :',
+          cases: [
+            { rule: 'Al-Madd At-Tamkîn (ٱلۡمَدُّ ٱلتَّمۡكِينُ) : quand deux lettres Yâ (ي) ou Wâw (و) se suivent et que l’une d’entre elles est « Maddiyyah » (lettre de prolongation), il est nécessaire de bien respecter le temps de la prolongation afin d’éviter une assimilation entre les deux lettres.',
+              ex: [{ label: 'Yâ (ي) · Sourate 4, verset 86', text: 'وَإِذَا حُ[[r:يِّي]]تُم بِتَحِيَّةٖ فَحَيُّواْ بِأَحۡسَنَ مِنۡهَآ …' }, { label: 'Wâw (و) · Sourate 31, verset 8', text: 'إِنَّ ٱلَّذِينَ ءَامَنُ[[r:واْ وَ]]عَمِلُواْ ٱلصَّٰلِحَٰتِ …' }] },
+            { rule: 'Al-Madd Al-Farq (ٱلۡمَدُّ ٱلۡفَرۡقُ) : cette prolongation a lieu pour différencier la forme interrogative de l’affirmative. C’est lorsque la lettre Hamzah interrogative (Hamzatou-l-Istif’hâm) précède Alif wa Lâm (ٱل).',
+              ex: [{ label: 'Sourate 10, verset 59', text: 'قُلۡ [[b:ءَ]][[r:آ]]للَّهُ أَذِنَ لَكُمۡ …' }, { label: 'Sourate 10, verset 51', text: '[[b:ءَ]][[r:آ]]لۡـَٰٔنَ …' }],
+              note: 'NB : Al-Madd Al-Farq revient toujours aux Moudoûd Al-Lâzim Al-Kalimiyy. Pour le seul cas d’Al-Madd Al-Kalimiyy Al-Moukhaffaf, on note une autre prononciation possible, en rendant la seconde lettre Hamzah (أ) souple et moins forte (At-Tashîl ou Hamzah Moussahhalah).' },
+            { rule: 'Al-Madd Al-Harfiyy At-Tôbî’iyy (ٱلۡمَدُّ ٱلۡحَرۡفِيُّ ٱلطَّبِيعِيُّ) : c’est la prolongation normale de deux (2) temps des cinq (5) lettres isolées (حَيٌّ طَهُرَ). Certains savants la classent parmi les prolongations de base [ٱلۡمَدُّ ٱلۡأَصۡلِيُّ].',
+              ex: [{ label: 'Exemples', text: 'حمٓ   طه   يسٓ   الٓر' }],
+              note: 'Il existe d’autres prolongations, mais qui ne sont pas appliquées dans le lectionnaire de l’Imâm Ḥafs.' }
+          ] }
+      ],
+      notes: [
+        { title: 'Remarque', text: 'Les lettres isolées au début de certaines sourates se divisent en trois catégories : la lettre qui ne se prolonge pas, l’Alif (ا) ; les 5 lettres qui se prolongent de 2 temps, Ḥâ (ح), Yâ (ي), Ṯô (ط), Hâ (ه) et Rô (ر), dont l’expression est حَيٌّ طَهُرَ (notes de cours : « harfy tobi’i ») ; les lettres qui se prolongent de 6 temps, Noûn (ن), Qôf (ق), Ṣâd (ص), ’Ayn (ع) dont le temps peut être réduit à 4, Sîn (س), Lâm (ل), Kâf (ك) et Mîm (م), dont l’expression est نَقَصَ عَسَلُكُمۡ.' },
+        { title: 'Vocabulaire', text: 'Degré = temps (harakah en arabe) : il est estimé au temps de la fermeture ou de l’ouverture d’un doigt.' }
+      ]
+    };
+    const MDT = { tob: 'Al-Madd At-Tôbî’iyy', bad: 'Al-Madd Al-Badal', iwa: 'Al-Madd Al-’Iwadî', sis: 'Al-Madd As-Silah As-Soughrâ', waj: 'Al-Madd Al-Wâjib Al-Mouttasil', dja: 'Al-Madd Al-Djâ’iz Al-Mounfasil', sik: 'Al-Madd As-Silatoul-Koubrâ', ari: 'Al-Madd Al-’Âridou li-s-soukoûn', lin: 'Al-Madd Al-Lîn', kth: 'Al-Lâzim Al-Kalimiyy Al-Mouthaqqal', kkh: 'Al-Lâzim Al-Kalimiyy Al-Moukhaffaf', hth: 'Al-Lâzim Al-Harfiyy Al-Mouthaqqal', hkh: 'Al-Lâzim Al-Harfiyy Al-Moukhaffaf' };
+    const pqcm = [
+      { p: 'Par quelles lettres se fait la prolongation (Al-Madd) ?', o: ['Alif (ا), Wâw (و) et Yâ (ي) sâkinah', 'Hamzah (ء), Hâ (ه) et Noûn (ن)', 'Lâm (ل), Mîm (م) et Rô (ر)', 'Les lettres emphatiques'], e: 'Alif précédé d’Al-Fathah, Wâw précédé d’Ad-Dommah, Yâ précédé d’Al-Kasrah : exemple نُوحِيهَا.' },
+      { p: 'Quelle voyelle brève précède le Wâw (و) de prolongation ?', o: ['Ad-Dommah', 'Al-Fathah', 'Al-Kasrah', 'As-Soukoûn'], e: 'Le Wâw sâkinah est précédé de la voyelle brève Ad-Dommah.' },
+      { p: 'Combien de temps dure Al-Madd Al-Asliyy ?', o: ['Toujours 2 temps', '4 ou 5 temps', '6 temps', '2, 4 ou 6 temps'], e: 'C’est la prolongation de base : toujours 2 temps [harakatayn].' },
+      { p: 'Dans « قَالَ سَلَٰمٞ » (sourate 51, verset 25), quelle prolongation fait-on dans « قَالَ » ?', o: [MDT.tob, MDT.bad, MDT.iwa, MDT.lin], e: 'Ni Hamzah ni soukoûn : c’est la prolongation normale de 2 temps.' },
+      { p: 'Dans « ٱلَّذِينَ ءَامَنُواْ » (sourate 10, verset 63), quelle prolongation fait-on dans « ءَامَنُواْ » ?', o: [MDT.bad, MDT.tob, MDT.waj, MDT.dja], e: 'La prolongation est précédée de la lettre Hamzah : Al-Madd Al-Badal, 2 temps.' },
+      { p: 'À l’arrêt sur « ضَبۡحٗا » (sourate 100, verset 1), quelle prolongation applique-t-on ?', o: [MDT.iwa, MDT.ari, MDT.tob, MDT.lin], e: 'À l’arrêt, le fathatân laisse place à une prolongation de 2 temps : Al-Madd Al-’Iwadî.' },
+      { p: 'À l’arrêt sur « مَّرۡضِيَّةٗ », comment lit-on la fin du mot ?', o: ['Hâ sâkinah, sans prolongation', 'Alif prolongé de 2 temps', 'Tâ sâkinah', 'Hâ prolongé de 6 temps'], e: 'Al-Madd Al-’Iwadî ne s’applique pas à ةً, qui se lit Hâ sâkinah.' },
+      { p: 'Dans « فَأَثَرۡنَ بِهِۦ نَقۡعٗا » (sourate 100, verset 4), quelle prolongation fait-on sur « بِهِۦ » ?', o: [MDT.sis, MDT.sik, MDT.bad, MDT.dja], e: 'Le pronom masculin n’est pas suivi d’un Hamza : As-Silah As-Soughrâ, 2 temps.' },
+      { p: 'Dans « أَن لَّمۡ يَرَهُۥٓ أَحَدٌ » (sourate 90, verset 7), quelle prolongation fait-on ?', o: [MDT.sik, MDT.sis, MDT.waj, MDT.ari], e: 'Le pronom masculin est suivi d’un Hamza : As-Silatoul-Koubrâ, 4 ou 5 temps.' },
+      { p: 'Dans « جَآءَ » (sourate 17, verset 81), la lettre de prolongation et le Hamzah sont dans le même mot : de quelle prolongation s’agit-il ?', o: [MDT.waj, MDT.dja, MDT.bad, MDT.sik], e: 'Même mot : Al-Madd Al-Wâjib Al-Mouttasil, 4 ou 5 temps.' },
+      { p: 'Dans « إِنَّآ أَعۡطَيۡنَٰكَ » (sourate 108, verset 1), de quelle prolongation s’agit-il ?', o: [MDT.dja, MDT.waj, MDT.bad, MDT.tob], e: 'La prolongation est en fin de mot et le Hamza au début du mot suivant : Al-Madd Al-Djâ’iz Al-Mounfasil.' },
+      { p: 'Combien de temps dure Al-Madd Al-Wâjib Al-Mouttasil ?', o: ['4 ou 5 temps', '2 temps', '6 temps', '2, 4 ou 6 temps'], e: 'On peut la faire durer 4 ou 5 temps.' },
+      { p: 'À l’arrêt sur « يَقُولُونَ », quelle prolongation applique-t-on ?', o: [MDT.ari, MDT.lin, MDT.kth, MDT.tob], e: 'La prolongation est suivie d’un soukoûn dû à l’arrêt : 2, 4 ou 6 temps.' },
+      { p: 'À l’arrêt sur « قُرَيۡشٍ » (sourate 106, verset 1), quelle prolongation applique-t-on ?', o: [MDT.lin, MDT.ari, MDT.tob, MDT.kkh], e: 'Yâ sâkinah précédé d’Al-Fathah, avant la dernière lettre : Al-Madd Al-Lîn.' },
+      { p: 'Dans « وَلَا ٱلضَّآلِّينَ » (sourate 1, verset 7), de quelle prolongation s’agit-il ?', o: [MDT.kth, MDT.kkh, MDT.hth, MDT.ari], e: 'La prolongation est suivie d’une lettre doublée (Ach-Chaddah) dans un mot : 6 temps.' },
+      { p: 'Dans « ءَآلۡـَٰٔنَ » (sourate 10, verset 51), de quelle prolongation s’agit-il ?', o: [MDT.kkh, MDT.kth, MDT.hkh, MDT.bad], e: 'La prolongation est suivie d’une lettre sâkinah dans un mot ; cette règle n’existe que 2 fois dans le Coran.' },
+      { p: 'Dans « الٓمٓ » (sourate 2, verset 1), quelle prolongation fait-on sur « لَآمۡ » ?', o: [MDT.hth, MDT.hkh, MDT.kth, MDT.tob], e: 'Le Mîm de « لَآمۡ » s’assimile dans le Mîm suivant : Al-Lâzim Al-Harfiyy Al-Mouthaqqal, 6 temps.' },
+      { p: 'Dans « يسٓ » (sourate 36, verset 1), quelle prolongation fait-on sur « سِينۡ » ?', o: [MDT.hkh, MDT.hth, MDT.kkh, MDT.lin], e: 'La 3e lettre ne s’assimile pas dans la suivante : Al-Lâzim Al-Harfiyy Al-Moukhaffaf, 6 temps.' },
+      { p: 'Combien de temps dure Al-Madd Al-Lâzim ?', o: ['6 temps', '2 temps', '4 ou 5 temps', '2, 4 ou 6 temps'], e: 'Que l’on s’arrête ou pas, Al-Madd Al-Lâzim a 6 temps de durée.' },
+      { p: 'Quelle lettre isolée ne se prolonge pas au début des sourates ?', o: ['Alif (ا)', 'Noûn (ن)', 'Ḥâ (ح)', 'Mîm (م)'], e: 'En début de sourate, seul l’Alif ne se prolonge pas.' },
+      { p: 'Quelle expression regroupe les 5 lettres isolées prolongées de 2 temps ?', ar: true, o: ['حَيٌّ طَهُرَ', 'نَقَصَ عَسَلُكُمۡ', 'نُوحِيهَا', 'يَرۡمُلُونَ'], e: 'Ḥâ, Yâ, Ṯô, Hâ et Rô : حَيٌّ طَهُرَ.' },
+      { p: 'Quelle lettre isolée de 6 temps peut être réduite à 4 temps ?', o: ['’Ayn (ع)', 'Noûn (ن)', 'Qôf (ق)', 'Sîn (س)'], e: 'La lettre ’Ayn peut être prolongée de 4 à 6 temps.' }
+    ];
+    const pvf = [
+      { s: 'Al-Madd Al-Asliyy n’est lié ni à la lettre Hamzah ni au soukoûn.', a: true, e: 'C’est la prolongation de base, de 2 temps.' },
+      { s: 'Al-Madd At-Tôbî’iyy peut durer 4 temps.', a: false, e: 'Il se fait en deux temps et pas plus.' },
+      { s: 'Al-Madd Al-Badal est une prolongation précédée de la lettre Hamzah.', a: true, e: 'Exemple : ءَامَنُواْ. Sa durée est de 2 temps.' },
+      { s: 'À l’arrêt, Al-Madd Al-’Iwadî s’applique à la lettre ةً.', a: false, e: 'ةً se lit Hâ sâkinah (ـهۡ) : pas de prolongation.' },
+      { s: 'Les lettres portant fathatân sont toujours suivies d’Alif à l’écrit, sauf ءً et ةً.', a: true, e: 'Exemple : إِنشَآءٗ, sans Alif après le ءً.' },
+      { s: 'As-Silah désigne le pronom de la 3e personne du singulier masculin (ـهُۥ / ـهِۦ).', a: true, e: 'Toujours en position finale dans le mot.' },
+      { s: 'Al-Madd Al-Far’iyy est lié à la lettre Hamzah ou au soukoûn.', a: true, e: 'C’est pourquoi il est opposé à Al-Madd Al-Asliyy.' },
+      { s: 'Dans Al-Madd Al-Djâ’iz Al-Mounfasil, la lettre de prolongation et le Hamzah sont dans le même mot.', a: false, e: 'Ils sont dans deux mots différents : c’est Al-Wâjib Al-Mouttasil qui les réunit dans un même mot.' },
+      { s: 'Lorsqu’on a le choix de la durée d’une prolongation, il faut s’y tenir tout au long de la lecture du Coran.', a: true, e: 'C’est la remarque du livre.' },
+      { s: 'Pour le mot « هَٰٓؤُلَآءِ », on applique Al-Madd Al-Djâ’iz Al-Mounfasil.', a: true, e: 'C’est une exception (sourate 26, verset 54).' },
+      { s: 'Pour le mot « تَبُوٓأَ », on applique Al-Madd Al-Djâ’iz Al-Mounfasil.', a: false, e: 'On applique Al-Wâjib Al-Mouttasil : la lettre de prolongation et le Hamzah font partie du même mot.' },
+      { s: 'Al-Madd Al-’Âridou li-s-soukoûn dure 2, 4 ou 6 temps.', a: true, e: 'Le soukoûn est dû à l’arrêt.' },
+      { s: 'Al-Madd Al-Lîn concerne le Wâw ou le Yâ sâkinah précédé d’Al-Fathah, à l’arrêt.', a: true, e: 'Exemples : خَوۡفِۭ et قُرَيۡشٍ.' },
+      { s: 'Al-Madd Al-Lâzim dure 6 temps, que l’on s’arrête sur le mot ou pas.', a: true, e: 'Notes de cours : « ce qui est constant ».' },
+      { s: 'Al-Madd Al-Lâzim Al-Kalimiyy Al-Moukhaffaf se trouve une dizaine de fois dans le Coran.', a: false, e: 'Il n’existe que 2 fois, et pour le même mot : ءَآلۡـَٰٔنَ.' },
+      { s: 'Parmi les Lâzim Al-Harfiyy, seules les lettres Lâm et Sîn suivies de Mîm sont « Al-Mouthaqqal ».', a: true, e: 'Tout autre cas est « allégé » (Al-Moukhaffaf).' },
+      { s: 'Al-Madd At-Tamkîn évite l’assimilation entre deux Yâ ou deux Wâw qui se suivent.', a: true, e: 'Il faut bien respecter le temps de la prolongation.' },
+      { s: 'Al-Madd Al-Farq différencie la forme interrogative de la forme affirmative.', a: true, e: 'Le Hamzah interrogatif précède Alif wa Lâm : ءَآللَّهُ.' }
+    ];
+    const ptrous = [
+      { t: 'Al-Madd se fait avec les lettres Alif, [Wâw] et [Yâ] sâkinah.', d: ['Hamzah', 'Noûn'], e: 'Exemple qui regroupe le tout : نُوحِيهَا.' },
+      { t: 'Al-Madd Al-Asliyy dure toujours [2] temps.', d: ['4', '6'], e: 'C’est la prolongation de base.' },
+      { t: 'Lorsque la prolongation est précédée de la lettre Hamzah, il s’agit d’Al-Madd Al-[Badal].', d: ['Lîn', 'Lâzim'], e: 'Notes de cours : le Hamzah est prolongé.' },
+      { t: 'À l’arrêt sur le fathatân, on applique Al-Madd Al-[’Iwadî].', d: ['Badal', 'Lîn'], e: 'Notes de cours : « remplaçant ».' },
+      { t: 'Si la lettre de prolongation et le Hamzah sont dans le [même] mot, c’est Al-Madd Al-Wâjib Al-[Mouttasil].', d: ['Mounfasil', 'autre'], e: 'Exemple : جَآءَ, 4 ou 5 temps.' },
+      { t: 'Si le Hamza est au début du mot [suivant], c’est Al-Madd Al-Djâ’iz Al-[Mounfasil].', d: ['Mouttasil', 'même'], e: 'Exemple : إِنَّآ أَعۡطَيۡنَٰكَ.' },
+      { t: 'As-Silatoul-[Koubrâ] : le pronom masculin est suivi d’un [Hamza].', d: ['Soughrâ', 'soukoûn'], e: 'Exemple : يَرَهُۥٓ أَحَدٌ.' },
+      { t: 'Si la prolongation est suivie du soukoûn dû à l’[arrêt], elle dure 2, 4 ou [6] temps.', d: ['assimilation', '5'], e: 'C’est Al-Madd Al-’Âridou li-s-soukoûn.' },
+      { t: 'Al-Madd Al-Lâzim a [6] temps de durée.', d: ['2', '4'], e: 'Que l’on s’arrête ou pas.' },
+      { t: 'Dans « وَلَا ٱلضَّآلِّينَ », la prolongation est suivie d’une lettre [doublée] : c’est Al-Lâzim Al-Kalimiyy Al-[Mouthaqqal].', d: ['sâkinah', 'Moukhaffaf'], e: 'Sourate 1, verset 7.' },
+      { t: 'Dans Al-Lâzim Al-Harfiyy Al-Mouthaqqal, la 3e lettre s’[assimile] avec la lettre qui suit.', d: ['arrête', 'prolonge'], e: 'Exemple : الٓمٓ = أَلِفۡ لَآمۡ مِّيمۡ.' },
+      { t: 'Al-Madd Al-[Farq] différencie la forme interrogative de l’affirmative.', d: ['Tamkîn', 'Lîn'], e: 'Exemple : ءَآللَّهُ أَذِنَ لَكُمۡ.' }
+    ];
+    this._d = { fr, signs, map, qcm, vf, trous, EX, AR, types, tqcm, tvf, ttrous, RA, rqcm, rvf, rtrous, COMP, ctrous, cqcm, cordre, PROG, PROG4B, COMP4B, dqcm, dordre, dtrous, ID, iqcm, ivf, itrous, MD, pqcm, pvf, ptrous };
     return this._d;
   }
 
@@ -1499,7 +2060,7 @@ class Component extends DCLogic {
       screen: 'home', mode: null, topic: 'signes', queue: [], idx: 0, answered: false, picked: null,
       fills: [], checked: false, score: 0, mistakes: [],
       best: { qcm: null, vf: null, trous: null, tqcm: null, tvf: null, ttrous: null }, hide: false, revealed: {},
-      prog: { q: {}, hist: [] }, weeksDone: {}, theme: 'auto', arScale: 1, arFont: 'hafs', sysDark: false, confirmReset: false, toast: ''
+      prog: { q: {}, hist: [] }, weeksDone: {}, level: '4C', theme: 'auto', arScale: 1, arFont: 'hafs', sysDark: false, confirmReset: false, toast: ''
     }, this.state || {});
   }
 
@@ -1511,6 +2072,10 @@ class Component extends DCLogic {
     try {
       const rp = window.localStorage.getItem('waqf-progres');
       if (rp) { const p = JSON.parse(rp); this.setState({ prog: { q: p.q || {}, hist: p.hist || [] } }); }
+    } catch (e) {}
+    try {
+      const rl = window.localStorage.getItem('waqf-niveau');
+      if (rl === '4B' || rl === '4C') this.setState({ level: rl });
     } catch (e) {}
     try {
       const rw = window.localStorage.getItem('waqf-programme');
@@ -1542,7 +2107,7 @@ class Component extends DCLogic {
   qIndex() {
     if (this._qi) return this._qi;
     const D = this.D(); const idx = {};
-    ['signes', 'types', 'ra', 'comp'].forEach((tp) => ['qcm', 'vf', 'trous', 'ordre'].forEach((m) => (D[this.bankKey(m, tp)] || []).forEach((it) => {
+    ['signes', 'types', 'ra', 'comp', 'comp4b', 'idgham', 'madd'].forEach((tp) => ['qcm', 'vf', 'trous', 'ordre'].forEach((m) => (D[this.bankKey(m, tp)] || []).forEach((it) => {
       idx[this.qidOf(m, it)] = { mode: m, item: it, topic: tp };
     })));
     this._qi = idx;
@@ -1583,8 +2148,14 @@ class Component extends DCLogic {
   }
 
   // ——— Fiche de progression ———
+  setLevel(l) {
+    this.setState({ level: l });
+    try { window.localStorage.setItem('waqf-niveau', l); } catch (e) {}
+  }
+
   toggleWeek(n) {
     const w = Object.assign({}, this.S().weeksDone || {});
+    if (this.S().level === '4B') n = 'b' + n;
     if (w[n]) delete w[n]; else w[n] = true;
     this.setState({ weeksDone: w });
     try { window.localStorage.setItem('waqf-programme', JSON.stringify(w)); } catch (e) {}
@@ -1704,7 +2275,12 @@ class Component extends DCLogic {
     return { segs, answers };
   }
 
+  bidi(t) {
+    return typeof t === 'string' ? t.replace(/([\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]+(?:[ \u00A0]+[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]+)*)/g, '\u2068$1\u2069') : t;
+  }
+
   prep(mode, it) {
+    if (this._bt === 'madd' || this._bt === 'idgham') it = Object.assign({}, it, { p: this.bidi(it.p), s: this.bidi(it.s), e: this.bidi(it.e), t: it.ar ? it.t : this.bidi(it.t) });
     if (mode === 'qcm') {
       const opts = it.o.map((x, i) => ({ text: it.go ? '' : x, sign: it.go ? x : null, correct: i === 0 }));
       return { type: 'qcm', ar: !!it.ar, g: it.g, v: it.v || null, p: it.p, e: it.e, options: this.shuffle(opts) };
@@ -1727,7 +2303,7 @@ class Component extends DCLogic {
   }
 
   bankKey(mode, topic) {
-    return topic === 'types' ? 't' + mode : (topic === 'ra' ? 'r' + mode : (topic === 'comp' ? 'c' + mode : mode));
+    return topic === 'types' ? 't' + mode : (topic === 'ra' ? 'r' + mode : (topic === 'comp' ? 'c' + mode : (topic === 'comp4b' ? 'd' + mode : (topic === 'idgham' ? 'i' + mode : (topic === 'madd' ? 'p' + mode : mode)))));
   }
 
   redParts(t, sinShift) {
@@ -1815,7 +2391,8 @@ class Component extends DCLogic {
 
   start(mode, topic) {
     const D = this.D();
-    const tp = topic === 'types' || topic === 'ra' || topic === 'comp' ? topic : 'signes';
+    const tp = topic === 'types' || topic === 'ra' || topic === 'comp' || topic === 'comp4b' || topic === 'idgham' || topic === 'madd' ? topic : 'signes';
+    this._bt = tp;
     let queue;
     if (mode === 'review') {
       // Revoir mes erreurs : les questions dont la dernière réponse était fausse
@@ -1825,7 +2402,7 @@ class Component extends DCLogic {
       queue = ids.slice(0, Math.max(1, this.count())).map((id) => Object.assign(this.prep(idx[id].mode, idx[id].item), { qid: id }));
     } else if (mode === 'mix') {
       // Mélange : QCM, vrai ou faux et texte à trous, en parts à peu près égales
-      const kinds = tp === 'comp' ? ['qcm', 'ordre', 'trous'] : ['qcm', 'vf', 'trous'];
+      const kinds = (tp === 'comp' || tp === 'comp4b') ? ['qcm', 'ordre', 'trous'] : ['qcm', 'vf', 'trous'];
       const pools = kinds.map((k) => this.shuffle(D[this.bankKey(k, tp)]).map((it) => [k, it]));
       const all = pools.reduce((a, p) => a + p.length, 0);
       const n = Math.max(1, Math.min(this.count(), all));
@@ -2023,8 +2600,8 @@ class Component extends DCLogic {
     const isOrdre = screen === 'ordre' || (!!cur && cur.type === 'ordre');
     const inSession = isQcm || isVf || isTrous || isOrdre;
     const labels = { qcm: 'QCM', vf: 'Vrai ou faux', trous: 'Texte à trous', mix: 'Mélange', review: 'Revoir mes erreurs', ordre: 'Remets dans l’ordre' };
-    if (s.topic === 'comp') labels.qcm = 'Dans quelle situation ?';
-    const topicLabels = { signes: 'Signes', types: 'Types d’arrêts', ra: 'Lettre Ra', comp: 'Le Compagnon' };
+    if (s.topic === 'comp' || s.topic === 'comp4b') labels.qcm = 'Dans quelle situation ?';
+    const topicLabels = { signes: 'Signes', types: 'Types d’arrêts', ra: 'Lettre Ra', comp: 'Le Compagnon', comp4b: 'Le Compagnon 4B', idgham: 'Assimilations', madd: 'Prolongations' };
     const q = inSession ? s.queue[s.idx] : null;
     const total = s.queue.length || 1;
 
@@ -2032,7 +2609,7 @@ class Component extends DCLogic {
     const metaFor = (m, tp) => {
       const key = this.bankKey(m, tp);
       const b = s.best[key];
-      const total = m === 'mix' ? (tp === 'comp' ? ['qcm', 'ordre', 'trous'] : ['qcm', 'vf', 'trous']).reduce((a, k) => a + D[this.bankKey(k, tp)].length, 0) : D[key].length;
+      const total = m === 'mix' ? ((tp === 'comp' || tp === 'comp4b') ? ['qcm', 'ordre', 'trous'] : ['qcm', 'vf', 'trous']).reduce((a, k) => a + D[this.bankKey(k, tp)].length, 0) : D[key].length;
       const base = total + ' ' + units[m];
       return b ? base + ' · record ' + b.score + '/' + b.total : base;
     };
@@ -2044,11 +2621,13 @@ class Component extends DCLogic {
       const st = this.topicStats(tp);
       return Object.assign(st, { barW: st.pct + '%', hasKo: st.ko > 0, koLabel: plural(st.ko, 'question', 'questions') });
     };
-    const progR = pstat('ra'), progT = pstat('types'), progS = pstat('signes'), progC = pstat('comp');
-    const allTotal = progR.total + progT.total + progS.total + progC.total;
-    const allOk = progR.ok + progT.ok + progS.ok + progC.ok;
-    const allSeen = progR.seen + progT.seen + progS.seen + progC.seen;
-    const allKo = progR.ko + progT.ko + progS.ko + progC.ko;
+    const CTP = s.level === '4B' ? 'comp4b' : 'comp';
+    const progR = pstat('ra'), progT = pstat('types'), progS = pstat('signes'), progC4 = pstat('comp'), progCB = pstat('comp4b'), progI = pstat('idgham'), progM = pstat('madd');
+    const progC = CTP === 'comp4b' ? progCB : progC4;
+    const allTotal = progR.total + progT.total + progS.total + progC4.total + progCB.total + progI.total + progM.total;
+    const allOk = progR.ok + progT.ok + progS.ok + progC4.ok + progCB.ok + progI.ok + progM.ok;
+    const allSeen = progR.seen + progT.seen + progS.seen + progC4.seen + progCB.seen + progI.seen + progM.seen;
+    const allKo = progR.ko + progT.ko + progS.ko + progC4.ko + progCB.ko + progI.ko + progM.ko;
     const allPct = allTotal ? Math.round(allOk * 100 / allTotal) : 0;
     const progAll = { pct: allPct, barW: allPct + '%',
       sub: allSeen ? plural(allOk, 'question maîtrisée', 'questions maîtrisées') + ' sur ' + allTotal + (allKo ? ' · ' + plural(allKo, 'erreur', 'erreurs') + ' à revoir' : '') : 'Commence un exercice pour suivre tes progrès' };
@@ -2056,28 +2635,31 @@ class Component extends DCLogic {
       { tp: 'ra', chapter: 'Chapitre 9', title: 'Les règles de la lettre Ra', st: progR },
       { tp: 'types', chapter: 'Chapitre 11', title: 'Les types d’arrêts', st: progT },
       { tp: 'signes', chapter: 'Chapitre 15', title: 'Les signes conventionnels des arrêts', st: progS },
-      { tp: 'comp', chapter: 'Le Compagnon', title: 'Invocations du Qour’ane & de la Sounna', st: progC, modes: ['qcm', 'ordre', 'trous', 'mix'] }
+      { tp: 'comp', chapter: 'Le Compagnon · 4C', title: 'Invocations du Qour’ane & de la Sounna', st: progC4, modes: ['qcm', 'ordre', 'trous', 'mix'] },
+      { tp: 'idgham', chapter: 'Chapitre 8 · 4B', title: 'Les différents types d’assimilations', st: progI },
+      { tp: 'madd', chapter: 'Chapitre 10 · 4B', title: 'Les prolongations', st: progM },
+      { tp: 'comp4b', chapter: 'Le Compagnon · 4B', title: 'Invocations du Qour’ane & de la Sounna', st: progCB, modes: ['qcm', 'ordre', 'trous', 'mix'] }
     ];
     const modeNames = { qcm: 'QCM', vf: 'Vrai ou faux', trous: 'Texte à trous', mix: 'Mélange', ordre: 'Dans l’ordre' };
     const progCards = chapters.map((c) => ({
       chapter: c.chapter, title: c.title, pct: c.st.pct, barW: c.st.barW,
       detail: plural(c.st.ok, 'question maîtrisée', 'questions maîtrisées') + ' sur ' + c.st.total + ' · ' + plural(c.st.seen, 'déjà vue', 'déjà vues'),
-      bests: (c.modes || ['qcm', 'vf', 'trous', 'mix']).map((m) => { const b = s.best[this.bankKey(m, c.tp)]; return { label: (c.tp === 'comp' && m === 'qcm') ? 'Situations' : modeNames[m], value: b ? b.score + '/' + b.total : '—' }; }),
+      bests: (c.modes || ['qcm', 'vf', 'trous', 'mix']).map((m) => { const b = s.best[this.bankKey(m, c.tp)]; return { label: ((c.tp === 'comp' || c.tp === 'comp4b') && m === 'qcm') ? 'Situations' : modeNames[m], value: b ? b.score + '/' + b.total : '—' }; }),
       hasKo: c.st.ko > 0, koLabel: plural(c.st.ko, 'question', 'questions'), allGood: c.st.seen > 0 && c.st.ko === 0,
       review: () => this.start('review', c.tp)
     }));
     const pad2 = (x) => String(x).padStart(2, '0');
-    const topicNames = { ra: 'Lettre Ra', types: 'Types d’arrêts', signes: 'Signes', comp: 'Le Compagnon' };
+    const topicNames = { ra: 'Lettre Ra', types: 'Types d’arrêts', signes: 'Signes', comp: 'Le Compagnon', comp4b: 'Le Compagnon 4B', idgham: 'Assimilations', madd: 'Prolongations' };
     const histRows = (s.prog.hist || []).slice(0, 12).map((h) => {
       const d = new Date(h.t);
       return { date: pad2(d.getDate()) + '/' + pad2(d.getMonth() + 1) + ' à ' + pad2(d.getHours()) + 'h' + pad2(d.getMinutes()),
-        what: (topicNames[h.topic] || '') + ' · ' + ((h.topic === 'comp' && h.mode === 'qcm') ? 'Dans quelle situation ?' : (h.mode === 'qcm' ? 'QCM' : (labels[h.mode] || ''))), score: h.score + '/' + h.total };
+        what: (topicNames[h.topic] || '') + ' · ' + (((h.topic === 'comp' || h.topic === 'comp4b') && h.mode === 'qcm') ? 'Dans quelle situation ?' : (h.mode === 'qcm' ? 'QCM' : (labels[h.mode] || ''))), score: h.score + '/' + h.total };
     });
     // ——— Le Compagnon : fiches ———
-    const compCards = D.COMP.map((h) => ({
+    const compCards = (s.level === '4B' ? D.COMP4B : D.COMP).map((h) => ({
       num: String(h.num), title: h.title, ref: 'Le Compagnon · ' + h.ref + ' · ' + h.page, hasIntro: !!h.intro, intro: h.intro,
       blocks: h.blocks.map((b, k) => {
-        const key = 'comp_' + h.num + '_' + k;
+        const key = (s.level === '4B' ? 'compb_' : 'comp_') + h.num + '_' + k;
         const hid = !!s.hide && !s.revealed[key];
         return {
           hasLead: !!b.lead, lead: b.lead, parts: this.hlParts(b.ar), isHidden: hid, isShown: !hid,
@@ -2094,26 +2676,39 @@ class Component extends DCLogic {
       lecture: { label: 'Lecture', style: 'background: var(--surface3); color: var(--blue);' }
     };
     const wd = s.weeksDone || {};
-    const weeksDoneCount = D.PROG.filter((w) => wd[w.n]).length;
-    const progWeeks = D.PROG.map((w, i) => {
-      const done = !!wd[w.n];
+    const is4B = s.level === '4B';
+    const PRG = is4B ? D.PROG4B : D.PROG;
+    const wkey = (n) => (is4B ? 'b' + n : n);
+    const weeksDoneCount = PRG.filter((w) => wd[wkey(w.n)]).length;
+    const progWeeks = PRG.map((w, i) => {
+      const done = !!wd[wkey(w.n)];
       return {
         num: String(w.n), title: 'Semaine ' + w.n, modLabel: MODS[w.mod].label, modStyle: MODS[w.mod].style,
         obj: w.obj.map((t) => ({ t })), themes: w.themes.map((t) => ({ t })),
         hasInv: !!w.inv, invTitle: w.inv ? w.inv.t : '', invRef: w.inv ? 'Le Compagnon · ' + w.inv.ref : '',
-        openInv: () => { if (w.inv) this.goTo('learnComp', 'comp-' + w.inv.comp); },
+        openInv: () => { if (w.inv && w.inv.comp) this.goTo('learnComp', 'comp-' + w.inv.comp); },
+        invAction: w.inv && w.inv.comp ? 'Ouvrir la fiche' : 'Bientôt dans l’application',
         hasHome: !!w.home, home: w.home,
         hasLinks: w.links.length > 0,
         links: w.links.map((l) => ({ label: l.label, run: () => { if (l.start) this.start(l.start[0], l.start[1]); else this.goTo(l.go, l.anchor); } })),
         done, toggle: () => this.toggleWeek(w.n), checkLabel: done ? 'Semaine terminée' : 'Marquer la semaine comme terminée',
         dotStyle: done ? 'background: ' + accent + '; color: #FFFFFF; border: 2px solid ' + accent + ';' : 'background: var(--surface); color: var(--ink); border: 2px solid var(--line2);',
         isDone: done, isTodo: !done,
-        railStyle: i === D.PROG.length - 1 ? 'visibility: hidden;' : (done ? 'background: ' + accent + ';' : 'background: var(--line);'),
+        railStyle: i === PRG.length - 1 ? 'visibility: hidden;' : (done ? 'background: ' + accent + ';' : 'background: var(--line);'),
         cardStyle: done ? 'border-color: ' + accent + ';' : ''
       };
     });
-    const progProgramme = { done: weeksDoneCount, total: D.PROG.length, pct: Math.round(weeksDoneCount * 100 / D.PROG.length), barW: Math.round(weeksDoneCount * 100 / D.PROG.length) + '%',
-      label: weeksDoneCount + ' semaine' + (weeksDoneCount > 1 ? 's' : '') + ' terminée' + (weeksDoneCount > 1 ? 's' : '') + ' sur ' + D.PROG.length };
+    const progProgramme = { done: weeksDoneCount, total: PRG.length, pct: Math.round(weeksDoneCount * 100 / PRG.length), barW: Math.round(weeksDoneCount * 100 / PRG.length) + '%',
+      label: weeksDoneCount + ' semaine' + (weeksDoneCount > 1 ? 's' : '') + ' terminée' + (weeksDoneCount > 1 ? 's' : '') + ' sur ' + PRG.length };
+    const levelOpts = [['4B', 'Niveau 4B'], ['4C', 'Niveau 4C']].map(([k, l]) => ({ label: l, pressed: s.level === k ? 'true' : 'false', pick: () => this.setLevel(k),
+      style: 'min-height: 44px; padding: 0 18px; border-radius: 999px; font-size: 14.5px; font-weight: 800; ' + (s.level === k ? 'background: ' + accent + '; color: #FFFFFF; border: 1.5px solid ' + accent + ';' : 'background: var(--surface); color: var(--ink); border: 1.5px solid var(--line);') }));
+    const lvl = {
+      is4B, is4C: !is4B, title: is4B ? 'Niveau 4B' : 'Niveau 4C', opts: levelOpts,
+      progCard: 'Le déroulement du programme de formation du niveau ' + (is4B ? '4B' : '4C') + ' : initiation au tadjwid, en 12 semaines.',
+      progH1: 'Programme du niveau ' + (is4B ? '4B' : '4C') + ' : initiation au tadjwid',
+      progOrg: is4B ? 'Centre Islamique de Formation et de Documentation (CIFOD)' : 'Centre Islamique de Formation et de Documentation (C.I.FO.D) · Arrêté n° 191/MEMIS/DGAT/DAG/SDVA du 14 avril 2014',
+      progObj: 'maîtriser de façon théorique et pratique les règles de tadjwid (niveau ' + (is4B ? '2' : '3') + ' sur 3).'
+    };
 
     // ——— Affichage ———
     const optStyle = (on) => 'min-height: 44px; padding: 0 16px; border-radius: 12px; font-size: 14.5px; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; ' +
@@ -2134,6 +2729,46 @@ class Component extends DCLogic {
           return {
             n: String(k + 1), rule: c.rule, ruleParts: this.vowelBold(this.hlParts(c.rule)), lead: c.lead || '', hasLead: !!c.lead, note: c.note || '', hasNote: !!c.note && !hid,
             isHidden: hid, isShown: !hid, reveal: () => this.reveal('ra_' + sec.num + '_' + (k + 1)),
+            showVerdict: s.hide && !hid, verdict: sec.verdict, verdictStyle: 'background: ' + sec.chipBg + '; color: ' + sec.chipFg + ';',
+            revealAria: 'Révéler la règle du cas ' + (k + 1) + ' de la partie ' + sec.num,
+            badgeStyle: 'background: ' + (secHid ? 'var(--surface3)' : sec.chipBg) + '; color: ' + (secHid ? 'var(--muted)' : sec.chipFg) + ';',
+            examples: c.ex.map((e) => ({ label: e.label, word: e.word || '', hasWord: !!e.word, parts: this.hlParts(e.text) }))
+          };
+        })
+      };
+    });
+    const idSections = D.ID.sections.map((sec) => {
+      const secHid = false; // les titres des parties restent visibles en mode mémorisation
+      return {
+        num: sec.num, title: sec.title, def: this.bidi(sec.def || ''), hasDef: !!sec.def, ar: sec.ar || '', hasAr: !!sec.ar, verdict: sec.verdict, count: sec.cases.length + ' cas',
+        chipStyle: 'background: ' + sec.chipBg + '; color: ' + sec.chipFg + ';',
+        isHidden: secHid, isShown: !secHid, reveal: () => this.reveal('id_s' + sec.num),
+        revealAria: 'Révéler le titre de la partie ' + sec.num,
+        cases: sec.cases.map((c, k) => {
+          const hid = s.hide && !s.revealed['id_' + sec.num + '_' + (k + 1)];
+          return {
+            n: String(k + 1), rule: c.rule, ruleParts: this.vowelBold(this.hlParts(this.bidi(c.rule))), lead: c.lead || '', hasLead: !!c.lead, note: this.bidi(c.note || ''), hasNote: !!c.note && !hid,
+            isHidden: hid, isShown: !hid, reveal: () => this.reveal('id_' + sec.num + '_' + (k + 1)),
+            showVerdict: s.hide && !hid, verdict: sec.verdict, verdictStyle: 'background: ' + sec.chipBg + '; color: ' + sec.chipFg + ';',
+            revealAria: 'Révéler la règle du cas ' + (k + 1) + ' de la partie ' + sec.num,
+            badgeStyle: 'background: ' + (secHid ? 'var(--surface3)' : sec.chipBg) + '; color: ' + (secHid ? 'var(--muted)' : sec.chipFg) + ';',
+            examples: c.ex.map((e) => ({ label: e.label, word: e.word || '', hasWord: !!e.word, parts: this.hlParts(e.text) }))
+          };
+        })
+      };
+    });
+    const mdSections = D.MD.sections.map((sec) => {
+      const secHid = false; // les titres des parties restent visibles en mode mémorisation
+      return {
+        num: sec.num, title: sec.title, def: this.bidi(sec.def || ''), hasDef: !!sec.def, ar: sec.ar || '', hasAr: !!sec.ar, verdict: sec.verdict, count: sec.cases.length + ' cas',
+        chipStyle: 'background: ' + sec.chipBg + '; color: ' + sec.chipFg + ';',
+        isHidden: secHid, isShown: !secHid, reveal: () => this.reveal('md_s' + sec.num),
+        revealAria: 'Révéler le titre de la partie ' + sec.num,
+        cases: sec.cases.map((c, k) => {
+          const hid = s.hide && !s.revealed['md_' + sec.num + '_' + (k + 1)];
+          return {
+            n: String(k + 1), rule: c.rule, ruleParts: this.vowelBold(this.hlParts(this.bidi(c.rule))), lead: c.lead || '', hasLead: !!c.lead, note: this.bidi(c.note || ''), hasNote: !!c.note && !hid,
+            isHidden: hid, isShown: !hid, reveal: () => this.reveal('md_' + sec.num + '_' + (k + 1)),
             showVerdict: s.hide && !hid, verdict: sec.verdict, verdictStyle: 'background: ' + sec.chipBg + '; color: ' + sec.chipFg + ';',
             revealAria: 'Révéler la règle du cas ' + (k + 1) + ' de la partie ' + sec.num,
             badgeStyle: 'background: ' + (secHid ? 'var(--surface3)' : sec.chipBg) + '; color: ' + (secHid ? 'var(--muted)' : sec.chipFg) + ';',
@@ -2340,10 +2975,10 @@ class Component extends DCLogic {
       accent, tint, themeVars, themeName: dark ? 'dark' : 'light',
       progR, progT, progS, progC, progAll, isOrdre, ord,
       resetOrd: () => this.resetOrd(), checkOrd: () => this.checkOrd(),
-      startCQcm: () => this.start('qcm', 'comp'), startCOrdre: () => this.start('ordre', 'comp'),
-      canRestart: s.mode !== 'review' || (({ ra: progR, types: progT, signes: progS, comp: progC })[s.topic] || progS).ko > 0,
-      resReview: s.mode !== 'review' && (({ ra: progR, types: progT, signes: progS, comp: progC })[s.topic] || progS).ko > 0,
-      resReviewLabel: 'Revoir mes erreurs (' + (({ ra: progR, types: progT, signes: progS, comp: progC })[s.topic] || progS).ko + ')', progCards, histRows, hasHist: histRows.length > 0, noHist: histRows.length === 0, themeOpts, arOpts, fontOpts,
+      startCQcm: () => this.start('qcm', CTP), startCOrdre: () => this.start('ordre', CTP),
+      canRestart: s.mode !== 'review' || (({ ra: progR, types: progT, signes: progS, comp: progC4, comp4b: progCB, idgham: progI, madd: progM })[s.topic] || progS).ko > 0,
+      resReview: s.mode !== 'review' && (({ ra: progR, types: progT, signes: progS, comp: progC4, comp4b: progCB, idgham: progI, madd: progM })[s.topic] || progS).ko > 0,
+      resReviewLabel: 'Revoir mes erreurs (' + (({ ra: progR, types: progT, signes: progS, comp: progC4, comp4b: progCB, idgham: progI, madd: progM })[s.topic] || progS).ko + ')', progCards, histRows, hasHist: histRows.length > 0, noHist: histRows.length === 0, themeOpts, arOpts, fontOpts,
       isProgress: screen === 'progress', isSettings: screen === 'settings',
       goSettings: () => this.go('settings'), shareApp: () => this.shareApp(),
       toast: s.toast || '', toastShow: !!s.toast,
@@ -2355,12 +2990,12 @@ class Component extends DCLogic {
       reviewR: () => this.start('review', 'ra'), reviewT: () => this.start('review', 'types'), reviewS: () => this.start('review', 'signes'),
       resetAsk: () => this.setState({ confirmReset: true }), resetCancel: () => this.setState({ confirmReset: false }), resetDo: () => this.resetProgress(),
       compCards, isLearnComp: screen === 'learnComp', goComp: () => this.go('learnComp'),
-      startCTrous: () => this.start('trous', 'comp'), reviewComp: () => this.start('review', 'comp'),
-      metaC: { trous: metaFor('trous', 'comp'), qcm: metaFor('qcm', 'comp'), ordre: metaFor('ordre', 'comp'), mix: metaFor('mix', 'comp') },
-      startCMix: () => this.start('mix', 'comp'),
-      progWeeks, progProgramme, isProgramme: screen === 'programme', goProgramme: () => this.go('programme'),
+      startCTrous: () => this.start('trous', CTP), reviewComp: () => this.start('review', CTP),
+      metaC: { trous: metaFor('trous', CTP), qcm: metaFor('qcm', CTP), ordre: metaFor('ordre', CTP), mix: metaFor('mix', CTP), fiches: (CTP === 'comp4b' ? D.COMP4B.length : D.COMP.length) + ' invocations · arabe et traduction' },
+      startCMix: () => this.start('mix', CTP),
+      progWeeks, progProgramme, lvl, isProgramme: screen === 'programme', goProgramme: () => this.go('programme'),
       isHome: screen === 'home', isLearn: screen === 'learn', isLearnTypes: screen === 'learnTypes', isLearnRa: screen === 'learnRa', isInstall: screen === 'install', isAbout: screen === 'about',
-      showQuit: inSession || screen === 'learn' || screen === 'learnTypes' || screen === 'learnRa' || screen === 'learnComp' || screen === 'progress' || screen === 'settings' || screen === 'programme' || screen === 'install' || screen === 'about', isQcm, isVf, isTrous,
+      showQuit: inSession || screen === 'learn' || screen === 'learnTypes' || screen === 'learnRa' || screen === 'learnComp' || screen === 'learnId' || screen === 'learnMd' || screen === 'progress' || screen === 'settings' || screen === 'programme' || screen === 'install' || screen === 'about', isQcm, isVf, isTrous,
       isCard: isQcm || isVf, isResult: screen === 'result', inSession,
       modeLabel: (labels[screen] || '') + (inSession ? ' · ' + (topicLabels[s.topic] || '') : ''), qNum: s.idx + 1, total: s.queue.length, score: s.score,
       progressNum, progressPct: progressNum + '%',
@@ -2368,12 +3003,18 @@ class Component extends DCLogic {
       meta: { qcm: metaFor('qcm', 'signes'), vf: metaFor('vf', 'signes'), trous: metaFor('trous', 'signes'), mix: metaFor('mix', 'signes') },
       metaT: { qcm: metaFor('qcm', 'types'), vf: metaFor('vf', 'types'), trous: metaFor('trous', 'types'), mix: metaFor('mix', 'types') },
       metaR: { qcm: metaFor('qcm', 'ra'), vf: metaFor('vf', 'ra'), trous: metaFor('trous', 'ra'), mix: metaFor('mix', 'ra') },
+      mdSections, mdNotes: D.MD.notes.map((n) => ({ title: n.title, text: this.bidi(n.text) })), isLearnMd: screen === 'learnMd', goMd: () => this.go('learnMd'),
+      metaM: { qcm: metaFor('qcm', 'madd'), vf: metaFor('vf', 'madd'), trous: metaFor('trous', 'madd'), mix: metaFor('mix', 'madd') }, progM,
+      startMQcm: () => this.start('qcm', 'madd'), startMVf: () => this.start('vf', 'madd'), startMTrous: () => this.start('trous', 'madd'), startMMix: () => this.start('mix', 'madd'), reviewM: () => this.start('review', 'madd'),
+      idSections, idNotes: D.ID.notes.map((n) => ({ title: n.title, text: this.bidi(n.text) })), isLearnId: screen === 'learnId', goId: () => this.go('learnId'),
+      metaI: { qcm: metaFor('qcm', 'idgham'), vf: metaFor('vf', 'idgham'), trous: metaFor('trous', 'idgham'), mix: metaFor('mix', 'idgham') }, progI,
+      startIQcm: () => this.start('qcm', 'idgham'), startIVf: () => this.start('vf', 'idgham'), startITrous: () => this.start('trous', 'idgham'), startIMix: () => this.start('mix', 'idgham'), reviewI: () => this.start('review', 'idgham'),
       raSections, raRemark: D.RA.remark, raRemarkParts: this.hlParts(D.RA.remark), raVocab: D.RA.vocab,
       typeRows, matrixRows,
       learnRows, hide: s.hide, toggleHide: () => this.toggleHide(),
       qc, qcmOptions, vfButtons, tr, fb, res,
       goHome: () => this.go('home'), goLearn: () => this.go('learn'), goTypes: () => this.go('learnTypes'), goRa: () => this.go('learnRa'), goInstall: () => this.go('install'), goAbout: () => this.go('about'), quit: () => this.go('home'),
-      goFiches: () => this.go(s.topic === 'types' ? 'learnTypes' : (s.topic === 'ra' ? 'learnRa' : (s.topic === 'comp' ? 'learnComp' : 'learn'))),
+      goFiches: () => this.go(s.topic === 'types' ? 'learnTypes' : (s.topic === 'ra' ? 'learnRa' : ((s.topic === 'comp' || s.topic === 'comp4b') ? 'learnComp' : (s.topic === 'idgham' ? 'learnId' : (s.topic === 'madd' ? 'learnMd' : 'learn'))))),
       startQcm: () => this.start('qcm', 'signes'), startVf: () => this.start('vf', 'signes'), startTrous: () => this.start('trous', 'signes'), startMix: () => this.start('mix', 'signes'),
       startTQcm: () => this.start('qcm', 'types'), startTVf: () => this.start('vf', 'types'), startTTrous: () => this.start('trous', 'types'), startTMix: () => this.start('mix', 'types'),
       startRQcm: () => this.start('qcm', 'ra'), startRVf: () => this.start('vf', 'ra'), startRTrous: () => this.start('trous', 'ra'), startRMix: () => this.start('mix', 'ra'),
