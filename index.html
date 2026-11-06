@@ -311,7 +311,7 @@ Quitter
 <section aria-labelledby="h-comp" style="background: var(--surface); border: 1px solid var(--line); border-radius: 24px; padding: 24px 22px; display: flex; flex-direction: column; gap: 20px">
 <div style="display: flex; flex-direction: column; gap: 6px">
 <span role="heading" aria-level="3" style="margin: 0; font-size: 24px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 800; color: var(--ink)">Invocations</span>
-<p style="margin: 0; font-size: 15.5px; line-height: 1.55; color: var(--muted); text-wrap: pretty">Invocations prophétiques touchant à la fois, la vie cultuelle et la vie mondaine du musulman.</p>
+<p style="margin: 0; font-size: 15.5px; line-height: 1.55; color: var(--muted); text-wrap: pretty">Invocations prophétiques touchant tous les aspects liés à la vie cultuelle et la vie mondaine du musulman.</p>
 </div>
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(140px, 100%), 1fr)); gap: 10px">
 <button class="lift" @click="goComp" :style="`text-align: left; background: ${accent}; color: #FFFFFF; border: 1.5px solid ${accent}; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px`">
@@ -2128,8 +2128,8 @@ class Component extends DCLogic {
     try {
       if (window.caches && window.caches.keys) {
         window.caches.keys().then((keys) => {
-          const nums = keys.map((k) => /^niveau4c-v(\d+)$/.exec(k)).filter(Boolean).map((m) => parseInt(m[1], 10));
-          if (nums.length) this.setState({ appVersion: String(Math.min.apply(null, nums)) });
+          const found = keys.map((k) => /^niveau4c-v(\d+)-(\d{4}-\d{2}-\d{2})$/.exec(k)).filter(Boolean).map((m) => ({ n: parseInt(m[1], 10), d: m[2] }));
+          if (found.length) { found.sort((a, b) => a.n - b.n); this.setState({ appVersion: found[0].d + '-' + found[0].n }); }
         }).catch(() => {});
       }
     } catch (e) {}
@@ -2666,22 +2666,24 @@ class Component extends DCLogic {
     const CTP = s.level === '4B' ? 'comp4b' : 'comp';
     const progR = pstat('ra'), progT = pstat('types'), progS = pstat('signes'), progC4 = pstat('comp'), progCB = pstat('comp4b'), progI = pstat('idgham'), progM = pstat('madd');
     const progC = CTP === 'comp4b' ? progCB : progC4;
-    const allTotal = progR.total + progT.total + progS.total + progC4.total + progCB.total + progI.total + progM.total;
-    const allOk = progR.ok + progT.ok + progS.ok + progC4.ok + progCB.ok + progI.ok + progM.ok;
-    const allSeen = progR.seen + progT.seen + progS.seen + progC4.seen + progCB.seen + progI.seen + progM.seen;
-    const allKo = progR.ko + progT.ko + progS.ko + progC4.ko + progCB.ko + progI.ko + progM.ko;
+    const is4BLevel = s.level === '4B';
+    const levelRows = is4BLevel ? [progI, progM, progCB] : [progR, progT, progS, progC4];
+    const allTotal = levelRows.reduce((a, r) => a + r.total, 0);
+    const allOk = levelRows.reduce((a, r) => a + r.ok, 0);
+    const allSeen = levelRows.reduce((a, r) => a + r.seen, 0);
+    const allKo = levelRows.reduce((a, r) => a + r.ko, 0);
     const allPct = allTotal ? Math.round(allOk * 100 / allTotal) : 0;
     const progAll = { pct: allPct, barW: allPct + '%',
       sub: allSeen ? plural(allOk, 'question maîtrisée', 'questions maîtrisées') + ' sur ' + allTotal + (allKo ? ' · ' + plural(allKo, 'erreur', 'erreurs') + ' à revoir' : '') : 'Commence un exercice pour suivre tes progrès' };
     const chapters = [
-      { tp: 'ra', chapter: 'Chapitre 9', title: 'Les règles de la lettre Ra', st: progR },
-      { tp: 'types', chapter: 'Chapitre 11', title: 'Les types d’arrêts', st: progT },
-      { tp: 'signes', chapter: 'Chapitre 15', title: 'Les signes conventionnels des arrêts', st: progS },
+      { tp: 'ra', chapter: '4C · Chapitre 9', title: 'Les règles de la lettre Ra', st: progR },
+      { tp: 'types', chapter: '4C · Chapitre 11', title: 'Les types d’arrêts', st: progT },
+      { tp: 'signes', chapter: '4C · Chapitre 15', title: 'Les signes conventionnels des arrêts', st: progS },
       { tp: 'comp', chapter: 'Le Compagnon · 4C', title: 'Invocations du Qour’ane & de la Sounna', st: progC4, modes: ['qcm', 'ordre', 'trous', 'mix'] },
-      { tp: 'idgham', chapter: 'Chapitre 8 · 4B', title: 'Les différents types d’assimilations', st: progI },
-      { tp: 'madd', chapter: 'Chapitre 10 · 4B', title: 'Les prolongations', st: progM },
+      { tp: 'idgham', chapter: '4B · Chapitre 8', title: 'Les différents types d’assimilations', st: progI },
+      { tp: 'madd', chapter: '4B · Chapitre 10', title: 'Les prolongations', st: progM },
       { tp: 'comp4b', chapter: 'Le Compagnon · 4B', title: 'Invocations du Qour’ane & de la Sounna', st: progCB, modes: ['qcm', 'ordre', 'trous', 'mix'] }
-    ];
+    ].filter((c) => (is4BLevel ? ['idgham', 'madd', 'comp4b'] : ['ra', 'types', 'signes', 'comp']).includes(c.tp));
     const modeNames = { qcm: 'QCM', vf: 'Vrai ou faux', trous: 'Texte à trous', mix: 'Mélange', ordre: 'Dans l’ordre' };
     const progCards = chapters.map((c) => ({
       chapter: c.chapter, title: c.title, pct: c.st.pct, barW: c.st.barW,
