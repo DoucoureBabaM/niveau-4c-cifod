@@ -79,6 +79,7 @@ Quitter
 <img src="assets/viatique_cercle.jpg" alt="Couverture du livre « Le Viatique du Lecteur » (CIFOD)" style="width: clamp(72px, 15vw, 104px); height: clamp(72px, 15vw, 104px); display: block; flex-shrink: 0; border-radius: 999px; object-fit: cover; box-shadow: 0 0 0 3px var(--surface), 0 0 0 4px var(--line), 0 8px 22px rgba(20,32,28,0.12)">
 </div>
 <template v-if="lvl.is4C"><p style="margin: 0; font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 580px; text-wrap: pretty">Les règles de la lettre Ra, les types d’arrêts et les signes conventionnels des arrêts&nbsp;: apprends-les avec les fiches, puis révise-les avec les exercices.</p></template>
+<template v-if="lvl.is4A"><p style="margin: 0; font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 580px; text-wrap: pretty">La présentation du tadjwid, l’isti’âdzah et la basmalah, le nom majestueux de Dieu, le Noûn et le Mîm doublés, la qalqalah, le Noûn sâkinah et le Mîm sâkinah&nbsp;: apprends-les avec les fiches, puis révise-les avec les exercices.</p></template>
 <template v-if="lvl.is4B"><p style="margin: 0; font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 580px; text-wrap: pretty">Les différents types d’assimilations et les prolongations&nbsp;: apprends-les avec les fiches, puis révise-les avec les exercices.</p></template>
 </div>
 <template v-if="lvl.is4C">
@@ -217,6 +218,51 @@ Quitter
 </template>
 <div style="margin-top: -6px; display: flex; flex-direction: column; gap: 6px"><div style="display: flex; justify-content: space-between; gap: 8px; font-size: 12.5px; font-weight: 700; color: var(--muted)"><span>Progression</span><span>{{progS.pct}}&nbsp;% maîtrisé · {{progS.ok}}/{{progS.total}}</span></div><div aria-hidden="true" style="height: 6px; border-radius: 999px; background: var(--surface3); overflow: hidden"><div :style="`height: 100%; width: ${progS.barW}; background: var(--accent); border-radius: 999px`"></div></div></div>
 </section>
+</div>
+</template>
+<template v-if="lvl.is4A">
+<div style="display: flex; flex-direction: column; gap: 26px">
+<template v-for="k in ch4aCards">
+<section style="background: var(--surface); border: 1px solid var(--line); border-radius: 24px; padding: 24px 22px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 10px 20px">
+<div style="display: flex; flex-direction: column; gap: 6px; max-width: 440px">
+<span :style="`font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${accent}`">Chapitre {{k.num}}</span>
+<h2 style="margin: 0; font-size: 24px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 800">{{k.title}}</h2>
+<p style="margin: 0; font-size: 15px; line-height: 1.5; color: var(--muted); text-wrap: pretty">{{k.desc}}</p>
+</div>
+<span dir="rtl" lang="ar" aria-hidden="true" :style="`font-family: 'ArPunct', var(--arfont, 'Hafs'), 'Hafs', 'Amiri', serif; font-weight: 400; font-size: calc(26px * var(--ar, 1)); line-height: 1.7; color: ${accent}`">{{k.ar}}</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(140px, 100%), 1fr)); gap: 10px">
+<button class="lift" @click="k.go" :style="`text-align: left; background: ${accent}; color: #FFFFFF; border: 1.5px solid ${accent}; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px`">
+<span style="width: 38px; height: 38px; border-radius: 11px; background: rgba(255,255,255,0.16); display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5.5C3 4.7 3.7 4 4.5 4H10a2 2 0 0 1 2 2v14a1.5 1.5 0 0 0-1.5-1.5h-6A1.5 1.5 0 0 1 3 17V5.5Z"></path><path d="M21 5.5c0-.8-.7-1.5-1.5-1.5H14a2 2 0 0 0-2 2v14a1.5 1.5 0 0 1 1.5-1.5h6A1.5 1.5 0 0 0 21 17V5.5Z"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Fiches</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; opacity: 0.92">{{k.fiches}}</span></span>
+</button>
+<button class="lift" @click="k.startQcm" style="text-align: left; background: var(--surface); border: 1.5px solid var(--line); border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px">
+<span :style="`width: 38px; height: 38px; border-radius: 11px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5.5" cy="6" r="2"></circle><path d="M11 6h9"></path><circle cx="5.5" cy="12" r="2"></circle><path d="M11 12h9"></path><circle cx="5.5" cy="18" r="2"></circle><path d="M11 18h9"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">QCM</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: var(--muted)">{{k.meta.qcm}}</span></span>
+</button>
+<button class="lift" @click="k.startVf" style="text-align: left; background: var(--surface); border: 1.5px solid var(--line); border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px">
+<span :style="`width: 38px; height: 38px; border-radius: 11px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 12.5l3.2 3.2L11 9.5"></path><path d="M15 9l6 6M21 9l-6 6"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Vrai ou faux</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: var(--muted)">{{k.meta.vf}}</span></span>
+</button>
+<button class="lift" @click="k.startTrous" style="text-align: left; background: var(--surface); border: 1.5px solid var(--line); border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 122px">
+<span :style="`width: 38px; height: 38px; border-radius: 11px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h6"></path><rect x="11" y="5.5" width="10" height="5" rx="1.5" stroke-dasharray="2 2"></rect><path d="M3 16h3"></path><rect x="8" y="13.5" width="8" height="5" rx="1.5" stroke-dasharray="2 2"></rect><path d="M18 16h3"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Texte à trous</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: var(--muted)">{{k.meta.trous}}</span></span>
+</button>
+</div>
+<button class="lift" @click="k.startMix" style="margin-top: -10px; width: 100%; text-align: left; background: var(--surface); border: 1.5px solid var(--line); border-radius: 16px; padding: 14px; display: flex; align-items: center; gap: 14px; min-height: 72px">
+<span :style="`width: 38px; height: 38px; border-radius: 11px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center; flex-shrink: 0`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 3h5v5"></path><path d="M4 20L21 3"></path><path d="M21 16v5h-5"></path><path d="M15 15l6 6"></path><path d="M4 4l5 5"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 16px; font-weight: 800">Mélange</span><span style="font-size: 12.5px; font-weight: 600; line-height: 1.35; color: var(--muted)">{{k.meta.mix}} · QCM, vrai ou faux et texte à trous</span></span>
+</button>
+<template v-if="k.prog.hasKo">
+<button class="lift" @click="k.review" style="margin-top: -10px; width: 100%; text-align: left; background: var(--rose-t); border: 1.5px solid var(--rose); border-radius: 16px; padding: 12px 14px; display: flex; align-items: center; gap: 14px; min-height: 64px; color: var(--ink)">
+<span style="width: 38px; height: 38px; border-radius: 11px; background: var(--surface); color: var(--rose); display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"></path><path d="M20 4v7h-7"></path></svg></span>
+<span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 16px; font-weight: 800">Revoir mes erreurs</span><span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">{{k.prog.koLabel}} à revoir</span></span>
+</button>
+</template>
+<div style="margin-top: -6px; display: flex; flex-direction: column; gap: 6px"><div style="display: flex; justify-content: space-between; gap: 8px; font-size: 12.5px; font-weight: 700; color: var(--muted)"><span>Progression</span><span>{{k.prog.pct}}&nbsp;% maîtrisé · {{k.prog.ok}}/{{k.prog.total}}</span></div><div aria-hidden="true" style="height: 6px; border-radius: 999px; background: var(--surface3); overflow: hidden"><div :style="`height: 100%; width: ${k.prog.barW}; background: var(--accent); border-radius: 999px`"></div></div></div>
+</section>
+</template>
 </div>
 </template>
 <template v-if="lvl.is4B">
@@ -871,6 +917,76 @@ Mode mémorisation
 <button @click="startMVf" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Vrai ou faux</button>
 <button @click="startMTrous" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Texte à trous</button>
 <button @click="startMMix" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Mélange</button>
+</div>
+</div>
+<div style="display: flex; justify-content: center; padding-top: 4px"><button class="lift" @click="goHome" style="min-height: 52px; padding: 0 22px; border-radius: 14px; border: 1.5px solid var(--line); background: var(--surface); display: inline-flex; align-items: center; gap: 10px; font-size: 15.5px; font-weight: 800"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5"></path><path d="M5 9.5V20h14V9.5"></path><path d="M10 20v-6h4v6"></path></svg>Retour à l’accueil</button></div>
+</section>
+</template>
+
+<template v-if="isLearnCh">
+<section class="rise" style="display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; flex-direction: column; gap: 8px; max-width: 560px">
+<span :style="`font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: ${accent}`">Chapitre {{chx.num}}</span>
+<h1 style="margin: 0; font-size: 34px; line-height: 1.1; letter-spacing: -0.025em; font-weight: 800">{{chx.title}}</h1>
+<p style="margin: 0; font-size: 15px; line-height: 1.55; color: var(--muted)">Active le mode mémorisation pour cacher les règles et te tester cas par cas, à partir des exemples.</p>
+</div>
+<label style="align-self: flex-start; display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 16px; border: 1.5px solid var(--line); border-radius: 999px; background: var(--surface); font-size: 14px; font-weight: 700; cursor: pointer">
+<input type="checkbox" :checked="hide" @change="toggleHide" :style="`width: 18px; height: 18px; margin: 0; accent-color: ${accent}`">
+Mode mémorisation
+</label>
+<template v-if="hide">
+<p :style="`margin: 0; font-size: 13.5px; font-weight: 700; line-height: 1.5; color: ${accent}`">Mode mémorisation&nbsp;: pour chaque cas, retrouve la règle à partir des exemples, puis touche pour vérifier.</p>
+</template>
+<div style="background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px">
+<span dir="rtl" lang="ar" style="align-self: flex-start; font-family: 'ArPunct', var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', serif; font-size: calc(26px * var(--ar, 1)); line-height: 1.7; color: var(--accent)">{{chx.ar}}</span>
+<template v-for="ip in chx.intro"><p style="margin: 0; font-size: 16px; line-height: 1.6; text-wrap: pretty">{{ip.t}}</p></template>
+<p style="margin: 0; font-size: 13px; line-height: 1.5; color: var(--muted)">Le viatique du lecteur · {{chx.pages}}</p>
+</div>
+<template v-for="sec in chSections">
+<div :id="`ch-${sec.num}`" style="display: flex; flex-direction: column; gap: 12px; padding-top: 6px; scroll-margin-top: 16px">
+<template v-if="sec.isShown">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px">
+<h2 style="margin: 0; font-size: 20px; line-height: 1.3; font-weight: 800; letter-spacing: -0.01em; text-wrap: balance">{{sec.num}}. {{sec.title}}</h2>
+<template v-if="sec.hasAr"><span dir="rtl" lang="ar" :style="`font-family: 'ArPunct', var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: calc(22px * var(--ar, 1)); line-height: 1.6; color: ${accent}`">{{sec.ar}}</span></template>
+</div>
+<span :style="`align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; min-height: 30px; padding: 0 14px; border-radius: 999px; font-size: 13px; font-weight: 800; ${sec.chipStyle}`">{{sec.verdict}} · {{sec.count}}</span>
+<template v-if="sec.hasDef"><p style="margin: 0; font-size: 15px; line-height: 1.6; text-wrap: pretty">{{sec.def}}</p></template>
+</template>
+<template v-if="sec.isHidden">
+<button class="lift" @click="sec.reveal" :aria-label="sec.revealAria" style="width: 100%; text-align: left; display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; border-radius: 16px; border: 1.5px dashed var(--line2); background: var(--surface2); color: var(--ink)">
+<span style="font-size: 18px; font-weight: 800">{{sec.num}}. Emphase, légèreté ou au choix&nbsp;?</span>
+<span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">{{sec.count}} · touche pour vérifier</span>
+</button>
+</template>
+<template v-for="c in sec.cases">
+<article style="background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: flex-start; gap: 12px">
+<span :style="`flex-shrink: 0; width: 30px; height: 30px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; ${c.badgeStyle}`">{{c.n}}</span>
+<template v-if="c.isShown"><p style="margin: 0; font-size: 15.5px; line-height: 1.6; text-wrap: pretty"><template v-for="pt in c.ruleParts"><template v-if="pt.isImg"><img :src="pt.src" :alt="pt.alt" :style="pt.imgStyle"></template><template v-if="pt.isText"><span :style="pt.style">{{pt.text}}</span></template></template></p></template>
+<template v-if="c.isHidden"><button class="lift" @click="c.reveal" :aria-label="c.revealAria" style="flex: 1; text-align: left; display: flex; flex-direction: column; gap: 2px; min-height: 52px; padding: 10px 14px; border-radius: 12px; border: 1.5px dashed var(--line2); background: var(--surface2); color: var(--ink)"><span style="font-size: 15px; font-weight: 800">Quelle est la règle&nbsp;?</span><span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">Regarde les exemples, puis touche pour vérifier</span></button></template>
+</div>
+<template v-if="c.hasLead"><p style="margin: 0; font-size: 14.5px; font-weight: 700; line-height: 1.5">{{c.lead}}</p></template>
+<template v-for="ex in c.examples">
+<div style="border: 1px dashed var(--line2); border-radius: 12px; padding: 8px 14px; display: flex; flex-direction: column; gap: 2px">
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 12px"><span style="font-size: 11.5px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted)">{{ex.label}}</span><template v-if="ex.hasWord"><span dir="rtl" lang="ar" :style="`font-family: 'ArPunct', var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: calc(20px * var(--ar, 1)); line-height: 1.6; color: ${accent}`">{{ex.word}}</span></template></div>
+<div dir="rtl" lang="ar" style="font-family: 'ArPunct', var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: calc(23px * var(--ar, 1)); line-height: 2.2; color: var(--ink); text-align: right"><template v-for="pt in ex.parts"><span :style="pt.style">{{pt.text}}</span></template></div>
+</div>
+</template>
+<template v-if="c.hasNote"><p style="margin: 0; font-size: 14px; line-height: 1.55; color: var(--muted); text-wrap: pretty">{{c.note}}</p></template>
+</article>
+</template>
+</div>
+</template>
+<div :style="`background: ${tint}; border-radius: 18px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px`">
+<template v-for="n in chNotes"><p style="margin: 0; font-size: 15px; line-height: 1.65; text-wrap: pretty"><strong>{{n.title}}&nbsp;:</strong> {{n.text}}</p></template>
+</div>
+<div style="margin-top: 10px; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+<p style="margin: 0; font-size: 17px; font-weight: 800">Prêt à te tester&nbsp;?</p>
+<div style="display: flex; flex-wrap: wrap; gap: 10px">
+<button @click="startChQcm" :style="`min-height: 48px; padding: 0 20px; border-radius: 12px; border: 0; background: ${accent}; color: #FFFFFF; font-size: 15px; font-weight: 700`">QCM</button>
+<button @click="startChVf" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Vrai ou faux</button>
+<button @click="startChTrous" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Texte à trous</button>
+<button @click="startChMix" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Mélange</button>
 </div>
 </div>
 <div style="display: flex; justify-content: center; padding-top: 4px"><button class="lift" @click="goHome" style="min-height: 52px; padding: 0 22px; border-radius: 14px; border: 1.5px solid var(--line); background: var(--surface); display: inline-flex; align-items: center; gap: 10px; font-size: 15.5px; font-weight: 800"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5"></path><path d="M5 9.5V20h14V9.5"></path><path d="M10 20v-6h4v6"></path></svg>Retour à l’accueil</button></div>
@@ -2077,7 +2193,552 @@ class Component extends DCLogic {
       { t: 'Dans Al-Lâzim Al-Harfiyy Al-Mouthaqqal, la 3e lettre s’[assimile] avec la lettre qui suit.', d: ['arrête', 'prolonge'], e: 'Exemple : الٓمٓ = أَلِفۡ لَآمۡ مِّيمۡ.' },
       { t: 'Al-Madd Al-[Farq] différencie la forme interrogative de l’affirmative.', d: ['Tamkîn', 'Lîn'], e: 'Exemple : ءَآللَّهُ أَذِنَ لَكُمۡ.' }
     ];
-    this._d = { fr, signs, map, qcm, vf, trous, EX, AR, types, tqcm, tvf, ttrous, RA, rqcm, rvf, rtrous, COMP, ctrous, cqcm, cordre, PROG, PROG4B, COMP4B, dqcm, dordre, dtrous, ID, iqcm, ivf, itrous, MD, pqcm, pvf, ptrous };
+    const KURSI = '[[r:ٱللَّهُ]] لَآ إِلَٰهَ إِلَّا [[r:هُوَ]] ٱلۡحَيُّ ٱلۡقَيُّومُۚ لَا تَأۡخُذُهُۥ سِنَةٞ وَلَا نَوۡمٞۚ لَّهُۥ مَا فِي ٱلسَّمَٰوَٰتِ وَمَا فِي ٱلۡأَرۡضِۗ مَن ذَا ٱلَّذِي يَشۡفَعُ عِندَهُۥٓ إِلَّا بِإِذۡنِهِۦۚ يَعۡلَمُ مَا بَيۡنَ أَيۡدِيهِمۡ وَمَا خَلۡفَهُمۡۖ وَلَا يُحِيطُونَ بِشَيۡءٖ مِّنۡ عِلۡمِهِۦٓ إِلَّا بِمَا شَآءَۚ وَسِعَ كُرۡسِيُّهُ ٱلسَّمَٰوَٰتِ وَٱلۡأَرۡضَۖ وَلَا يَـُٔودُهُۥ حِفۡظُهُمَاۚ وَ[[r:هُوَ]] ٱلۡعَلِيُّ ٱلۡعَظِيمُ';
+    const HAMM = 'ٱللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ ٱلۡهَمِّ وَٱلۡحَزَنِ، وَٱلۡعَجۡزِ وَٱلۡكَسَلِ، وَٱلۡبُخۡلِ وَٱلۡجُبۡنِ، وَضَلَعِ ٱلدَّيۡنِ، وَغَلَبَةِ ٱلرِّجَالِ';
+    const HAMM_FR = 'Ô Allah, je me réfugie auprès de Toi contre l’angoisse et la tristesse, la faiblesse et la paresse, l’avarice et la lâcheté, le fardeau des dettes et la prééminence des hommes.';
+    const COMP4A = [
+      { num: 1, ref: 'IV-1', page: 'pp. 19-22', title: 'Avant de dormir',
+        intro: 'Lorsque le Prophète (SAW) se mettait au lit, il joignait les paumes de ses mains, y soufflait et récitait les trois dernières sourates du Coran, ensuite il passait ses mains sur ce qu’il pouvait de son corps, en commençant par la tête, le visage et la partie antérieure du corps ; il répétait cela trois fois. Le Prophète (SAW) a aussi dit : « Lorsque vous allez dormir, lisez Ayat-ul-Kursiyy jusqu’à la fin du verset. Allah vous protégera et le démon ne vous approchera pas jusqu’au matin. »',
+        blocks: [
+          { lead: 'Ayat-ul-Kursiyy', ar: KURSI, fr: 'Allah ! Point de divinité à part Lui, le Vivant, Celui qui subsiste par lui-même « Al-Qayyûm ». Ni somnolence ni sommeil ne Le saisissent. À Lui appartient tout ce qui est dans les cieux et sur la terre. Qui peut intercéder auprès de Lui sans Sa permission ? Il connaît leur passé et leur futur. Et, de Sa science, ils n’embrassent que ce qu’Il veut. Son Trône « Kursiy » déborde les cieux et la terre, dont la garde ne Lui coûte aucune peine. Et Il est le Très-Haut, le Très-Grand.', src: 'Coran 2/255', nb: '' }
+        ] },
+      { num: 2, ref: 'VII-1', page: 'pp. 32-33', title: 'Dans les moments de soucis, de tristesse, de difficultés', intro: '',
+        blocks: [
+          { lead: '', ar: HAMM, fr: HAMM_FR, src: '', nb: 'Le Prophète (SAW) recommanda à l’un de ses compagnons qui traversait des moments de soucis et d’angoisse de la répéter matin et soir.' },
+          { lead: 'Et aussi :', ar: 'لَآ إِلَٰهَ إِلَّآ أَنتَ سُبۡحَٰنَكَ إِنِّي كُنتُ مِنَ ٱلظَّٰلِمِينَ', fr: 'Il n’y a de dieu que Toi (ALLAH), gloire et pureté à Toi ! J’étais vraiment du nombre des injustes.', src: 'Coran 21/87',
+            nb: 'Le prophète Younouss (Jonas), paix sur lui, faisait cette invocation lorsqu’il fut avalé par la baleine. Allah (Swt) le délivra par la suite. Le Prophète (SAW) a dit : « Ne voulez-vous pas que je vous enseigne un appel à réciter quand vous frappe ici-bas une affliction ou un malheur, et ce dans le but de vous détendre, de dissiper vos soucis et de vous soulager ? C’est l’invocation faite par Zinnoun (le prophète Younouss) : “Il n’y a de dieu que Toi, gloire et pureté à Toi ! J’étais vraiment du nombre des injustes.” » Allah (Swt) promet aussi la délivrance à quiconque L’invoque par cette invocation.' }
+        ] },
+      { num: 3, ref: 'VII-2', page: 'pp. 33-34', title: 'Devant une affaire difficile ou pour faciliter une entreprise', intro: '',
+        blocks: [
+          { lead: '', ar: 'ٱللَّهُمَّ لَا سَهۡلَ إِلَّا مَا جَعَلۡتَهُ سَهۡلًا، وَأَنتَ تَجۡعَلُ ٱلۡحَزۡنَ إِذَا شِئۡتَ سَهۡلًا', fr: 'Seigneur, il n’y a de facile que ce que Tu as rendu facile, et si Tu veux Tu rends facile ce qui est difficile.', src: '', nb: '' },
+          { lead: 'Et aussi :', ar: 'لَا حَوۡلَ وَلَا قُوَّةَ إِلَّا بِٱللَّهِ', fr: 'Il n’y a de force, ni de puissance que par Allah.', src: '',
+            nb: 'Cette invocation est très efficace devant les situations difficiles et même le stress. Lorsque l’on se sent faible, incapable, malade… il faut y avoir recours. Le Prophète (SAW) recommandait à certains de ses compagnons de la répéter très souvent ; il nous dit que cette invocation est un Trésor des Trésors du Paradis.' }
+        ] },
+      { num: 4, ref: 'VII-7', page: 'p. 36', title: 'Pour le remboursement des dettes',
+        intro: 'Le Prophète (SAW) dit : « Ne veux-tu pas, Musulman, que je t’enseigne certaines paroles afin qu’Allah (Swt) éteigne tes dettes, même si elles sont autant que le mont “Thabir” ? Alors dis : »',
+        blocks: [
+          { lead: '', ar: 'ٱللَّهُمَّ ٱكۡفِنِي بِحَلَالِكَ عَنۡ حَرَامِكَ، وَأَغۡنِنِي بِفَضۡلِكَ عَمَّنۡ سِوَاكَ', fr: 'Seigneur, suffis-moi par Ton licite contre Ton illicite, et aide-moi par Ta grâce à me dispenser d’autre que Toi.', src: '', nb: '' },
+          { lead: 'Et aussi :', ar: HAMM, fr: HAMM_FR, src: '', nb: '' }
+        ] },
+      { num: 5, ref: 'VII-3', page: 'p. 34', title: 'Quand on craint un groupe de gens', intro: '',
+        blocks: [
+          { lead: '', ar: 'ٱللَّهُمَّ إِنَّا نَجۡعَلُكَ فِي نُحُورِهِمۡ، وَنَعُوذُ بِكَ مِنۡ شُرُورِهِمۡ', fr: 'Seigneur, nous Te plaçons en face d’eux et nous nous réfugions auprès de Toi contre leur mal.', src: '', nb: '' },
+          { lead: 'Et aussi :', ar: 'ٱللَّهُمَّ ٱكۡفِنِيهِمۡ بِمَا شِئۡتَ', fr: 'Seigneur Dieu ! Sauve-moi d’eux par ce que Tu veux !', src: '', nb: '' }
+        ] }
+    ];
+    Object.assign(EX, {
+      f1: { text: 'ٱللَّهُ لَآ إِلَٰهَ إِلَّا هُوَ ٱلۡحَيُّ ٱلۡقَيُّومُۚ لَا تَأۡخُذُهُۥ سِنَةٞ وَلَا نَوۡمٞ', ref: '' },
+      f2: { text: 'ٱللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ ٱلۡهَمِّ وَٱلۡحَزَنِ، وَٱلۡعَجۡزِ وَٱلۡكَسَلِ', ref: '' },
+      f3: { text: 'لَآ إِلَٰهَ إِلَّآ أَنتَ سُبۡحَٰنَكَ إِنِّي كُنتُ مِنَ ٱلظَّٰلِمِينَ', ref: '' },
+      f4: { text: 'ٱللَّهُمَّ لَا سَهۡلَ إِلَّا مَا جَعَلۡتَهُ سَهۡلًا', ref: '' },
+      f5: { text: 'لَا حَوۡلَ وَلَا قُوَّةَ إِلَّا بِٱللَّهِ', ref: '' },
+      f6: { text: 'ٱللَّهُمَّ إِنَّا نَجۡعَلُكَ فِي نُحُورِهِمۡ، وَنَعُوذُ بِكَ مِنۡ شُرُورِهِمۡ', ref: '' },
+      f7: { text: 'ٱللَّهُمَّ ٱكۡفِنِيهِمۡ بِمَا شِئۡتَ', ref: '' },
+      f8: { text: 'ٱللَّهُمَّ ٱكۡفِنِي بِحَلَالِكَ عَنۡ حَرَامِكَ، وَأَغۡنِنِي بِفَضۡلِكَ عَمَّنۡ سِوَاكَ', ref: '' }
+    });
+    const SA = { dor: 'Avant de dormir', sou: 'Dans les moments de soucis, de tristesse, de difficultés', dif: 'Devant une affaire difficile', grp: 'Quand on craint un groupe de gens', det: 'Pour le remboursement des dettes' };
+    const AA = { kursi: 'ٱللَّهُ لَآ إِلَٰهَ إِلَّا هُوَ ٱلۡحَيُّ ٱلۡقَيُّومُ', hamm: 'ٱللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ ٱلۡهَمِّ وَٱلۡحَزَنِ', yun: 'لَآ إِلَٰهَ إِلَّآ أَنتَ سُبۡحَٰنَكَ', sahl: 'ٱللَّهُمَّ لَا سَهۡلَ إِلَّا مَا جَعَلۡتَهُ سَهۡلًا', nuhur: 'ٱللَّهُمَّ إِنَّا نَجۡعَلُكَ فِي نُحُورِهِمۡ', kfini: 'ٱللَّهُمَّ ٱكۡفِنِي بِحَلَالِكَ عَنۡ حَرَامِكَ' };
+    const QSA = 'Dans quelle situation dit-on cette invocation ?';
+    const eqcm = [
+      { p: QSA, k: 'f1', v: 'f1', o: [SA.dor, SA.sou, SA.grp, SA.det], e: 'Fiche 1 : Ayat-ul-Kursiyy, à lire avant de dormir. Allah protège celui qui la lit, et le démon ne l’approche pas jusqu’au matin.' },
+      { p: QSA, k: 'f2', v: 'f2', o: [SA.sou, SA.dor, SA.grp, SA.dif], e: 'Fiche 2 (VII-1). On la dit aussi pour le remboursement des dettes (fiche 4).' },
+      { p: QSA, k: 'f3', v: 'f3', o: [SA.sou, SA.dor, SA.grp, SA.det], e: 'Fiche 2 : l’invocation du prophète Younouss (Jonas) dans la baleine (Coran 21/87).' },
+      { p: QSA, k: 'f4', v: 'f4', o: [SA.dif, SA.sou, SA.dor, SA.grp], e: 'Fiche 3 : « Seigneur, il n’y a de facile que ce que Tu as rendu facile… »' },
+      { p: QSA, k: 'f5', v: 'f5', o: [SA.dif, SA.det, SA.dor, SA.grp], e: 'Fiche 3 : « Il n’y a de force, ni de puissance que par Allah », un Trésor des Trésors du Paradis.' },
+      { p: QSA, k: 'f6', v: 'f6', o: [SA.grp, SA.dif, SA.det, SA.dor], e: 'Fiche 5 : « Seigneur, nous Te plaçons en face d’eux… »' },
+      { p: QSA, k: 'f7', v: 'f7', o: [SA.grp, SA.sou, SA.det, SA.dif], e: 'Fiche 5 : « Seigneur Dieu ! Sauve-moi d’eux par ce que Tu veux ! »' },
+      { p: QSA, k: 'f8', v: 'f8', o: [SA.det, SA.grp, SA.dif, SA.dor], e: 'Fiche 4 : « Seigneur, suffis-moi par Ton licite contre Ton illicite… »' },
+      { p: 'Quelle invocation dit-on pour le remboursement des dettes ?', ar: true, o: [AA.kfini, AA.nuhur, AA.sahl, AA.kursi], e: 'Fiche 4 (VII-7).' },
+      { p: 'Quelle invocation dit-on quand on craint un groupe de gens ?', ar: true, o: [AA.nuhur, AA.kfini, AA.sahl, AA.yun], e: 'Fiche 5 (VII-3).' },
+      { p: 'Que récitait le Prophète (SAW) en se mettant au lit, après avoir soufflé dans ses mains ?', o: ['Les trois dernières sourates du Coran', 'La sourate Al-Fâtiha', 'La sourate Yâ-Sîn', 'Les dix derniers versets de la sourate 2'], e: 'Puis il passait ses mains sur son corps, en commençant par la tête et le visage, et répétait cela trois fois.' },
+      { p: 'Que promet le hadith à celui qui lit Ayat-ul-Kursiyy avant de dormir ?', o: ['Allah le protège et le démon ne l’approche pas jusqu’au matin', 'Ses dettes sont effacées', 'Il est guéri de toute maladie', 'Il est délivré de la tristesse'], e: 'Fiche 1 (IV-1).' },
+      { p: 'De quel prophète vient l’invocation « لَآ إِلَٰهَ إِلَّآ أَنتَ سُبۡحَٰنَكَ إِنِّي كُنتُ مِنَ ٱلظَّٰلِمِينَ » ?', o: ['Younouss (Jonas)', 'Ayyoub (Job)', 'Ibrahim (Abraham)', 'Noûh (Noé)'], e: 'Il la faisait lorsqu’il fut avalé par la baleine ; Allah (Swt) le délivra.' },
+      { p: 'Comment le Prophète (SAW) a-t-il décrit « لَا حَوۡلَ وَلَا قُوَّةَ إِلَّا بِٱللَّهِ » ?', o: ['Un Trésor des Trésors du Paradis', 'La meilleure invocation du matin', 'L’invocation du voyageur', 'La clé de la prière'], e: 'Fiche 3 : il recommandait de la répéter très souvent.' }
+    ];
+    const eordre = [
+      { w: 'ٱللَّهُ لَآ إِلَٰهَ إِلَّا هُوَ ٱلۡحَيُّ ٱلۡقَيُّومُۚ لَا تَأۡخُذُهُۥ سِنَةٞ وَلَا نَوۡمٞ', fr: 'Allah ! Point de divinité à part Lui, le Vivant, Celui qui subsiste par lui-même « Al-Qayyûm ». Ni somnolence ni sommeil ne Le saisissent.', e: 'Fiche 1 · Avant de dormir.' },
+      { w: 'لَّهُۥ مَا فِي ٱلسَّمَٰوَٰتِ وَمَا فِي ٱلۡأَرۡضِۗ مَن ذَا ٱلَّذِي يَشۡفَعُ عِندَهُۥٓ إِلَّا بِإِذۡنِهِۦ', fr: 'À Lui appartient tout ce qui est dans les cieux et sur la terre. Qui peut intercéder auprès de Lui sans Sa permission ?', e: 'Fiche 1 · Avant de dormir.' },
+      { w: 'يَعۡلَمُ مَا بَيۡنَ أَيۡدِيهِمۡ وَمَا خَلۡفَهُمۡۖ وَلَا يُحِيطُونَ بِشَيۡءٖ مِّنۡ عِلۡمِهِۦٓ إِلَّا بِمَا شَآءَ', fr: 'Il connaît leur passé et leur futur. Et, de Sa science, ils n’embrassent que ce qu’Il veut.', e: 'Fiche 1 · Avant de dormir.' },
+      { w: 'وَسِعَ كُرۡسِيُّهُ ٱلسَّمَٰوَٰتِ وَٱلۡأَرۡضَۖ وَلَا يَـُٔودُهُۥ حِفۡظُهُمَاۚ وَهُوَ ٱلۡعَلِيُّ ٱلۡعَظِيمُ', fr: 'Son Trône « Kursiy » déborde les cieux et la terre, dont la garde ne Lui coûte aucune peine. Et Il est le Très-Haut, le Très-Grand.', e: 'Fiche 1 · Avant de dormir.' },
+      { w: 'ٱللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ ٱلۡهَمِّ وَٱلۡحَزَنِ، وَٱلۡعَجۡزِ وَٱلۡكَسَلِ', fr: 'Ô Allah, je me réfugie auprès de Toi contre l’angoisse et la tristesse, la faiblesse et la paresse,', e: 'Fiche 2 · Dans les moments de soucis.' },
+      { w: 'وَٱلۡبُخۡلِ وَٱلۡجُبۡنِ، وَضَلَعِ ٱلدَّيۡنِ، وَغَلَبَةِ ٱلرِّجَالِ', fr: 'l’avarice et la lâcheté, le fardeau des dettes et la prééminence des hommes.', e: 'Fiche 2 · Dans les moments de soucis.' },
+      { w: 'لَآ إِلَٰهَ إِلَّآ أَنتَ سُبۡحَٰنَكَ إِنِّي كُنتُ مِنَ ٱلظَّٰلِمِينَ', fr: 'Il n’y a de dieu que Toi, gloire et pureté à Toi ! J’étais vraiment du nombre des injustes.', e: 'Fiche 2 · Coran 21/87, l’invocation du prophète Younouss.' },
+      { w: 'ٱللَّهُمَّ لَا سَهۡلَ إِلَّا مَا جَعَلۡتَهُ سَهۡلًا، وَأَنتَ تَجۡعَلُ ٱلۡحَزۡنَ إِذَا شِئۡتَ سَهۡلًا', fr: 'Seigneur, il n’y a de facile que ce que Tu as rendu facile, et si Tu veux Tu rends facile ce qui est difficile.', e: 'Fiche 3 · Devant une affaire difficile.' },
+      { w: 'لَا حَوۡلَ وَلَا قُوَّةَ إِلَّا بِٱللَّهِ', fr: 'Il n’y a de force, ni de puissance que par Allah.', e: 'Fiche 3 · Devant une affaire difficile.' },
+      { w: 'ٱللَّهُمَّ ٱكۡفِنِي بِحَلَالِكَ عَنۡ حَرَامِكَ، وَأَغۡنِنِي بِفَضۡلِكَ عَمَّنۡ سِوَاكَ', fr: 'Seigneur, suffis-moi par Ton licite contre Ton illicite, et aide-moi par Ta grâce à me dispenser d’autre que Toi.', e: 'Fiche 4 · Pour le remboursement des dettes.' },
+      { w: 'ٱللَّهُمَّ إِنَّا نَجۡعَلُكَ فِي نُحُورِهِمۡ، وَنَعُوذُ بِكَ مِنۡ شُرُورِهِمۡ', fr: 'Seigneur, nous Te plaçons en face d’eux et nous nous réfugions auprès de Toi contre leur mal.', e: 'Fiche 5 · Quand on craint un groupe de gens.' },
+      { w: 'ٱللَّهُمَّ ٱكۡفِنِيهِمۡ بِمَا شِئۡتَ', fr: 'Seigneur Dieu ! Sauve-moi d’eux par ce que Tu veux !', e: 'Fiche 5 · Quand on craint un groupe de gens.' }
+    ];
+    const EA1 = 'Ayat-ul-Kursiyy (Coran 2/255), à lire avant de dormir (fiche 1).';
+    const EA2 = 'Dans les moments de soucis (fiche 2) et pour le remboursement des dettes (fiche 4).';
+    const etrous = [
+      { ar: true, t: 'ٱللَّهُ لَآ إِلَٰهَ إِلَّا هُوَ [ٱلۡحَيُّ] [ٱلۡقَيُّومُ]', d: ['ٱلۡعَلِيُّ', 'ٱلۡعَظِيمُ'], e: EA1 },
+      { ar: true, t: 'لَا تَأۡخُذُهُۥ [سِنَةٞ] وَلَا [نَوۡمٞ]', d: ['تَعَبٞ', 'غَفۡلَةٞ'], e: EA1 },
+      { ar: true, t: 'وَسِعَ [كُرۡسِيُّهُ] ٱلسَّمَٰوَٰتِ وَٱلۡأَرۡضَ', d: ['عَرۡشُهُ', 'عِلۡمُهُ'], e: EA1 },
+      { ar: true, t: 'وَلَا يَـُٔودُهُۥ [حِفۡظُهُمَا] وَهُوَ ٱلۡعَلِيُّ [ٱلۡعَظِيمُ]', d: ['خَلۡقُهُمَا', 'ٱلۡكَرِيمُ'], e: EA1 },
+      { ar: true, t: 'ٱللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ [ٱلۡهَمِّ] وَٱلۡحَزَنِ، وَٱلۡعَجۡزِ وَ[ٱلۡكَسَلِ]', d: ['ٱلۡغَمِّ', 'ٱلۡمَرَضِ'], e: EA2 },
+      { ar: true, t: 'وَٱلۡبُخۡلِ وَ[ٱلۡجُبۡنِ]، وَضَلَعِ [ٱلدَّيۡنِ]، وَغَلَبَةِ ٱلرِّجَالِ', d: ['ٱلۡخَوۡفِ', 'ٱلۡفَقۡرِ'], e: EA2 },
+      { ar: true, t: 'لَآ إِلَٰهَ إِلَّآ أَنتَ [سُبۡحَٰنَكَ] إِنِّي كُنتُ مِنَ [ٱلظَّٰلِمِينَ]', d: ['تَبَارَكۡتَ', 'ٱلۡخَاسِرِينَ'], e: 'Coran 21/87 : l’invocation du prophète Younouss (fiche 2).' },
+      { ar: true, t: 'ٱللَّهُمَّ لَا [سَهۡلَ] إِلَّا مَا [جَعَلۡتَهُ] سَهۡلًا', d: ['خَيۡرَ', 'كَتَبۡتَهُ'], e: 'Devant une affaire difficile (fiche 3).' },
+      { ar: true, t: 'وَأَنتَ تَجۡعَلُ [ٱلۡحَزۡنَ] إِذَا [شِئۡتَ] سَهۡلًا', d: ['ٱلصَّعۡبَ', 'أَرَدۡتَ'], e: 'Devant une affaire difficile (fiche 3).' },
+      { ar: true, t: 'لَا حَوۡلَ وَلَا [قُوَّةَ] إِلَّا [بِٱللَّهِ]', d: ['قُدۡرَةَ', 'لِلَّهِ'], e: 'Un Trésor des Trésors du Paradis (fiche 3).' },
+      { ar: true, t: 'ٱللَّهُمَّ ٱكۡفِنِي [بِحَلَالِكَ] عَنۡ [حَرَامِكَ]', d: ['بِرِزۡقِكَ', 'عَذَابِكَ'], e: 'Pour le remboursement des dettes (fiche 4).' },
+      { ar: true, t: 'وَأَغۡنِنِي [بِفَضۡلِكَ] عَمَّنۡ [سِوَاكَ]', d: ['بِرَحۡمَتِكَ', 'عِبَادِكَ'], e: 'Pour le remboursement des dettes (fiche 4).' },
+      { ar: true, t: 'ٱللَّهُمَّ إِنَّا [نَجۡعَلُكَ] فِي نُحُورِهِمۡ، وَنَعُوذُ بِكَ مِنۡ [شُرُورِهِمۡ]', d: ['نَسۡأَلُكَ', 'كَيۡدِهِمۡ'], e: 'Quand on craint un groupe de gens (fiche 5).' },
+      { ar: true, t: 'ٱللَّهُمَّ [ٱكۡفِنِيهِمۡ] بِمَا [شِئۡتَ]', d: ['ٱحۡفَظۡنِي', 'أَرَدۡتَ'], e: 'Quand on craint un groupe de gens (fiche 5).' }
+    ];
+    const INV_DOR = { t: 'Avant de dormir', ref: 'IV-1, pp. 19-22', comp: 1 };
+    const INV_SOU = { t: 'Dans les moments de soucis', ref: 'VII-1, pp. 32-33', comp: 2 };
+    const INV_DIF = { t: 'Devant une affaire difficile', ref: 'VII-2, pp. 33-34', comp: 3 };
+    const OBJ4A = ['Appliquer les règles de tadjwid à la lecture des sourates 77 à 74.'];
+    const PROG4A = [
+      { n: 1, mod: 'regles', obj: ['Définir le tadjwid.', 'Identifier les degrés de lecture.', 'Expliquer les différents types de faute.', 'Identifier les différentes manières de débuter une sourate.'], themes: ['Introduction au tadjwid', 'Notions de Lahn (faute)', 'Manière de débuter une sourate'], inv: INV_DOR, home: 'Sourate 77', links: [{ label: 'Chapitre 1 · fiches', ch: 'a1' }, { label: 'Chapitre 2 · fiches', ch: 'a2' }] },
+      { n: 2, mod: 'regles', obj: ['Identifier les différentes prononciations du nom majestueux de Dieu.', 'Appliquer le nasillement à la lecture du « Mîm » et du « Noûn » mouchaddadatayn.', 'Lire convenablement les lettres de Qalqalah.'], themes: ['Lafzhoul Djalâlah', 'Noûn et Mîm mouchaddadatâni', 'Hourouf oul-Qalqalah'], inv: INV_DOR, home: 'Sourate 76', links: [{ label: 'Chapitre 3 · fiches', ch: 'a3' }, { label: 'Chapitre 4 · fiches', ch: 'a4' }, { label: 'Chapitre 5 · fiches', ch: 'a5' }] },
+      { n: 3, mod: 'regles', obj: ['Appliquer la clarification au Noûn sâkinah et au tanwîn selon le cas.', 'Appliquer la fusion sans nasillement au Noûn sâkinah et au tanwîn selon le cas.'], themes: ['Noûn sâkinah et tanwîn : Izhâr', 'Noûn sâkinah et tanwîn : Idghâm bilâ ghounnah'], inv: INV_SOU, home: 'Sourate 75', links: [{ label: 'Chapitre 6 · la clarification', ch: 'a6', anchor: 'ch-1' }, { label: 'Chapitre 6 · l’assimilation', ch: 'a6', anchor: 'ch-2' }] },
+      { n: 4, mod: 'regles', obj: ['Appliquer la fusion avec nasillement au Noûn sâkinah et au tanwîn selon le cas.', 'Appliquer la substitution au Noûn sâkinah et au tanwîn selon le cas.'], themes: ['Noûn sâkinah et tanwîn : Idghâm bi-ghounnah', 'Noûn sâkinah et tanwîn : Iqlâb'], inv: INV_SOU, home: 'Sourate 74', links: [{ label: 'Chapitre 6 · l’assimilation', ch: 'a6', anchor: 'ch-2' }, { label: 'Chapitre 6 · la substitution', ch: 'a6', anchor: 'ch-3' }] },
+      { n: 5, mod: 'regles', obj: ['Appliquer la dissimulation au Noûn sâkinah et au tanwîn selon le cas.'], themes: ['Noûn sâkinah et tanwîn : Ikhfâ'], inv: INV_DIF, home: 'Sourate 73', links: [{ label: 'Chapitre 6 · la dissimulation', ch: 'a6', anchor: 'ch-4' }, { label: 'Chapitre 6 · mélange', start: ['mix', 'a6'] }] },
+      { n: 6, mod: 'regles', obj: ['Identifier les règles à appliquer au « Mîm » sâkinah selon le cas.'], themes: ['Mîm sâkinah : Idghâm, Ikhfâ et Izhâr chafawiyy'], inv: INV_DIF, home: 'Sourate 72', links: [{ label: 'Chapitre 7 · fiches', ch: 'a7' }, { label: 'Chapitre 7 · mélange', start: ['mix', 'a7'] }] },
+      { n: 7, mod: 'eval', obj: ['Réviser les règles.', 'Évaluer leur compréhension.'], themes: ['Révision / Évaluation'], inv: null, home: '', links: [{ label: 'Mélange · chapitre 1', start: ['mix', 'a1'] }, { label: 'Mélange · chapitre 2', start: ['mix', 'a2'] }, { label: 'Mélange · chapitre 3', start: ['mix', 'a3'] }, { label: 'Mélange · chapitre 4', start: ['mix', 'a4'] }, { label: 'Mélange · chapitre 5', start: ['mix', 'a5'] }, { label: 'Mélange · chapitre 6', start: ['mix', 'a6'] }, { label: 'Mélange · chapitre 7', start: ['mix', 'a7'] }, { label: 'Mélange · invocations', start: ['mix', 'comp4a'] }, { label: 'Mes progrès', go: 'progress' }] },
+      { n: 8, mod: 'lecture', obj: OBJ4A, themes: ['Sourate 77 (pp. 580-581)'], inv: { t: 'Pour le remboursement des dettes', ref: 'VII-7, p. 36', comp: 4 }, home: 'Sourate 18 (pp. 293-295)', links: [] },
+      { n: 9, mod: 'lecture', obj: OBJ4A, themes: ['Sourate 76 (pp. 578-580)'], inv: null, home: 'Sourate 18 (pp. 296-297)', links: [] },
+      { n: 10, mod: 'lecture', obj: OBJ4A, themes: ['Sourate 75 (pp. 577-578)'], inv: { t: 'Quand on craint un groupe de gens', ref: 'VII-3, p. 34', comp: 5 }, home: 'Sourate 18 (pp. 298-299)', links: [] },
+      { n: 11, mod: 'lecture', obj: OBJ4A, themes: ['Sourate 74 (pp. 575-577)'], inv: null, home: 'Sourate 18 (pp. 300-301)', links: [] },
+      { n: 12, mod: 'eval', obj: ['Réviser les règles.', 'Évaluer leur application aux sourates ci-dessus.'], themes: ['Révision / Évaluation'], inv: null, home: '', links: [{ label: 'Mélange · chapitre 1', start: ['mix', 'a1'] }, { label: 'Mélange · chapitre 2', start: ['mix', 'a2'] }, { label: 'Mélange · chapitre 3', start: ['mix', 'a3'] }, { label: 'Mélange · chapitre 4', start: ['mix', 'a4'] }, { label: 'Mélange · chapitre 5', start: ['mix', 'a5'] }, { label: 'Mélange · chapitre 6', start: ['mix', 'a6'] }, { label: 'Mélange · chapitre 7', start: ['mix', 'a7'] }, { label: 'Mélange · invocations', start: ['mix', 'comp4a'] }, { label: 'Mes progrès', go: 'progress' }] }
+    ];
+    const P = '[[r:۝]]';
+    const ISTI = 'أَعُوذُ بِٱللَّهِ مِنَ ٱلشَّيۡطَٰنِ ٱلرَّجِيمِ', BASM = 'بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ', FALAQ = 'قُلۡ أَعُوذُ بِرَبِّ ٱلۡفَلَقِ', NAS = 'قُلۡ أَعُوذُ بِرَبِّ ٱلنَّاسِ', HASAD = 'وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ', BARA = 'بَرَآءَةٞ مِّنَ ٱللَّهِ وَرَسُولِهِۦٓ …';
+    const CH4A = {
+      a1: { num: '1', title: 'Présentation de la science At-tadjwîd', ar: 'ٱلتَّجۡوِيدُ', desc: 'Définition, histoire, but, degrés de lecture et notion de faute (Al-Lahn).', pages: 'pp. 11-17',
+        intro: ['Littéralement, le mot At-tadjwîd (ٱلتَّجۡوِيدُ) veut dire la recherche du beau ; embellir, enjoliver.', 'Spécifiquement à la lecture du CORAN : c’est la science qui permet à une personne de lire le CORAN correctement, en donnant à chaque lettre son droit et ses qualités.'],
+        sections: [
+          { num: '1', title: 'Histoire, but et position légale', ar: '', verdict: 'Présentation', chipBg: 'var(--tint2)', chipFg: 'var(--accent)', def: '',
+            cases: [
+              { rule: 'Histoire (bref rappel sur les lectionnaires) : il existe environ une dizaine de variations de lectures différentes (Hafs, Warsh, Qôlûn, Ad-Duriy, etc.). Dieu, dans Sa grande sagesse et dans Son immense miséricorde, nous a permis d’avoir plusieurs lectures pour plusieurs peuples et tribus, pour des raisons de facilité : le dialecte des Arabes n’était pas le même d’une région à une autre. La lecture Warsh se rapprochait le plus de la récitation du Prophète (SAW), mais celle de Hafs est la plus répandue dans le monde.', ex: [] },
+              { rule: 'La lecture Hafs : le mot « Hafs » vient de l’imam Hafs Ibn Sulaymân Al-Bazzâz, né à Koufa (Irak) en 90 H / 709 et décédé à 86 ans en 180 H / 795. Il fut l’élève de ’Âsim Ibn Abî An-Najoûd, qui étudia le Coran auprès d’Abou Abderrahmân As-Soulamiy. Celui-ci rapporte sa lecture de cinq illustres Compagnons : ’Othmân Ibn ’Affân, ’Aliy Ibn Abî Tôlib, ’Abdullah Ibn Mas’oûd, Oubay Ibn Ka’b et Zayd Ibn Thâbit. La lecture Hafs existe dans tous les pays musulmans, sauf au Maghreb, en Afrique subsaharienne et au Soudan, où l’on lit Warsh (Maroc, Algérie, Mauritanie, Afrique subsaharienne, est de la Tunisie), Qôlûn (Libye, nord de la Tunisie) et Ad-Duriy (Soudan, Somalie, Tchad, une partie du Yémen).', ex: [] },
+              { rule: 'But : lire le CORAN de la même façon que le Prophète (SAW) l’avait enseigné, afin de plaire à ALLAH.', ex: [] },
+              { rule: 'Position légale : lire avec At-tadjwîd est une obligation individuelle (sur chaque musulman), comme les prières canoniques ; mais sa connaissance théorique est une obligation collective (sur la communauté musulmane), comme la prière mortuaire.', ex: [] },
+              { rule: 'Champs d’application : principalement le CORAN. Selon certains savants, même les hadiths sont concernés. Il est clair que lors de la récitation des invocations prophétiques, on ne doit pas faire de fautes.', ex: [] }
+            ] },
+          { num: '2', title: 'Les degrés de lecture du CORAN', ar: '', verdict: '4 degrés', chipBg: 'var(--accent)', chipFg: '#FFFFFF', def: 'Il existe quatre degrés de lecture du CORAN (notes de cours : la « vitesse » de lecture) :',
+            cases: [
+              { rule: 'At-tartîl (ٱلتَّرۡتِيلُ) : c’est le mode lent et clair de récitation. Exemple : la récitation des cheikhs Houzeify, Houssoiry et Minchawy.', ex: [], note: 'NB : At-tartîl est la meilleure façon de réciter, car le CORAN fut révélé ainsi. Selon certains savants, At-tartîl n’est pas une façon, mais la somme des trois autres degrés.' },
+              { rule: 'Al-hadr (ٱلۡحَدۡرُ) : c’est le mode rapide, mais tout en respectant les règles. Il est conseillé lors des révisions. Exemple : la récitation des cheikhs Mouhamed Yousouf et Al-Mouhaissany.', ex: [] },
+              { rule: 'At-tadwîr (ٱلتَّدۡوِيرُ) : c’est un mode de récitation à mi-chemin entre « Al-hadr » et « At-tartîl ». Exemple : la récitation des cheikhs Soudayss et Chouraym.', ex: [] },
+              { rule: 'At-tahqîq (ٱلتَّحۡقِيقُ) : ce mode est proche du « tartîl », mais il se fait avec une grande précaution et lenteur, à des fins pédagogiques. Il est connu sous le nom d’At-tandjîme en Égypte. Exemple : la récitation des cheikhs Mouhamed Rifaat, Moustafah Ismail et Abdoul Baassit.', ex: [] }
+            ] },
+          { num: '3', title: 'La faute dans la lecture (Al-Lahn)', ar: 'ٱللَّحۡنُ', verdict: '2 types de fautes', chipBg: 'var(--amber-bg)', chipFg: 'var(--amber-fg)', def: 'Al-Lahn, c’est l’erreur dans la lecture du Saint Qur’ân : on dit qu’il y a Al-Lahn lorsque l’on dévie de la justesse dans la récitation. On distingue deux (2) types d’erreurs de récitation :',
+            cases: [
+              { rule: 'Al-Lahn Al-Djaliyy (ٱللَّحۡنُ ٱلۡجَلِيُّ) : les fautes graves et évidentes. C’est une erreur considérable qui va en opposition avec les règles essentielles de la langue arabe ; elle peut ou non changer le sens de la phrase. Elle est dite « djaliyy » car elle paraît évidente aussi bien pour les spécialistes d’At-tadjwîd que pour les non-initiés : le changement d’une lettre par une autre, d’une voyelle par une autre, ou le non-respect des caractéristiques (Sifât) des lettres.',
+                ex: [{ label: 'Une voyelle par une autre', text: 'ٱلۡحَمۡ[[r:دُ]] ≠ ٱلۡحَمۡ[[r:دَ]]' }, { label: 'Une lettre par une autre', text: 'صِرَٰ[[r:طَ]] ≠ صِرَٰ[[r:تَ]]' }, { label: 'Une lettre par une autre', text: 'مَٰلِكِ يَوۡمِ ٱل[[r:دِّ]]ينِ ≠ مَٰلِكِ يَوۡمِ ٱل[[r:تِّ]]ينِ' }, { label: 'Une voyelle par une autre', text: 'إِيَّا[[r:كَ]] نَعۡبُدُ ≠ إِيَّا[[r:كِ]] نَعۡبُدُ' }],
+                note: 'Ces changements de lettres ou de voyelles constituent un changement de sens voulu ou réel : c’est une faute grave. Les savants ont jugé Al-Lahn Al-Djaliyy illicite, pouvant même conduire à un péché.' },
+              { rule: 'Al-Lahn Al-Khafiyy (ٱللَّحۡنُ ٱلۡخَفِيُّ) : les fautes mineures et subtiles. C’est une faute dite subtile, voire imperceptible, qui n’est pas en opposition avec les règles de la langue arabe et qui ne change pas le sens du mot ou de la phrase ; mais elle est en désaccord avec les règles spécifiques d’At-tadjwîd. Seuls les initiés peuvent la percevoir : par exemple le non-respect du nasillement, des règles d’Al-Qolqolah ou encore de Lafdzoul Djalâlah.',
+                ex: [{ label: 'Clarifier le Noûn au lieu de nasiller', text: 'مِ[[r:ن]] شَرِّ ≠ مِ[[r:نۡ]] شَرِّ' }],
+                note: 'La majorité des savants d’At-tadjwîd jugent Al-Lahn Al-Khafiyy makroûh (détestable). Cependant, d’autres la considèrent comme harâm (interdite), à un degré moindre que la faute grave.' }
+            ] },
+          { num: '4', title: 'Mérites de la lecture du CORAN', ar: '', verdict: 'Hadiths', chipBg: 'var(--surface3)', chipFg: 'var(--ink)', def: 'Nombreux sont les hadiths faisant l’éloge des mérites liés à la lecture du Coran : il offre la science, la connaissance, la purification, la sagesse, l’accroissement de la piété, des bonnes actions, l’intercession le jour de la résurrection… Le Prophète (SAW) a dit :',
+            cases: [
+              { rule: '« Le Coran est un intercesseur agréé et un défenseur véritable. Alors quiconque prend pour guide le Coran, il le mènera au Paradis, et quiconque le délaisse derrière lui, il le poussera dans le feu de l’enfer. » (Ibn Hibbân)', ex: [] },
+              { rule: '« Celui qui apprend le Coran par cœur, en observe les décrets permissifs et ceux prohibitifs, Dieu le fera entrer au paradis et lui accordera l’intercession en faveur de dix proches parents qui seront voués à l’enfer. » (Tirmidhi)', ex: [] },
+              { rule: '« On dira au récitant du Coran : Récite et monte, et psalmodie-le comme tu le faisais dans le bas monde. Ta place sera là où tu auras récité le dernier verset. » (Abû Dâoûd)', ex: [] },
+              { rule: '« Quiconque récite une seule lettre du Coran aura une bonne action. La bonne action sera décuplée. Je ne dis pas : Alif Lâm Mîm est une lettre. Plutôt, Alif est une lettre, Lâm est une lettre et Mîm une autre lettre. » (Tirmidhi)', ex: [],
+                note: 'Il faut savoir que de nombreuses sourates lues le jour ou la nuit accordent protection, absolution des péchés, préservent du besoin, du malheur, des épreuves ; certaines attirent la bénédiction… Multiples sont les hadiths authentiques nous incitant à leur lecture quotidienne.' }
+            ] }
+        ],
+        notes: [{ title: 'À retenir', text: 'At-tadjwîd : donner à chaque lettre son droit et ses qualités. Quatre degrés de lecture : At-tartîl, Al-hadr, At-tadwîr et At-tahqîq. Deux fautes : Al-Lahn Al-Djaliyy (grave) et Al-Lahn Al-Khafiyy (subtile).' }] },
+      a2: { num: '2', title: 'Al-Isti’âdzah et Al-Basmalah', ar: 'ٱلۡإِسۡتِعَاذَةُ وَٱلۡبَسۡمَلَةُ', desc: 'La formule de protection, la basmalah, et les manières de débuter et d’enchaîner les sourates.', pages: 'pp. 18-21',
+        intro: ['Al-Isti’âdzah est la recherche de protection contre Satan avant la lecture ; Al-Basmalah est la récitation de la formule « بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ ».', 'Dans les exemples, le signe ۝ en rouge marque une pause.'],
+        sections: [
+          { num: '1', title: 'Définitions', ar: '', verdict: '2 formules', chipBg: 'var(--accent)', chipFg: '#FFFFFF', def: '',
+            cases: [
+              { rule: 'Al-Isti’âdzah (ٱلۡإِسۡتِعَاذَةُ) : c’est la recherche de protection contre Satan avant la lecture. Notes de cours : instituée dans la sourate 16, verset 98 (Les abeilles). Avis juridique : fortement recommandée, obligatoire selon certains savants (notes de cours : obligatoire au début de chaque lecture). Formulation : il existe plusieurs formulations, mais la plus conseillée est :', ex: [{ label: 'La formule la plus conseillée', text: ISTI }] },
+              { rule: 'Al-Basmalah (ٱلۡبَسۡمَلَةُ) : c’est la récitation de la formule ci-dessous. Avis juridique : fortement recommandée en début de toute sourate, sauf la sourate 9 où elle est interdite (notes de cours : obligatoire au début de chaque sourate).', ex: [{ label: 'La formule', text: BASM }], note: 'Notes de cours : dans la sourate 27, verset 30 (Les fourmis), il y a 2 basmalah.' }
+            ] },
+          { num: '2', title: 'Manières de débuter une sourate', ar: '', verdict: '4 façons', chipBg: 'var(--tint2)', chipFg: 'var(--accent)', def: 'Il existe 4 façons de débuter une sourate :',
+            cases: [
+              { rule: 'Séparer le tout : Al-Isti’âdzah (pause) Al-Basmalah (pause) début de la sourate.', ex: [{ label: 'Exemple', text: ISTI + ' ' + P + ' ' + BASM + ' ' + P + ' ' + FALAQ }] },
+              { rule: 'Lier le tout : Al-Isti’âdzah + Al-Basmalah + début de la sourate (il n’y a aucune pause ici).', ex: [{ label: 'Exemple', text: ISTI + ' ' + BASM + ' ' + FALAQ }] },
+              { rule: 'Lier les deux premiers et séparer le dernier : Al-Isti’âdzah + Al-Basmalah (pause) début de la sourate.', ex: [{ label: 'Exemple', text: ISTI + ' ' + BASM + ' ' + P + ' ' + FALAQ }] },
+              { rule: 'Séparer le premier et lier les deux derniers : Al-Isti’âdzah (pause) Al-Basmalah + début de la sourate.', ex: [{ label: 'Exemple', text: ISTI + ' ' + P + ' ' + BASM + ' ' + FALAQ }] }
+            ] },
+          { num: '3', title: 'Manières de passer d’une sourate à l’autre', ar: '', verdict: '3 façons', chipBg: 'var(--amber-bg)', chipFg: 'var(--amber-fg)', def: 'Notes de cours : Al-Basmalah entre deux sourates. Il existe 3 façons de passer d’une sourate à l’autre :',
+            cases: [
+              { rule: 'Séparer le tout : fin de la sourate (pause) Al-Basmalah (pause) début de la nouvelle sourate.', ex: [{ label: 'Sourates 113 et 114', text: HASAD + ' ' + P + ' ' + BASM + ' ' + P + ' ' + NAS }] },
+              { rule: 'Lier tout : fin de la sourate + Al-Basmalah + début de la nouvelle sourate.', ex: [{ label: 'Sourates 113 et 114', text: HASAD + ' ' + BASM + ' ' + NAS }] },
+              { rule: 'Séparer le premier et lier les deux derniers : fin de la sourate (pause) Al-Basmalah + début de la nouvelle sourate.', ex: [{ label: 'Sourates 113 et 114', text: HASAD + ' ' + P + ' ' + BASM + ' ' + NAS }],
+                note: 'NB : ne jamais unir seulement la fin d’une sourate à Al-Basmalah et faire une pause pour reprendre le début de l’autre sourate, car cela sous-entend qu’Al-Basmalah fait partie de la première sourate.' }
+            ] },
+          { num: '4', title: 'Cas particulier de la sourate 9', ar: '', verdict: 'Sans basmalah', chipBg: 'var(--surface3)', chipFg: 'var(--ink)', def: 'Pour débuter la sourate 9, on a deux possibilités ; pour passer de la sourate 8 à la sourate 9, on a trois possibilités :',
+            cases: [
+              { rule: 'Débuter la sourate 9 : séparer Al-Isti’âdzah du début de la sourate.', ex: [{ label: 'Exemple', text: ISTI + ' ' + P + ' ' + BARA }] },
+              { rule: 'Débuter la sourate 9 : lier Al-Isti’âdzah au début de la sourate.', ex: [{ label: 'Exemple', text: ISTI + ' ' + BARA }] },
+              { rule: 'Passer de la sourate 8 à la sourate 9 : marquer l’arrêt à la fin de la sourate 8, ensuite débuter la sourate 9.', ex: [{ label: 'Sourates 8 et 9', text: '… إِنَّ ٱللَّهَ بِكُلِّ شَيۡءٍ عَلِيمُۢ ' + P + ' ' + BARA }] },
+              { rule: 'Passer de la sourate 8 à la sourate 9 : marquer la pause légère sans respirer (As-sakt, ٱلسَّكۡتُ).', ex: [{ label: 'Sourates 8 et 9', text: '… إِنَّ ٱللَّهَ بِكُلِّ شَيۡءٍ عَلِيمۡ[[r:ۜ]] ' + BARA }] },
+              { rule: 'Passer de la sourate 8 à la sourate 9 : lier les deux sourates.', ex: [{ label: 'Sourates 8 et 9', text: '… إِنَّ ٱللَّهَ بِكُلِّ شَيۡءٍ عَلِي[[r:مُۢ]] ' + BARA }],
+                note: 'NB : pour lier les deux sourates (fin de la sourate 8 + début de la sourate 9), on a recours à la règle d’Al-Iqlâb (substitution) : عَلِيمٌ = عَلِيمُۢ.' }
+            ] }
+        ],
+        notes: [{ title: 'À retenir', text: 'Al-Basmalah est fortement recommandée au début de toutes les sourates, sauf la sourate 9. Ne jamais lier la fin d’une sourate à Al-Basmalah pour ensuite marquer une pause.' }] }
+    };
+    const a1qcm = [
+      { p: 'Que veut dire littéralement le mot At-tadjwîd ?', o: ['La recherche du beau ; embellir, enjoliver', 'La lecture rapide', 'L’apprentissage par cœur', 'La traduction du Coran'], e: 'At-tadjwîd (ٱلتَّجۡوِيدُ) veut dire la recherche du beau.' },
+      { p: 'Qu’est-ce que la science d’At-tadjwîd ?', o: ['La science qui permet de lire le CORAN correctement, en donnant à chaque lettre son droit et ses qualités', 'La science de l’explication du Coran', 'La science de la grammaire arabe', 'La science de l’écriture du Coran'], e: 'Définition du chapitre 1.' },
+      { p: 'Quelle lecture est la plus répandue dans le monde ?', o: ['Hafs', 'Warsh', 'Qôlûn', 'Ad-Duriy'], e: 'La lecture Hafs est la plus lue dans le monde.' },
+      { p: 'De qui l’imam Hafs fut-il l’élève ?', o: ['’Âsim Ibn Abî An-Najoûd', 'Abou Abderrahmân As-Soulamiy', 'Zayd Ibn Thâbit', 'Oubay Ibn Ka’b'], e: '’Âsim étudia le Coran auprès d’Abou Abderrahmân As-Soulamiy.' },
+      { p: 'Quelle lecture est pratiquée en Afrique subsaharienne (Sénégal, Mali…) ?', o: ['Warsh', 'Hafs', 'Qôlûn', 'Ad-Duriy'], e: 'Warsh : Maroc, Algérie, Mauritanie, Afrique subsaharienne et est de la Tunisie.' },
+      { p: 'Lire avec At-tadjwîd est :', o: ['Une obligation individuelle, sur chaque musulman', 'Une obligation collective seulement', 'Facultatif', 'Réservé aux imams'], e: 'Comme les prières canoniques.' },
+      { p: 'La connaissance théorique d’At-tadjwîd est :', o: ['Une obligation collective, comme la prière mortuaire', 'Une obligation individuelle', 'Interdite aux débutants', 'Sans importance'], e: 'Elle repose sur la communauté musulmane.' },
+      { p: 'Quel est le mode lent et clair de récitation ?', o: ['At-tartîl', 'Al-hadr', 'At-tadwîr', 'At-tahqîq'], e: 'At-tartîl (ٱلتَّرۡتِيلُ), la meilleure façon de réciter.' },
+      { p: 'Quel mode rapide est conseillé lors des révisions ?', o: ['Al-hadr', 'At-tartîl', 'At-tahqîq', 'At-tadwîr'], e: 'Al-hadr (ٱلۡحَدۡرُ) : rapide, mais en respectant les règles.' },
+      { p: 'Quel mode est à mi-chemin entre Al-hadr et At-tartîl ?', o: ['At-tadwîr', 'At-tahqîq', 'Al-hadr', 'At-tartîl'], e: 'At-tadwîr (ٱلتَّدۡوِيرُ).' },
+      { p: 'Quel mode, très lent, est utilisé à des fins pédagogiques ?', o: ['At-tahqîq', 'At-tadwîr', 'Al-hadr', 'At-tartîl'], e: 'At-tahqîq (ٱلتَّحۡقِيقُ), appelé At-tandjîme en Égypte.' },
+      { p: 'Lire « صِرَٰتَ » au lieu de « صِرَٰطَ », c’est :', o: ['Al-Lahn Al-Djaliyy, une faute grave', 'Al-Lahn Al-Khafiyy, une faute subtile', 'Une lecture permise', 'Un degré de lecture'], e: 'Changer une lettre par une autre est une faute grave.' },
+      { p: 'Ne pas respecter le nasillement, c’est :', o: ['Al-Lahn Al-Khafiyy, une faute subtile', 'Al-Lahn Al-Djaliyy, une faute grave', 'At-tahqîq', 'Une obligation collective'], e: 'Exemple : clarifier le Noûn de « مِن شَرِّ » au lieu de nasiller.' },
+      { p: 'Comment la majorité des savants jugent-ils Al-Lahn Al-Khafiyy ?', o: ['Makroûh (détestable)', 'Obligatoire', 'Permis sans réserve', 'Recommandé'], e: 'D’autres la considèrent comme harâm, à un degré moindre que la faute grave.' }
+    ];
+    const a1vf = [
+      { s: 'At-tadjwîd veut dire littéralement « la recherche du beau ».', a: true, e: 'Embellir, enjoliver.' },
+      { s: 'Il n’existe qu’une seule lecture du Coran.', a: false, e: 'Il en existe environ une dizaine : Hafs, Warsh, Qôlûn, Ad-Duriy…' },
+      { s: 'La lecture Hafs vient de l’imam Hafs Ibn Sulaymân Al-Bazzâz.', a: true, e: 'Né à Koufa en 90 H, décédé en 180 H.' },
+      { s: 'La lecture Warsh est la plus répandue dans le monde.', a: false, e: 'C’est la lecture Hafs.' },
+      { s: 'Lire avec At-tadjwîd est une obligation individuelle.', a: true, e: 'Sur chaque musulman, comme les prières canoniques.' },
+      { s: 'Le champ d’application d’At-tadjwîd est principalement le Coran.', a: true, e: 'Selon certains savants, même les hadiths sont concernés.' },
+      { s: 'Al-hadr est le mode lent et clair de récitation.', a: false, e: 'Al-hadr est le mode rapide ; le mode lent et clair est At-tartîl.' },
+      { s: 'At-tartîl est la meilleure façon de réciter, car le Coran fut révélé ainsi.', a: true, e: 'NB du chapitre 1.' },
+      { s: 'Al-Lahn Al-Djaliyy est une faute grave et évidente.', a: true, e: 'Changement de lettre, de voyelle, ou non-respect des Sifât.' },
+      { s: 'Al-Lahn Al-Khafiyy change le sens du mot ou de la phrase.', a: false, e: 'Elle ne change pas le sens, mais elle va contre les règles d’At-tadjwîd.' },
+      { s: 'Les savants ont jugé Al-Lahn Al-Djaliyy illicite.', a: true, e: 'Elle peut même conduire à un péché.' },
+      { s: 'Selon le hadith, réciter une seule lettre du Coran donne une bonne action, décuplée.', a: true, e: '« Alif est une lettre, Lâm est une lettre et Mîm une autre lettre. »' }
+    ];
+    const a1trous = [
+      { t: 'Littéralement, At-tadjwîd veut dire la recherche du [beau].', d: ['vrai', 'savoir'], e: 'Embellir, enjoliver.' },
+      { t: 'At-tadjwîd permet de lire le CORAN en donnant à chaque [lettre] son droit et ses [qualités].', d: ['voyelle', 'défauts'], e: 'Définition du chapitre 1.' },
+      { t: 'La lecture [Hafs] est la plus lue dans le monde.', d: ['Warsh', 'Qôlûn'], e: 'Elle vient de l’imam Hafs Ibn Sulaymân Al-Bazzâz.' },
+      { t: 'Lire avec At-tadjwîd est une obligation [individuelle] ; sa connaissance théorique est une obligation [collective].', d: ['facultative', 'personnelle'], e: 'Position légale.' },
+      { t: 'At-[tartîl] est le mode lent et clair ; Al-[hadr] est le mode rapide.', d: ['tahqîq', 'tadwîr'], e: 'Les degrés de lecture.' },
+      { t: 'Al-Lahn Al-[Djaliyy] est la faute grave ; Al-Lahn Al-[Khafiyy] est la faute subtile.', d: ['Kalimiyy', 'Asliyy'], e: 'Les deux types de fautes.' },
+      { t: 'Le but de cette science est de lire le CORAN de la même façon que le [Prophète] l’avait enseigné.', d: ['imam', 'calife'], e: 'Afin de plaire à ALLAH.' },
+      { t: 'At-tahqîq se fait avec une grande précaution et [lenteur], à des fins [pédagogiques].', d: ['vitesse', 'commerciales'], e: 'Appelé At-tandjîme en Égypte.' }
+    ];
+    const a2qcm = [
+      { p: 'Qu’est-ce qu’Al-Isti’âdzah ?', o: ['La recherche de protection contre Satan avant la lecture', 'La formule « Au nom d’Allah »', 'Une pause légère sans respirer', 'La fin d’une sourate'], e: 'Formule conseillée : أَعُوذُ بِٱللَّهِ مِنَ ٱلشَّيۡطَٰنِ ٱلرَّجِيمِ.' },
+      { p: 'Quelle est la formule d’Al-Isti’âdzah la plus conseillée ?', ar: true, o: [ISTI, BASM, FALAQ, 'لَا حَوۡلَ وَلَا قُوَّةَ إِلَّا بِٱللَّهِ'], e: 'Il existe plusieurs formulations, mais celle-ci est la plus conseillée.' },
+      { p: 'Devant quelle sourate Al-Basmalah est-elle interdite ?', o: ['La sourate 9', 'La sourate 1', 'La sourate 27', 'La sourate 114'], e: 'La sourate 9 commence sans basmalah.' },
+      { p: 'Combien y a-t-il de façons de débuter une sourate ?', o: ['4', '2', '3', '5'], e: 'Séparer le tout, lier le tout, lier les deux premiers, séparer le premier.' },
+      { p: 'Combien y a-t-il de façons de passer d’une sourate à l’autre ?', o: ['3', '4', '2', '1'], e: 'Séparer le tout, lier tout, séparer le premier et lier les deux derniers.' },
+      { p: '« Al-Isti’âdzah (pause) Al-Basmalah (pause) début de la sourate » : quelle façon est-ce ?', o: ['Séparer le tout', 'Lier le tout', 'Lier les deux premiers et séparer le dernier', 'Séparer le premier et lier les deux derniers'], e: 'Deux pauses : on sépare tout.' },
+      { p: '« Al-Isti’âdzah + Al-Basmalah (pause) début de la sourate » : quelle façon est-ce ?', o: ['Lier les deux premiers et séparer le dernier', 'Séparer le tout', 'Lier le tout', 'Séparer le premier et lier les deux derniers'], e: 'Une seule pause, après Al-Basmalah.' },
+      { p: 'Quelle manière d’enchaîner deux sourates est interdite ?', o: ['Lier la fin de la sourate à Al-Basmalah, puis faire une pause avant la nouvelle sourate', 'Séparer le tout', 'Lier tout', 'Faire une pause après la fin de la sourate, puis lier Al-Basmalah au début de la nouvelle'], e: 'Cela sous-entend qu’Al-Basmalah fait partie de la première sourate.' },
+      { p: 'Combien de possibilités y a-t-il pour débuter la sourate 9 ?', o: ['2', '3', '4', '1'], e: 'Séparer ou lier Al-Isti’âdzah au début de la sourate.' },
+      { p: 'Combien de possibilités y a-t-il pour passer de la sourate 8 à la sourate 9 ?', o: ['3', '2', '4', '1'], e: 'L’arrêt, la pause légère sans respirer (As-sakt) ou la liaison.' },
+      { p: 'Comment s’appelle la pause légère sans respirer ?', o: ['As-sakt', 'Al-Iqlâb', 'Al-Basmalah', 'At-tartîl'], e: 'As-sakt (ٱلسَّكۡتُ).' },
+      { p: 'Pour lier la fin de la sourate 8 au début de la sourate 9, quelle règle applique-t-on sur « عَلِيمٌ » ?', o: ['Al-Iqlâb (substitution)', 'Al-Idghâm (fusion)', 'Al-Izhâr (clarification)', 'Al-Qolqolah (écho)'], e: 'عَلِيمٌ = عَلِيمُۢ.' },
+      { p: 'Selon les notes de cours, dans quelle sourate trouve-t-on 2 basmalah ?', o: ['La sourate 27 (Les fourmis)', 'La sourate 9', 'La sourate 16 (Les abeilles)', 'La sourate 1'], e: 'Sourate 27, verset 30.' }
+    ];
+    const a2vf = [
+      { s: 'Al-Isti’âdzah se dit avant la lecture.', a: true, e: 'C’est la recherche de protection contre Satan.' },
+      { s: 'Al-Basmalah est fortement recommandée au début de toutes les sourates, y compris la sourate 9.', a: false, e: 'Elle est interdite au début de la sourate 9.' },
+      { s: 'Il existe 4 façons de débuter une sourate.', a: true, e: 'Séparer le tout, lier le tout, et les deux combinaisons.' },
+      { s: '« Lier le tout » : Al-Isti’âdzah + Al-Basmalah + début de la sourate, sans aucune pause.', a: true, e: 'Il n’y a aucune pause.' },
+      { s: 'On peut lier la fin d’une sourate à Al-Basmalah, puis faire une pause avant la sourate suivante.', a: false, e: 'C’est interdit : cela sous-entend qu’Al-Basmalah fait partie de la première sourate.' },
+      { s: 'Pour passer d’une sourate à l’autre, il existe 3 façons.', a: true, e: 'Séparer le tout, lier tout, séparer le premier et lier les deux derniers.' },
+      { s: 'La sourate 9 commence par Al-Basmalah.', a: false, e: 'Elle commence sans basmalah.' },
+      { s: 'Pour passer de la sourate 8 à la sourate 9, on peut marquer une pause légère sans respirer (As-sakt).', a: true, e: 'C’est l’une des trois possibilités.' },
+      { s: 'Pour lier les sourates 8 et 9, on applique Al-Iqlâb sur « عَلِيمٌ ».', a: true, e: 'عَلِيمٌ = عَلِيمُۢ.' },
+      { s: 'Selon les notes de cours, Al-Isti’âdzah est instituée dans la sourate 16, verset 98.', a: true, e: 'Sourate Les abeilles.' }
+    ];
+    const a2trous = [
+      { t: 'Al-[Isti’âdzah] est la recherche de protection contre Satan avant la lecture.', d: ['Basmalah', 'Iqlâb'], e: 'Formule : أَعُوذُ بِٱللَّهِ مِنَ ٱلشَّيۡطَٰنِ ٱلرَّجِيمِ.' },
+      { t: 'Al-Basmalah est interdite au début de la sourate [9].', d: ['1', '27'], e: 'La sourate 9 commence sans basmalah.' },
+      { t: 'Il existe [4] façons de débuter une sourate et [3] façons de passer d’une sourate à l’autre.', d: ['2', '5'], e: 'Sections 2 et 3 du chapitre.' },
+      { t: 'Ne jamais unir seulement la fin d’une sourate à Al-[Basmalah] et faire une [pause] avant l’autre sourate.', d: ['Isti’âdzah', 'liaison'], e: 'NB du chapitre 2.' },
+      { t: 'La pause légère sans respirer s’appelle As-[sakt].', d: ['tartîl', 'hadr'], e: 'As-sakt (ٱلسَّكۡتُ).' },
+      { t: 'Pour lier les sourates 8 et 9, on applique la règle d’Al-[Iqlâb] (substitution).', d: ['Idghâm', 'Izhâr'], e: 'عَلِيمٌ = عَلِيمُۢ.' },
+      { t: '« Séparer le tout » : Al-Isti’âdzah ([pause]) Al-Basmalah ([pause]) début de la sourate.', d: ['liaison', 'basmalah'], e: 'Deux pauses.' }
+    ];
+    Object.assign(CH4A, {
+      a3: { num: '3', title: 'Le Lâm du nom majestueux de Dieu', ar: 'لَفۡظُ ٱلۡجَلَالَةِ', desc: 'Lafzoul-Djalâlah : le Lâm léger « La » ou emphatique « Lô » selon la voyelle qui précède.', pages: 'pp. 22-23',
+        intro: ['La lettre Lâm (ل) se lit toujours avec la légèreté (ٱلتَّرۡقِيقُ, At-Tarqîq), sauf la lettre Lâm qui se trouve dans le majestueux Nom de Dieu, dans le CORAN, sous deux formes : ٱللَّهُ et ٱللَّهُمَّ.', 'Il s’agit de la lettre Lâm qui porte le signe Ach-chaddah (لّ). Elle se lit soit avec la lourdeur ou l’emphase (ٱلتَّفۡخِيمُ, At-Tafkhîm), soit avec la légèreté ou petitesse (ٱلتَّرۡقِيقُ, At-Tarqîq).', 'Dans les exemples, la lettre qui précède est en rouge et le Lâm du nom de Dieu en bleu.'],
+        sections: [
+          { num: '1', title: 'La légèreté (At-Tarqîq)', ar: 'ٱلتَّرۡقِيقُ', verdict: '« La »', chipBg: 'var(--accent)', chipFg: '#FFFFFF', def: '',
+            cases: [{ rule: 'Si la lettre Lâm dans le nom majestueux d’Allah est précédée d’une lettre portant la voyelle Al-Kasrah (ٱلۡكَسۡرَةُ) « ـِ », elle sera lue légèrement [At-Tarqîq], la bouche ouverte : « La ».',
+              ex: [{ label: 'Sourate 3, verset 26', text: 'قُ[[r:لِ]] ٱ[[b:للَّ]]هُمَّ مَٰلِكَ ٱلۡمُلۡكِ' }, { label: 'Sourate 1, verset 1', text: 'بِسۡ[[r:مِ]] ٱ[[b:للَّ]]هِ' }] }] },
+          { num: '2', title: 'La lourdeur (At-Tafkhîm)', ar: 'ٱلتَّفۡخِيمُ', verdict: '« Lô »', chipBg: 'var(--amber-bg)', chipFg: 'var(--amber-fg)', def: 'Si la lettre Lâm est précédée d’une lettre portant la voyelle Al-Fathah ou la voyelle Ad-Dommah, elle sera lue avec l’emphase [At-Tafkhîm] (bouche pleine, le son lourd) : « Lô ».',
+            cases: [
+              { rule: 'Précédée d’une lettre portant la voyelle Al-Fathah (ٱلۡفَتۡحَةُ) « ـَ » : le Lâm se lit avec l’emphase, « Lô ».', ex: [{ label: 'Sourate 10, verset 10', text: '… سُبۡحَٰنَ[[r:كَ]] ٱ[[b:للَّ]]هُمَّ …' }, { label: 'Sourate 112, verset 1', text: 'قُلۡ هُ[[r:وَ]] ٱ[[b:للَّ]]هُ أَحَدٌ' }] },
+              { rule: 'Précédée d’une lettre portant la voyelle Ad-Dommah (ٱلضَّمَّةُ) « ـُ » : le Lâm se lit aussi avec l’emphase, « Lô ».', ex: [{ label: 'Sourate 8, verset 32', text: 'وَإِذۡ قَا[[r:لُواْ]] ٱ[[b:للَّ]]هُمَّ …' }, { label: 'Sourate 110, verset 1', text: '… نَصۡ[[r:رُ]] ٱ[[b:للَّ]]هِ …' }],
+                note: 'Remarque : la lettre Lâm dans Lafzoul-Djalâlah n’est pas suivie d’Alif (ا). Mais dans la pratique, il faut la prolonger (tirer) de 2 temps, conformément à la parole de Oum Salama sur la lecture du Prophète (SAW) : « Il prolongeait la lettre ل dans le nom de Dieu. »' }
+            ] }
+        ],
+        notes: [{ title: 'À retenir', text: 'Kasrah avant le nom de Dieu : Lâm léger, « La ». Fathah ou Dommah avant : Lâm emphatique, « Lô ». Dans tous les cas, on prolonge le Lâm de 2 temps.' }] },
+      a4: { num: '4', title: 'Les lettres Noûn et Mîm doublées', ar: 'ٱلنُّونُ وَٱلۡمِيمُ ٱلۡمُشَدَّدَتَانِ', desc: 'Le Noûn et le Mîm portant la chaddah se renforcent, avec un nasillement (Al-Ghounnah) de 2 degrés.', pages: 'pp. 24-25',
+        intro: ['Il s’agit des lettres Noûn « ن » et Mîm « م » portant le signe Ach-chaddah.'],
+        sections: [
+          { num: '1', title: 'La règle', ar: 'أَحۡكَامُ ٱلنُّونِ وَٱلۡمِيمِ ٱلۡمُشَدَّدَتَيۡنِ', verdict: 'Ghounnah · 2 degrés', chipBg: 'var(--accent)', chipFg: '#FFFFFF', def: '',
+            cases: [{ rule: 'Lorsqu’on est en face d’une lettre Noûn mouchaddadah « نّ » ou d’une lettre Mîm mouchaddadah « مّ », il faut naturellement renforcer sa prononciation (à cause du signe Ach-chaddah), accompagnée d’Al-Ghounnah (nasillement) de 2 degrés.',
+              ex: [{ label: 'Noûn doublé · Sourate 114, verset 2', text: 'مَلِكِ ٱل[[r:نَّ]]اسِ' }, { label: 'Mîm doublé · Sourate 74, verset 21', text: 'ثُ[[r:مَّ]] نَظَرَ' }],
+              note: 'NB : Al-Ghounnah se prononce selon des degrés, que nous verrons, إِن شَآءَ ٱللَّهُ, dans les chapitres à venir.' }] },
+          { num: '2', title: 'Vocabulaire', ar: '', verdict: '4 mots', chipBg: 'var(--tint2)', chipFg: 'var(--accent)', def: '',
+            cases: [
+              { rule: 'Ach-chaddah (ٱلشَّدَّةُ) : le signe « ـّ », toujours au-dessus de la lettre, pour la doubler. On l’écrit avant de mentionner la voyelle. Lorsqu’une lettre doublée porte la voyelle Al-Kasrah (i), celle-ci peut s’écrire au-dessus de la lettre, mais en dessous du signe Ach-chaddah.', ex: [{ label: 'Exemple : « sallim »', text: 'سَلِّمۡ' }] },
+              { rule: 'Mouchaddadah (مُشَدَّدَةٌ) : la lettre qui porte le signe Ach-chaddah. Son duel (2 lettres) est Mouchaddadatayn (مُشَدَّدَتَيۡنِ).', ex: [] },
+              { rule: 'Al-harakah (ٱلۡحَرَكَةُ) : un degré, c’est-à-dire le temps d’ouverture ou de fermeture (notes de cours : d’étirement) d’un doigt.', ex: [] },
+              { rule: 'Al-Ghounnah (ٱلۡغُنَّةُ) : c’est le fait de prononcer une lettre dans le nez ; sa durée est de 2 degrés (2 harakah, ou حَرَكَتَيۡنِ).', ex: [] }
+            ] }
+        ],
+        notes: [{ title: 'À retenir', text: 'Noûn ou Mîm portant la chaddah : on renforce la lettre et on fait Al-Ghounnah, un nasillement de 2 degrés.' }] },
+      a5: { num: '5', title: 'Al-Qolqolah (l’écho)', ar: 'ٱلۡقَلۡقَلَةُ', desc: 'Les 5 lettres قُطۡبُ جَدٍّ et les trois degrés d’écho : petit, grand et plus grand.', pages: 'pp. 26-27',
+        intro: ['C’est un fort rebond ou écho (notes de cours : ou résonance) de la lettre lorsqu’elle porte la voyelle muette (As-soukoûn), naturelle ou conditionnée par un arrêt.', 'Les lettres d’Al-Qolqolah sont au nombre de cinq (5), regroupées dans l’expression قُطۡبُ جَدٍّ : ق – ط – ب – ج – د.', 'Nous avons différents types d’Al-Qolqolah (notes de cours : 3 degrés).'],
+        sections: [
+          { num: '1', title: 'Le petit écho', ar: 'ٱلۡقَلۡقَلَةُ ٱلصُّغۡرَىٰ', verdict: 'As-Soughrâ', chipBg: 'var(--tint2)', chipFg: 'var(--accent)', def: '',
+            cases: [{ rule: 'Lorsque l’une des cinq (5) lettres est située en pleine lecture (notes de cours : au milieu du mot, et elle porte un soukoûn originel), on fera un petit écho [Al-Qolqolah As-Soughrâ].', ex: [{ label: 'Sourate 112, verset 3', text: 'لَمۡ يَلِ[[r:دۡ]] وَلَمۡ يُولَدۡ' }, { label: 'Sourate 85, verset 12', text: 'إِنَّ بَ[[r:طۡ]]شَ رَبِّكَ لَشَدِيدٌ' }] }] },
+          { num: '2', title: 'Le grand écho', ar: 'ٱلۡقَلۡقَلَةُ ٱلۡكُبۡرَىٰ', verdict: 'Al-Koubrâ', chipBg: 'var(--accent)', chipFg: '#FFFFFF', def: '',
+            cases: [{ rule: 'Lorsque l’une de ces cinq (5) lettres (notes de cours : qui ne porte pas de chaddah) est sujette à un arrêt (signe d’arrêt, fin de verset ou encore récupération de souffle), on fera un grand écho [Al-Qolqolah Al-Koubrâ].', ex: [{ label: 'Sourate 112, verset 3', text: 'لَمۡ يَلِدۡ وَلَمۡ يُولَ[[r:دۡ]]' }, { label: 'Sourate 85, verset 12', text: 'إِنَّ بَطۡشَ رَبِّكَ لَشَدِي[[r:دٌ]]' }],
+              note: 'Remarque : il y a des divergences entre les Oulémâ’ quant au nombre et à l’appellation des types de Qolqolah. Pour certains, il en existe 2 sortes : Koubrâ et Soughrâ. Pour d’autres, il y en a 3, classés de 2 manières : Soughrâ (petit), Koubrâ (grand) et Akbar (plus grand, arrêt sur la lettre mouchaddadah) ; ou Soughrâ, Woustô (milieu ou intermédiaire) et Koubrâ. Certains avis vont au-delà, voire 4. Ces avis se rejoignent plus ou moins, car ceux qui en comptent deux signifient toujours le renforcement d’Al-Qolqolah en cas d’arrêt sur une lettre mouchaddadah.' }] },
+          { num: '3', title: 'Le plus grand écho', ar: 'ٱلۡقَلۡقَلَةُ ٱلۡأَكۡبَرُ', verdict: 'Al-Akbar', chipBg: 'var(--amber-bg)', chipFg: 'var(--amber-fg)', def: '',
+            cases: [
+              { rule: 'Lorsque l’arrêt se fait sur une de ces lettres portant le signe Ach-chaddah, l’écho va être plus renforcé que celui du moyen. Cette situation est le plus haut degré de l’écho [Al-Qolqolah Al-Akbar].', ex: [{ label: 'Sourate 78, verset 39', text: 'ذَٰلِكَ ٱلۡيَوۡمُ ٱلۡحَ[[r:قُّ]]' }, { label: 'Sourate 111, verset 1', text: 'تَبَّتۡ يَدَآ أَبِي لَهَبٖ وَتَ[[r:بَّ]]' }] },
+              { rule: 'NB : on n’appliquera pas la règle d’Al-Qolqolah si l’une des 5 lettres, à l’arrêt ou en fin de verset, porte la voyelle double [fathatân « ـً »], mais plutôt la règle de prolongation de base.', ex: [{ label: 'Sourate 80, verset 30', text: 'وَحَدَآئِقَ غُلۡ[[r:بٗا]] ← غُلۡ[[r:بَا]]' }, { label: 'Sourate 80, verset 31', text: 'وَفَٰكِهَةٗ وَأَ[[r:بّٗا]] ← وَأَ[[r:بَّا]]' }] }
+            ] }
+        ],
+        notes: [{ title: 'À retenir', text: '5 lettres : ق ط ب ج د. Sâkinah en pleine lecture : petit écho. À l’arrêt : grand écho. À l’arrêt sur une lettre portant la chaddah : plus grand écho. Fathatân à l’arrêt : pas de Qolqolah, mais la prolongation de base.' }] }
+    });
+    const LT = { tq: 'Légèrement (At-Tarqîq), car il est précédé d’une Kasrah', tf: 'Avec emphase (At-Tafkhîm), car il est précédé d’une Fathah', td: 'Avec emphase (At-Tafkhîm), car il est précédé d’une Dommah' };
+    const a3qcm = [
+      { p: 'Comment se lit la lettre Lâm en général ?', o: ['Toujours avec la légèreté (At-Tarqîq), sauf dans le nom majestueux de Dieu', 'Toujours avec l’emphase', 'Toujours avec un écho', 'Toujours avec un nasillement'], e: 'Seul le Lâm du nom de Dieu peut se lire avec emphase.' },
+      { p: 'Sous quelles deux formes le nom majestueux de Dieu apparaît-il dans le Coran ?', ar: true, o: ['ٱللَّهُ – ٱللَّهُمَّ', 'ٱلرَّحۡمَٰنُ – ٱلرَّحِيمُ', 'رَبِّ – رَبَّنَا', 'ٱلۡمَلِكُ – ٱلۡقُدُّوسُ'], e: 'Le Lâm y porte le signe Ach-chaddah.' },
+      { p: 'Précédé d’une Kasrah, le Lâm du nom de Dieu se lit :', o: ['Avec la légèreté (At-Tarqîq) : « La »', 'Avec l’emphase (At-Tafkhîm) : « Lô »', 'Avec un écho', 'Avec un nasillement'], e: 'La bouche ouverte.' },
+      { p: 'Précédé d’une Fathah ou d’une Dommah, le Lâm du nom de Dieu se lit :', o: ['Avec l’emphase (At-Tafkhîm) : « Lô »', 'Avec la légèreté (At-Tarqîq) : « La »', 'Avec un écho', 'Avec un nasillement'], e: 'Bouche pleine, le son lourd.' },
+      { p: 'Dans « بِسۡمِ ٱللَّهِ » (sourate 1, verset 1), comment se lit le Lâm du nom de Dieu ?', o: [LT.tq, LT.tf, LT.td, 'Avec un écho (Qolqolah)'], e: 'Le Mîm porte une Kasrah.' },
+      { p: 'Dans « قُلۡ هُوَ ٱللَّهُ أَحَدٌ » (sourate 112, verset 1), comment se lit le Lâm ?', o: [LT.tf, LT.tq, LT.td, 'Avec un nasillement'], e: 'Le Wâw de هُوَ porte une Fathah.' },
+      { p: 'Dans « نَصۡرُ ٱللَّهِ » (sourate 110, verset 1), comment se lit le Lâm ?', o: [LT.td, LT.tq, LT.tf, 'Avec un écho (Qolqolah)'], e: 'Le Rô porte une Dommah.' },
+      { p: 'Dans « قُلِ ٱللَّهُمَّ » (sourate 3, verset 26), comment se lit le Lâm ?', o: [LT.tq, LT.td, LT.tf, 'Avec un nasillement'], e: 'Le Lâm de قُلِ porte une Kasrah.' },
+      { p: 'De combien de temps prolonge-t-on le Lâm du nom de Dieu ?', o: ['2 temps', 'Pas du tout, car il n’est pas suivi d’Alif', '4 temps', '6 temps'], e: 'Il n’est pas suivi d’Alif à l’écrit, mais on le prolonge de 2 temps.' },
+      { p: 'Qui a rapporté que le Prophète (SAW) prolongeait le Lâm dans le nom de Dieu ?', o: ['Oum Salama', 'Zayd Ibn Thâbit', '’Âsim', 'Hafs'], e: 'Remarque du chapitre 3.' }
+    ];
+    const a3vf = [
+      { s: 'La lettre Lâm se lit toujours avec la légèreté, sauf dans le nom majestueux de Dieu.', a: true, e: 'Chapitre 3, introduction.' },
+      { s: 'Le Lâm du nom de Dieu porte le signe Ach-chaddah.', a: true, e: 'Il s’écrit لّ.' },
+      { s: 'Précédé d’une Kasrah, le Lâm du nom de Dieu se lit avec l’emphase.', a: false, e: 'Il se lit avec la légèreté : « La ».' },
+      { s: 'Précédé d’une Fathah, le Lâm du nom de Dieu se lit avec l’emphase, la bouche pleine.', a: true, e: '« Lô ».' },
+      { s: 'Dans « سُبۡحَٰنَكَ ٱللَّهُمَّ », le Lâm se lit légèrement.', a: false, e: 'Le Kâf porte une Fathah : le Lâm se lit avec emphase.' },
+      { s: 'Dans « بِسۡمِ ٱللَّهِ », le Lâm se lit légèrement.', a: true, e: 'Le Mîm porte une Kasrah.' },
+      { s: 'Le Lâm du nom de Dieu est suivi d’un Alif à l’écrit.', a: false, e: 'Il n’est pas suivi d’Alif, mais on le prolonge de 2 temps.' },
+      { s: 'Dans la pratique, on prolonge le Lâm du nom de Dieu de 2 temps.', a: true, e: 'Selon la parole de Oum Salama.' }
+    ];
+    const a3trous = [
+      { t: 'Précédé d’une [Kasrah], le Lâm du nom de Dieu se lit légèrement : « [La] ».', d: ['Fathah', 'Lô'], e: 'At-Tarqîq, la bouche ouverte.' },
+      { t: 'Précédé d’une Fathah ou d’une [Dommah], il se lit avec l’[emphase] : « Lô ».', d: ['Kasrah', 'légèreté'], e: 'At-Tafkhîm, bouche pleine.' },
+      { t: 'Dans la pratique, il faut prolonger le Lâm du nom de Dieu de [2] temps.', d: ['4', '6'], e: 'Selon la parole de Oum Salama.' },
+      { t: 'L’emphase se dit At-[Tafkhîm] ; la légèreté se dit At-[Tarqîq].', d: ['Tartîl', 'Tadwîr'], e: 'Les deux lectures du Lâm.' }
+    ];
+    const a4qcm = [
+      { p: 'Que faut-il faire devant un Noûn ou un Mîm portant la chaddah ?', o: ['Renforcer sa prononciation, avec un nasillement (Al-Ghounnah)', 'Le lire sans nasillement', 'Faire un écho', 'Le prolonger de 6 temps'], e: 'À cause du signe Ach-chaddah, avec Al-Ghounnah.' },
+      { p: 'Combien de temps dure Al-Ghounnah ?', o: ['2 degrés (2 harakah)', '1 degré', '4 degrés', '6 degrés'], e: 'حَرَكَتَيۡنِ : deux harakah.' },
+      { p: 'Qu’est-ce qu’Al-Ghounnah ?', o: ['Le fait de prononcer une lettre dans le nez', 'Un rebond de la lettre', 'Une pause légère', 'Une prolongation de voyelle'], e: 'Le nasillement.' },
+      { p: 'À quoi sert le signe Ach-chaddah « ـّ » ?', o: ['À doubler la lettre', 'À marquer une pause', 'À indiquer une voyelle longue', 'À marquer la fin d’un verset'], e: 'Il s’écrit toujours au-dessus de la lettre.' },
+      { p: 'Comment appelle-t-on une lettre qui porte la chaddah ?', o: ['Mouchaddadah', 'Sâkinah', 'Mouttasil', 'Mounfasil'], e: 'Son duel est Mouchaddadatayn.' },
+      { p: 'Que vaut un degré (Al-harakah) ?', o: ['Le temps d’ouverture ou de fermeture d’un doigt', 'Une seconde exactement', 'Le temps d’une respiration', 'Le temps d’un verset'], e: 'Notes de cours : le temps d’étirement d’un doigt.' },
+      { p: 'Dans « ثُمَّ نَظَرَ » (sourate 74, verset 21), quelle lettre se lit avec Al-Ghounnah ?', o: ['Le Mîm doublé', 'Le Noûn de نَظَرَ', 'Le Thâ', 'Le Rô'], e: 'Le Mîm porte la chaddah.' },
+      { p: 'Dans « مَلِكِ ٱلنَّاسِ » (sourate 114, verset 2), quelle lettre se lit avec Al-Ghounnah ?', o: ['Le Noûn doublé', 'Le Mîm de مَلِكِ', 'Le Lâm', 'Le Sîn'], e: 'Le Noûn porte la chaddah.' },
+      { p: 'Lorsqu’une lettre doublée porte la Kasrah, où peut-on écrire la Kasrah ?', o: ['Au-dessus de la lettre, mais sous le signe Ach-chaddah', 'Toujours sous la lettre', 'Elle n’est jamais écrite', 'À côté de la lettre'], e: 'Vocabulaire du chapitre 4.' }
+    ];
+    const a4vf = [
+      { s: 'Le Noûn et le Mîm mouchaddadah se lisent avec un nasillement.', a: true, e: 'Al-Ghounnah de 2 degrés.' },
+      { s: 'Al-Ghounnah dure 4 degrés.', a: false, e: 'Elle dure 2 degrés.' },
+      { s: 'Le signe Ach-chaddah s’écrit toujours au-dessus de la lettre.', a: true, e: 'Pour la doubler.' },
+      { s: 'Le duel de Mouchaddadah est Mouchaddadatayn.', a: true, e: 'Deux lettres portant la chaddah.' },
+      { s: 'Al-Ghounnah consiste à prononcer une lettre en serrant les lèvres.', a: false, e: 'C’est prononcer la lettre dans le nez.' },
+      { s: 'Al-Ghounnah se prononce selon des degrés, vus dans les chapitres suivants.', a: true, e: 'NB du chapitre 4.' }
+    ];
+    const a4trous = [
+      { t: 'Devant un Noûn ou un Mîm [mouchaddadah], on renforce la prononciation avec Al-[Ghounnah].', d: ['sâkinah', 'Qolqolah'], e: 'Règle du chapitre 4.' },
+      { t: 'Al-Ghounnah, c’est prononcer une lettre dans le [nez] ; sa durée est de [2] degrés.', d: ['gorge', '4'], e: '2 harakah.' },
+      { t: 'Le signe Ach-[chaddah] sert à doubler la lettre.', d: ['soukoûn', 'fathah'], e: 'Il s’écrit au-dessus de la lettre.' },
+      { t: 'Un degré (Al-[harakah]) est le temps d’ouverture ou de fermeture d’un doigt.', d: ['ghounnah', 'qolqolah'], e: 'Vocabulaire du chapitre 4.' }
+    ];
+    const QQ = { s: 'Le petit écho (As-Soughrâ)', k: 'Le grand écho (Al-Koubrâ)', a: 'Le plus grand écho (Al-Akbar)', n: 'Aucun écho' };
+    const a5qcm = [
+      { p: 'Quelle expression regroupe les lettres d’Al-Qolqolah ?', ar: true, o: ['قُطۡبُ جَدٍّ', 'يَرۡمَلُونَ', 'حَيٌّ طَهُرَ', 'نَقَصَ عَسَلُكُمۡ'], e: 'Qôf, Ṯô, Bâ, Djîm et Dâl.' },
+      { p: 'Combien y a-t-il de lettres d’Al-Qolqolah ?', o: ['5', '6', '4', '7'], e: 'ق – ط – ب – ج – د.' },
+      { p: 'Quand fait-on Al-Qolqolah ?', o: ['Quand la lettre porte la voyelle muette (As-soukoûn), naturelle ou due à un arrêt', 'Quand la lettre porte une Fathah', 'Quand la lettre porte la chaddah en pleine lecture', 'Quand la lettre est au début d’un mot'], e: 'C’est un fort rebond de la lettre.' },
+      { p: 'Lettre d’Al-Qolqolah sâkinah en pleine lecture : quel écho fait-on ?', o: [QQ.s, QQ.k, QQ.a, QQ.n], e: 'Notes de cours : au milieu du mot, avec un soukoûn originel.' },
+      { p: 'Lettre d’Al-Qolqolah sujette à un arrêt (fin de verset, signe d’arrêt…) : quel écho fait-on ?', o: [QQ.k, QQ.s, QQ.n, QQ.a], e: 'Le grand écho.' },
+      { p: 'Arrêt sur une lettre d’Al-Qolqolah portant la chaddah : quel écho fait-on ?', o: [QQ.a, QQ.s, QQ.k, QQ.n], e: 'C’est le plus haut degré de l’écho.' },
+      { p: 'Dans « إِنَّ بَطۡشَ » (sourate 85, verset 12), quel écho fait-on sur le Ṯô ?', o: [QQ.s, QQ.k, QQ.a, QQ.n], e: 'Le Ṯô est sâkinah en pleine lecture.' },
+      { p: 'À l’arrêt sur « لَشَدِيدٌ » (sourate 85, verset 12), quel écho fait-on sur le Dâl ?', o: [QQ.k, QQ.s, QQ.a, QQ.n], e: 'Le Dâl est sujet à un arrêt.' },
+      { p: 'À l’arrêt sur « وَتَبَّ » (sourate 111, verset 1), quel écho fait-on ?', o: [QQ.a, QQ.s, QQ.k, QQ.n], e: 'Le Bâ porte la chaddah.' },
+      { p: 'À l’arrêt sur « غُلۡبٗا » (sourate 80, verset 30), applique-t-on Al-Qolqolah ?', o: ['Non : on applique la prolongation de base', QQ.k, QQ.s, QQ.a], e: 'Avec le fathatân à l’arrêt, on lit غُلۡبَا.' },
+      { p: 'Que signifie « Woustô » ?', o: ['Milieu ou intermédiaire', 'Petit', 'Grand', 'Plus grand'], e: 'Soughrâ, Woustô et Koubrâ.' }
+    ];
+    const a5vf = [
+      { s: 'Al-Qolqolah est un fort rebond ou écho de la lettre.', a: true, e: 'Notes de cours : ou résonance.' },
+      { s: 'Les lettres d’Al-Qolqolah sont regroupées dans « قُطۡبُ جَدٍّ ».', a: true, e: 'ق – ط – ب – ج – د.' },
+      { s: 'On fait Al-Qolqolah sur une lettre qui porte la Fathah.', a: false, e: 'La lettre doit porter le soukoûn, naturel ou dû à l’arrêt.' },
+      { s: 'Le petit écho se fait sur une lettre sâkinah en pleine lecture.', a: true, e: 'Al-Qolqolah As-Soughrâ.' },
+      { s: 'Le grand écho se fait lorsque la lettre est sujette à un arrêt.', a: true, e: 'Al-Qolqolah Al-Koubrâ.' },
+      { s: 'Le plus grand écho se fait à l’arrêt sur une lettre d’Al-Qolqolah portant la chaddah.', a: true, e: 'Al-Qolqolah Al-Akbar.' },
+      { s: 'À l’arrêt sur une lettre d’Al-Qolqolah portant le fathatân, on fait le grand écho.', a: false, e: 'On applique la prolongation de base.' },
+      { s: 'Tous les savants s’accordent sur le nombre de types de Qolqolah.', a: false, e: 'Il y a des divergences : 2, 3, voire 4 types.' }
+    ];
+    const a5trous = [
+      { t: 'Al-Qolqolah est un fort [rebond] ou écho de la lettre qui porte la voyelle [muette].', d: ['silence', 'double'], e: 'As-soukoûn, naturel ou dû à l’arrêt.' },
+      { t: 'Lettre sâkinah en pleine lecture : le [petit] écho ; lettre sujette à un arrêt : le [grand] écho.', d: ['plus grand', 'faible'], e: 'As-Soughrâ et Al-Koubrâ.' },
+      { t: 'À l’arrêt sur une lettre d’Al-Qolqolah portant la [chaddah], on fait le plus grand écho (Al-[Akbar]).', d: ['fathah', 'Soughrâ'], e: 'Le plus haut degré de l’écho.' },
+      { t: 'Si la lettre porte le [fathatân] à l’arrêt, on applique la prolongation de [base] et non Al-Qolqolah.', d: ['soukoûn', 'six temps'], e: 'NB du chapitre 5.' },
+      { t: 'Les lettres d’Al-Qolqolah sont au nombre de [cinq].', d: ['six', 'quatre'], e: 'ق – ط – ب – ج – د.' }
+    ];
+    const NS = (s, v) => 'Noûn sâkinah · Sourate ' + s + ', verset ' + v, TW = (s, v) => 'Tanwîn · Sourate ' + s + ', verset ' + v;
+    Object.assign(CH4A, {
+      a6: { num: '6', title: 'Le Noûn sâkinah et les voyelles doubles', ar: 'ٱلنُّونُ ٱلسَّاكِنَةُ وَٱلتَّنۡوِينُ', desc: 'Les quatre règles : la clarification, l’assimilation, la substitution et la dissimulation.', pages: 'pp. 28-37',
+        intro: ['La lettre Noûn (ن) portant la voyelle muette (As-soukoûn) est appelée « Noûn As-sâkinah » ; At-tanwîn est la terminaison d’un mot par « an », « in » ou « oun ».', 'Après la lettre Noûn as-sâkinah ou At-tanwîn, il faudra appliquer, selon la lettre qui va suivre, l’une des quatre règles suivantes : la clarification, l’assimilation (la fusion), la substitution ou la dissimulation.', 'Dans les exemples, le Noûn ou le tanwîn, et la lettre qui suit, sont en rouge.'],
+        sections: [
+          { num: '1', title: 'La clarification (Al-Idz’hâr)', ar: 'ٱلۡإِظۡهَارُ', verdict: '6 lettres', chipBg: 'var(--tint2)', chipFg: 'var(--accent)',
+            def: 'On applique cette règle quand la lettre Noûn as-sâkinah ou At-tanwîn est suivi(e) par l’une des six (6) lettres suivantes : ء ح خ ع غ ه. Ces lettres ne modifient pas la prononciation du Noûn as-sâkinah et d’At-tanwîn, qui sont donc prononcés nettement et clairement.',
+            cases: [
+              { rule: 'Devant le Hamzah (ء) : clarification.', ex: [{ label: NS(2, 177), text: '… مَ[[r:نۡ ءَ]]امَنَ …' }, { label: TW(112, 4), text: '… كُفُ[[r:وًا أَ]]حَدُۢ' }] },
+              { rule: 'Devant le Ḥâ (ح) : clarification.', ex: [{ label: NS(108, 2), text: '… وَٱ[[r:نۡحَ]]رۡ' }, { label: TW(33, 51), text: '… عَلِي[[r:مًا حَ]]لِيمٗا' }] },
+              { rule: 'Devant le Khâ (خ) : clarification.', ex: [{ label: NS(106, 4), text: '… مِّ[[r:نۡ خَ]]وۡفِۭ' }, { label: TW(88, 2), text: 'يَوۡمَئِ[[r:ذٍ خَٰ]]شِعَةٌ' }] },
+              { rule: 'Devant le ’Ayn (ع) : clarification.', ex: [{ label: NS(1, 7), text: '… أَ[[r:نۡعَ]]مۡتَ …' }, { label: TW(88, 10), text: 'فِي جَنَّ[[r:ةٍ عَ]]الِيَةٖ' }] },
+              { rule: 'Devant le Ghayn (غ) : clarification.', ex: [{ label: TW(2, 59), text: '… قَوۡ[[r:لًا غَ]]يۡرَ …' }, { label: TW(95, 6), text: '… أَجۡ[[r:رٌ غَ]]يۡرُ …' }] },
+              { rule: 'Devant le Hâ (ه) : clarification.', ex: [{ label: NS(59, 9), text: '… مَ[[r:نۡ هَ]]اجَرَ …' }, { label: TW(97, 5), text: 'سَلَٰ[[r:مٌ هِ]]يَ …' }] }
+            ] },
+          { num: '2', title: 'L’assimilation ou fusion (Al-Idghâm)', ar: 'ٱلۡإِدۡغَامُ', verdict: '6 lettres · يَرۡمَلُونَ', chipBg: 'var(--accent)', chipFg: '#FFFFFF',
+            def: 'On applique cette règle quand la lettre Noûn as-sâkinah ou At-tanwîn est suivi(e) par l’une des six (6) lettres de l’expression يَرۡمَلُونَ : ي ر م ل و ن. Les deux ne formeront qu’une seule lettre avec renforcement (Ach-chaddah) : on parle de fusion ou d’assimilation. Le signe Ach-chaddah n’est pas matérialisé pour les lettres و et ي. L’assimilation peut être de 2 types : avec nasillement et sans nasillement.',
+            cases: [
+              { rule: 'Avec nasillement [Al-Idghâm bi-ghounnah] (ٱلۡإِدۡغَامُ بِغُنَّةٍ) : quand l’une des lettres Mîm (م), Noûn (ن), Wâw (و) ou Yâ (ي) est placée après le Noûn as-sâkinah ou At-tanwîn, il s’ensuit une assimilation avec nasalisation [Al-Ghounnah] du son de la lettre. Devant le Mîm et le Noûn :',
+                ex: [{ label: NS(86, 6), text: '… مِ[[r:ن مَّ]]آءٖ …' }, { label: TW(104, 9), text: 'فِي عَمَ[[r:دٖ مُّ]]مَدَّدَةِۭ' }, { label: NS(36, 34), text: '… مِّ[[r:ن نَّ]]خِيلٖ …' }, { label: TW(88, 3), text: 'عَامِلَ[[r:ةٞ نَّ]]اصِبَةٞ' }],
+                note: 'Il est important de bien sortir le son du nez (cavité nasale) et non de la langue lors du nasillement [Al-Ghounnah]. Attention à ne pas prononcer tout le mot avec le nez, mais juste la lettre concernée.' },
+              { rule: 'Avec nasillement, devant le Wâw et le Yâ : le signe Ach-chaddah n’y est pas matérialisé.',
+                ex: [{ label: NS(85, 20), text: '… مِ[[r:ن وَ]]رَآئِهِم …' }, { label: TW(77, 26), text: 'أَحۡيَآ[[r:ءٗ وَ]]أَمۡوَٰتٗا' }, { label: NS(99, 7), text: 'فَمَ[[r:ن يَ]]عۡمَلۡ …' }, { label: TW(76, 6), text: 'عَيۡ[[r:نٗا يَ]]شۡرَبُ …' }] },
+              { rule: 'Sans nasillement [Al-Idghâm bilâ ghounnah] (ٱلۡإِدۡغَامُ بِلَا غُنَّةٍ) : quand les lettres Rô (ر) ou Lâm (ل) suivent le Noûn as-sâkinah ou At-tanwîn, la lettre Noûn ou le son N du tanwîn disparaît totalement, et la lecture se fait avec renforcement (mouchaddadah) et sans nasillement.',
+                ex: [{ label: NS(2, 5), text: '… مِّ[[r:ن رَّ]]بِّهِمۡ …' }, { label: TW(101, 7), text: 'فِي عِيشَ[[r:ةٖ رَّ]]اضِيَةٖ' }, { label: NS(112, 4), text: 'وَلَمۡ يَكُ[[r:ن لَّ]]هُۥ …' }, { label: TW(16, 66), text: '… وَدَ[[r:مٖ لَّ]]بَنًا …' }] },
+              { rule: 'Exception : si le Noûn as-sâkinah est suivi par l’une des 6 lettres d’Al-Idghâm dans le même mot, on n’applique pas l’assimilation, mais la clarification [Al-Idz’hâr]. Cela ne se retrouve que dans ces 4 mots du Coran.',
+                ex: [{ label: 'ٱلدُّنۡيَا · Sourate 87, verset 16', text: 'بَلۡ تُؤۡثِرُونَ ٱلۡحَيَوٰةَ ٱلدُّ[[r:نۡيَ]]ا' }, { label: 'بُنۡيَٰنٌ · Sourate 61, verset 4', text: '… بُ[[r:نۡيَٰ]]نٞ مَّرۡصُوصٞ' }, { label: 'صِنۡوَانٌ · Sourate 13, verset 4', text: '… صِ[[r:نۡوَ]]انٞ وَغَيۡرُ صِ[[r:نۡوَ]]انٖ …' }, { label: 'قِنۡوَانٌ · Sourate 6, verset 99', text: '… طَلۡعِهَا قِ[[r:نۡوَ]]انٞ دَانِيَةٞ …' }] },
+              { rule: 'Selon l’Imâm Ach-Châtibiyy, il y a deux (2) endroits n’ayant pas de fusion :',
+                ex: [{ label: 'Sourate 36, versets 1-2', text: 'ي[[r:سٓ]] ۝ [[r:وَ]]ٱلۡقُرۡءَانِ ٱلۡحَكِيمِ' }, { label: 'Sourate 68, verset 1', text: '[[r:نٓ]]ۚ [[r:وَ]]ٱلۡقَلَمِ وَمَا يَسۡطُرُونَ' }] },
+              { rule: 'Lorsqu’une voyelle double [At-tanwîn] est suivie d’un Hamzatou-l-wasl (هَمۡزَةُ ٱلۡوَصۡلِ), on fait intervenir la lettre Noûn de liaison (Noûn Qutn), accompagnée de la voyelle Al-Kasrah.',
+                ex: [{ label: 'Sourate 2, verset 180', text: '… خَيۡ[[r:رًا]] ٱلۡوَصِيَّةُ ← خَيۡرَ[[r:نِ]] ٱلۡوَصِيَّةُ' }, { label: 'Sourate 75, verset 30', text: '… يَوۡمَئِ[[r:ذٍ]] ٱلۡمَسَاقُ ← يَوۡمَئِذِ[[r:نِ]] ٱلۡمَسَاقُ' }, { label: 'Sourate 22, verset 11', text: '… فِتۡنَ[[r:ةٌ]] ٱنقَلَبَ ← فِتۡنَتُ[[r:نِ]] ٱنقَلَبَ' }] }
+            ] },
+          { num: '3', title: 'La substitution (Al-Iqlâb)', ar: 'ٱلۡإِقۡلَابُ', verdict: '1 lettre : ب', chipBg: 'var(--amber-bg)', chipFg: 'var(--amber-fg)', def: '',
+            cases: [
+              { rule: 'On applique cette règle quand la lettre Noûn as-sâkinah ou At-tanwîn est suivi(e) par la lettre Bâ (ب) : le son « n » est substitué par le son « m », et on le prononce avec nasillement [Ghounnah].',
+                ex: [{ label: TW(96, 15), text: 'لَنَسۡفَ[[r:عَۢا بِ]]ٱلنَّاصِيَةِ' }, { label: NS(104, 4), text: 'لَيُ[[r:نۢبَ]]ذَنَّ …' }],
+                note: 'Remarques : dans certains exemplaires du Coran, pour nous aider, il y a une petite lettre Mîm en miniature au-dessus du Noûn as-sâkinah ou du tanwîn lorsque l’on doit appliquer cette règle (exemple : لَئِنۢ بَسَطتَ). On ne joint pas totalement les lèvres : il ne faut pas comprimer les lèvres.' },
+              { rule: 'Certaines sourates finissent par le signe d’Al-Iqlâb, à cause du Noûn as-sâkinah ou du tanwîn final : si le lecteur décide de faire la liaison, elle se fait avec la lettre Bâ (ب) de « Bismillâhi r-Rahmâni r-Rahîm » de la sourate suivante.',
+                ex: [{ label: 'Sourates 54 et 55', text: 'عِندَ مَلِيكٖ مُّقۡتَدِ[[r:رِۭ بِ]]سۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ ٱلرَّحۡمَٰنُ' }] }
+            ] },
+          { num: '4', title: 'La dissimulation (Al-Ikhfâ)', ar: 'ٱلۡإِخۡفَاءُ', verdict: '15 lettres', chipBg: 'var(--surface3)', chipFg: 'var(--ink)',
+            def: 'On applique cette règle quand la lettre Noûn as-sâkinah ou At-tanwîn est suivi(e) par l’une des quinze (15) lettres suivantes : ت ث ج د ذ ز س ش ص ض ط ظ ف ق ك. On prononce alors la lettre Noûn sâkinah d’une manière qui se situe entre la clarification [Al-Idz’hâr] et l’assimilation [Al-Idghâm], sans appuyer sur la lettre [Ach-chaddah], mais avec nasillement [Ghounnah] (notes de cours : on traîne sur le Noûn pour aller vers la lettre qui suit).',
+            cases: [
+              { rule: 'Devant le Tâ (ت), le Thâ (ث) et le Djîm (ج) : dissimulation.', ex: [{ label: NS(90, 2), text: 'وَأَ[[r:نتَ]] …' }, { label: TW(66, 5), text: '… قَٰنِتَٰ[[r:تٖ تَٰٓ]]ئِبَٰتٍ …' }, { label: NS(101, 6), text: 'فَأَمَّا مَ[[r:ن ثَ]]قُلَتۡ …' }, { label: TW(70, 14), text: '… جَمِي[[r:عٗا ثُ]]مَّ …' }, { label: NS(49, 6), text: '… إِ[[r:ن جَ]]آءَكُمۡ …' }, { label: TW(70, 5), text: 'فَٱصۡبِرۡ صَبۡ[[r:رٗا جَ]]مِيلًا' }] },
+              { rule: 'Devant le Dâl (د), le Dzâl (ذ) et le Zây (ز) : dissimulation.', ex: [{ label: NS(91, 10), text: 'وَقَدۡ خَابَ مَ[[r:ن دَ]]سَّىٰهَا' }, { label: TW(6, 132), text: 'وَلِكُ[[r:لّٖ دَ]]رَجَٰتٞ …' }, { label: NS(79, 43), text: 'فِيمَ أَنتَ مِ[[r:ن ذِ]]كۡرَىٰهَآ' }, { label: TW(111, 3), text: 'سَيَصۡلَىٰ نَا[[r:رٗا ذَ]]اتَ لَهَبٖ' }, { label: NS(91, 9), text: 'قَدۡ أَفۡلَحَ مَ[[r:ن زَ]]كَّىٰهَا' }, { label: TW(20, 102), text: '… يَوۡمَئِ[[r:ذٖ زُ]]رۡقٗا' }] },
+              { rule: 'Devant le Sîn (س), le Chîn (ش) et le Ṣâd (ص) : dissimulation. Devant le Ṣâd, lettre emphatique, le nasillement est lourd.', ex: [{ label: NS(7, 46), text: '… أَ[[r:ن سَ]]لَٰمٌ عَلَيۡكُمۡ …' }, { label: TW(56, 26), text: 'إِلَّا قِيلٗا سَلَٰ[[r:مٗا سَ]]لَٰمٗا' }, { label: NS(113, 2), text: 'مِ[[r:ن شَ]]رِّ مَا خَلَقَ' }, { label: TW(80, 37), text: '… يَوۡمَئِ[[r:ذٖ شَ]]أۡنٞ …' }, { label: NS(107, 5), text: 'ٱلَّذِينَ هُمۡ عَ[[r:ن صَ]]لَاتِهِمۡ …' }, { label: TW(89, 22), text: '… صَ[[r:فّٗا صَ]]فّٗا' }],
+                note: 'NB : pour faire Al-Idz’hâr, la langue touche le lieu de phonation (notes de cours : le point de sortie, Al-makhradj ٱلۡمَخۡرَجُ) de la lettre ن, c’est-à-dire le palais. Pour faire Al-Ikhfâ, la langue ne doit pas toucher le palais ; elle doit s’en approcher tout en allant vers le lieu de phonation de la lettre d’Al-Ikhfâ qui suit, dont le lieu de phonation et les attributs doivent être respectés. Le nasillement doit donc se faire avec emphase (nasillement lourd) lorsque le Noûn sâkinah est suivi de l’une des 5 lettres emphatiques d’Al-Ikhfâ : ص ض ط ظ ق.' },
+              { rule: 'Devant le Ḍâd (ض), le Ṯô (ط) et le Ẕô (ظ) : dissimulation, avec un nasillement lourd (lettres emphatiques).', ex: [{ label: NS(68, 7), text: '… بِمَ[[r:ن ضَ]]لَّ …' }, { label: TW(9, 107), text: '… مَسۡجِ[[r:دٗا ضِ]]رَارٗا …' }, { label: NS(77, 29), text: 'ٱ[[r:نطَ]]لِقُوٓاْ …' }, { label: TW(8, 69), text: '… حَلَٰ[[r:لٗا طَ]]يِّبٗا …' }, { label: NS(83, 23), text: 'عَلَى ٱلۡأَرَآئِكِ يَ[[r:نظُ]]رُونَ' }, { label: TW(3, 117), text: '… قَوۡ[[r:مٖ ظَ]]لَمُوٓاْ …' }] },
+              { rule: 'Devant le Fâ (ف), le Qôf (ق) et le Kâf (ك) : dissimulation. Devant le Qôf, lettre emphatique, le nasillement est lourd.', ex: [{ label: NS(70, 14), text: 'وَمَ[[r:ن فِ]]ي ٱلۡأَرۡضِ …' }, { label: TW(10, 70), text: 'مَتَٰ[[r:عٞ فِ]]ي ٱلدُّنۡيَا …' }, { label: NS(74, 51), text: 'فَرَّتۡ مِ[[r:ن قَ]]سۡوَرَةِۭ' }, { label: TW(29, 20), text: '… عَلَىٰ كُلِّ شَيۡ[[r:ءٖ قَ]]دِيرٞ' }, { label: NS(96, 11), text: 'أَرَءَيۡتَ إِ[[r:ن كَ]]انَ …' }, { label: TW(76, 17), text: '… كَأۡ[[r:سٗا كَ]]انَ …' }],
+                note: 'Remarque : lorsqu’on applique cette règle, la langue ne doit pas toucher le palais lors du nasillement [Ghounnah]. La grande difficulté de cette règle réside dans le fait que la langue se déplace du point de sortie [Al-Makhradj] de la lettre Noûn pour aller vers le point de sortie de la lettre qui suit. Ceci doit être approfondi avec un professeur compétent.' }
+            ] }
+        ],
+        notes: [
+          { title: 'Remarque', text: 'Dans les situations de fusion et de dissimulation, la voyelle muette (As-soukoûn) n’est pas matérialisée sur la lettre Noûn, et les voyelles doubles (At-tanwîn) sont toujours décalées ; alors que dans la clarification, la voyelle muette est matérialisée sur la lettre Noûn, et les voyelles doubles sont parallèles.' },
+          { title: 'Résumé (figure 1)', text: '1. La clarification (Al-Idz’hâr) devant ء ح خ ع غ ه : le Noûn et le tanwîn se lisent clairement. 2. L’assimilation (Al-Idghâm) : avec nasillement devant م ن و ي, sans nasillement devant ل ر, où le Noûn disparaît totalement. 3. La substitution (Al-Iqlâb) devant ب : le « n » devient « m », signalé par un Mîm en miniature. 4. La dissimulation (Al-Ikhfâ) devant les 15 autres lettres : le nasillement se fait sans que la langue touche le palais.' }
+        ] },
+      a7: { num: '7', title: 'Le Mîm sâkinah', ar: 'ٱلۡمِيمُ ٱلسَّاكِنَةُ', desc: 'Les trois règles labiales : la fusion, la dissimulation et la clarification.', pages: 'pp. 38-41',
+        intro: ['La lettre Mîm portant la voyelle muette (As-soukoûn) est appelée « Mîm As-sâkinah ». Selon la lettre qui va suivre, elle va subir trois (3) règles pour sa lecture : la fusion, la dissimulation et la clarification.', 'Pour marquer la différence avec les mêmes termes de la lettre Noûn as-sâkinah, on ajoute le mot Ach-chafawiyy, qui veut dire « labiale », car la lettre Mîm se prononce des lèvres.'],
+        sections: [
+          { num: '1', title: 'La fusion labiale (Al-Idghâm Ach-chafawiyy)', ar: 'ٱلۡإِدۡغَامُ ٱلشَّفَوِيُّ', verdict: '1 lettre : م', chipBg: 'var(--accent)', chipFg: '#FFFFFF', def: '',
+            cases: [{ rule: 'Lorsque la lettre Mîm as-sâkinah est suivie d’une autre lettre Mîm (م), les deux lettres Mîm fusionnent pour n’en faire qu’une, que l’on prononce avec l’intensité [Ach-chaddah] et un nasillement [Al-Ghounnah] de deux temps. Les lèvres se joignent totalement.',
+              ex: [{ label: 'Sourate 104, verset 8', text: 'إِنَّهَا عَلَيۡهِ[[r:م مُّ]]ؤۡصَدَةُۢ' }, { label: 'Sourate 106, verset 4', text: '… وَءَامَنَهُ[[r:م مِّ]]نۡ خَوۡفِۭ' }] }] },
+          { num: '2', title: 'La dissimulation labiale (Al-Ikhfâ Ach-chafawiyy)', ar: 'ٱلۡإِخۡفَاءُ ٱلشَّفَوِيُّ', verdict: '1 lettre : ب', chipBg: 'var(--tint2)', chipFg: 'var(--accent)', def: '',
+            cases: [{ rule: 'Lorsque la lettre Mîm as-sâkinah est suivie de la lettre Bâ (ب), la lettre Mîm est dissimulée : on la prononce d’une façon entre la clarification [Al-Idz’hâr] et l’assimilation [Al-Idghâm], en faisant attention à bien faire le nasillement [Al-Ghounnah]. Ici, on ne joint pas totalement les lèvres.',
+              ex: [{ label: 'Sourate 105, verset 4', text: 'تَرۡمِيهِ[[r:م بِ]]حِجَارَةٖ …' }, { label: 'Sourate 96, verset 14', text: 'أَلَمۡ يَعۡلَ[[r:م بِ]]أَنَّ …' }] }] },
+          { num: '3', title: 'La clarification labiale (Al-Idz’hâr Ach-chafawiyy)', ar: 'ٱلۡإِظۡهَارُ ٱلشَّفَوِيُّ', verdict: '26 lettres', chipBg: 'var(--amber-bg)', chipFg: 'var(--amber-fg)', def: '',
+            cases: [{ rule: 'Lorsque la lettre Mîm as-sâkinah est suivie de toutes les autres lettres (notes de cours : 26 lettres), on prononce la lettre Mîm normalement et distinctement.',
+              ex: [{ label: 'Sourate 109, verset 6', text: 'لَكُ[[r:مۡ دِ]]ينُكُمۡ …' }, { label: 'Sourate 112, verset 3', text: 'لَ[[r:مۡ يَ]]لِدۡ …' }, { label: 'Sourate 1, verset 7', text: '… عَلَيۡهِ[[r:مۡ وَ]]لَا ٱلضَّآلِّينَ' }, { label: 'Sourate 68, verset 38', text: 'إِنَّ لَكُ[[r:مۡ فِ]]يهِ …' }],
+              note: 'La clarification sera plus forte lorsque la lettre Mîm as-sâkinah sera suivie des lettres Wâw (و) et Fâ (ف), car elles se prononcent toutes les deux des lèvres, tout comme la lettre Mîm. De peur d’avaler la prononciation du Mîm, on s’efforcera, dans ces cas-là, de la prononcer plus clairement.' }] }
+        ],
+        notes: [
+          { title: 'Remarques', text: 'Pour la fusion et la dissimulation, la lettre Mîm ne porte pas de voyelle muette, tandis que pour la clarification, elle en est munie. Il faut souligner qu’Al-Iqlâb et Al-Ikhfâ Ach-chafawiyy se prononcent de la même manière.' },
+          { title: 'Résumé (figure 2)', text: 'Après la lettre Mîm sans voyelle (Mîm as-sâkinah), on applique trois règles : 1. la fusion labiale devant م, avec dédoublement et nasillement, les lèvres se joignant totalement ; 2. la dissimulation labiale devant ب, avec nasillement, les lèvres ne se joignant pas totalement ; 3. la clarification labiale devant les 26 autres lettres. La substitution (Al-Iqlâb) est impossible ici, car elle remplace le Noûn par le Mîm, alors que la règle étudiée porte sur la lettre Mîm.' }
+        ] }
+    });
+    const R6 = { iz: 'La clarification (Al-Idz’hâr)', ig: 'L’assimilation avec nasillement', il: 'L’assimilation sans nasillement', iq: 'La substitution (Al-Iqlâb)', ik: 'La dissimulation (Al-Ikhfâ)' };
+    const a6qcm = [
+      { p: 'Combien de règles s’appliquent après le Noûn sâkinah ou le tanwîn ?', o: ['4', '3', '2', '6'], e: 'La clarification, l’assimilation, la substitution et la dissimulation.' },
+      { p: 'Devant quelles lettres applique-t-on la clarification (Al-Idz’hâr) ?', ar: true, o: ['ء ح خ ع غ ه', 'ي ر م ل و ن', 'ص ض ط ظ ق', 'ت ث ج د ذ'], e: 'Six lettres.' },
+      { p: 'Quelle expression regroupe les 6 lettres d’Al-Idghâm ?', ar: true, o: ['يَرۡمَلُونَ', 'قُطۡبُ جَدٍّ', 'حَيٌّ طَهُرَ', 'نَقَصَ عَسَلُكُمۡ'], e: 'ي ر م ل و ن.' },
+      { p: 'Devant quelles lettres l’assimilation se fait-elle sans nasillement ?', o: ['Rô (ر) et Lâm (ل)', 'Mîm (م) et Noûn (ن)', 'Wâw (و) et Yâ (ي)', 'Bâ (ب)'], e: 'Le Noûn disparaît totalement.' },
+      { p: 'Devant quelle lettre applique-t-on la substitution (Al-Iqlâb) ?', o: ['Bâ (ب)', 'Mîm (م)', 'Noûn (ن)', 'Hamzah (ء)'], e: 'Le son « n » devient « m ».' },
+      { p: 'Devant combien de lettres applique-t-on la dissimulation (Al-Ikhfâ) ?', o: ['15', '6', '4', '26'], e: 'Toutes les autres lettres.' },
+      { p: 'Dans « مَنۡ ءَامَنَ » (sourate 2, verset 177), quelle règle applique-t-on ?', o: [R6.iz, R6.ig, R6.iq, R6.ik], e: 'Le Hamzah est une lettre de clarification.' },
+      { p: 'Dans « مِن مَّآءٖ » (sourate 86, verset 6), quelle règle applique-t-on ?', o: [R6.ig, R6.il, R6.iz, R6.ik], e: 'Le Mîm fait partie des lettres يَرۡمَلُونَ, avec nasillement.' },
+      { p: 'Dans « مِّن رَّبِّهِمۡ » (sourate 2, verset 5), quelle règle applique-t-on ?', o: [R6.il, R6.ig, R6.iz, R6.iq], e: 'Devant le Rô, le Noûn disparaît sans nasillement.' },
+      { p: 'Dans « لَيُنۢبَذَنَّ » (sourate 104, verset 4), quelle règle applique-t-on ?', o: [R6.iq, R6.ik, R6.ig, R6.iz], e: 'Le Noûn sâkinah est suivi du Bâ.' },
+      { p: 'Dans « مِن شَرِّ » (sourate 113, verset 2), quelle règle applique-t-on ?', o: [R6.ik, R6.iz, R6.il, R6.iq], e: 'Le Chîn fait partie des 15 lettres d’Al-Ikhfâ.' },
+      { p: 'Dans « ٱلدُّنۡيَا », pourquoi n’applique-t-on pas l’assimilation devant le Yâ ?', o: ['Parce que le Noûn et le Yâ sont dans le même mot', 'Parce que le Yâ porte une chaddah', 'Parce que c’est une fin de sourate', 'Parce que le Noûn porte un tanwîn'], e: 'On applique alors la clarification.' },
+      { p: 'Combien de mots du Coran ont un Noûn sâkinah suivi d’une lettre d’Al-Idghâm dans le même mot ?', o: ['4', '2', '6', '15'], e: 'ٱلدُّنۡيَا، بُنۡيَٰنٌ، صِنۡوَانٌ، قِنۡوَانٌ.' },
+      { p: 'Que fait-on lorsqu’un tanwîn est suivi d’un Hamzatou-l-wasl ?', o: ['On ajoute un Noûn de liaison (Noûn Qutn) portant la Kasrah', 'On supprime le tanwîn', 'On fait une pause', 'On applique Al-Iqlâb'], e: 'Exemple : خَيۡرًا ٱلۡوَصِيَّةُ se lit خَيۡرَنِ ٱلۡوَصِيَّةُ.' },
+      { p: 'Devant quelles lettres le nasillement d’Al-Ikhfâ se fait-il avec emphase (lourd) ?', ar: true, o: ['ص ض ط ظ ق', 'ت ث ج د ذ', 'ز س ش ف ك', 'ء ح خ ع غ'], e: 'Les 5 lettres emphatiques d’Al-Ikhfâ.' },
+      { p: 'Pendant Al-Ikhfâ, la langue doit-elle toucher le palais ?', o: ['Non, elle s’en approche sans le toucher', 'Oui, fermement', 'Oui, mais seulement à la fin', 'Peu importe'], e: 'Elle va vers le point de sortie de la lettre qui suit.' },
+      { p: 'Dans Al-Iqlâb, que devient le son « n » ?', o: ['Le son « m », avec nasillement', 'Le son « b »', 'Il disparaît sans nasillement', 'Il reste « n »'], e: 'Sans comprimer les lèvres.' }
+    ];
+    const a6vf = [
+      { s: 'Al-Idz’hâr se fait devant les lettres ء ح خ ع غ ه.', a: true, e: 'Les six lettres de la clarification.' },
+      { s: 'Dans la clarification, le Noûn se prononce nettement et clairement.', a: true, e: 'Ces lettres ne modifient pas sa prononciation.' },
+      { s: 'L’assimilation devant le Rô et le Lâm se fait avec nasillement.', a: false, e: 'Elle se fait sans nasillement.' },
+      { s: 'Le signe Ach-chaddah n’est pas matérialisé pour les lettres و et ي lors de l’assimilation.', a: true, e: 'Remarque du chapitre 6.' },
+      { s: 'Al-Iqlâb s’applique devant la lettre Mîm.', a: false, e: 'Il s’applique devant la lettre Bâ.' },
+      { s: 'Dans Al-Iqlâb, on comprime fortement les lèvres.', a: false, e: 'On ne joint pas totalement les lèvres.' },
+      { s: 'Al-Ikhfâ se fait avec nasillement, sans appuyer sur la lettre.', a: true, e: 'Entre la clarification et l’assimilation.' },
+      { s: 'Al-Ikhfâ concerne 6 lettres.', a: false, e: 'Il concerne 15 lettres.' },
+      { s: 'Selon l’Imâm Ach-Châtibiyy, il y a deux endroits sans fusion, au début des sourates 36 et 68.', a: true, e: 'يسٓ ۝ وَٱلۡقُرۡءَانِ et نٓۚ وَٱلۡقَلَمِ.' },
+      { s: 'Dans la clarification, les voyelles doubles (At-tanwîn) sont parallèles.', a: true, e: 'Dans la fusion et la dissimulation, elles sont décalées.' },
+      { s: 'Dans la fusion et la dissimulation, le soukoûn est écrit sur le Noûn.', a: false, e: 'Il n’est pas matérialisé.' },
+      { s: 'Une sourate qui finit par le signe d’Al-Iqlâb peut être liée au Bâ de la Basmalah suivante.', a: true, e: 'Exemple : les sourates 54 et 55.' }
+    ];
+    const a6trous = [
+      { t: 'Les quatre règles du Noûn sâkinah sont la [clarification], l’assimilation, la substitution et la [dissimulation].', d: ['qolqolah', 'prolongation'], e: 'Introduction du chapitre 6.' },
+      { t: 'Devant le Rô et le Lâm, le Noûn [disparaît] totalement et la lecture se fait sans [nasillement].', d: ['reste', 'écho'], e: 'Al-Idghâm bilâ ghounnah.' },
+      { t: 'Devant la lettre Bâ, le son « n » est remplacé par le son « [m] » : c’est Al-[Iqlâb].', d: ['b', 'Ikhfâ'], e: 'La substitution.' },
+      { t: 'Al-Ikhfâ s’applique devant [quinze] lettres ; la langue ne doit pas toucher le [palais].', d: ['six', 'dents'], e: 'La dissimulation.' },
+      { t: 'Si le Noûn sâkinah et la lettre d’Al-Idghâm sont dans le même [mot], on fait Al-[Idz’hâr].', d: ['verset', 'Iqlâb'], e: 'Les 4 mots du Coran.' },
+      { t: 'Devant un Hamzatou-l-wasl, on ajoute un Noûn de [liaison] portant la [Kasrah].', d: ['pause', 'Fathah'], e: 'Le Noûn Qutn.' },
+      { t: 'L’assimilation avec nasillement se fait devant le Mîm, le Noûn, le [Wâw] et le [Yâ].', d: ['Rô', 'Lâm'], e: 'Al-Idghâm bi-ghounnah.' },
+      { t: 'Le nasillement d’Al-Ikhfâ est [lourd] devant les 5 lettres emphatiques.', d: ['léger', 'muet'], e: 'ص ض ط ظ ق.' }
+    ];
+    const R7 = { ig: 'La fusion labiale (Al-Idghâm Ach-chafawiyy)', ik: 'La dissimulation labiale (Al-Ikhfâ Ach-chafawiyy)', iz: 'La clarification labiale (Al-Idz’hâr Ach-chafawiyy)' };
+    const a7qcm = [
+      { p: 'Combien de règles s’appliquent au Mîm sâkinah ?', o: ['3', '4', '2', '6'], e: 'La fusion, la dissimulation et la clarification.' },
+      { p: 'Que veut dire « Ach-chafawiyy » ?', o: ['Labiale', 'Nasale', 'Gutturale', 'Emphatique'], e: 'La lettre Mîm se prononce des lèvres.' },
+      { p: 'Devant quelle lettre applique-t-on la fusion labiale ?', o: ['Mîm (م)', 'Bâ (ب)', 'Wâw (و)', 'Fâ (ف)'], e: 'Les deux Mîm fusionnent.' },
+      { p: 'Devant quelle lettre applique-t-on la dissimulation labiale ?', o: ['Bâ (ب)', 'Mîm (م)', 'Noûn (ن)', 'Wâw (و)'], e: 'Avec nasillement.' },
+      { p: 'Devant combien de lettres applique-t-on la clarification labiale ?', o: ['26', '15', '6', '1'], e: 'Toutes les autres lettres.' },
+      { p: 'Dans la fusion labiale, les lèvres :', o: ['Se joignent totalement', 'Ne se joignent pas totalement', 'Restent ouvertes', 'Ne bougent pas'], e: 'Avec chaddah et nasillement de deux temps.' },
+      { p: 'Dans la dissimulation labiale, les lèvres :', o: ['Ne se joignent pas totalement', 'Se joignent totalement et fortement', 'Restent grandes ouvertes', 'Sont comprimées'], e: 'En faisant bien le nasillement.' },
+      { p: 'Dans « تَرۡمِيهِم بِحِجَارَةٖ » (sourate 105, verset 4), quelle règle applique-t-on ?', o: [R7.ik, R7.ig, R7.iz, 'La substitution (Al-Iqlâb)'], e: 'Le Mîm sâkinah est suivi du Bâ.' },
+      { p: 'Dans « عَلَيۡهِم مُّؤۡصَدَةُۢ » (sourate 104, verset 8), quelle règle applique-t-on ?', o: [R7.ig, R7.ik, R7.iz, 'Al-Qolqolah'], e: 'Le Mîm sâkinah est suivi d’un autre Mîm.' },
+      { p: 'Devant quelles lettres la clarification labiale doit-elle être plus forte ?', o: ['Wâw (و) et Fâ (ف)', 'Bâ (ب) et Mîm (م)', 'Noûn (ن) et Lâm (ل)', 'Hamzah (ء) et Hâ (ه)'], e: 'Elles se prononcent aussi des lèvres.' },
+      { p: 'Quelles règles se prononcent de la même manière ?', o: ['Al-Iqlâb et Al-Ikhfâ Ach-chafawiyy', 'Al-Idghâm et Al-Idz’hâr', 'Al-Qolqolah et Al-Ghounnah', 'At-tartîl et Al-hadr'], e: 'Remarque du chapitre 7.' },
+      { p: 'Pourquoi la substitution (Al-Iqlâb) est-elle impossible pour le Mîm sâkinah ?', o: ['Parce qu’elle remplace le Noûn par le Mîm, et ici la lettre est déjà un Mîm', 'Parce que le Mîm n’a pas de nasillement', 'Parce que le Mîm est une lettre de Qolqolah', 'Parce que le Mîm porte toujours la chaddah'], e: 'Figure 2 du livre.' }
+    ];
+    const a7vf = [
+      { s: 'Le Mîm sâkinah suit trois règles : la fusion, la dissimulation et la clarification.', a: true, e: 'Toutes labiales (Ach-chafawiyy).' },
+      { s: 'La fusion labiale se fait devant la lettre Bâ.', a: false, e: 'Elle se fait devant la lettre Mîm.' },
+      { s: 'Dans la fusion labiale, on fait un nasillement de deux temps.', a: true, e: 'Avec l’intensité de la chaddah.' },
+      { s: 'Dans la dissimulation labiale, les lèvres se joignent totalement.', a: false, e: 'Elles ne se joignent pas totalement.' },
+      { s: 'La clarification labiale se fait devant 26 lettres.', a: true, e: 'Toutes les lettres sauf Mîm et Bâ.' },
+      { s: 'Pour la clarification, la lettre Mîm porte le soukoûn.', a: true, e: 'Elle en est munie.' },
+      { s: 'Pour la fusion et la dissimulation, le Mîm porte le soukoûn.', a: false, e: 'Il ne porte pas de voyelle muette.' },
+      { s: 'Al-Iqlâb et Al-Ikhfâ Ach-chafawiyy se prononcent de la même manière.', a: true, e: 'Remarque du chapitre 7.' }
+    ];
+    const a7trous = [
+      { t: 'Ach-chafawiyy veut dire « [labiale] », car le Mîm se prononce des [lèvres].', d: ['nasale', 'dents'], e: 'Introduction du chapitre 7.' },
+      { t: 'Mîm sâkinah suivi d’un Mîm : fusion labiale, les lèvres se joignent [totalement].', d: ['partiellement', 'jamais'], e: 'Al-Idghâm Ach-chafawiyy.' },
+      { t: 'Mîm sâkinah suivi de la lettre [Bâ] : dissimulation labiale, avec [nasillement].', d: ['Wâw', 'écho'], e: 'Al-Ikhfâ Ach-chafawiyy.' },
+      { t: 'Devant les 26 autres lettres, on fait la [clarification] labiale.', d: ['dissimulation', 'fusion'], e: 'Al-Idz’hâr Ach-chafawiyy.' },
+      { t: 'La clarification est plus forte devant le [Wâw] et le [Fâ].', d: ['Bâ', 'Mîm'], e: 'Ils se prononcent des lèvres.' }
+    ];
+    this._d = { fr, signs, map, qcm, vf, trous, EX, AR, types, tqcm, tvf, ttrous, RA, rqcm, rvf, rtrous, COMP, ctrous, cqcm, cordre, PROG, PROG4B, COMP4B, dqcm, dordre, dtrous, ID, iqcm, ivf, itrous, MD, pqcm, pvf, ptrous, COMP4A, eqcm, eordre, etrous, PROG4A, CH4A, a1qcm, a1vf, a1trous, a2qcm, a2vf, a2trous, a3qcm, a3vf, a3trous, a4qcm, a4vf, a4trous, a5qcm, a5vf, a5trous, a6qcm, a6vf, a6trous, a7qcm, a7vf, a7trous };
     return this._d;
   }
 
@@ -2086,7 +2747,7 @@ class Component extends DCLogic {
       screen: 'home', mode: null, topic: 'signes', queue: [], idx: 0, answered: false, picked: null,
       fills: [], checked: false, score: 0, mistakes: [],
       best: { qcm: null, vf: null, trous: null, tqcm: null, tvf: null, ttrous: null }, hide: false, revealed: {},
-      prog: { q: {}, hist: [] }, weeksDone: {}, level: '4C', theme: 'auto', arScale: 1, arFont: 'hafs', sysDark: false, confirmReset: false, installed: false, appVersion: '', toast: ''
+      prog: { q: {}, hist: [] }, weeksDone: {}, chap: 'a1', level: '4C', theme: 'auto', arScale: 1, arFont: 'hafs', sysDark: false, confirmReset: false, installed: false, appVersion: '', toast: ''
     }, this.state || {});
   }
 
@@ -2101,7 +2762,7 @@ class Component extends DCLogic {
     } catch (e) {}
     try {
       const rl = window.localStorage.getItem('waqf-niveau');
-      if (rl === '4B' || rl === '4C') this.setState({ level: rl });
+      if (rl === '4A' || rl === '4B' || rl === '4C') this.setState({ level: rl });
     } catch (e) {}
     try {
       const rw = window.localStorage.getItem('waqf-programme');
@@ -2149,7 +2810,7 @@ class Component extends DCLogic {
   qIndex() {
     if (this._qi) return this._qi;
     const D = this.D(); const idx = {};
-    ['signes', 'types', 'ra', 'comp', 'comp4b', 'idgham', 'madd'].forEach((tp) => ['qcm', 'vf', 'trous', 'ordre'].forEach((m) => (D[this.bankKey(m, tp)] || []).forEach((it) => {
+    ['signes', 'types', 'ra', 'comp', 'comp4b', 'comp4a', 'idgham', 'madd'].concat(Object.keys(D.CH4A)).forEach((tp) => ['qcm', 'vf', 'trous', 'ordre'].forEach((m) => (D[this.bankKey(m, tp)] || []).forEach((it) => {
       idx[this.qidOf(m, it)] = { mode: m, item: it, topic: tp };
     })));
     this._qi = idx;
@@ -2197,10 +2858,15 @@ class Component extends DCLogic {
 
   toggleWeek(n) {
     const w = Object.assign({}, this.S().weeksDone || {});
-    if (this.S().level === '4B') n = 'b' + n;
+    if (this.S().level === '4B') n = 'b' + n; else if (this.S().level === '4A') n = 'a' + n;
     if (w[n]) delete w[n]; else w[n] = true;
     this.setState({ weeksDone: w });
     try { window.localStorage.setItem('waqf-programme', JSON.stringify(w)); } catch (e) {}
+  }
+
+  goCh(k, anchor) {
+    this.setState({ chap: k });
+    this.goTo('learnCh', anchor);
   }
 
   goTo(screen, anchor) {
@@ -2322,7 +2988,7 @@ class Component extends DCLogic {
   }
 
   prep(mode, it) {
-    if (this._bt === 'madd' || this._bt === 'idgham') it = Object.assign({}, it, { p: this.bidi(it.p), s: this.bidi(it.s), e: this.bidi(it.e), t: it.ar ? it.t : this.bidi(it.t) });
+    if (this._bt === 'madd' || this._bt === 'idgham' || /^a\d$/.test(this._bt || '')) it = Object.assign({}, it, { p: this.bidi(it.p), s: this.bidi(it.s), e: this.bidi(it.e), t: it.ar ? it.t : this.bidi(it.t) });
     if (mode === 'qcm') {
       const opts = it.o.map((x, i) => ({ text: it.go ? '' : x, sign: it.go ? x : null, correct: i === 0 }));
       return { type: 'qcm', ar: !!it.ar, g: it.g, v: it.v || null, p: it.p, e: it.e, options: this.shuffle(opts) };
@@ -2345,7 +3011,7 @@ class Component extends DCLogic {
   }
 
   bankKey(mode, topic) {
-    return topic === 'types' ? 't' + mode : (topic === 'ra' ? 'r' + mode : (topic === 'comp' ? 'c' + mode : (topic === 'comp4b' ? 'd' + mode : (topic === 'idgham' ? 'i' + mode : (topic === 'madd' ? 'p' + mode : mode)))));
+    return /^a\d$/.test(topic) ? topic + mode : topic === 'types' ? 't' + mode : (topic === 'ra' ? 'r' + mode : (topic === 'comp' ? 'c' + mode : (topic === 'comp4b' ? 'd' + mode : topic === 'comp4a' ? 'e' + mode : (topic === 'idgham' ? 'i' + mode : (topic === 'madd' ? 'p' + mode : mode)))));
   }
 
   redParts(t, sinShift) {
@@ -2433,7 +3099,7 @@ class Component extends DCLogic {
 
   start(mode, topic) {
     const D = this.D();
-    const tp = topic === 'types' || topic === 'ra' || topic === 'comp' || topic === 'comp4b' || topic === 'idgham' || topic === 'madd' ? topic : 'signes';
+    const tp = /^a\d$/.test(topic) || topic === 'types' || topic === 'ra' || topic === 'comp' || topic === 'comp4b' || topic === 'comp4a' || topic === 'idgham' || topic === 'madd' ? topic : 'signes';
     this._bt = tp;
     let queue;
     if (mode === 'review') {
@@ -2444,7 +3110,7 @@ class Component extends DCLogic {
       queue = ids.slice(0, Math.max(1, this.count())).map((id) => Object.assign(this.prep(idx[id].mode, idx[id].item), { qid: id }));
     } else if (mode === 'mix') {
       // Mélange : QCM, vrai ou faux et texte à trous, en parts à peu près égales
-      const kinds = (tp === 'comp' || tp === 'comp4b') ? ['qcm', 'ordre', 'trous'] : ['qcm', 'vf', 'trous'];
+      const kinds = (tp === 'comp' || tp === 'comp4b' || tp === 'comp4a') ? ['qcm', 'ordre', 'trous'] : ['qcm', 'vf', 'trous'];
       const pools = kinds.map((k) => this.shuffle(D[this.bankKey(k, tp)]).map((it) => [k, it]));
       const all = pools.reduce((a, p) => a + p.length, 0);
       const n = Math.max(1, Math.min(this.count(), all));
@@ -2642,8 +3308,8 @@ class Component extends DCLogic {
     const isOrdre = screen === 'ordre' || (!!cur && cur.type === 'ordre');
     const inSession = isQcm || isVf || isTrous || isOrdre;
     const labels = { qcm: 'QCM', vf: 'Vrai ou faux', trous: 'Texte à trous', mix: 'Mélange', review: 'Revoir mes erreurs', ordre: 'Remets dans l’ordre' };
-    if (s.topic === 'comp' || s.topic === 'comp4b') labels.qcm = 'Dans quelle situation ?';
-    const topicLabels = { signes: 'Signes', types: 'Types d’arrêts', ra: 'Lettre Ra', comp: 'Le Compagnon', comp4b: 'Le Compagnon 4B', idgham: 'Assimilations', madd: 'Prolongations' };
+    if (s.topic === 'comp' || s.topic === 'comp4b' || s.topic === 'comp4a') labels.qcm = 'Dans quelle situation ?';
+    const topicLabels = { signes: 'Signes', types: 'Types d’arrêts', ra: 'Lettre Ra', comp: 'Le Compagnon', comp4b: 'Le Compagnon 4B', comp4a: 'Le Compagnon 4A', a1: '4A · Chapitre 1', a2: '4A · Chapitre 2', a3: '4A · Chapitre 3', a4: '4A · Chapitre 4', a5: '4A · Chapitre 5', a6: '4A · Chapitre 6', a7: '4A · Chapitre 7', idgham: 'Assimilations', madd: 'Prolongations' };
     const q = inSession ? s.queue[s.idx] : null;
     const total = s.queue.length || 1;
 
@@ -2651,7 +3317,7 @@ class Component extends DCLogic {
     const metaFor = (m, tp) => {
       const key = this.bankKey(m, tp);
       const b = s.best[key];
-      const total = m === 'mix' ? ((tp === 'comp' || tp === 'comp4b') ? ['qcm', 'ordre', 'trous'] : ['qcm', 'vf', 'trous']).reduce((a, k) => a + D[this.bankKey(k, tp)].length, 0) : D[key].length;
+      const total = m === 'mix' ? ((tp === 'comp' || tp === 'comp4b' || tp === 'comp4a') ? ['qcm', 'ordre', 'trous'] : ['qcm', 'vf', 'trous']).reduce((a, k) => a + D[this.bankKey(k, tp)].length, 0) : D[key].length;
       const base = total + ' ' + units[m];
       return b ? base + ' · record ' + b.score + '/' + b.total : base;
     };
@@ -2663,11 +3329,14 @@ class Component extends DCLogic {
       const st = this.topicStats(tp);
       return Object.assign(st, { barW: st.pct + '%', hasKo: st.ko > 0, koLabel: plural(st.ko, 'question', 'questions') });
     };
-    const CTP = s.level === '4B' ? 'comp4b' : 'comp';
-    const progR = pstat('ra'), progT = pstat('types'), progS = pstat('signes'), progC4 = pstat('comp'), progCB = pstat('comp4b'), progI = pstat('idgham'), progM = pstat('madd');
-    const progC = CTP === 'comp4b' ? progCB : progC4;
+    const CTP = s.level === '4A' ? 'comp4a' : (s.level === '4B' ? 'comp4b' : 'comp');
+    const progR = pstat('ra'), progT = pstat('types'), progS = pstat('signes'), progC4 = pstat('comp'), progCB = pstat('comp4b'), progCA = pstat('comp4a'), progI = pstat('idgham'), progM = pstat('madd');
+    const progA = {};
+    Object.keys(D.CH4A).forEach((k) => { progA[k] = pstat(k); });
+    const progC = CTP === 'comp4a' ? progCA : (CTP === 'comp4b' ? progCB : progC4);
     const is4BLevel = s.level === '4B';
-    const levelRows = is4BLevel ? [progI, progM, progCB] : [progR, progT, progS, progC4];
+    const is4ALevel = s.level === '4A';
+    const levelRows = is4ALevel ? Object.keys(progA).map((k) => progA[k]).concat([progCA]) : (is4BLevel ? [progI, progM, progCB] : [progR, progT, progS, progC4]);
     const allTotal = levelRows.reduce((a, r) => a + r.total, 0);
     const allOk = levelRows.reduce((a, r) => a + r.ok, 0);
     const allSeen = levelRows.reduce((a, r) => a + r.seen, 0);
@@ -2683,27 +3352,30 @@ class Component extends DCLogic {
       { tp: 'idgham', chapter: '4B · Chapitre 8', title: 'Les différents types d’assimilations', st: progI },
       { tp: 'madd', chapter: '4B · Chapitre 10', title: 'Les prolongations', st: progM },
       { tp: 'comp4b', chapter: 'Le Compagnon · 4B', title: 'Invocations du Qour’ane & de la Sounna', st: progCB, modes: ['qcm', 'ordre', 'trous', 'mix'] }
-    ].filter((c) => (is4BLevel ? ['idgham', 'madd', 'comp4b'] : ['ra', 'types', 'signes', 'comp']).includes(c.tp));
+,
+      ...Object.keys(D.CH4A).map((k) => ({ tp: k, chapter: '4A · Chapitre ' + D.CH4A[k].num, title: D.CH4A[k].title, st: progA[k] })),
+      { tp: 'comp4a', chapter: 'Le Compagnon · 4A', title: 'Invocations du Qour’ane & de la Sounna', st: progCA, modes: ['qcm', 'ordre', 'trous', 'mix'] }
+    ].filter((c) => (is4ALevel ? Object.keys(D.CH4A).concat(['comp4a']) : (is4BLevel ? ['idgham', 'madd', 'comp4b'] : ['ra', 'types', 'signes', 'comp'])).includes(c.tp));
     const modeNames = { qcm: 'QCM', vf: 'Vrai ou faux', trous: 'Texte à trous', mix: 'Mélange', ordre: 'Dans l’ordre' };
     const progCards = chapters.map((c) => ({
       chapter: c.chapter, title: c.title, pct: c.st.pct, barW: c.st.barW,
       detail: plural(c.st.ok, 'question maîtrisée', 'questions maîtrisées') + ' sur ' + c.st.total + ' · ' + plural(c.st.seen, 'déjà vue', 'déjà vues'),
-      bests: (c.modes || ['qcm', 'vf', 'trous', 'mix']).map((m) => { const b = s.best[this.bankKey(m, c.tp)]; return { label: ((c.tp === 'comp' || c.tp === 'comp4b') && m === 'qcm') ? 'Situations' : modeNames[m], value: b ? b.score + '/' + b.total : '—' }; }),
+      bests: (c.modes || ['qcm', 'vf', 'trous', 'mix']).map((m) => { const b = s.best[this.bankKey(m, c.tp)]; return { label: ((c.tp === 'comp' || c.tp === 'comp4b' || c.tp === 'comp4a') && m === 'qcm') ? 'Situations' : modeNames[m], value: b ? b.score + '/' + b.total : '—' }; }),
       hasKo: c.st.ko > 0, koLabel: plural(c.st.ko, 'question', 'questions'), allGood: c.st.seen > 0 && c.st.ko === 0,
       review: () => this.start('review', c.tp)
     }));
     const pad2 = (x) => String(x).padStart(2, '0');
-    const topicNames = { ra: 'Lettre Ra', types: 'Types d’arrêts', signes: 'Signes', comp: 'Le Compagnon', comp4b: 'Le Compagnon 4B', idgham: 'Assimilations', madd: 'Prolongations' };
+    const topicNames = { ra: 'Lettre Ra', types: 'Types d’arrêts', signes: 'Signes', comp: 'Le Compagnon', comp4b: 'Le Compagnon 4B', comp4a: 'Le Compagnon 4A', a1: '4A · Chapitre 1', a2: '4A · Chapitre 2', a3: '4A · Chapitre 3', a4: '4A · Chapitre 4', a5: '4A · Chapitre 5', a6: '4A · Chapitre 6', a7: '4A · Chapitre 7', idgham: 'Assimilations', madd: 'Prolongations' };
     const histRows = (s.prog.hist || []).slice(0, 12).map((h) => {
       const d = new Date(h.t);
       return { date: pad2(d.getDate()) + '/' + pad2(d.getMonth() + 1) + ' à ' + pad2(d.getHours()) + 'h' + pad2(d.getMinutes()),
-        what: (topicNames[h.topic] || '') + ' · ' + (((h.topic === 'comp' || h.topic === 'comp4b') && h.mode === 'qcm') ? 'Dans quelle situation ?' : (h.mode === 'qcm' ? 'QCM' : (labels[h.mode] || ''))), score: h.score + '/' + h.total };
+        what: (topicNames[h.topic] || '') + ' · ' + (((h.topic === 'comp' || h.topic === 'comp4b' || h.topic === 'comp4a') && h.mode === 'qcm') ? 'Dans quelle situation ?' : (h.mode === 'qcm' ? 'QCM' : (labels[h.mode] || ''))), score: h.score + '/' + h.total };
     });
     // ——— Le Compagnon : fiches ———
-    const compCards = (s.level === '4B' ? D.COMP4B : D.COMP).map((h) => ({
+    const compCards = (s.level === '4A' ? D.COMP4A : (s.level === '4B' ? D.COMP4B : D.COMP)).map((h) => ({
       num: String(h.num), title: h.title, ref: 'Le Compagnon · ' + h.ref + ' · ' + h.page, hasIntro: !!h.intro, intro: h.intro,
       blocks: h.blocks.map((b, k) => {
-        const key = (s.level === '4B' ? 'compb_' : 'comp_') + h.num + '_' + k;
+        const key = (s.level === '4A' ? 'compa_' : (s.level === '4B' ? 'compb_' : 'comp_')) + h.num + '_' + k;
         const hid = !!s.hide && !s.revealed[key];
         return {
           hasLead: !!b.lead, lead: b.lead, parts: this.hlParts(b.ar), isHidden: hid, isShown: !hid,
@@ -2721,8 +3393,9 @@ class Component extends DCLogic {
     };
     const wd = s.weeksDone || {};
     const is4B = s.level === '4B';
-    const PRG = is4B ? D.PROG4B : D.PROG;
-    const wkey = (n) => (is4B ? 'b' + n : n);
+    const is4A = s.level === '4A';
+    const PRG = is4A ? D.PROG4A : (is4B ? D.PROG4B : D.PROG);
+    const wkey = (n) => (is4A ? 'a' + n : (is4B ? 'b' + n : n));
     const weeksDoneCount = PRG.filter((w) => wd[wkey(w.n)]).length;
     const progWeeks = PRG.map((w, i) => {
       const done = !!wd[wkey(w.n)];
@@ -2734,7 +3407,7 @@ class Component extends DCLogic {
         invAction: w.inv && w.inv.comp ? 'Ouvrir la fiche' : 'Bientôt dans l’application',
         hasHome: !!w.home, home: w.home,
         hasLinks: w.links.length > 0,
-        links: w.links.map((l) => ({ label: l.label, run: () => { if (l.start) this.start(l.start[0], l.start[1]); else this.goTo(l.go, l.anchor); } })),
+        links: w.links.map((l) => ({ label: l.label, run: () => { if (l.start) this.start(l.start[0], l.start[1]); else if (l.ch) this.goCh(l.ch, l.anchor); else this.goTo(l.go, l.anchor); } })),
         done, toggle: () => this.toggleWeek(w.n), checkLabel: done ? 'Semaine terminée' : 'Marquer la semaine comme terminée',
         dotStyle: done ? 'background: ' + accent + '; color: #FFFFFF; border: 2px solid ' + accent + ';' : 'background: var(--surface); color: var(--ink); border: 2px solid var(--line2);',
         isDone: done, isTodo: !done,
@@ -2744,14 +3417,14 @@ class Component extends DCLogic {
     });
     const progProgramme = { done: weeksDoneCount, total: PRG.length, pct: Math.round(weeksDoneCount * 100 / PRG.length), barW: Math.round(weeksDoneCount * 100 / PRG.length) + '%',
       label: weeksDoneCount + ' semaine' + (weeksDoneCount > 1 ? 's' : '') + ' terminée' + (weeksDoneCount > 1 ? 's' : '') + ' sur ' + PRG.length };
-    const levelOpts = [['4B', 'Niveau 4B'], ['4C', 'Niveau 4C']].map(([k, l]) => ({ label: l, pressed: s.level === k ? 'true' : 'false', pick: () => this.setLevel(k),
-      style: 'min-height: 44px; padding: 0 18px; border-radius: 999px; font-size: 14.5px; font-weight: 800; ' + (s.level === k ? 'background: ' + accent + '; color: #FFFFFF; border: 1.5px solid ' + accent + ';' : 'background: var(--surface); color: var(--ink); border: 1.5px solid var(--line);') }));
+    const levelOpts = [['4A', 'Niveau 4A'], ['4B', 'Niveau 4B'], ['4C', 'Niveau 4C']].map(([k, l]) => ({ label: l, pressed: s.level === k ? 'true' : 'false', pick: () => this.setLevel(k),
+      style: 'min-height: 44px; padding: 0 14px; border-radius: 999px; font-size: 14.5px; font-weight: 800; ' + (s.level === k ? 'background: ' + accent + '; color: #FFFFFF; border: 1.5px solid ' + accent + ';' : 'background: var(--surface); color: var(--ink); border: 1.5px solid var(--line);') }));
     const lvl = {
-      is4B, is4C: !is4B, title: is4B ? 'Niveau 4B' : 'Niveau 4C', opts: levelOpts,
-      progCard: 'Le déroulement du programme de formation du niveau ' + (is4B ? '4B' : '4C') + ' : initiation au tadjwid, en 12 semaines.',
-      progH1: 'Programme du niveau ' + (is4B ? '4B' : '4C') + ' : initiation au tadjwid',
+      is4A, is4B, is4C: !is4A && !is4B, title: 'Niveau ' + (is4A ? '4A' : (is4B ? '4B' : '4C')), opts: levelOpts,
+      progCard: 'Le déroulement du programme de formation du niveau ' + (is4A ? '4A' : (is4B ? '4B' : '4C')) + ' : initiation au tadjwid, en 12 semaines.',
+      progH1: 'Programme du niveau ' + (is4A ? '4A' : (is4B ? '4B' : '4C')) + ' : initiation au tadjwid',
       progOrg: is4B ? 'Centre Islamique de Formation et de Documentation (CIFOD)' : 'Centre Islamique de Formation et de Documentation (C.I.FO.D) · Arrêté n° 191/MEMIS/DGAT/DAG/SDVA du 14 avril 2014',
-      progObj: 'maîtriser de façon théorique et pratique les règles de tadjwid (niveau ' + (is4B ? '2' : '3') + ' sur 3).'
+      progObj: 'maîtriser de façon théorique et pratique les règles de tadjwid (niveau ' + (is4A ? '1 sur 3' : (is4B ? '2 sur 3' : '3 sur 3')) + ').'
     };
 
     // ——— Affichage ———
@@ -2813,6 +3486,27 @@ class Component extends DCLogic {
           return {
             n: String(k + 1), rule: c.rule, ruleParts: this.vowelBold(this.hlParts(this.bidi(c.rule))), lead: c.lead || '', hasLead: !!c.lead, note: this.bidi(c.note || ''), hasNote: !!c.note && !hid,
             isHidden: hid, isShown: !hid, reveal: () => this.reveal('md_' + sec.num + '_' + (k + 1)),
+            showVerdict: s.hide && !hid, verdict: sec.verdict, verdictStyle: 'background: ' + sec.chipBg + '; color: ' + sec.chipFg + ';',
+            revealAria: 'Révéler la règle du cas ' + (k + 1) + ' de la partie ' + sec.num,
+            badgeStyle: 'background: ' + (secHid ? 'var(--surface3)' : sec.chipBg) + '; color: ' + (secHid ? 'var(--muted)' : sec.chipFg) + ';',
+            examples: c.ex.map((e) => ({ label: e.label, word: e.word || '', hasWord: !!e.word, parts: this.hlParts(e.text) }))
+          };
+        })
+      };
+    });
+    const CHX = D.CH4A[s.chap] || D.CH4A.a1;
+    const chSections = CHX.sections.map((sec) => {
+      const secHid = false; // les titres des parties restent visibles en mode mémorisation
+      return {
+        num: sec.num, title: sec.title, def: this.bidi(sec.def || ''), hasDef: !!sec.def, ar: sec.ar || '', hasAr: !!sec.ar, verdict: sec.verdict, count: sec.cases.length + ' cas',
+        chipStyle: 'background: ' + sec.chipBg + '; color: ' + sec.chipFg + ';',
+        isHidden: secHid, isShown: !secHid, reveal: () => this.reveal((s.chap || 'a1') + '_s' + sec.num),
+        revealAria: 'Révéler le titre de la partie ' + sec.num,
+        cases: sec.cases.map((c, k) => {
+          const hid = s.hide && !s.revealed[(s.chap || 'a1') + '_' + sec.num + '_' + (k + 1)];
+          return {
+            n: String(k + 1), rule: c.rule, ruleParts: this.vowelBold(this.hlParts(this.bidi(c.rule))), lead: c.lead || '', hasLead: !!c.lead, note: this.bidi(c.note || ''), hasNote: !!c.note && !hid,
+            isHidden: hid, isShown: !hid, reveal: () => this.reveal((s.chap || 'a1') + '_' + sec.num + '_' + (k + 1)),
             showVerdict: s.hide && !hid, verdict: sec.verdict, verdictStyle: 'background: ' + sec.chipBg + '; color: ' + sec.chipFg + ';',
             revealAria: 'Révéler la règle du cas ' + (k + 1) + ' de la partie ' + sec.num,
             badgeStyle: 'background: ' + (secHid ? 'var(--surface3)' : sec.chipBg) + '; color: ' + (secHid ? 'var(--muted)' : sec.chipFg) + ';',
@@ -3020,9 +3714,9 @@ class Component extends DCLogic {
       progR, progT, progS, progC, progAll, isOrdre, ord,
       resetOrd: () => this.resetOrd(), checkOrd: () => this.checkOrd(),
       startCQcm: () => this.start('qcm', CTP), startCOrdre: () => this.start('ordre', CTP),
-      canRestart: s.mode !== 'review' || (({ ra: progR, types: progT, signes: progS, comp: progC4, comp4b: progCB, idgham: progI, madd: progM })[s.topic] || progS).ko > 0,
-      resReview: s.mode !== 'review' && (({ ra: progR, types: progT, signes: progS, comp: progC4, comp4b: progCB, idgham: progI, madd: progM })[s.topic] || progS).ko > 0,
-      resReviewLabel: 'Revoir mes erreurs (' + (({ ra: progR, types: progT, signes: progS, comp: progC4, comp4b: progCB, idgham: progI, madd: progM })[s.topic] || progS).ko + ')', progCards, histRows, hasHist: histRows.length > 0, noHist: histRows.length === 0, themeOpts, arOpts, fontOpts,
+      canRestart: s.mode !== 'review' || (({ ra: progR, types: progT, signes: progS, comp: progC4, comp4b: progCB, comp4a: progCA, idgham: progI, madd: progM, ...progA })[s.topic] || progS).ko > 0,
+      resReview: s.mode !== 'review' && (({ ra: progR, types: progT, signes: progS, comp: progC4, comp4b: progCB, comp4a: progCA, idgham: progI, madd: progM, ...progA })[s.topic] || progS).ko > 0,
+      resReviewLabel: 'Revoir mes erreurs (' + (({ ra: progR, types: progT, signes: progS, comp: progC4, comp4b: progCB, comp4a: progCA, idgham: progI, madd: progM, ...progA })[s.topic] || progS).ko + ')', progCards, histRows, hasHist: histRows.length > 0, noHist: histRows.length === 0, themeOpts, arOpts, fontOpts,
       isProgress: screen === 'progress', isSettings: screen === 'settings',
       goSettings: () => this.go('settings'), shareApp: () => this.shareApp(),
       toast: s.toast || '', toastShow: !!s.toast,
@@ -3035,11 +3729,11 @@ class Component extends DCLogic {
       resetAsk: () => this.setState({ confirmReset: true }), resetCancel: () => this.setState({ confirmReset: false }), resetDo: () => this.resetProgress(),
       compCards, isLearnComp: screen === 'learnComp', goComp: () => this.go('learnComp'),
       startCTrous: () => this.start('trous', CTP), reviewComp: () => this.start('review', CTP),
-      metaC: { trous: metaFor('trous', CTP), qcm: metaFor('qcm', CTP), ordre: metaFor('ordre', CTP), mix: metaFor('mix', CTP), fiches: (CTP === 'comp4b' ? D.COMP4B.length : D.COMP.length) + ' invocations · arabe et traduction' },
+      metaC: { trous: metaFor('trous', CTP), qcm: metaFor('qcm', CTP), ordre: metaFor('ordre', CTP), mix: metaFor('mix', CTP), fiches: (CTP === 'comp4a' ? D.COMP4A.length : (CTP === 'comp4b' ? D.COMP4B.length : D.COMP.length)) + ' invocations · arabe et traduction' },
       startCMix: () => this.start('mix', CTP),
       progWeeks, progProgramme, lvl, isProgramme: screen === 'programme', goProgramme: () => this.go('programme'),
       isHome: screen === 'home', isLearn: screen === 'learn', isLearnTypes: screen === 'learnTypes', isLearnRa: screen === 'learnRa', isInstall: screen === 'install', isInstalled: !!s.installed, showVersion: screen === 'home' && !!s.appVersion, appVersion: s.appVersion, isAbout: screen === 'about', isPrivacy: screen === 'privacy',
-      showQuit: inSession || screen === 'learn' || screen === 'learnTypes' || screen === 'learnRa' || screen === 'learnComp' || screen === 'learnId' || screen === 'learnMd' || screen === 'progress' || screen === 'settings' || screen === 'programme' || screen === 'install' || screen === 'about' || screen === 'privacy', isQcm, isVf, isTrous,
+      showQuit: inSession || screen === 'learn' || screen === 'learnTypes' || screen === 'learnRa' || screen === 'learnComp' || screen === 'learnId' || screen === 'learnMd' || screen === 'learnCh' || screen === 'progress' || screen === 'settings' || screen === 'programme' || screen === 'install' || screen === 'about' || screen === 'privacy', isQcm, isVf, isTrous,
       isCard: isQcm || isVf, isResult: screen === 'result', inSession,
       modeLabel: (labels[screen] || '') + (inSession ? ' · ' + (topicLabels[s.topic] || '') : ''), qNum: s.idx + 1, total: s.queue.length, score: s.score,
       progressNum, progressPct: progressNum + '%',
@@ -3047,6 +3741,13 @@ class Component extends DCLogic {
       meta: { qcm: metaFor('qcm', 'signes'), vf: metaFor('vf', 'signes'), trous: metaFor('trous', 'signes'), mix: metaFor('mix', 'signes') },
       metaT: { qcm: metaFor('qcm', 'types'), vf: metaFor('vf', 'types'), trous: metaFor('trous', 'types'), mix: metaFor('mix', 'types') },
       metaR: { qcm: metaFor('qcm', 'ra'), vf: metaFor('vf', 'ra'), trous: metaFor('trous', 'ra'), mix: metaFor('mix', 'ra') },
+      chSections, chNotes: CHX.notes.map((n) => ({ title: n.title, text: this.bidi(n.text) })), isLearnCh: screen === 'learnCh',
+      chx: { num: CHX.num, title: CHX.title, ar: CHX.ar, pages: CHX.pages, intro: CHX.intro.map((t) => ({ t: this.bidi(t) })) },
+      startChQcm: () => this.start('qcm', s.chap), startChVf: () => this.start('vf', s.chap), startChTrous: () => this.start('trous', s.chap), startChMix: () => this.start('mix', s.chap),
+      ch4aCards: Object.keys(D.CH4A).map((k) => { const c = D.CH4A[k]; const n = c.sections.reduce((a, x) => a + x.cases.length, 0);
+        return { key: k, num: c.num, title: c.title, ar: c.ar, desc: c.desc, fiches: n + ' fiches · ' + c.pages, prog: progA[k],
+          meta: { qcm: metaFor('qcm', k), vf: metaFor('vf', k), trous: metaFor('trous', k), mix: metaFor('mix', k) },
+          go: () => this.goCh(k), review: () => this.start('review', k), startQcm: () => this.start('qcm', k), startVf: () => this.start('vf', k), startTrous: () => this.start('trous', k), startMix: () => this.start('mix', k) }; }),
       mdSections, mdNotes: D.MD.notes.map((n) => ({ title: n.title, text: this.bidi(n.text) })), isLearnMd: screen === 'learnMd', goMd: () => this.go('learnMd'),
       metaM: { qcm: metaFor('qcm', 'madd'), vf: metaFor('vf', 'madd'), trous: metaFor('trous', 'madd'), mix: metaFor('mix', 'madd') }, progM,
       startMQcm: () => this.start('qcm', 'madd'), startMVf: () => this.start('vf', 'madd'), startMTrous: () => this.start('trous', 'madd'), startMMix: () => this.start('mix', 'madd'), reviewM: () => this.start('review', 'madd'),
@@ -3058,7 +3759,7 @@ class Component extends DCLogic {
       learnRows, hide: s.hide, toggleHide: () => this.toggleHide(),
       qc, qcmOptions, vfButtons, tr, fb, res,
       goHome: () => this.go('home'), goLearn: () => this.go('learn'), goTypes: () => this.go('learnTypes'), goRa: () => this.go('learnRa'), goInstall: () => this.go('install'), goAbout: () => this.go('about'), goPrivacy: () => this.go('privacy'), quit: () => this.go('home'),
-      goFiches: () => this.go(s.topic === 'types' ? 'learnTypes' : (s.topic === 'ra' ? 'learnRa' : ((s.topic === 'comp' || s.topic === 'comp4b') ? 'learnComp' : (s.topic === 'idgham' ? 'learnId' : (s.topic === 'madd' ? 'learnMd' : 'learn'))))),
+      goFiches: () => /^a\d$/.test(s.topic) ? this.goCh(s.topic) : this.go(s.topic === 'types' ? 'learnTypes' : (s.topic === 'ra' ? 'learnRa' : ((s.topic === 'comp' || s.topic === 'comp4b' || s.topic === 'comp4a') ? 'learnComp' : (s.topic === 'idgham' ? 'learnId' : (s.topic === 'madd' ? 'learnMd' : 'learn'))))),
       startQcm: () => this.start('qcm', 'signes'), startVf: () => this.start('vf', 'signes'), startTrous: () => this.start('trous', 'signes'), startMix: () => this.start('mix', 'signes'),
       startTQcm: () => this.start('qcm', 'types'), startTVf: () => this.start('vf', 'types'), startTTrous: () => this.start('trous', 'types'), startTMix: () => this.start('mix', 'types'),
       startRQcm: () => this.start('qcm', 'ra'), startRVf: () => this.start('vf', 'ra'), startRTrous: () => this.start('trous', 'ra'), startRMix: () => this.start('mix', 'ra'),
