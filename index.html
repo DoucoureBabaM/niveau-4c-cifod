@@ -79,7 +79,7 @@ Quitter
 <img src="assets/viatique_cercle.jpg" alt="Couverture du livre « Le Viatique du Lecteur » (CIFOD)" style="width: clamp(72px, 15vw, 104px); height: clamp(72px, 15vw, 104px); display: block; flex-shrink: 0; border-radius: 999px; object-fit: cover; box-shadow: 0 0 0 3px var(--surface), 0 0 0 4px var(--line), 0 8px 22px rgba(20,32,28,0.12)">
 </div>
 <template v-if="lvl.is4C"><p style="margin: 0; font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 580px; text-wrap: pretty">Les règles de la lettre Ra, les types d’arrêts et les signes conventionnels des arrêts&nbsp;: apprends-les avec les fiches, puis révise-les avec les exercices.</p></template>
-<template v-if="lvl.is4A"><p style="margin: 0; font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 580px; text-wrap: pretty">La présentation du tadjwid, l’isti’âdzah et la basmalah, le nom majestueux de Dieu, le Noûn et le Mîm doublés, la qalqalah, le Noûn sâkinah et le Mîm sâkinah&nbsp;: apprends-les avec les fiches, puis révise-les avec les exercices.</p></template>
+<template v-if="lvl.is4A"><p style="margin: 0; font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 580px; text-wrap: pretty">La présentation du tadjwîd, l’isti’âdzah et la Basmalah, Lafzoul Djalâlah, Noûn et Mîm Mouchaddadah, la Qolqolah, le Noûn sâkinah et le Mîm sâkinah&nbsp;: apprends-les avec les fiches, puis révise-les avec les exercices.</p></template>
 <template v-if="lvl.is4B"><p style="margin: 0; font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 580px; text-wrap: pretty">Les différents types d’assimilations et les prolongations&nbsp;: apprends-les avec les fiches, puis révise-les avec les exercices.</p></template>
 </div>
 <template v-if="lvl.is4C">
@@ -786,7 +786,7 @@ Mode mémorisation
 <template v-if="sec.hasAr"><span dir="rtl" lang="ar" :style="`font-family: 'ArPunct', var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: calc(22px * var(--ar, 1)); line-height: 1.6; color: ${accent}`">{{sec.ar}}</span></template>
 </div>
 <span :style="`align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; min-height: 30px; padding: 0 14px; border-radius: 999px; font-size: 13px; font-weight: 800; ${sec.chipStyle}`">{{sec.verdict}} · {{sec.count}}</span>
-<template v-if="sec.hasDef"><p style="margin: 0; font-size: 15px; line-height: 1.6; text-wrap: pretty">{{sec.def}}</p></template>
+<template v-if="sec.hasDef"><p style="margin: 0; font-size: 15px; line-height: 1.6; text-wrap: pretty"><template v-for="pt in sec.defParts"><template v-if="pt.isImg"><img :src="pt.src" :alt="pt.alt" :style="pt.imgStyle"></template><template v-if="pt.isText"><span :style="pt.style">{{pt.text}}</span></template></template></p></template>
 </template>
 <template v-if="sec.isHidden">
 <button class="lift" @click="sec.reveal" :aria-label="sec.revealAria" style="width: 100%; text-align: left; display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; border-radius: 16px; border: 1.5px dashed var(--line2); background: var(--surface2); color: var(--ink)">
@@ -871,7 +871,7 @@ Mode mémorisation
 <template v-if="sec.hasAr"><span dir="rtl" lang="ar" :style="`font-family: 'ArPunct', var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: calc(22px * var(--ar, 1)); line-height: 1.6; color: ${accent}`">{{sec.ar}}</span></template>
 </div>
 <span :style="`align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; min-height: 30px; padding: 0 14px; border-radius: 999px; font-size: 13px; font-weight: 800; ${sec.chipStyle}`">{{sec.verdict}} · {{sec.count}}</span>
-<template v-if="sec.hasDef"><p style="margin: 0; font-size: 15px; line-height: 1.6; text-wrap: pretty">{{sec.def}}</p></template>
+<template v-if="sec.hasDef"><p style="margin: 0; font-size: 15px; line-height: 1.6; text-wrap: pretty"><template v-for="pt in sec.defParts"><template v-if="pt.isImg"><img :src="pt.src" :alt="pt.alt" :style="pt.imgStyle"></template><template v-if="pt.isText"><span :style="pt.style">{{pt.text}}</span></template></template></p></template>
 </template>
 <template v-if="sec.isHidden">
 <button class="lift" @click="sec.reveal" :aria-label="sec.revealAria" style="width: 100%; text-align: left; display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; border-radius: 16px; border: 1.5px dashed var(--line2); background: var(--surface2); color: var(--ink)">
@@ -939,7 +939,7 @@ Mode mémorisation
 </template>
 <div style="background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px">
 <span dir="rtl" lang="ar" style="align-self: flex-start; font-family: 'ArPunct', var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', serif; font-size: calc(26px * var(--ar, 1)); line-height: 1.7; color: var(--accent)">{{chx.ar}}</span>
-<template v-for="ip in chx.intro"><p style="margin: 0; font-size: 16px; line-height: 1.6; text-wrap: pretty">{{ip.t}}</p></template>
+<template v-for="ip in chx.intro"><p style="margin: 0; font-size: 16px; line-height: 1.6; text-wrap: pretty"><span>{{ip.a}}</span><strong>{{ip.b}}</strong><span>{{ip.c}}</span></p></template>
 <p style="margin: 0; font-size: 13px; line-height: 1.5; color: var(--muted)">Le viatique du lecteur · {{chx.pages}}</p>
 </div>
 <template v-for="sec in chSections">
@@ -950,7 +950,7 @@ Mode mémorisation
 <template v-if="sec.hasAr"><span dir="rtl" lang="ar" :style="`font-family: 'ArPunct', var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', 'Amiri', serif; font-size: calc(22px * var(--ar, 1)); line-height: 1.6; color: ${accent}`">{{sec.ar}}</span></template>
 </div>
 <span :style="`align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; min-height: 30px; padding: 0 14px; border-radius: 999px; font-size: 13px; font-weight: 800; ${sec.chipStyle}`">{{sec.verdict}} · {{sec.count}}</span>
-<template v-if="sec.hasDef"><p style="margin: 0; font-size: 15px; line-height: 1.6; text-wrap: pretty">{{sec.def}}</p></template>
+<template v-if="sec.hasDef"><p style="margin: 0; font-size: 15px; line-height: 1.6; text-wrap: pretty"><template v-for="pt in sec.defParts"><template v-if="pt.isImg"><img :src="pt.src" :alt="pt.alt" :style="pt.imgStyle"></template><template v-if="pt.isText"><span :style="pt.style">{{pt.text}}</span></template></template></p></template>
 </template>
 <template v-if="sec.isHidden">
 <button class="lift" @click="sec.reveal" :aria-label="sec.revealAria" style="width: 100%; text-align: left; display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; border-radius: 16px; border: 1.5px dashed var(--line2); background: var(--surface2); color: var(--ink)">
@@ -1132,7 +1132,7 @@ Mode mémorisation
 <h1 style="margin: 0; font-size: 34px; line-height: 1.1; letter-spacing: -0.025em; font-weight: 800">À propos de l’application</h1>
 </div>
 <article style="background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 14px; padding: 22px 24px; gap: 16px">
-<p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">Cette application a été développée par un auditeur du CIFOD dans le but de faciliter à sa propre personne ainsi qu’aux autres apprenants, la révision des cours théoriques de Psalmodie du QUR’ÂN. Elle n’a vocation à remplacer ni les cours en présentiel, ni ceux dispensés en ligne, mais aspire plutôt à devenir, inchâ Allah, un compagnon fidèle sur le chemin de l’apprentissage du Tadjwîd.</p>
+<p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">Cette application a été développée par un auditeur du CIFOD dans le but de faciliter à sa propre personne ainsi qu’aux autres apprenants, la révision des cours théoriques de Psalmodie du QUR’ÂN, conformément au lectionnaire Hafs, selon Ach-châtubiyy. Elle n’a vocation à remplacer ni les cours en présentiel, ni ceux dispensés en ligne, mais aspire plutôt à devenir, inchâ Allah, un compagnon fidèle sur le chemin de l’apprentissage du Tadjwîd.</p>
 <p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">Par ailleurs, l’application suit pas à pas les ouvrages de référence en la matière au CIFOD.</p>
 <p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">Nous espérons que ce modeste travail sera profitable à tous les auditeurs.</p>
 </article>
@@ -2309,29 +2309,29 @@ class Component extends DCLogic {
     const ISTI = 'أَعُوذُ بِٱللَّهِ مِنَ ٱلشَّيۡطَٰنِ ٱلرَّجِيمِ', BASM = 'بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ', FALAQ = 'قُلۡ أَعُوذُ بِرَبِّ ٱلۡفَلَقِ', NAS = 'قُلۡ أَعُوذُ بِرَبِّ ٱلنَّاسِ', HASAD = 'وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ', BARA = 'بَرَآءَةٞ مِّنَ ٱللَّهِ وَرَسُولِهِۦٓ …';
     const CH4A = {
       a1: { num: '1', title: 'Présentation de la science At-tadjwîd', ar: 'ٱلتَّجۡوِيدُ', desc: 'Définition, histoire, but, degrés de lecture et notion de faute (Al-Lahn).', pages: 'pp. 11-17',
-        intro: ['Littéralement, le mot At-tadjwîd (ٱلتَّجۡوِيدُ) veut dire la recherche du beau ; embellir, enjoliver.', 'Spécifiquement à la lecture du CORAN : c’est la science qui permet à une personne de lire le CORAN correctement, en donnant à chaque lettre son droit et ses qualités.'],
+        intro: [{ a: 'Littéralement, le mot ', b: 'At-tadjwîd (ٱلتَّجۡوِيدُ)', c: ' veut dire la recherche du beau ; embellir, enjoliver.' }, 'Spécifiquement à la lecture du CORAN : c’est la science qui permet à une personne de lire le CORAN correctement, en donnant à chaque lettre son droit et ses qualités.'],
         sections: [
           { num: '1', title: 'Histoire, but et position légale', ar: '', verdict: 'Présentation', chipBg: 'var(--tint2)', chipFg: 'var(--accent)', def: '',
             cases: [
-              { rule: 'Histoire (bref rappel sur les lectionnaires) : il existe environ une dizaine de variations de lectures différentes (Hafs, Warsh, Qôlûn, Ad-Duriy, etc.). Dieu, dans Sa grande sagesse et dans Son immense miséricorde, nous a permis d’avoir plusieurs lectures pour plusieurs peuples et tribus, pour des raisons de facilité : le dialecte des Arabes n’était pas le même d’une région à une autre. La lecture Warsh se rapprochait le plus de la récitation du Prophète (SAW), mais celle de Hafs est la plus répandue dans le monde.', ex: [] },
-              { rule: 'La lecture Hafs : le mot « Hafs » vient de l’imam Hafs Ibn Sulaymân Al-Bazzâz, né à Koufa (Irak) en 90 H / 709 et décédé à 86 ans en 180 H / 795. Il fut l’élève de ’Âsim Ibn Abî An-Najoûd, qui étudia le Coran auprès d’Abou Abderrahmân As-Soulamiy. Celui-ci rapporte sa lecture de cinq illustres Compagnons : ’Othmân Ibn ’Affân, ’Aliy Ibn Abî Tôlib, ’Abdullah Ibn Mas’oûd, Oubay Ibn Ka’b et Zayd Ibn Thâbit. La lecture Hafs existe dans tous les pays musulmans, sauf au Maghreb, en Afrique subsaharienne et au Soudan, où l’on lit Warsh (Maroc, Algérie, Mauritanie, Afrique subsaharienne, est de la Tunisie), Qôlûn (Libye, nord de la Tunisie) et Ad-Duriy (Soudan, Somalie, Tchad, une partie du Yémen).', ex: [] },
-              { rule: 'But : lire le CORAN de la même façon que le Prophète (SAW) l’avait enseigné, afin de plaire à ALLAH.', ex: [] },
-              { rule: 'Position légale : lire avec At-tadjwîd est une obligation individuelle (sur chaque musulman), comme les prières canoniques ; mais sa connaissance théorique est une obligation collective (sur la communauté musulmane), comme la prière mortuaire.', ex: [] },
-              { rule: 'Champs d’application : principalement le CORAN. Selon certains savants, même les hadiths sont concernés. Il est clair que lors de la récitation des invocations prophétiques, on ne doit pas faire de fautes.', ex: [] }
+              { rule: '**Histoire** (bref rappel sur les lectionnaires) : il existe environ une dizaine de variations de lectures différentes (Hafs, Warsh, Qôlûn, Ad-Duriy, etc.). Dieu, dans Sa grande sagesse et dans Son immense miséricorde, nous a permis d’avoir plusieurs lectures pour plusieurs peuples et tribus, pour des raisons de facilité : le dialecte des Arabes n’était pas le même d’une région à une autre. La lecture Warsh se rapprochait le plus de la récitation du Prophète (SAW), mais celle de Hafs est la plus répandue dans le monde.', ex: [] },
+              { rule: '**La lecture Hafs** : le mot « Hafs » vient de l’imam Hafs Ibn Sulaymân Al-Bazzâz, né à Koufa (Irak) en 90 H / 709 et décédé à 86 ans en 180 H / 795. Il fut l’élève de ’Âsim Ibn Abî An-Najoûd, qui étudia le Coran auprès d’Abou Abderrahmân As-Soulamiy. Celui-ci rapporte sa lecture de cinq illustres Compagnons : ’Othmân Ibn ’Affân, ’Aliy Ibn Abî Tôlib, ’Abdullah Ibn Mas’oûd, Oubay Ibn Ka’b et Zayd Ibn Thâbit. La lecture Hafs existe dans tous les pays musulmans, sauf au Maghreb, en Afrique subsaharienne et au Soudan, où l’on lit Warsh (Maroc, Algérie, Mauritanie, Afrique subsaharienne, est de la Tunisie), Qôlûn (Libye, nord de la Tunisie) et Ad-Duriy (Soudan, Somalie, Tchad, une partie du Yémen).', ex: [] },
+              { rule: '**But** : lire le CORAN de la même façon que le Prophète (SAW) l’avait enseigné, afin de plaire à ALLAH.', ex: [] },
+              { rule: '**Position légale** : lire avec At-tadjwîd est une obligation individuelle (sur chaque musulman), comme les prières canoniques ; mais sa connaissance théorique est une obligation collective (sur la communauté musulmane), comme la prière mortuaire.', ex: [] },
+              { rule: '**Champs d’application** : principalement le CORAN. Selon certains savants, même les hadiths sont concernés. Il est clair que lors de la récitation des invocations prophétiques, on ne doit pas faire de fautes.', ex: [] }
             ] },
-          { num: '2', title: 'Les degrés de lecture du CORAN', ar: '', verdict: '4 degrés', chipBg: 'var(--accent)', chipFg: '#FFFFFF', def: 'Il existe quatre degrés de lecture du CORAN (notes de cours : la « vitesse » de lecture) :',
+          { num: '2', title: 'Les degrés de lecture du CORAN', ar: '', verdict: '4 degrés', chipBg: 'var(--accent)', chipFg: '#FFFFFF', def: 'Il existe quatre degrés de lecture du CORAN (vitesse) :',
             cases: [
-              { rule: 'At-tartîl (ٱلتَّرۡتِيلُ) : c’est le mode lent et clair de récitation. Exemple : la récitation des cheikhs Houzeify, Houssoiry et Minchawy.', ex: [], note: 'NB : At-tartîl est la meilleure façon de réciter, car le CORAN fut révélé ainsi. Selon certains savants, At-tartîl n’est pas une façon, mais la somme des trois autres degrés.' },
-              { rule: 'Al-hadr (ٱلۡحَدۡرُ) : c’est le mode rapide, mais tout en respectant les règles. Il est conseillé lors des révisions. Exemple : la récitation des cheikhs Mouhamed Yousouf et Al-Mouhaissany.', ex: [] },
-              { rule: 'At-tadwîr (ٱلتَّدۡوِيرُ) : c’est un mode de récitation à mi-chemin entre « Al-hadr » et « At-tartîl ». Exemple : la récitation des cheikhs Soudayss et Chouraym.', ex: [] },
-              { rule: 'At-tahqîq (ٱلتَّحۡقِيقُ) : ce mode est proche du « tartîl », mais il se fait avec une grande précaution et lenteur, à des fins pédagogiques. Il est connu sous le nom d’At-tandjîme en Égypte. Exemple : la récitation des cheikhs Mouhamed Rifaat, Moustafah Ismail et Abdoul Baassit.', ex: [] }
+              { rule: '**At-tartîl (ٱلتَّرۡتِيلُ)** : c’est le mode lent et clair de récitation. Exemple : la récitation des cheikhs Houzeify, Houssoiry et Minchawy.', ex: [], note: 'NB : At-tartîl est la meilleure façon de réciter, car le CORAN fut révélé ainsi. Selon certains savants, At-tartîl n’est pas une façon, mais la somme des trois autres degrés.' },
+              { rule: '**Al-hadr (ٱلۡحَدۡرُ)** : c’est le mode rapide, mais tout en respectant les règles. Il est conseillé lors des révisions. Exemple : la récitation des cheikhs Mouhamed Yousouf et Al-Mouhaissany.', ex: [] },
+              { rule: '**At-tadwîr (ٱلتَّدۡوِيرُ)** : c’est un mode de récitation à mi-chemin entre « Al-hadr » et « At-tartîl ». Exemple : la récitation des cheikhs Soudayss et Chouraym.', ex: [] },
+              { rule: '**At-tahqîq (ٱلتَّحۡقِيقُ)** : ce mode est proche du « tartîl », mais il se fait avec une grande précaution et lenteur, à des fins pédagogiques. Il est connu sous le nom d’At-tandjîme en Égypte. Exemple : la récitation des cheikhs Mouhamed Rifaat, Moustafah Ismail et Abdoul Baassit.', ex: [] }
             ] },
-          { num: '3', title: 'La faute dans la lecture (Al-Lahn)', ar: 'ٱللَّحۡنُ', verdict: '2 types de fautes', chipBg: 'var(--amber-bg)', chipFg: 'var(--amber-fg)', def: 'Al-Lahn, c’est l’erreur dans la lecture du Saint Qur’ân : on dit qu’il y a Al-Lahn lorsque l’on dévie de la justesse dans la récitation. On distingue deux (2) types d’erreurs de récitation :',
+          { num: '3', title: 'La faute dans la lecture (Al-Lahn)', ar: 'ٱللَّحۡنُ', verdict: '2 types de fautes', chipBg: 'var(--amber-bg)', chipFg: 'var(--amber-fg)', def: '**Al-Lahn**, c’est l’erreur dans la lecture du Saint Qur’ân : on dit qu’il y a Al-Lahn lorsque l’on dévie de la justesse dans la récitation. On distingue deux (2) types d’erreurs de récitation :',
             cases: [
-              { rule: 'Al-Lahn Al-Djaliyy (ٱللَّحۡنُ ٱلۡجَلِيُّ) : les fautes graves et évidentes. C’est une erreur considérable qui va en opposition avec les règles essentielles de la langue arabe ; elle peut ou non changer le sens de la phrase. Elle est dite « djaliyy » car elle paraît évidente aussi bien pour les spécialistes d’At-tadjwîd que pour les non-initiés : le changement d’une lettre par une autre, d’une voyelle par une autre, ou le non-respect des caractéristiques (Sifât) des lettres.',
-                ex: [{ label: 'Une voyelle par une autre', text: 'ٱلۡحَمۡ[[r:دُ]] ≠ ٱلۡحَمۡ[[r:دَ]]' }, { label: 'Une lettre par une autre', text: 'صِرَٰ[[r:طَ]] ≠ صِرَٰ[[r:تَ]]' }, { label: 'Une lettre par une autre', text: 'مَٰلِكِ يَوۡمِ ٱل[[r:دِّ]]ينِ ≠ مَٰلِكِ يَوۡمِ ٱل[[r:تِّ]]ينِ' }, { label: 'Une voyelle par une autre', text: 'إِيَّا[[r:كَ]] نَعۡبُدُ ≠ إِيَّا[[r:كِ]] نَعۡبُدُ' }],
+              { rule: '**Al-Lahn Al-Djaliyy (ٱللَّحۡنُ ٱلۡجَلِيُّ)** : les fautes graves et évidentes. C’est une erreur considérable qui va en opposition avec les règles essentielles de la langue arabe ; elle peut ou non changer le sens de la phrase. Elle est dite « djaliyy » car elle paraît évidente aussi bien pour les spécialistes d’At-tadjwîd que pour les non-initiés : le changement d’une lettre par une autre, d’une voyelle par une autre, ou le non-respect des caractéristiques (Sifât) des lettres.',
+                ex: [{ label: 'Une voyelle par une autre', text: 'ٱلۡحَمۡ[[r:دُ]] ≠ ٱلۡحَمۡ[[r:دَ]]' }, { label: 'Une lettre par une autre', text: 'صِرَٰ[[r:طَ]] ≠ صِرَٰ[[r:تَ]]' }],
                 note: 'Ces changements de lettres ou de voyelles constituent un changement de sens voulu ou réel : c’est une faute grave. Les savants ont jugé Al-Lahn Al-Djaliyy illicite, pouvant même conduire à un péché.' },
-              { rule: 'Al-Lahn Al-Khafiyy (ٱللَّحۡنُ ٱلۡخَفِيُّ) : les fautes mineures et subtiles. C’est une faute dite subtile, voire imperceptible, qui n’est pas en opposition avec les règles de la langue arabe et qui ne change pas le sens du mot ou de la phrase ; mais elle est en désaccord avec les règles spécifiques d’At-tadjwîd. Seuls les initiés peuvent la percevoir : par exemple le non-respect du nasillement, des règles d’Al-Qolqolah ou encore de Lafdzoul Djalâlah.',
+              { rule: '**Al-Lahn Al-Khafiyy (ٱللَّحۡنُ ٱلۡخَفِيُّ)** : les fautes mineures et subtiles. C’est une faute dite subtile, voire imperceptible, qui n’est pas en opposition avec les règles de la langue arabe et qui ne change pas le sens du mot ou de la phrase ; mais elle est en désaccord avec les règles spécifiques d’At-tadjwîd. Seuls les initiés peuvent la percevoir : par exemple le non-respect du nasillement, des règles d’Al-Qolqolah ou encore de Lafdzoul Djalâlah.',
                 ex: [{ label: 'Clarifier le Noûn au lieu de nasiller', text: 'مِ[[r:ن]] شَرِّ ≠ مِ[[r:نۡ]] شَرِّ' }],
                 note: 'La majorité des savants d’At-tadjwîd jugent Al-Lahn Al-Khafiyy makroûh (détestable). Cependant, d’autres la considèrent comme harâm (interdite), à un degré moindre que la faute grave.' }
             ] },
@@ -2344,7 +2344,7 @@ class Component extends DCLogic {
                 note: 'Il faut savoir que de nombreuses sourates lues le jour ou la nuit accordent protection, absolution des péchés, préservent du besoin, du malheur, des épreuves ; certaines attirent la bénédiction… Multiples sont les hadiths authentiques nous incitant à leur lecture quotidienne.' }
             ] }
         ],
-        notes: [{ title: 'À retenir', text: 'At-tadjwîd : donner à chaque lettre son droit et ses qualités. Quatre degrés de lecture : At-tartîl, Al-hadr, At-tadwîr et At-tahqîq. Deux fautes : Al-Lahn Al-Djaliyy (grave) et Al-Lahn Al-Khafiyy (subtile).' }] },
+        notes: [{ title: 'À retenir', text: 'At-tadjwîd : donner à chaque lettre son droit et ses qualités. Quatre degrés (vitesse) de lecture : At-tartîl, Al-hadr, At-tadwîr et At-tahqîq. Deux fautes : Al-Lahn Al-Djaliyy (grave) et Al-Lahn Al-Khafiyy (subtile).' }] },
       a2: { num: '2', title: 'Al-Isti’âdzah et Al-Basmalah', ar: 'ٱلۡإِسۡتِعَاذَةُ وَٱلۡبَسۡمَلَةُ', desc: 'La formule de protection, la basmalah, et les manières de débuter et d’enchaîner les sourates.', pages: 'pp. 18-21',
         intro: ['Al-Isti’âdzah est la recherche de protection contre Satan avant la lecture ; Al-Basmalah est la récitation de la formule « بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ ».', 'Dans les exemples, le signe ۝ en rouge marque une pause.'],
         sections: [
@@ -3067,7 +3067,9 @@ class Component extends DCLogic {
     // À une frontière à l’intérieur d’un mot, on ajoute un « liant invisible » (ZWJ)
     // pour que les lettres restent attachées même si le navigateur traite chaque couleur à part.
     const COL = { r: 'var(--red)', g: 'var(--green)', b: 'var(--blue)' };
-    const parts = String(t || '').split(/(\[\[[rgb]:[^\]]*\]\])/).filter((x) => x).map((x) => {
+    const parts = String(t || '').split(/(\[\[[rgb]:[^\]]*\]\]|\*\*[^*]+\*\*)/).filter((x) => x).map((x) => {
+      const bm = x.match(/^\*\*([^*]+)\*\*$/);
+      if (bm) return { text: bm[1], color: 'inherit', bold: true };
       const m = x.match(/^\[\[([rgb]):([^\]]*)\]\]$/);
       return m ? { text: m[2], color: COL[m[1]] } : { text: x, color: 'inherit' };
     });
@@ -3082,7 +3084,7 @@ class Component extends DCLogic {
         parts[k].text = a + '\u200D'; parts[k + 1].text = '\u200D' + b;
       }
     }
-    return parts.map((x) => ({ text: x.text, style: 'color: ' + x.color + ';' }));
+    return parts.map((x) => ({ text: x.text, style: 'color: ' + x.color + ';' + (x.bold ? ' font-weight: 800;' : '') }));
   }
 
   verse(id) {
@@ -3457,7 +3459,7 @@ class Component extends DCLogic {
     const idSections = D.ID.sections.map((sec) => {
       const secHid = false; // les titres des parties restent visibles en mode mémorisation
       return {
-        num: sec.num, title: sec.title, def: this.bidi(sec.def || ''), hasDef: !!sec.def, ar: sec.ar || '', hasAr: !!sec.ar, verdict: sec.verdict, count: sec.cases.length + ' cas',
+        num: sec.num, title: sec.title, def: this.bidi(sec.def || ''), defParts: this.vowelBold(this.hlParts(this.bidi(sec.def || ''))), hasDef: !!sec.def, ar: sec.ar || '', hasAr: !!sec.ar, verdict: sec.verdict, count: sec.cases.length + ' cas',
         chipStyle: 'background: ' + sec.chipBg + '; color: ' + sec.chipFg + ';',
         isHidden: secHid, isShown: !secHid, reveal: () => this.reveal('id_s' + sec.num),
         revealAria: 'Révéler le titre de la partie ' + sec.num,
@@ -3477,7 +3479,7 @@ class Component extends DCLogic {
     const mdSections = D.MD.sections.map((sec) => {
       const secHid = false; // les titres des parties restent visibles en mode mémorisation
       return {
-        num: sec.num, title: sec.title, def: this.bidi(sec.def || ''), hasDef: !!sec.def, ar: sec.ar || '', hasAr: !!sec.ar, verdict: sec.verdict, count: sec.cases.length + ' cas',
+        num: sec.num, title: sec.title, def: this.bidi(sec.def || ''), defParts: this.vowelBold(this.hlParts(this.bidi(sec.def || ''))), hasDef: !!sec.def, ar: sec.ar || '', hasAr: !!sec.ar, verdict: sec.verdict, count: sec.cases.length + ' cas',
         chipStyle: 'background: ' + sec.chipBg + '; color: ' + sec.chipFg + ';',
         isHidden: secHid, isShown: !secHid, reveal: () => this.reveal('md_s' + sec.num),
         revealAria: 'Révéler le titre de la partie ' + sec.num,
@@ -3498,7 +3500,7 @@ class Component extends DCLogic {
     const chSections = CHX.sections.map((sec) => {
       const secHid = false; // les titres des parties restent visibles en mode mémorisation
       return {
-        num: sec.num, title: sec.title, def: this.bidi(sec.def || ''), hasDef: !!sec.def, ar: sec.ar || '', hasAr: !!sec.ar, verdict: sec.verdict, count: sec.cases.length + ' cas',
+        num: sec.num, title: sec.title, def: this.bidi(sec.def || ''), defParts: this.vowelBold(this.hlParts(this.bidi(sec.def || ''))), hasDef: !!sec.def, ar: sec.ar || '', hasAr: !!sec.ar, verdict: sec.verdict, count: sec.cases.length + ' cas',
         chipStyle: 'background: ' + sec.chipBg + '; color: ' + sec.chipFg + ';',
         isHidden: secHid, isShown: !secHid, reveal: () => this.reveal((s.chap || 'a1') + '_s' + sec.num),
         revealAria: 'Révéler le titre de la partie ' + sec.num,
@@ -3742,7 +3744,7 @@ class Component extends DCLogic {
       metaT: { qcm: metaFor('qcm', 'types'), vf: metaFor('vf', 'types'), trous: metaFor('trous', 'types'), mix: metaFor('mix', 'types') },
       metaR: { qcm: metaFor('qcm', 'ra'), vf: metaFor('vf', 'ra'), trous: metaFor('trous', 'ra'), mix: metaFor('mix', 'ra') },
       chSections, chNotes: CHX.notes.map((n) => ({ title: n.title, text: this.bidi(n.text) })), isLearnCh: screen === 'learnCh',
-      chx: { num: CHX.num, title: CHX.title, ar: CHX.ar, pages: CHX.pages, intro: CHX.intro.map((t) => ({ t: this.bidi(t) })) },
+      chx: { num: CHX.num, title: CHX.title, ar: CHX.ar, pages: CHX.pages, intro: CHX.intro.map((t) => (typeof t === 'string' ? { a: this.bidi(t), b: '', c: '' } : { a: this.bidi(t.a || ''), b: this.bidi(t.b || ''), c: this.bidi(t.c || '') })) },
       startChQcm: () => this.start('qcm', s.chap), startChVf: () => this.start('vf', s.chap), startChTrous: () => this.start('trous', s.chap), startChMix: () => this.start('mix', s.chap),
       ch4aCards: Object.keys(D.CH4A).map((k) => { const c = D.CH4A[k]; const n = c.sections.reduce((a, x) => a + x.cases.length, 0);
         return { key: k, num: c.num, title: c.title, ar: c.ar, desc: c.desc, fiches: n + ' fiches · ' + c.pages, prog: progA[k],
