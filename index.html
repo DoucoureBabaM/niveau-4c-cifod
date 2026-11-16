@@ -963,7 +963,7 @@ Mode mémorisation
 <div style="display: flex; align-items: flex-start; gap: 12px">
 <span :style="`flex-shrink: 0; width: 30px; height: 30px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; ${c.badgeStyle}`">{{c.n}}</span>
 <template v-if="c.isShown"><p style="margin: 0; font-size: 15.5px; line-height: 1.6; text-wrap: pretty"><template v-for="pt in c.ruleParts"><template v-if="pt.isImg"><img :src="pt.src" :alt="pt.alt" :style="pt.imgStyle"></template><template v-if="pt.isText"><span :style="pt.style">{{pt.text}}</span></template></template></p></template>
-<template v-if="c.isHidden"><button class="lift" @click="c.reveal" :aria-label="c.revealAria" style="flex: 1; text-align: left; display: flex; flex-direction: column; gap: 2px; min-height: 52px; padding: 10px 14px; border-radius: 12px; border: 1.5px dashed var(--line2); background: var(--surface2); color: var(--ink)"><span style="font-size: 15px; font-weight: 800">Quelle est la règle&nbsp;?</span><span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">Regarde les exemples, puis touche pour vérifier</span></button></template>
+<template v-if="c.isHidden"><button class="lift" @click="c.reveal" :aria-label="c.revealAria" style="flex: 1; text-align: left; display: flex; flex-direction: column; gap: 2px; min-height: 52px; padding: 10px 14px; border-radius: 12px; border: 1.5px dashed var(--line2); background: var(--surface2); color: var(--ink)"><span style="font-size: 15px; font-weight: 800">{{c.hTitle}}</span><template v-if="c.hasHint"><span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">{{c.hHint}}</span></template></button></template>
 </div>
 <template v-if="c.hasLead"><p style="margin: 0; font-size: 14.5px; font-weight: 700; line-height: 1.5">{{c.lead}}</p></template>
 <template v-for="ex in c.examples">
@@ -978,7 +978,7 @@ Mode mémorisation
 </div>
 </template>
 <div :style="`background: ${tint}; border-radius: 18px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px`">
-<template v-for="n in chNotes"><p style="margin: 0; font-size: 15px; line-height: 1.65; text-wrap: pretty"><strong>{{n.title}}&nbsp;:</strong> {{n.text}}</p></template>
+<template v-for="n in chNotes"><p style="margin: 0; font-size: 15px; line-height: 1.65; text-wrap: pretty; white-space: pre-line"><strong>{{n.title}}&nbsp;:</strong> {{n.text}}</p></template>
 </div>
 <div style="margin-top: 10px; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
 <p style="margin: 0; font-size: 17px; font-weight: 800">Prêt à te tester&nbsp;?</p>
@@ -2321,10 +2321,10 @@ class Component extends DCLogic {
             ] },
           { num: '2', title: 'Les degrés de lecture du CORAN', ar: '', verdict: '4 degrés', chipBg: 'var(--accent)', chipFg: '#FFFFFF', def: 'Il existe quatre degrés de lecture du CORAN (vitesse) :',
             cases: [
-              { rule: '**At-tartîl (ٱلتَّرۡتِيلُ)** : c’est le mode lent et clair de récitation. Exemple : la récitation des cheikhs Houzeify, Houssoiry et Minchawy.', ex: [], note: 'NB : At-tartîl est la meilleure façon de réciter, car le CORAN fut révélé ainsi. Selon certains savants, At-tartîl n’est pas une façon, mais la somme des trois autres degrés.' },
-              { rule: '**Al-hadr (ٱلۡحَدۡرُ)** : c’est le mode rapide, mais tout en respectant les règles. Il est conseillé lors des révisions. Exemple : la récitation des cheikhs Mouhamed Yousouf et Al-Mouhaissany.', ex: [] },
-              { rule: '**At-tadwîr (ٱلتَّدۡوِيرُ)** : c’est un mode de récitation à mi-chemin entre « Al-hadr » et « At-tartîl ». Exemple : la récitation des cheikhs Soudayss et Chouraym.', ex: [] },
-              { rule: '**At-tahqîq (ٱلتَّحۡقِيقُ)** : ce mode est proche du « tartîl », mais il se fait avec une grande précaution et lenteur, à des fins pédagogiques. Il est connu sous le nom d’At-tandjîme en Égypte. Exemple : la récitation des cheikhs Mouhamed Rifaat, Moustafah Ismail et Abdoul Baassit.', ex: [] }
+              { rule: '**At-tartîl (ٱلتَّرۡتِيلُ)** : c’est le mode lent et clair de récitation.', ex: [], note: 'NB : At-tartîl est la meilleure façon de réciter, car le CORAN fut révélé ainsi.' },
+              { rule: '**Al-hadr (ٱلۡحَدۡرُ)** : c’est le mode rapide, mais tout en respectant les règles. Il est conseillé lors des révisions.', ex: [] },
+              { rule: '**At-tadwîr (ٱلتَّدۡوِيرُ)** : c’est un mode de récitation à mi-chemin entre « Al-hadr » et « At-tartîl ».', ex: [] },
+              { rule: '**At-tahqîq (ٱلتَّحۡقِيقُ)** : ce mode est proche du « tartîl », mais il se fait avec une grande précaution et lenteur, à des fins pédagogiques. Il est connu sous le nom d’At-tandjîme en Égypte.', ex: [] }
             ] },
           { num: '3', title: 'La faute dans la lecture (Al-Lahn)', ar: 'ٱللَّحۡنُ', verdict: '2 types de fautes', chipBg: 'var(--amber-bg)', chipFg: 'var(--amber-fg)', def: '**Al-Lahn**, c’est l’erreur dans la lecture du Saint Qur’ân : on dit qu’il y a Al-Lahn lorsque l’on dévie de la justesse dans la récitation. On distingue deux (2) types d’erreurs de récitation :',
             cases: [
@@ -2344,7 +2344,7 @@ class Component extends DCLogic {
                 note: 'Il faut savoir que de nombreuses sourates lues le jour ou la nuit accordent protection, absolution des péchés, préservent du besoin, du malheur, des épreuves ; certaines attirent la bénédiction… Multiples sont les hadiths authentiques nous incitant à leur lecture quotidienne.' }
             ] }
         ],
-        notes: [{ title: 'À retenir', text: 'At-tadjwîd : donner à chaque lettre son droit et ses qualités. Quatre degrés (vitesse) de lecture : At-tartîl, Al-hadr, At-tadwîr et At-tahqîq. Deux fautes : Al-Lahn Al-Djaliyy (grave) et Al-Lahn Al-Khafiyy (subtile).' }] },
+        notes: [{ title: 'À retenir', text: '\n• At-tadjwîd : donner à chaque lettre son droit et ses qualités.\n• Quatre degrés (vitesse) de lecture : At-tartîl, Al-hadr, At-tadwîr et At-tahqîq.\n• Deux fautes : Al-Lahn Al-Djaliyy (grave) et Al-Lahn Al-Khafiyy (subtile).' }] },
       a2: { num: '2', title: 'Al-Isti’âdzah et Al-Basmalah', ar: 'ٱلۡإِسۡتِعَاذَةُ وَٱلۡبَسۡمَلَةُ', desc: 'La formule de protection, la basmalah, et les manières de débuter et d’enchaîner les sourates.', pages: 'pp. 18-21',
         intro: ['Al-Isti’âdzah est la recherche de protection contre Satan avant la lecture ; Al-Basmalah est la récitation de la formule « بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ ».', 'Dans les exemples, le signe ۝ en rouge marque une pause.'],
         sections: [
@@ -3508,7 +3508,7 @@ class Component extends DCLogic {
           const hid = s.hide && !s.revealed[(s.chap || 'a1') + '_' + sec.num + '_' + (k + 1)];
           return {
             n: String(k + 1), rule: c.rule, ruleParts: this.vowelBold(this.hlParts(this.bidi(c.rule))), lead: c.lead || '', hasLead: !!c.lead, note: this.bidi(c.note || ''), hasNote: !!c.note && !hid,
-            isHidden: hid, isShown: !hid, reveal: () => this.reveal((s.chap || 'a1') + '_' + sec.num + '_' + (k + 1)),
+            isHidden: hid, isShown: !hid, hTitle: ((s.chap || 'a1') === 'a1' && CHX.sections.indexOf(sec) === 0 && k < 5) ? ['Histoire des lectionnaires','Origine du Hafs et géographie des lectionnaires','But du tadjwîd','Position légale du tadjwîd','Champ d’application du tadjwîd'][k] + '\u00a0?' : 'Quelle est la règle\u00a0?', hasHint: !((s.chap || 'a1') === 'a1' && CHX.sections.indexOf(sec) === 0 && k < 5), hHint: 'Regarde les exemples, puis touche pour vérifier', reveal: () => this.reveal((s.chap || 'a1') + '_' + sec.num + '_' + (k + 1)),
             showVerdict: s.hide && !hid, verdict: sec.verdict, verdictStyle: 'background: ' + sec.chipBg + '; color: ' + sec.chipFg + ';',
             revealAria: 'Révéler la règle du cas ' + (k + 1) + ' de la partie ' + sec.num,
             badgeStyle: 'background: ' + (secHid ? 'var(--surface3)' : sec.chipBg) + '; color: ' + (secHid ? 'var(--muted)' : sec.chipFg) + ';',
