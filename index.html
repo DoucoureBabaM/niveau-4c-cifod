@@ -2793,7 +2793,7 @@ class Component extends DCLogic {
       screen: 'home', mode: null, topic: 'signes', queue: [], idx: 0, answered: false, picked: null,
       fills: [], checked: false, score: 0, mistakes: [],
       best: { qcm: null, vf: null, trous: null, tqcm: null, tvf: null, ttrous: null }, hide: false, revealed: {},
-      prog: { q: {}, hist: [] }, weeksDone: {}, chap: 'a1', level: '4C', theme: 'auto', arScale: 1, arFont: 'hafs', sysDark: false, confirmReset: false, installed: false, appVersion: '', toast: ''
+      prog: { q: {}, hist: [] }, weeksDone: {}, chap: 'a1', level: '4A', theme: 'auto', arScale: 1, arFont: 'hafs', sysDark: false, confirmReset: false, installed: false, appVersion: '', toast: ''
     }, this.state || {});
   }
 
@@ -2806,10 +2806,7 @@ class Component extends DCLogic {
       const rp = window.localStorage.getItem('waqf-progres');
       if (rp) { const p = JSON.parse(rp); this.setState({ prog: { q: p.q || {}, hist: p.hist || [] } }); }
     } catch (e) {}
-    try {
-      const rl = window.localStorage.getItem('waqf-niveau');
-      if (rl === '4A' || rl === '4B' || rl === '4C') this.setState({ level: rl });
-    } catch (e) {}
+    // À l’ouverture, l’application démarre toujours sur le niveau 4A
     try {
       const rw = window.localStorage.getItem('waqf-programme');
       if (rw) this.setState({ weeksDone: JSON.parse(rw) || {} });
