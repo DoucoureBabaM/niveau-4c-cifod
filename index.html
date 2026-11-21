@@ -1133,6 +1133,17 @@ Mode mémorisation
 <template v-if="hasHist"><div style="display: flex; flex-direction: column"><template v-for="h in histRows"><div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 10px 0; border-top: 1px solid var(--line)"><span style="display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-size: 14.5px; font-weight: 700">{{h.what}}</span><span style="font-size: 12.5px; color: var(--muted)">{{h.date}}</span></span><span style="font-size: 16px; font-weight: 800; font-variant-numeric: tabular-nums">{{h.score}}</span></div></template></div></template>
 <template v-if="noHist"><p style="margin: 0; font-size: 14px; color: var(--muted)">Aucune partie terminée pour l’instant.</p></template>
 </article>
+<article style="background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 18px 20px; display: flex; flex-direction: column; gap: 12px">
+<h2 style="margin: 0; font-size: 19px; font-weight: 800">Sauvegarder ma progression</h2>
+<p style="margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--muted); text-wrap: pretty">Ta progression est enregistrée dans ce navigateur. Télécharge une sauvegarde pour ne pas la perdre, ou pour la retrouver sur un autre téléphone ou ordinateur.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 10px">
+<button class="lift" @click="exportDo" :style="`min-height: 46px; padding: 0 18px; border-radius: 12px; border: 0; background: ${accent}; color: #FFFFFF; font-size: 15px; font-weight: 800`">Télécharger ma sauvegarde</button>
+<button class="lift" @click="importAsk" style="min-height: 46px; padding: 0 18px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Restaurer une sauvegarde</button>
+<input id="import-file" type="file" accept=".json,application/json" @change="importPick" hidden>
+</div>
+<template v-if="importAsking"><div role="alertdialog" aria-label="Confirmer la restauration" :style="`background: ${tint}; border: 1.5px solid ${accent}; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 12px`"><p style="margin: 0; font-size: 15px; line-height: 1.55; font-weight: 600">Remplacer ta progression actuelle par la sauvegarde du {{importDate}}&nbsp;?</p><div style="display: flex; flex-wrap: wrap; gap: 10px"><button @click="importDo" :style="`min-height: 46px; padding: 0 18px; border-radius: 12px; border: 0; background: ${accent}; color: #FFFFFF; font-size: 15px; font-weight: 800`">Oui, restaurer</button><button @click="importCancel" style="min-height: 46px; padding: 0 18px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Annuler</button></div></div></template>
+<template v-if="importErrShow"><p role="alert" style="margin: 0; font-size: 14px; font-weight: 700; color: var(--rose)">{{importError}}</p></template>
+</article>
 <template v-if="resetIdle"><div style="display: flex; justify-content: center"><button @click="resetAsk" style="min-height: 44px; padding: 0 16px; border-radius: 12px; border: 0; background: transparent; color: var(--muted); font-size: 14px; font-weight: 700; text-decoration: underline">Effacer mes progrès</button></div></template>
 <template v-if="resetConfirm"><div role="alertdialog" aria-label="Confirmer l’effacement" style="background: var(--rose-t); border: 1.5px solid var(--rose); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 12px"><p style="margin: 0; font-size: 15px; line-height: 1.55; font-weight: 600">Effacer tous tes progrès, ton historique et tes records&nbsp;? Cette action est définitive.</p><div style="display: flex; flex-wrap: wrap; gap: 10px"><button @click="resetDo" style="min-height: 46px; padding: 0 18px; border-radius: 12px; border: 0; background: var(--rose); color: #FFFFFF; font-size: 15px; font-weight: 800">Oui, tout effacer</button><button @click="resetCancel" style="min-height: 46px; padding: 0 18px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Annuler</button></div></div></template>
 <div style="display: flex; justify-content: center; padding-top: 4px"><button class="lift" @click="goHome" style="min-height: 52px; padding: 0 22px; border-radius: 14px; border: 1.5px solid var(--line); background: var(--surface); display: inline-flex; align-items: center; gap: 10px; font-size: 15.5px; font-weight: 800"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5"></path><path d="M5 9.5V20h14V9.5"></path><path d="M10 20v-6h4v6"></path></svg>Retour à l’accueil</button></div>
@@ -2870,7 +2881,7 @@ class Component extends DCLogic {
       screen: 'home', mode: null, topic: 'signes', queue: [], idx: 0, answered: false, picked: null,
       fills: [], checked: false, score: 0, mistakes: [],
       best: { qcm: null, vf: null, trous: null, tqcm: null, tvf: null, ttrous: null }, hide: false, revealed: {},
-      prog: { q: {}, hist: [] }, weeksDone: {}, chap: 'a1', level: '4A', theme: 'auto', arScale: 1, arFont: 'hafs', sysDark: false, confirmReset: false, installed: false, appVersion: '', toast: ''
+      prog: { q: {}, hist: [] }, weeksDone: {}, chap: 'a1', level: '4A', theme: 'auto', arScale: 1, arFont: 'hafs', sysDark: false, confirmReset: false, installed: false, appVersion: '', toast: '', importPending: null, importError: ''
     }, this.state || {});
   }
 
@@ -3038,6 +3049,77 @@ class Component extends DCLogic {
 
   save(best) {
     try { window.localStorage.setItem('waqf-signes-best', JSON.stringify(best)); } catch (e) {}
+  }
+
+  // ——— Sauvegarde de la progression (fichier .json) ———
+  exportProgress() {
+    const s = this.S();
+    const payload = {
+      app: 'tadjwiid-cifod', format: 1, date: new Date().toISOString(),
+      data: { progres: s.prog, records: s.best, programme: s.weeksDone, affichage: { theme: s.theme, arScale: s.arScale, arFont: s.arFont } }
+    };
+    try {
+      const blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'tadjwid-cifod-sauvegarde-' + payload.date.slice(0, 10) + '.json';
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 5000);
+      this.flash('Sauvegarde téléchargée.');
+    } catch (e) { this.flash('Le téléchargement a échoué sur cet appareil.'); }
+  }
+
+  cleanBackup(j) {
+    if (!j || j.app !== 'tadjwiid-cifod' || !j.data || typeof j.data !== 'object') return null;
+    const d = j.data;
+    const isObj = (o) => o && typeof o === 'object' && !Array.isArray(o);
+    const num = (v) => (typeof v === 'number' && isFinite(v) ? v : 0);
+    const q = {};
+    if (isObj(d.progres) && isObj(d.progres.q)) Object.keys(d.progres.q).slice(0, 5000).forEach((k) => { const r = d.progres.q[k]; if (isObj(r) && k.length < 120) q[k] = { n: num(r.n), miss: num(r.miss), ok: !!r.ok }; });
+    const hist = (isObj(d.progres) && Array.isArray(d.progres.hist) ? d.progres.hist : []).filter(isObj).slice(0, 50)
+      .map((h) => ({ t: num(h.t), topic: String(h.topic || '').slice(0, 40), mode: String(h.mode || '').slice(0, 20), score: num(h.score), total: num(h.total) }));
+    const best = { qcm: null, vf: null, trous: null, tqcm: null, tvf: null, ttrous: null };
+    if (isObj(d.records)) Object.keys(d.records).slice(0, 500).forEach((k) => { const b = d.records[k]; if (k.length < 60) best[k] = isObj(b) ? { score: num(b.score), total: num(b.total) } : null; });
+    const weeks = {};
+    if (isObj(d.programme)) Object.keys(d.programme).slice(0, 200).forEach((k) => { if (k.length < 12 && d.programme[k]) weeks[k] = true; });
+    const a = isObj(d.affichage) ? d.affichage : {};
+    const theme = ['auto', 'clair', 'sombre'].indexOf(a.theme) >= 0 ? a.theme : 'auto';
+    const arScale = typeof a.arScale === 'number' && a.arScale >= 0.7 && a.arScale <= 2 ? a.arScale : 1;
+    const arFont = ['hafs', 'amiri', 'sch', 'noto', 'harm', 'lat', 'sans', 'jom'].indexOf(a.arFont) >= 0 ? a.arFont : 'hafs';
+    const dt = new Date(j.date);
+    const date = isNaN(dt) ? '' : dt.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+    return { prog: { q, hist }, best, weeks, theme, arScale, arFont, date };
+  }
+
+  pickBackup(e) {
+    const input = e && e.target;
+    const f = input && input.files && input.files[0];
+    if (input) input.value = '';
+    if (!f) return;
+    const bad = () => this.setState({ importPending: null, importError: 'Ce fichier n’est pas une sauvegarde de l’application Tadjwîd Cifod.' });
+    if (f.size > 3000000) { bad(); return; }
+    const r = new FileReader();
+    r.onload = () => { try { const c = this.cleanBackup(JSON.parse(String(r.result))); if (c) this.setState({ importPending: c, importError: '' }); else bad(); } catch (err) { bad(); } };
+    r.onerror = bad;
+    r.readAsText(f);
+  }
+
+  restoreBackup() {
+    const c = this.S().importPending;
+    if (!c) return;
+    this.setState({ prog: c.prog, best: c.best, weeksDone: c.weeks, theme: c.theme, arScale: c.arScale, arFont: c.arFont, importPending: null, importError: '', confirmReset: false });
+    this.saveProg(c.prog);
+    this.save(c.best);
+    try { window.localStorage.setItem('waqf-programme', JSON.stringify(c.weeks)); } catch (e) {}
+    this.saveDisp(c.theme, c.arScale, c.arFont);
+    this.flash('Progression restaurée.');
+  }
+
+  flash(m) {
+    this.setState({ toast: m });
+    clearTimeout(this._toastT);
+    this._toastT = setTimeout(() => this.setState({ toast: '' }), 3500);
   }
 
   top() {
@@ -3864,6 +3946,9 @@ class Component extends DCLogic {
       goProgress: () => { this.setState({ confirmReset: false }); this.go('progress'); },
       reviewR: () => this.start('review', 'ra'), reviewT: () => this.start('review', 'types'), reviewS: () => this.start('review', 'signes'),
       resetAsk: () => this.setState({ confirmReset: true }), resetCancel: () => this.setState({ confirmReset: false }), resetDo: () => this.resetProgress(),
+      exportDo: () => this.exportProgress(), importAsk: () => { try { document.getElementById('import-file').click(); } catch (e) {} }, importPick: (e) => this.pickBackup(e),
+      importAsking: !!s.importPending, importDate: s.importPending ? (s.importPending.date || 'date inconnue') : '', importDo: () => this.restoreBackup(), importCancel: () => this.setState({ importPending: null }),
+      importErrShow: !!s.importError, importError: s.importError || '',
       compCards, isLearnComp: screen === 'learnComp', goComp: () => this.go('learnComp'),
       startCTrous: () => this.start('trous', CTP), reviewComp: () => this.start('review', CTP),
       metaC: { trous: metaFor('trous', CTP), qcm: metaFor('qcm', CTP), ordre: metaFor('ordre', CTP), mix: metaFor('mix', CTP), fiches: (CTP === 'comp4a' ? D.COMP4A.length : (CTP === 'comp4b' ? D.COMP4B.length : D.COMP.length)) + ' invocations · arabe et traduction' },
