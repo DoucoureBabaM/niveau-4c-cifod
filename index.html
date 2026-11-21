@@ -980,7 +980,7 @@ Mode mémorisation
 </template>
 <div style="background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px">
 <span dir="rtl" lang="ar" style="align-self: flex-start; font-family: 'ArPunct', var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', serif; font-size: calc(26px * var(--ar, 1)); line-height: 1.7; color: var(--accent)">{{chx.ar}}</span>
-<template v-for="ip in chx.intro"><p style="margin: 0; font-size: 16px; line-height: 1.6; text-wrap: pretty"><span>{{ip.a}}</span><strong :style="ip.bs">{{ip.b}}</strong><span>{{ip.c}}</span></p></template>
+<template v-for="ip in chx.intro"><p style="margin: 0; font-size: 16px; line-height: 1.6; text-wrap: pretty"><template v-for="pt in ip.parts"><span :style="pt.style">{{pt.text}}</span></template></p></template>
 <p style="margin: 0; font-size: 13px; line-height: 1.5; color: var(--muted)">Le viatique du lecteur · {{chx.pages}}</p>
 </div>
 <template v-for="sec in chSections">
@@ -1787,7 +1787,7 @@ class Component extends DCLogic {
       vocab: 'Warch et Qâloûn sont des façons de lire le Coran. Il en existe plusieurs.'
     };
     const ARR = '\\u0600-\\u06FF\\u0750-\\u077F\\u08A0-\\u08FF\\uFB50-\\uFDFF\\uFE70-\\uFEFF';
-    const TOK = '\\[\\[[rgbARUW]:|\\]\\]';
+    const TOK = '\\[\\[[rgbARUWL]:|\\]\\]';
     const isoRe = new RegExp('(?:[' + ARR + ']|' + TOK + ')(?:(?:[' + ARR + '\\s]|' + TOK + ')*(?:[' + ARR + ']|\\]\\]))?', 'g');
     const iso = (t) => String(t).replace(isoRe, (m) => '\u2068' + m + '\u2069');
     const fi = (t) => iso(fr(t));
@@ -2541,7 +2541,7 @@ class Component extends DCLogic {
               { rule: 'NB : on n’appliquera pas la règle d’Al-Qolqolah si l’une des 5 lettres, à l’arrêt ou en fin de verset, porte la voyelle double [fathatân « ـً »], mais plutôt la règle de prolongation de base.', ex: [{ label: 'Sourate 80, verset 30', text: 'وَحَدَآئِقَ غُلۡ[[r:بٗا]] ← غُلۡ[[r:بَا]]' }, { label: 'Sourate 80, verset 31', text: 'وَفَٰكِهَةٗ وَأَ[[r:بّٗا]] ← وَأَ[[r:بَّا]]' }] }
             ] }
         ],
-        notes: [{ title: 'À retenir', text: '5 lettres : ق ط ب ج د.\nSâkinah en pleine lecture : petit écho.\nÀ l’arrêt : grand écho.\nÀ l’arrêt sur une lettre portant la chaddah : plus grand écho.\nFathatân à l’arrêt : pas de Qolqolah, mais la prolongation de base.' }] }
+        notes: [{ title: 'À retenir', text: '5 lettres : ق ط ب ج د.\nSâkinah en pleine lecture : petit écho.\nÀ l’arrêt sans chaddah, grand écho.\nÀ l’arrêt sur une lettre portant la chaddah : plus grand écho.\nFathatân à l’arrêt : pas de Qolqolah, mais la prolongation de base.' }] }
     });
     const LT = { tq: 'Légèrement (At-Tarqîq), car il est précédé d’une Kasrah', tf: 'Avec emphase (At-Tafkhîm), car il est précédé d’une Fathah', td: 'Avec emphase (At-Tafkhîm), car il est précédé d’une Dommah' };
     const a3qcm = [
@@ -2631,10 +2631,10 @@ class Component extends DCLogic {
     const NS = (s, v) => 'Noûn sâkinah · Sourate ' + s + ', verset ' + v, TW = (s, v) => 'Tanwîn · Sourate ' + s + ', verset ' + v;
     Object.assign(CH4A, {
       a6: { num: '6', title: 'Le Noûn sâkinah et les voyelles doubles', ar: 'ٱلنُّونُ ٱلسَّاكِنَةُ وَٱلتَّنۡوِينُ', desc: 'Les quatre règles : la clarification, l’assimilation, la substitution et la dissimulation.', pages: 'pp. 28-37',
-        intro: ['La lettre Noûn (ن) portant la voyelle muette (As-soukoûn) est appelée « Noûn As-sâkinah » ; At-tanwîn est la terminaison d’un mot par « an », « in » ou « oun ».', 'Après la lettre Noûn as-sâkinah ou At-tanwîn, il faudra appliquer, selon la lettre qui va suivre, l’une des quatre règles suivantes : la clarification, l’assimilation (la fusion), la substitution ou la dissimulation.', 'Dans les exemples, le Noûn ou le tanwîn, et la lettre qui suit, sont en rouge.'],
+        intro: ['La lettre Noûn (ن) portant la voyelle muette (As-soukoûn) est appelée « Noûn As-sâkinah » ; At-tanwîn est la terminaison d’un mot par « an », « in » ou « oun ».', 'Après la lettre **Noûn** **as-sâkinah** ou **At-tanwîn**, il faudra appliquer, selon la lettre qui va suivre, l’une des quatre règles suivantes : la **clarification**, l’**assimilation** (la fusion), la **substitution** ou la **dissimulation**.', 'Dans les exemples, le Noûn ou le tanwîn, et la lettre qui suit, sont en rouge.'],
         sections: [
           { num: '1', title: 'La clarification (Al-Idz’hâr)', ar: 'ٱلۡإِظۡهَارُ', verdict: '6 lettres', chipBg: 'var(--tint2)', chipFg: 'var(--accent)',
-            def: 'On applique cette règle quand la lettre Noûn as-sâkinah ou At-tanwîn est suivi(e) par l’une des six (6) lettres suivantes : ء ح خ ع غ ه. Ces lettres ne modifient pas la prononciation du Noûn as-sâkinah et d’At-tanwîn, qui sont donc prononcés nettement et clairement.',
+            def: 'On applique cette règle quand la lettre Noûn as-sâkinah ou At-tanwîn est suivi(e) par l’une des six (6) lettres suivantes : [[L:ء ح خ ع غ ه]]. Ces lettres ne modifient pas la prononciation du Noûn as-sâkinah et d’At-tanwîn, qui sont donc prononcés nettement et clairement.',
             cases: [
               { rule: 'Devant le Hamzah (ء) : clarification.', ex: [{ label: NS(2, 177), text: '… مَ[[r:نۡ ءَ]]امَنَ …' }, { label: TW(112, 4), text: '… كُفُ[[r:وًا أَ]]حَدُۢ' }] },
               { rule: 'Devant le Ḥâ (ح) : clarification.', ex: [{ label: NS(108, 2), text: '… وَٱ[[r:نۡحَ]]رۡ' }, { label: TW(33, 51), text: '… عَلِي[[r:مًا حَ]]لِيمٗا' }] },
@@ -2644,14 +2644,14 @@ class Component extends DCLogic {
               { rule: 'Devant le Hâ (ه) : clarification.', ex: [{ label: NS(59, 9), text: '… مَ[[r:نۡ هَ]]اجَرَ …' }, { label: TW(97, 5), text: 'سَلَٰ[[r:مٌ هِ]]يَ …' }] }
             ] },
           { num: '2', title: 'L’assimilation ou fusion (Al-Idghâm)', ar: 'ٱلۡإِدۡغَامُ', verdict: '6 lettres · يَرۡمَلُونَ', chipBg: 'var(--accent)', chipFg: '#FFFFFF',
-            def: 'On applique cette règle quand la lettre Noûn as-sâkinah ou At-tanwîn est suivi(e) par l’une des six (6) lettres de l’expression يَرۡمَلُونَ : ي ر م ل و ن. Les deux ne formeront qu’une seule lettre avec renforcement (Ach-chaddah) : on parle de fusion ou d’assimilation. Le signe Ach-chaddah n’est pas matérialisé pour les lettres و et ي. L’assimilation peut être de 2 types : avec nasillement et sans nasillement.',
+            def: 'On applique cette règle quand la lettre Noûn as-sâkinah ou At-tanwîn est suivi(e) par l’une des six (6) lettres de l’expression [[L:يَرۡمَلُونَ : ي ر م ل و ن]]. Les deux ne formeront qu’une seule lettre avec renforcement (Ach-chaddah) : on parle de fusion ou d’assimilation. Le signe Ach-chaddah n’est pas matérialisé pour les lettres [[L:و]] et [[L:ي]]. L’assimilation peut être de 2 types : avec nasillement et sans nasillement.',
             cases: [
-              { rule: 'Avec nasillement [Al-Idghâm bi-ghounnah] (ٱلۡإِدۡغَامُ بِغُنَّةٍ) : quand l’une des lettres Mîm (م), Noûn (ن), Wâw (و) ou Yâ (ي) est placée après le Noûn as-sâkinah ou At-tanwîn, il s’ensuit une assimilation avec nasalisation [Al-Ghounnah] du son de la lettre. Devant le Mîm et le Noûn :',
+              { rule: '**Avec nasillement [Al-Idghâm bi-ghounnah] (ٱلۡإِدۡغَامُ بِغُنَّةٍ)** : quand l’une des lettres **Mîm (م), Noûn (ن), Wâw (و)** ou **Yâ (ي)** est placée après le Noûn as-sâkinah ou At-tanwîn, il s’ensuit une assimilation avec nasalisation [Al-Ghounnah] du son de la lettre. Devant le Mîm et le Noûn :',
                 ex: [{ label: NS(86, 6), text: '… مِ[[r:ن مَّ]]آءٖ …' }, { label: TW(104, 9), text: 'فِي عَمَ[[r:دٖ مُّ]]مَدَّدَةِۭ' }, { label: NS(36, 34), text: '… مِّ[[r:ن نَّ]]خِيلٖ …' }, { label: TW(88, 3), text: 'عَامِلَ[[r:ةٞ نَّ]]اصِبَةٞ' }],
                 note: 'Il est important de bien sortir le son du nez (cavité nasale) et non de la langue lors du nasillement [Al-Ghounnah]. Attention à ne pas prononcer tout le mot avec le nez, mais juste la lettre concernée.' },
               { rule: 'Avec nasillement, devant le Wâw et le Yâ : le signe Ach-chaddah n’y est pas matérialisé.',
                 ex: [{ label: NS(85, 20), text: '… مِ[[r:ن وَ]]رَآئِهِم …' }, { label: TW(77, 26), text: 'أَحۡيَآ[[r:ءٗ وَ]]أَمۡوَٰتٗا' }, { label: NS(99, 7), text: 'فَمَ[[r:ن يَ]]عۡمَلۡ …' }, { label: TW(76, 6), text: 'عَيۡ[[r:نٗا يَ]]شۡرَبُ …' }] },
-              { rule: 'Sans nasillement [Al-Idghâm bilâ ghounnah] (ٱلۡإِدۡغَامُ بِلَا غُنَّةٍ) : quand les lettres Rô (ر) ou Lâm (ل) suivent le Noûn as-sâkinah ou At-tanwîn, la lettre Noûn ou le son N du tanwîn disparaît totalement, et la lecture se fait avec renforcement (mouchaddadah) et sans nasillement.',
+              { rule: '**Sans nasillement [Al-Idghâm bilâ ghounnah] (ٱلۡإِدۡغَامُ بِلَا غُنَّةٍ)** : quand les lettres **Rô (ر)** ou **Lâm (ل)** suivent le Noûn as-sâkinah ou At-tanwîn, la lettre Noûn ou le son N du tanwîn disparaît totalement, et la lecture se fait avec renforcement (mouchaddadah) et sans nasillement.',
                 ex: [{ label: NS(2, 5), text: '… مِّ[[r:ن رَّ]]بِّهِمۡ …' }, { label: TW(101, 7), text: 'فِي عِيشَ[[r:ةٖ رَّ]]اضِيَةٖ' }, { label: NS(112, 4), text: 'وَلَمۡ يَكُ[[r:ن لَّ]]هُۥ …' }, { label: TW(16, 66), text: '… وَدَ[[r:مٖ لَّ]]بَنًا …' }] },
               { rule: 'Exception : si le Noûn as-sâkinah est suivi par l’une des 6 lettres d’Al-Idghâm dans le même mot, on n’applique pas l’assimilation, mais la clarification [Al-Idz’hâr]. Cela ne se retrouve que dans ces 4 mots du Coran.',
                 ex: [{ label: 'ٱلدُّنۡيَا · Sourate 87, verset 16', text: 'بَلۡ تُؤۡثِرُونَ ٱلۡحَيَوٰةَ ٱلدُّ[[r:نۡيَ]]ا' }, { label: 'بُنۡيَٰنٌ · Sourate 61, verset 4', text: '… بُ[[r:نۡيَٰ]]نٞ مَّرۡصُوصٞ' }, { label: 'صِنۡوَانٌ · Sourate 13, verset 4', text: '… صِ[[r:نۡوَ]]انٞ وَغَيۡرُ صِ[[r:نۡوَ]]انٖ …' }, { label: 'قِنۡوَانٌ · Sourate 6, verset 99', text: '… طَلۡعِهَا قِ[[r:نۡوَ]]انٞ دَانِيَةٞ …' }] },
@@ -2662,14 +2662,14 @@ class Component extends DCLogic {
             ] },
           { num: '3', title: 'La substitution (Al-Iqlâb)', ar: 'ٱلۡإِقۡلَابُ', verdict: '1 lettre : ب', chipBg: 'var(--amber-bg)', chipFg: 'var(--amber-fg)', def: '',
             cases: [
-              { rule: 'On applique cette règle quand la lettre Noûn as-sâkinah ou At-tanwîn est suivi(e) par la lettre Bâ (ب) : le son « n » est substitué par le son « m », et on le prononce avec nasillement [Ghounnah].',
+              { rule: 'On applique cette règle quand la lettre Noûn as-sâkinah ou At-tanwîn est suivi(e) par la lettre **Bâ (ب)** : le son « n » est substitué par le son « m », et on le prononce avec nasillement [Ghounnah].',
                 ex: [{ label: TW(96, 15), text: 'لَنَسۡفَ[[r:عَۢا بِ]]ٱلنَّاصِيَةِ' }, { label: NS(104, 4), text: 'لَيُ[[r:نۢبَ]]ذَنَّ …' }],
                 note: 'Remarques : dans certains exemplaires du Coran, pour nous aider, il y a une petite lettre Mîm en miniature au-dessus du Noûn as-sâkinah ou du tanwîn lorsque l’on doit appliquer cette règle (exemple : لَئِنۢ بَسَطتَ). On ne joint pas totalement les lèvres : il ne faut pas comprimer les lèvres.' },
               { rule: 'Certaines sourates finissent par le signe d’Al-Iqlâb, à cause du Noûn as-sâkinah ou du tanwîn final : si le lecteur décide de faire la liaison, elle se fait avec la lettre Bâ (ب) de « Bismillâhi r-Rahmâni r-Rahîm » de la sourate suivante.',
                 ex: [{ label: 'Sourates 54 et 55', text: 'عِندَ مَلِيكٖ مُّقۡتَدِ[[r:رِۭ بِ]]سۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ ٱلرَّحۡمَٰنُ' }] }
             ] },
           { num: '4', title: 'La dissimulation (Al-Ikhfâ)', ar: 'ٱلۡإِخۡفَاءُ', verdict: '15 lettres', chipBg: 'var(--surface3)', chipFg: 'var(--ink)',
-            def: 'On applique cette règle quand la lettre Noûn as-sâkinah ou At-tanwîn est suivi(e) par l’une des quinze (15) lettres suivantes : ت ث ج د ذ ز س ش ص ض ط ظ ف ق ك. On prononce alors la lettre Noûn sâkinah d’une manière qui se situe entre la clarification [Al-Idz’hâr] et l’assimilation [Al-Idghâm], sans appuyer sur la lettre [Ach-chaddah], mais avec nasillement [Ghounnah] (notes de cours : on traîne sur le Noûn pour aller vers la lettre qui suit).',
+            def: 'On applique cette règle quand la lettre Noûn as-sâkinah ou At-tanwîn est suivi(e) par l’une des quinze (15) lettres suivantes : [[L:ت ث ج د ذ ز س ش ص ض ط ظ ف ق ك]]. On prononce alors la lettre Noûn sâkinah d’une manière qui se situe entre la clarification [Al-Idz’hâr] et l’assimilation [Al-Idghâm], sans appuyer sur la lettre [Ach-chaddah], mais avec nasillement [Ghounnah] (notes de cours : on traîne sur le Noûn pour aller vers la lettre qui suit).',
             cases: [
               { rule: 'Devant le Tâ (ت), le Thâ (ث) et le Djîm (ج) : dissimulation.', ex: [{ label: NS(90, 2), text: 'وَأَ[[r:نتَ]] …' }, { label: TW(66, 5), text: '… قَٰنِتَٰ[[r:تٖ تَٰٓ]]ئِبَٰتٍ …' }, { label: NS(101, 6), text: 'فَأَمَّا مَ[[r:ن ثَ]]قُلَتۡ …' }, { label: TW(70, 14), text: '… جَمِي[[r:عٗا ثُ]]مَّ …' }, { label: NS(49, 6), text: '… إِ[[r:ن جَ]]آءَكُمۡ …' }, { label: TW(70, 5), text: 'فَٱصۡبِرۡ صَبۡ[[r:رٗا جَ]]مِيلًا' }] },
               { rule: 'Devant le Dâl (د), le Dzâl (ذ) et le Zây (ز) : dissimulation.', ex: [{ label: NS(91, 10), text: 'وَقَدۡ خَابَ مَ[[r:ن دَ]]سَّىٰهَا' }, { label: TW(6, 132), text: 'وَلِكُ[[r:لّٖ دَ]]رَجَٰتٞ …' }, { label: NS(79, 43), text: 'فِيمَ أَنتَ مِ[[r:ن ذِ]]كۡرَىٰهَآ' }, { label: TW(111, 3), text: 'سَيَصۡلَىٰ نَا[[r:رٗا ذَ]]اتَ لَهَبٖ' }, { label: NS(91, 9), text: 'قَدۡ أَفۡلَحَ مَ[[r:ن زَ]]كَّىٰهَا' }, { label: TW(20, 102), text: '… يَوۡمَئِ[[r:ذٖ زُ]]رۡقٗا' }] },
@@ -2682,7 +2682,7 @@ class Component extends DCLogic {
         ],
         notes: [
           { title: 'Remarque', text: 'Dans les situations de fusion et de dissimulation, la voyelle muette (As-soukoûn) n’est pas matérialisée sur la lettre Noûn, et les voyelles doubles (At-tanwîn) sont toujours décalées ; alors que dans la clarification, la voyelle muette est matérialisée sur la lettre Noûn, et les voyelles doubles sont parallèles.' },
-          { title: 'Résumé (figure 1)', text: '1. La clarification (Al-Idz’hâr) devant ء ح خ ع غ ه : le Noûn et le tanwîn se lisent clairement. 2. L’assimilation (Al-Idghâm) : avec nasillement devant م ن و ي, sans nasillement devant ل ر, où le Noûn disparaît totalement. 3. La substitution (Al-Iqlâb) devant ب : le « n » devient « m », signalé par un Mîm en miniature. 4. La dissimulation (Al-Ikhfâ) devant les 15 autres lettres : le nasillement se fait sans que la langue touche le palais.' }
+          { title: 'Résumé', text: '1. La clarification (Al-Idz’hâr) devant ء ح خ ع غ ه : le Noûn et le tanwîn se lisent clairement.\n2. L’assimilation (Al-Idghâm) : avec nasillement devant م ن و ي, sans nasillement devant ل ر, où le Noûn disparaît totalement.\n3. La substitution (Al-Iqlâb) devant ب : le « n » devient « m », signalé par un Mîm en miniature.\n4. La dissimulation (Al-Ikhfâ) devant les 15 autres lettres : le nasillement se fait sans que la langue touche le palais.' }
         ] },
       a7: { num: '7', title: 'Le Mîm sâkinah', ar: 'ٱلۡمِيمُ ٱلسَّاكِنَةُ', desc: 'Les trois règles labiales : la fusion, la dissimulation et la clarification.', pages: 'pp. 38-41',
         intro: ['La lettre Mîm portant la voyelle muette (As-soukoûn) est appelée « Mîm As-sâkinah ». Selon la lettre qui va suivre, elle va subir trois (3) règles pour sa lecture : la fusion, la dissimulation et la clarification.', 'Pour marquer la différence avec les mêmes termes de la lettre Noûn as-sâkinah, on ajoute le mot Ach-chafawiyy, qui veut dire « labiale », car la lettre Mîm se prononce des lèvres.'],
@@ -3114,14 +3114,16 @@ class Component extends DCLogic {
     // [[A:…]] et [[R:…]] (rouge) : police Amiri Quran, pour les signes que la police Hafs ne dessine pas (losange de l’Imâlah).
     // À une frontière à l’intérieur d’un mot, on ajoute un « liant invisible » (ZWJ)
     // pour que les lettres restent attachées même si le navigateur traite chaque couleur à part.
-    const COL = { r: 'var(--red)', g: 'var(--green)', b: 'var(--blue)', A: 'inherit', R: 'var(--red)', U: 'var(--red)' };
+    const COL = { r: 'var(--red)', g: 'var(--green)', b: 'var(--blue)', A: 'inherit', R: 'var(--red)', U: 'var(--red)', L: 'inherit' };
     const AMIRI = "'Amiri Quran', 'Hafs', serif";
     // [[W:clé]] : mot dessiné en petite image (losange de 12:11 au-dessus de la Fatha), pour un rendu identique sur tous les téléphones.
     const WIMG = { mnna: { alt: 'مَ۫نَّا', w: 0.882, h: 1.544, va: -0.02, ml: 0.01, mr: 0.01, src: 'data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%22-10%20-1524%20882%201544%22%3E%3Cpath%20d%3D%22M77%20-720Q81%20-727%2084%20-726Q89%20-726%2092%20-705Q110%20-550%20116%20-440Q121%20-336%20124.5%20-273.0Q128%20-210%20129%20-188Q136%20-96%20229%20-90Q256%20-88%20250%20-54Q241%200%20229%200Q98%200%2089%20-122Q85%20-173%2082.5%20-224.5Q80%20-276%2078%20-328Q75%20-432%2066.0%20-496.5Q57%20-561%2042%20-643Q39%20-658%2045%20-668ZM231%20-1034%20411%20-1114Q429%20-1121%20427%20-1106L423%20-1072Q421%20-1061%20414%20-1058L238%20-997Q216%20-990%20219%20-1008L221%20-1022Q222%20-1030%20231%20-1034ZM385%20-947Q387%20-965%20397%20-963Q409%20-962%20408%20-947Q406%20-905%20392%20-875Q376%20-841%20347%20-839Q329%20-837%20312%20-858Q307%20-848%20299.0%20-840.5Q291%20-833%20282%20-828Q261%20-817%20242%20-826Q196%20-845%20232%20-938Q238%20-952%20249%20-947Q258%20-943%20254%20-930Q241%20-883%20266%20-879Q296%20-876%20314%20-944Q317%20-958%20326%20-955Q337%20-953%20334%20-943Q327%20-903%20354%20-903Q380%20-903%20385%20-947ZM473%20-90Q491%20-85%20492%20-79Q494%20-71%20492%20-55Q485%200%20473%200Q419%200%20365%20-61Q319%20-6%20229%200Q219%200%20216%20-15L208%20-57Q205%20-66%20212%20-78Q218%20-88%20229%20-90Q339%20-99%20377%20-156Q382%20-164%20391%20-164Q400%20-164%20400%20-155Q400%20-147%20402%20-143Q435%20-98%20473%20-90ZM335%20-483Q337%20-486%20343%20-485Q383%20-471%20414%20-443Q418%20-439%20415%20-435L368%20-359Q365%20-354%20358%20-360Q354%20-363%20337.0%20-374.0Q320%20-385%20288%20-404Q283%20-407%20286%20-410ZM663%20-1084.2972972972973%20540%20-1295.2972972972973%20663%20-1504.2972972972973%20786%20-1295.2972972972973ZM663%20-1152.2972972972973%20746%20-1295.2972972972973%20663%20-1437.2972972972973%20580%20-1295.2972972972973ZM743%20-999Q765%20-1013%20759%20-990L750%20-961Q747%20-950%20730%20-940L555%20-839Q539%20-830%20539%20-847V-862Q539%20-870%20555%20-883ZM706%20-318Q774%20-316%20799%20-152Q801%20-141%20796%20-135L741%20-66Q734%20-56%20722%20-59Q645%20-81%20586%20-131Q539%200%20473%200Q466%200%20458%20-21Q442%20-71%20457%20-85Q463%20-90%20473%20-90Q519%20-91%20561%20-146Q575%20-165%20626%20-256Q661%20-318%20706%20-318ZM634%20-220Q669%20-186%20724%20-174Q725%20-217%20695%20-231Q665%20-245%20634%20-220Z%22%2F%3E%3C%2Fsvg%3E' } };
-    const parts = String(t || '').split(/(\[\[[rgbARUW]:[^\]]*\]\]|\*\*[^*]+\*\*)/).filter((x) => x).map((x) => {
+    const parts = String(t || '').split(/(\[\[[rgbARUWL]:[^\]]*\]\]|\*\*[^*]+\*\*)/).filter((x) => x).map((x) => {
       const bm = x.match(/^\*\*([^*]+)\*\*$/);
       if (bm) return { text: bm[1], color: 'inherit', bold: true };
-      const m = x.match(/^\[\[([rgbARUW]):([^\]]*)\]\]$/);
+      const lm = x.match(/^\[\[L:([^\]]*)\]\]$/);
+      if (lm) return { text: lm[1], color: 'inherit', bold: true, big: true };
+      const m = x.match(/^\[\[([rgbARUWL]):([^\]]*)\]\]$/);
       if (m && m[1] === 'W') { const w = WIMG[m[2]]; return w ? { text: w.alt, color: 'transparent', wimg: w } : { text: '', color: 'inherit' }; }
       return m ? { text: m[2], color: COL[m[1]], font: (m[1] === 'A' || m[1] === 'R' || m[1] === 'U') ? AMIRI : '', raise: m[1] === 'U' } : { text: x, color: 'inherit' };
     });
@@ -3137,7 +3139,7 @@ class Component extends DCLogic {
       }
     }
     const wStyle = (w) => { const mk = "url('" + w.src + "') no-repeat 0 0 / 100% 100%"; return 'display: inline-block; width: ' + w.w + 'em; height: ' + w.h + 'em; vertical-align: ' + w.va + 'em; margin: 0 -' + w.mr + 'em 0 -' + w.ml + 'em; background-color: var(--red); -webkit-mask: ' + mk + '; mask: ' + mk + '; color: transparent; overflow: hidden; white-space: nowrap;'; };
-    return parts.map((x) => x.wimg ? { text: x.text, style: wStyle(x.wimg) } : ({ text: x.text, style: 'color: ' + x.color + ';' + (x.bold ? ' font-weight: 800;' : '') + (x.font ? ' font-family: ' + x.font + ';' : '') + (x.raise ? ' position: relative; top: -0.3em;' : '') }));
+    return parts.map((x) => x.wimg ? { text: x.text, style: wStyle(x.wimg) } : ({ text: x.text, style: 'color: ' + x.color + ';' + (x.bold ? ' font-weight: 800;' : '') + (x.big ? ' font-size: 22px;' : '') + (x.font ? ' font-family: ' + x.font + ';' : '') + (x.raise ? ' position: relative; top: -0.3em;' : '') }));
   }
 
   verse(id) {
@@ -3799,7 +3801,7 @@ class Component extends DCLogic {
       metaT: { qcm: metaFor('qcm', 'types'), vf: metaFor('vf', 'types'), trous: metaFor('trous', 'types'), mix: metaFor('mix', 'types') },
       metaR: { qcm: metaFor('qcm', 'ra'), vf: metaFor('vf', 'ra'), trous: metaFor('trous', 'ra'), mix: metaFor('mix', 'ra') },
       chSections, chNotes: CHX.notes.map((n) => ({ title: n.title, text: this.bidi(n.text) })), isLearnCh: screen === 'learnCh',
-      chx: { num: CHX.num, title: CHX.title, ar: CHX.ar, pages: CHX.pages, intro: CHX.intro.map((t) => (typeof t === 'string' ? { a: this.bidi(t), b: '', c: '', bs: '' } : { a: this.bidi(t.a || ''), b: this.bidi(t.b || ''), c: this.bidi(t.c || ''), bs: t.big ? 'font-size: 22px;' : '' })) },
+      chx: { num: CHX.num, title: CHX.title, ar: CHX.ar, pages: CHX.pages, intro: CHX.intro.map((t) => ({ parts: (typeof t === 'string' ? [{ t: t, bold: false, big: false }] : [{ t: t.a || '', bold: false, big: false }, { t: t.b || '', bold: true, big: !!t.big }, { t: t.c || '', bold: false, big: false }]).flatMap((seg) => seg.t.split(/\*\*([^*]+)\*\*/).map((x, i) => ({ x: x, bold: seg.bold || i % 2 === 1, big: seg.big })).filter((p) => p.x).map((p) => ({ text: this.bidi(p.x), style: (p.bold ? 'font-weight: 700;' : '') + (p.big ? 'font-size: 22px;' : '') }))) })) },
       startChQcm: () => this.start('qcm', s.chap), startChVf: () => this.start('vf', s.chap), startChTrous: () => this.start('trous', s.chap), startChMix: () => this.start('mix', s.chap),
       ch4cCards: Object.keys(D.CH4C).map((k) => { const c = D.CH4C[k]; const n = c.sections.reduce((a, x) => a + x.cases.length, 0);
         return { key: k, num: c.num, title: c.title, ar: c.ar, desc: c.desc, fiches: n + ' fiches · ' + c.pages, prog: pstat(k),
