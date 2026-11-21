@@ -3150,7 +3150,9 @@ class Component extends DCLogic {
   }
 
   go(screen) {
-    this.setState({ screen });
+    // Le compagnon s’ouvre toujours sans le mode mémorisation activé
+    if (screen === 'learnComp') this.setState({ screen, hide: false, revealed: {} });
+    else this.setState({ screen });
     this.top();
   }
 
