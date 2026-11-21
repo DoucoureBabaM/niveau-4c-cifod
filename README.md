@@ -3,7 +3,7 @@
 Application de révision pour les élèves du CIFOD (Centre islamique de formation et de documentation).
 Elle reprend le contenu du livre *Le viatique du lecteur — Règles de la Psalmodie du Qur’ân* (CIFOD), chapitres 11 et 15.
 
-**Site en ligne :** https://niveau-4c-cifod.netlify.app
+**Site en ligne :** https://tadjwiid-cifod.netlify.app
 
 ## Contenu
 
