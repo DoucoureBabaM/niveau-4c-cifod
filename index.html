@@ -980,7 +980,7 @@ Mode mémorisation
 </template>
 <div style="background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px">
 <span dir="rtl" lang="ar" style="align-self: flex-start; font-family: 'ArPunct', var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', serif; font-size: calc(26px * var(--ar, 1)); line-height: 1.7; color: var(--accent)">{{chx.ar}}</span>
-<template v-for="ip in chx.intro"><p style="margin: 0; font-size: 16px; line-height: 1.6; text-wrap: pretty"><span>{{ip.a}}</span><strong>{{ip.b}}</strong><span>{{ip.c}}</span></p></template>
+<template v-for="ip in chx.intro"><p style="margin: 0; font-size: 16px; line-height: 1.6; text-wrap: pretty"><span>{{ip.a}}</span><strong :style="ip.bs">{{ip.b}}</strong><span>{{ip.c}}</span></p></template>
 <p style="margin: 0; font-size: 13px; line-height: 1.5; color: var(--muted)">Le viatique du lecteur · {{chx.pages}}</p>
 </div>
 <template v-for="sec in chSections">
@@ -2528,7 +2528,7 @@ class Component extends DCLogic {
         ],
         notes: [{ title: 'À retenir', text: 'Noûn ou Mîm portant la chaddah : on renforce la lettre et on fait Al-Ghounnah, un nasillement de 2 degrés.' }] },
       a5: { num: '5', title: 'Al-Qolqolah (l’écho)', ar: 'ٱلۡقَلۡقَلَةُ', desc: 'Les 5 lettres قُطۡبُ جَدٍّ et les trois degrés d’écho : petit, grand et plus grand.', pages: 'pp. 26-27',
-        intro: ['C’est un fort rebond ou écho (notes de cours : ou résonance) de la lettre lorsqu’elle porte la voyelle muette (As-soukoûn), naturelle ou conditionnée par un arrêt.', 'Les lettres d’Al-Qolqolah sont au nombre de cinq (5), regroupées dans l’expression قُطۡبُ جَدٍّ : ق – ط – ب – ج – د.', 'Nous avons différents types d’Al-Qolqolah (notes de cours : 3 degrés).'],
+        intro: ['C’est un fort rebond ou écho (notes de cours : ou résonance) de la lettre lorsqu’elle porte la voyelle muette (As-soukoûn), naturelle ou conditionnée par un arrêt.', { a: 'Les lettres d’Al-Qolqolah sont au nombre de cinq (5), regroupées dans l’expression ', b: 'قُطۡبُ جَدٍّ : ق – ط – ب – ج – د', c: '.', big: true }, 'Nous avons différents types d’Al-Qolqolah (notes de cours : 3 degrés).'],
         sections: [
           { num: '1', title: 'Le petit écho', ar: 'ٱلۡقَلۡقَلَةُ ٱلصُّغۡرَىٰ', verdict: 'As-Soughrâ', chipBg: 'var(--tint2)', chipFg: 'var(--accent)', def: '',
             cases: [{ rule: 'Lorsque l’une des cinq (5) lettres est située en pleine lecture (notes de cours : au milieu du mot, et elle porte un soukoûn originel), on fera un petit écho [Al-Qolqolah As-Soughrâ].', ex: [{ label: 'Sourate 112, verset 3', text: 'لَمۡ يَلِ[[r:دۡ]] وَلَمۡ يُولَدۡ' }, { label: 'Sourate 85, verset 12', text: 'إِنَّ بَ[[r:طۡ]]شَ رَبِّكَ لَشَدِيدٌ' }] }] },
@@ -2541,7 +2541,7 @@ class Component extends DCLogic {
               { rule: 'NB : on n’appliquera pas la règle d’Al-Qolqolah si l’une des 5 lettres, à l’arrêt ou en fin de verset, porte la voyelle double [fathatân « ـً »], mais plutôt la règle de prolongation de base.', ex: [{ label: 'Sourate 80, verset 30', text: 'وَحَدَآئِقَ غُلۡ[[r:بٗا]] ← غُلۡ[[r:بَا]]' }, { label: 'Sourate 80, verset 31', text: 'وَفَٰكِهَةٗ وَأَ[[r:بّٗا]] ← وَأَ[[r:بَّا]]' }] }
             ] }
         ],
-        notes: [{ title: 'À retenir', text: '5 lettres : ق ط ب ج د. Sâkinah en pleine lecture : petit écho. À l’arrêt : grand écho. À l’arrêt sur une lettre portant la chaddah : plus grand écho. Fathatân à l’arrêt : pas de Qolqolah, mais la prolongation de base.' }] }
+        notes: [{ title: 'À retenir', text: '5 lettres : ق ط ب ج د.\nSâkinah en pleine lecture : petit écho.\nÀ l’arrêt : grand écho.\nÀ l’arrêt sur une lettre portant la chaddah : plus grand écho.\nFathatân à l’arrêt : pas de Qolqolah, mais la prolongation de base.' }] }
     });
     const LT = { tq: 'Légèrement (At-Tarqîq), car il est précédé d’une Kasrah', tf: 'Avec emphase (At-Tafkhîm), car il est précédé d’une Fathah', td: 'Avec emphase (At-Tafkhîm), car il est précédé d’une Dommah' };
     const a3qcm = [
@@ -3799,7 +3799,7 @@ class Component extends DCLogic {
       metaT: { qcm: metaFor('qcm', 'types'), vf: metaFor('vf', 'types'), trous: metaFor('trous', 'types'), mix: metaFor('mix', 'types') },
       metaR: { qcm: metaFor('qcm', 'ra'), vf: metaFor('vf', 'ra'), trous: metaFor('trous', 'ra'), mix: metaFor('mix', 'ra') },
       chSections, chNotes: CHX.notes.map((n) => ({ title: n.title, text: this.bidi(n.text) })), isLearnCh: screen === 'learnCh',
-      chx: { num: CHX.num, title: CHX.title, ar: CHX.ar, pages: CHX.pages, intro: CHX.intro.map((t) => (typeof t === 'string' ? { a: this.bidi(t), b: '', c: '' } : { a: this.bidi(t.a || ''), b: this.bidi(t.b || ''), c: this.bidi(t.c || '') })) },
+      chx: { num: CHX.num, title: CHX.title, ar: CHX.ar, pages: CHX.pages, intro: CHX.intro.map((t) => (typeof t === 'string' ? { a: this.bidi(t), b: '', c: '', bs: '' } : { a: this.bidi(t.a || ''), b: this.bidi(t.b || ''), c: this.bidi(t.c || ''), bs: t.big ? 'font-size: 22px;' : '' })) },
       startChQcm: () => this.start('qcm', s.chap), startChVf: () => this.start('vf', s.chap), startChTrous: () => this.start('trous', s.chap), startChMix: () => this.start('mix', s.chap),
       ch4cCards: Object.keys(D.CH4C).map((k) => { const c = D.CH4C[k]; const n = c.sections.reduce((a, x) => a + x.cases.length, 0);
         return { key: k, num: c.num, title: c.title, ar: c.ar, desc: c.desc, fiches: n + ' fiches · ' + c.pages, prog: pstat(k),
