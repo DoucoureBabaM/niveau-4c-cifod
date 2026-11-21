@@ -3,14 +3,14 @@
   publish = "."
 
 # En-têtes de sécurité appliqués à toutes les pages et fichiers.
-# - CSP : n'autorise que le site lui-même et Google Fonts.
+# - CSP : n'autorise que le site lui-même (polices comprises).
 #   'unsafe-eval' est nécessaire à petite-vue (expressions des gabarits),
 #   'unsafe-inline' au script principal et aux styles intégrés.
 # - frame-ancestors / X-Frame-Options : interdit l'affichage dans le cadre d'un autre site.
 [[headers]]
   for = "/*"
   [headers.values]
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data:; connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data:; connect-src 'self'; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
