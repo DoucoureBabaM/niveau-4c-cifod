@@ -1,7 +1,7 @@
 {
-  "name": "Niveau 4C — Arrêts et signes du Coran",
-  "short_name": "Niveau 4C",
-  "description": "Apprendre et réviser les types d’arrêts et les signes conventionnels de la lecture du Coran.",
+  "name": "Tadjwîd Cifod",
+  "short_name": "Tadjwîd Cifod",
+  "description": "Apprendre et réviser les règles de tadjwîd du CIFOD (niveaux 4A, 4B et 4C).",
   "lang": "fr",
   "dir": "ltr",
   "start_url": "./",
