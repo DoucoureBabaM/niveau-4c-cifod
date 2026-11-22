@@ -108,6 +108,7 @@ main.app-main:has(.sec-grid) p{max-width:78ch}
 .lift{transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease}
 .lift:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 22px rgba(20,32,28,.08)}
 @media (prefers-reduced-motion: reduce){.rise{animation:none}.lift{transition:none}.lift:hover:not(:disabled){transform:none}}
+@media (min-width:700px){.share-wrap{align-items:center !important;padding:16px}.share-sheet{border-radius:22px !important;padding-bottom:20px !important}}
 </style>
 <style>[v-cloak]{display:none}</style>
 </head>
@@ -1539,12 +1540,13 @@ Recommencer
 </footer>
 
 <div aria-hidden="true" style="height: calc(82px + env(safe-area-inset-bottom, 0px)); flex-shrink: 0"></div>
+<template v-if="shareMenuShow"><div class="share-wrap" style="position: fixed; inset: 0; z-index: 60; display: flex; align-items: flex-end; justify-content: center"><div @click="shareClose" aria-hidden="true" style="position: absolute; inset: 0; background: rgba(0,0,0,0.45)"></div><div role="dialog" aria-modal="true" aria-labelledby="share-title" class="share-sheet rise" style="position: relative; width: 100%; max-width: 520px; background: var(--surface); color: var(--ink); border-radius: 22px 22px 0 0; padding: 20px 16px calc(18px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; gap: 10px; box-shadow: 0 -10px 40px rgba(0,0,0,0.25)"><h2 id="share-title" style="margin: 0 0 4px; font-size: 19px; font-weight: 800">Que veux-tu partager&nbsp;?</h2><button id="share-first" class="lift" @click="shareAppDo" style="min-height: 64px; width: 100%; text-align: left; display: flex; align-items: center; gap: 14px; padding: 10px 14px; border-radius: 14px; border: 1px solid var(--line); background: var(--surface2); color: var(--ink)"><span style="width: 40px; height: 40px; border-radius: 12px; background: var(--tint); color: var(--accent); display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"></path><path d="M8 7l4-4 4 4"></path><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"></path></svg></span><span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15.5px; font-weight: 800">Partager l’application</span><span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">Envoyer le lien à d’autres auditeurs</span></span></button><button class="lift" @click="shareProgDo" style="min-height: 64px; width: 100%; text-align: left; display: flex; align-items: center; gap: 14px; padding: 10px 14px; border-radius: 14px; border: 1px solid var(--line); background: var(--surface2); color: var(--ink)"><span style="width: 40px; height: 40px; border-radius: 12px; background: var(--tint); color: var(--accent); display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"></path><path d="M6 17v-4"></path><path d="M11 17V8"></path><path d="M16 17v-6"></path><path d="M21 17V5"></path></svg></span><span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15.5px; font-weight: 800">Partager mes progrès</span><span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">{{shareProgSub}}</span></span></button><button @click="shareClose" style="margin-top: 2px; min-height: 48px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); font-size: 15px; font-weight: 700">Annuler</button></div></div></template>
 <template v-if="toastShow"><div role="status" style="position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(80px + env(safe-area-inset-bottom, 0px)); z-index: 41; max-width: min(92vw, 460px); padding: 12px 16px; border-radius: 14px; background: var(--btn); color: #FFFFFF; font-size: 14px; font-weight: 700; line-height: 1.4; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.25); overflow-wrap: anywhere">{{toast}}</div></template>
 <nav aria-label="Navigation principale" style="position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; background: var(--surface); border-top: 1px solid var(--line); padding: 0 env(safe-area-inset-right, 0px) max(env(safe-area-inset-bottom, 0px), 6px) env(safe-area-inset-left, 0px); box-shadow: 0 -6px 20px rgba(0,0,0,0.06)">
 <div style="max-width: 760px; margin: 0 auto; display: flex; align-items: stretch">
 <button @click="goHome" aria-label="Accueil" :aria-current="tabHomeCur" :style="`flex: 1; min-width: 0; min-height: 58px; padding: 6px 4px; border: 0; background: transparent; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-size: 11.5px; font-weight: 800; ${tabHome}`"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5"></path><path d="M5 9.5V20h14V9.5"></path><path d="M10 20v-6h4v6"></path></svg><span>Accueil</span></button>
 <button @click="goProgress" aria-label="Stats" :aria-current="tabStatsCur" :style="`flex: 1; min-width: 0; min-height: 58px; padding: 6px 4px; border: 0; background: transparent; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-size: 11.5px; font-weight: 800; ${tabStats}`"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10"></path><path d="M10 20V4"></path><path d="M16 20v-7"></path><path d="M22 20H2"></path></svg><span>Stats</span></button>
-<button @click="shareApp" aria-label="Partager"  :style="`flex: 1; min-width: 0; min-height: 58px; padding: 6px 4px; border: 0; background: transparent; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-size: 11.5px; font-weight: 800; ${tabShare}`"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"></path><path d="M8 7l4-4 4 4"></path><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"></path></svg><span>Partager</span></button>
+<button @click="shareOpen" aria-label="Partager" aria-haspopup="dialog" :aria-expanded="shareExpanded" :style="`flex: 1; min-width: 0; min-height: 58px; padding: 6px 4px; border: 0; background: transparent; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-size: 11.5px; font-weight: 800; ${tabShare}`"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"></path><path d="M8 7l4-4 4 4"></path><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"></path></svg><span>Partager</span></button>
 <button @click="goSettings" aria-label="Paramètres" :aria-current="tabSettingsCur" :style="`flex: 1; min-width: 0; min-height: 58px; padding: 6px 4px; border: 0; background: transparent; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-size: 11.5px; font-weight: 800; ${tabSettings}`"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg><span>Paramètres</span></button>
 </div>
 </nav>
@@ -2880,7 +2882,7 @@ class Component extends DCLogic {
       screen: 'home', mode: null, topic: 'signes', queue: [], idx: 0, answered: false, picked: null,
       fills: [], checked: false, score: 0, mistakes: [],
       best: { qcm: null, vf: null, trous: null, tqcm: null, tvf: null, ttrous: null }, hide: false, revealed: {},
-      prog: { q: {}, hist: [] }, weeksDone: {}, chap: 'a1', level: '4A', theme: 'auto', arScale: 1, arFont: 'hafs', sysDark: false, confirmReset: false, installed: false, appVersion: '', toast: '', importPending: null, importError: ''
+      prog: { q: {}, hist: [] }, weeksDone: {}, chap: 'a1', level: '4A', theme: 'auto', arScale: 1, arFont: 'hafs', sysDark: false, confirmReset: false, installed: false, appVersion: '', toast: '', importPending: null, importError: '', shareMenu: false
     }, this.state || {});
   }
 
@@ -3021,6 +3023,38 @@ class Component extends DCLogic {
     try {
       if (navigator.share) {
         navigator.share(data).catch((err) => { if (!err || err.name !== 'AbortError') copy(); });
+        return;
+      }
+    } catch (e) {}
+    copy();
+  }
+
+  openShare() {
+    this._shareFrom = document.activeElement;
+    this.setState({ shareMenu: true });
+    if (!this._shareEsc) this._shareEsc = (e) => { if (e.key === 'Escape' && this.S().shareMenu) this.closeShare(); };
+    try { document.addEventListener('keydown', this._shareEsc); } catch (e) {}
+    setTimeout(() => { try { const b = document.getElementById('share-first'); if (b) b.focus(); } catch (e) {} }, 60);
+  }
+
+  closeShare(keepFocus) {
+    this.setState({ shareMenu: false });
+    try { document.removeEventListener('keydown', this._shareEsc); } catch (e) {}
+    const from = this._shareFrom;
+    if (!keepFocus && from && from.focus) setTimeout(() => { try { from.focus(); } catch (e) {} }, 30);
+  }
+
+  // Résumé texte des progrès du niveau affiché, envoyé seulement si l’utilisateur le choisit.
+  shareProgress(text) {
+    this.closeShare(true);
+    const copy = () => {
+      try {
+        navigator.clipboard.writeText(text).then(() => this.flash('Résumé de tes progrès copié.'), () => this.flash('Impossible de copier le résumé.'));
+      } catch (e) { this.flash('Impossible de copier le résumé.'); }
+    };
+    try {
+      if (navigator.share) {
+        navigator.share({ title: 'Mes progrès · Tadjwîd Cifod', text }).catch((err) => { if (!err || err.name !== 'AbortError') copy(); });
         return;
       }
     } catch (e) {}
@@ -3941,7 +3975,17 @@ class Component extends DCLogic {
       tabHome: 'color: ' + (screen === 'home' ? 'var(--accent)' : 'var(--muted)') + ';', tabHomeCur: screen === 'home' ? 'page' : 'false',
       tabStats: 'color: ' + (screen === 'progress' ? 'var(--accent)' : 'var(--muted)') + ';', tabStatsCur: screen === 'progress' ? 'page' : 'false',
       tabSettings: 'color: ' + (screen === 'settings' ? 'var(--accent)' : 'var(--muted)') + ';', tabSettingsCur: screen === 'settings' ? 'page' : 'false',
-      tabShare: 'color: var(--muted);', resetIdle: !s.confirmReset, resetConfirm: !!s.confirmReset,
+      tabShare: s.shareMenu ? 'color: var(--accent);' : 'color: var(--muted);', shareMenuShow: !!s.shareMenu, shareExpanded: s.shareMenu ? 'true' : 'false',
+      shareOpen: () => this.openShare(), shareClose: () => this.closeShare(), shareAppDo: () => { this.closeShare(true); this.shareApp(); },
+      shareProgSub: 'Résumé de tes résultats · niveau ' + s.level,
+      shareProgDo: () => {
+        const L = ['Mes progrès en tadjwîd · niveau ' + s.level + ' (Tadjwîd Cifod)'];
+        L.push(allSeen ? 'Global : ' + allPct + ' % · ' + plural(allOk, 'question maîtrisée', 'questions maîtrisées') + ' sur ' + allTotal : 'Je commence tout juste mes révisions.');
+        chapters.forEach((c) => { if (c.st.seen) L.push('• ' + c.chapter + ' – ' + c.title + ' : ' + c.st.pct + ' %'); });
+        L.push('', 'Pour réviser toi aussi : https://tadjwiid-cifod.netlify.app/');
+        this.shareProgress(L.join('\n'));
+      },
+      resetIdle: !s.confirmReset, resetConfirm: !!s.confirmReset,
       goProgress: () => { this.setState({ confirmReset: false }); this.go('progress'); },
       reviewR: () => this.start('review', 'ra'), reviewT: () => this.start('review', 'types'), reviewS: () => this.start('review', 'signes'),
       resetAsk: () => this.setState({ confirmReset: true }), resetCancel: () => this.setState({ confirmReset: false }), resetDo: () => this.resetProgress(),
