@@ -1112,6 +1112,25 @@ Mode mémorisation
 </section>
 </template>
 
+<template v-if="isSearch">
+<section class="rise" style="display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; flex-direction: column; gap: 8px; max-width: 560px">
+<span style="font-size: 12px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent)">Recherche</span>
+<h1 style="margin: 0; font-size: 34px; line-height: 1.1; letter-spacing: -0.025em; font-weight: 800">Rechercher</h1>
+<p style="margin: 0; font-size: 15px; line-height: 1.55; color: var(--muted); text-wrap: pretty">Un mot ou une phrase, en français ou en arabe, dans les fiches des niveaux 4A, 4B et 4C et dans <em>Le Compagnon</em>. Les accents et les voyelles arabes sont facultatifs.</p>
+</div>
+<div role="search" style="position: relative">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="position: absolute; left: 17px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.6-3.6"></path></svg>
+<input id="search-q" type="search" dir="auto" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" maxlength="120" aria-label="Rechercher dans l’application" placeholder="Ex. : Ghounnah, إدغام, Istikhâra…" :value="srQ" @input="srInput" @keydown="srKey" style="width: 100%; box-sizing: border-box; min-height: 56px; padding: 0 16px 0 48px; border-radius: 16px; border: 1.5px solid var(--line2); background: var(--surface); color: var(--ink); font-size: 17px; font-family: 'Manrope', var(--arfont), system-ui, sans-serif">
+</div>
+<p aria-live="polite" style="margin: 0; font-size: 14px; font-weight: 700; color: var(--muted)">{{srStatus}}</p>
+<template v-if="srHint"><div style="display: flex; flex-direction: column; gap: 10px"><span style="font-size: 14px; color: var(--muted)">Exemples&nbsp;:</span><div style="display: flex; flex-wrap: wrap; gap: 8px"><template v-for="x in srEx"><button class="lift" @click="x.pick" dir="auto" style="min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font-size: 15px; font-weight: 700; font-family: 'Manrope', var(--arfont), system-ui, sans-serif">{{x.label}}</button></template></div></div></template>
+<div style="display: flex; flex-direction: column; gap: 12px">
+<template v-for="r in srRes"><button class="lift" @click="r.open" style="text-align: left; width: 100%; display: flex; flex-direction: column; gap: 6px; padding: 16px 18px; border-radius: 18px; border: 1px solid var(--line); background: var(--surface); color: var(--ink)"><span style="font-size: 12px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent)">{{r.where}}</span><span dir="auto" style="font-size: 17px; line-height: 1.3; font-weight: 800; text-wrap: balance">{{r.title}}</span><span dir="auto" style="display: block; width: 100%; text-align: start; font-size: 15px; line-height: 1.75; color: var(--ink2); overflow-wrap: anywhere; font-family: 'Manrope', var(--arfont), system-ui, sans-serif"><template v-for="p in r.parts"><span :style="p.st">{{p.t}}</span></template></span></button></template>
+</div>
+</section>
+</template>
+
 <template v-if="isProgress">
 <section class="rise" style="display: flex; flex-direction: column; gap: 18px">
 <div style="display: flex; flex-direction: column; gap: 8px; max-width: 560px">
@@ -1545,6 +1564,7 @@ Recommencer
 <nav aria-label="Navigation principale" style="position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; background: var(--surface); border-top: 1px solid var(--line); padding: 0 env(safe-area-inset-right, 0px) max(env(safe-area-inset-bottom, 0px), 6px) env(safe-area-inset-left, 0px); box-shadow: 0 -6px 20px rgba(0,0,0,0.06)">
 <div style="max-width: 760px; margin: 0 auto; display: flex; align-items: stretch">
 <button @click="goHome" aria-label="Accueil" :aria-current="tabHomeCur" :style="`flex: 1; min-width: 0; min-height: 58px; padding: 6px 4px; border: 0; background: transparent; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-size: 11.5px; font-weight: 800; ${tabHome}`"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5"></path><path d="M5 9.5V20h14V9.5"></path><path d="M10 20v-6h4v6"></path></svg><span>Accueil</span></button>
+<button @click="goSearch" aria-label="Recherche" :aria-current="tabSearchCur" :style="`flex: 1; min-width: 0; min-height: 58px; padding: 6px 4px; border: 0; background: transparent; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-size: 11.5px; font-weight: 800; ${tabSearch}`"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.6-3.6"></path></svg><span>Recherche</span></button>
 <button @click="goProgress" aria-label="Stats" :aria-current="tabStatsCur" :style="`flex: 1; min-width: 0; min-height: 58px; padding: 6px 4px; border: 0; background: transparent; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-size: 11.5px; font-weight: 800; ${tabStats}`"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10"></path><path d="M10 20V4"></path><path d="M16 20v-7"></path><path d="M22 20H2"></path></svg><span>Stats</span></button>
 <button @click="shareOpen" aria-label="Partager" aria-haspopup="dialog" :aria-expanded="shareExpanded" :style="`flex: 1; min-width: 0; min-height: 58px; padding: 6px 4px; border: 0; background: transparent; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-size: 11.5px; font-weight: 800; ${tabShare}`"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"></path><path d="M8 7l4-4 4 4"></path><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"></path></svg><span>Partager</span></button>
 <button @click="goSettings" aria-label="Paramètres" :aria-current="tabSettingsCur" :style="`flex: 1; min-width: 0; min-height: 58px; padding: 6px 4px; border: 0; background: transparent; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-size: 11.5px; font-weight: 800; ${tabSettings}`"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg><span>Paramètres</span></button>
@@ -2882,7 +2902,7 @@ class Component extends DCLogic {
       screen: 'home', mode: null, topic: 'signes', queue: [], idx: 0, answered: false, picked: null,
       fills: [], checked: false, score: 0, mistakes: [],
       best: { qcm: null, vf: null, trous: null, tqcm: null, tvf: null, ttrous: null }, hide: false, revealed: {},
-      prog: { q: {}, hist: [] }, weeksDone: {}, chap: 'a1', level: '4A', theme: 'auto', arScale: 1, arFont: 'hafs', sysDark: false, confirmReset: false, installed: false, appVersion: '', toast: '', importPending: null, importError: '', shareMenu: false
+      prog: { q: {}, hist: [] }, weeksDone: {}, chap: 'a1', level: '4A', theme: 'auto', arScale: 1, arFont: 'hafs', sysDark: false, confirmReset: false, installed: false, appVersion: '', toast: '', importPending: null, importError: '', shareMenu: false, srQ: ''
     }, this.state || {});
   }
 
@@ -3059,6 +3079,199 @@ class Component extends DCLogic {
       }
     } catch (e) {}
     copy();
+  }
+
+  // ——— Recherche dans les fiches (français et arabe) ———
+  // Texte lisible : marqueurs [[x:…]] et **…** retirés, isolations bidi supprimées.
+  srClean(t) {
+    return String(t == null ? '' : t)
+      .replace(/\[\[W:[^\]]*\]\]/g, '')
+      .replace(/\[\[[A-Za-z]:([^\]]*)\]\]/g, '$1')
+      .replace(/\*\*/g, '')
+      .replace(/[⁦-⁩‌-‏]/g, '')
+      .replace(/\s+/g, ' ').trim();
+  }
+
+  // Forme de comparaison d’un caractère : sans accents ni voyelles arabes, en minuscules, alif et yâ unifiés.
+  srNormChar(ch) {
+    const c = ch.charCodeAt(0);
+    if (c < 128) return ch === '-' ? ' ' : ch.toLowerCase();
+    const x = ch.normalize('NFD').replace(/[̀-ͯؐ-ًؚ-ٰٟۖ-ۭ࣓-ࣿـ]/g, '').toLowerCase();
+    return x.replace(/[ٱآأإٲٳ]/g, 'ا').replace(/ى/g, 'ي').replace(/ة/g, 'ه')
+      .replace(/[’ʼ‘´]/g, "'").replace(/œ/g, 'oe').replace(/æ/g, 'ae').replace(/[   ‑]/g, ' ');
+  }
+
+  // Texte normalisé ; avec withMap, la position d’origine de chaque caractère (pour surligner l’extrait).
+  srNorm(t, withMap) {
+    const s = String(t == null ? '' : t); let out = ''; const map = [];
+    for (let i = 0; i < s.length; i++) {
+      const n = this.srNormChar(s[i]);
+      out += n;
+      if (withMap) for (let k = 0; k < n.length; k++) map.push(i);
+    }
+    return withMap ? { out, map } : out;
+  }
+
+  // Index construit une seule fois : une entrée par partie de fiche, avec l’endroit où l’ouvrir.
+  srIndex() {
+    if (this._si) return this._si;
+    const D = this.D(); const out = [];
+    const SKIP = { id: 1, chipBg: 1, chipFg: 1, tone: 1, signal: 1, group: 1, scale: 1, img: 1, go: 1, start: 1, verdictStyle: 1 };
+    const texts = (o, acc) => {
+      if (o == null) return acc;
+      if (typeof o === 'string') {
+        if (/^(var\(|#[0-9a-f]{3,8}$|s\d+v\d|data:|assets\/)/i.test(o) || /\.(webp|png|svg|jpe?g)$/i.test(o)) return acc;
+        const c = this.srClean(o); if (c) acc.push(c); return acc;
+      }
+      if (Array.isArray(o)) { o.forEach((x) => texts(x, acc)); return acc; }
+      if (typeof o === 'object') Object.keys(o).forEach((k) => { if (!SKIP[k]) texts(o[k], acc); });
+      return acc;
+    };
+    const add = (lvl, where, title, go, obj) => {
+      const segs = texts(obj, []); if (!segs.length) return;
+      const t = this.srClean(title);
+      out.push({ lvl, where, title: t, go, segs, norms: segs.map((x) => this.srNorm(x)), tnorm: this.srNorm(t) });
+    };
+    const chapter = (lvl, where, title, screen, prefix, obj, chap) => {
+      (obj.sections || []).forEach((sec) => add(lvl, where, sec.title || title, { screen, chap, level: lvl, anchor: prefix + sec.num }, sec));
+      const rest = Object.assign({}, obj); delete rest.sections;
+      add(lvl, where, title, { screen, chap, level: lvl, anchor: '' }, rest);
+    };
+    Object.keys(D.CH4A).forEach((k) => chapter('4A', '4A · Chapitre ' + D.CH4A[k].num, D.CH4A[k].title, 'learnCh', 'ch-', D.CH4A[k], k));
+    D.COMP4A.forEach((h) => add('4A', 'Le Compagnon · 4A', h.title, { screen: 'learnComp', level: '4A', anchor: 'comp-' + h.num }, h));
+    chapter('4B', '4B · Chapitre 8 · Assimilations', 'Les différents types d’assimilations', 'learnId', 'id-', D.ID);
+    chapter('4B', '4B · Chapitre 10 · Prolongations', 'Les prolongations', 'learnMd', 'md-', D.MD);
+    D.COMP4B.forEach((h) => add('4B', 'Le Compagnon · 4B', h.title, { screen: 'learnComp', level: '4B', anchor: 'comp-' + h.num }, h));
+    chapter('4C', '4C · Chapitre 9 · Lettre Ra', 'Les règles de la lettre Ra', 'learnRa', 'ra-', D.RA);
+    D.types.forEach((ty) => add('4C', '4C · Chapitre 11 · Types d’arrêts', ty.name, { screen: 'learnTypes', level: '4C', anchor: '' }, ty));
+    D.signs.forEach((sg) => add('4C', '4C · Chapitre 15 · Signes', sg.nom + ' · ' + sg.designation, { screen: 'learn', level: '4C', anchor: '' }, sg));
+    Object.keys(D.CHS).filter((k) => !D.CH4A[k]).forEach((k) => chapter('4C', '4C · Chapitre ' + D.CHS[k].num, D.CHS[k].title, 'learnCh', 'ch-', D.CHS[k], k));
+    D.COMP.forEach((h) => add('4C', 'Le Compagnon · 4C', h.title, { screen: 'learnComp', level: '4C', anchor: 'comp-' + h.num }, h));
+    this._si = out;
+    return out;
+  }
+
+  // Forme « approchée » des translittérations (Qalqalah = Qolqolah, ghunna = Ghounnah, tajwid = tadjwîd) :
+  // o, ou, u → a ; y → i ; dj, dz → j, z ; dh, zh → z ; h final après voyelle et lettres doublées ignorés.
+  srLoose(o, map) {
+    let out = ''; const m = [];
+    const isL = (c) => c >= 'a' && c <= 'z';
+    for (let i = 0; i < o.length; i++) {
+      const at = i; let c = o[i]; const nx = o[i + 1] || '';
+      if (c === "'") continue;
+      if (c === 'o' && nx === 'u') { c = 'a'; i++; }
+      else if (c === 'o' || c === 'u') c = 'a';
+      else if (c === 'y') c = 'i';
+      else if (c === 'd' && (nx === 'j' || nx === 'z')) continue;
+      else if ((c === 'd' || c === 'z') && nx === 'h') { c = 'z'; i++; }
+      const prev = out[out.length - 1] || '';
+      if (c === 'h' && 'aei'.indexOf(prev) >= 0 && !isL(o[i + 1] || '')) continue;
+      if (isL(c) && c === prev) continue;
+      out += c; m.push(map ? map[at] : at);
+    }
+    return { out, map: m };
+  }
+
+  // Résultats : la phrase exacte passe en premier, sinon tous les mots doivent être présents.
+  // Si rien n’est trouvé, une seconde passe tolère les variantes d’écriture des mots translittérés.
+  srRun(q) {
+    const nq = this.srNorm(this.srClean(q)).replace(/\s+/g, ' ').trim();
+    if (this._src && this._src.nq === nq) return this._src;
+    const lvl = this.S().level; const idx = nq.length >= 2 ? this.srIndex() : [];
+    const pass = (key, tkey, qq) => {
+      const terms = qq.split(' ').filter((x) => x.length > 0); const res = [];
+      const esc = (x) => x.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const word = new RegExp('(^|[^0-9a-zÀ-ɏء-ي])' + esc(qq) + '($|[^0-9a-zÀ-ɏء-ي])');
+      const short = qq.length <= 2;
+      idx.forEach((e, i) => {
+        const all = e[tkey] + ' \n ' + e[key].join(' \n ');
+        const phrase = all.indexOf(qq) >= 0;
+        if (!phrase && (short || !terms.every((t) => all.indexOf(t) >= 0))) return;
+        const whole = phrase && word.test(all);
+        if (short && !whole) return;
+        res.push({ e, i, score: (phrase ? 10 : 0) + (whole ? 5 : 0) + (e[tkey].indexOf(qq) >= 0 ? 20 : 0) + (e.lvl === lvl ? 3 : 0) });
+      });
+      res.sort((a, b) => b.score - a.score || a.i - b.i);
+      return { q: qq, terms, res };
+    };
+    let r = pass('norms', 'tnorm', nq); let loose = false;
+    if (!r.res.length && /[a-z]/.test(nq)) {
+      idx.forEach((e) => { if (!e.lnorms) { e.lnorms = e.norms.map((n) => this.srLoose(n).out); e.ltnorm = this.srLoose(e.tnorm).out; } });
+      const lq = this.srLoose(nq).out.replace(/\s+/g, ' ').trim();
+      if (lq.length >= 3) { const r2 = pass('lnorms', 'ltnorm', lq); if (r2.res.length) { r = r2; loose = true; } }
+    }
+    this._src = { nq, q: r.q, terms: r.terms, res: r.res, loose };
+    return this._src;
+  }
+
+  // Extrait autour du passage trouvé, découpé en morceaux pour le surlignage,
+  // avec le texte qui servira à retrouver ce passage dans la fiche.
+  srSnippet(e, R) {
+    const norms = R.loose ? e.lnorms : e.norms;
+    const find = (t) => norms.findIndex((n, k) => n.indexOf(t) >= 0 && e.segs[k] !== e.title);
+    let si = find(R.q); let nd = R.q;
+    if (si < 0) for (const t of R.terms) { si = find(t); if (si >= 0) { nd = t; break; } }
+    if (si < 0) {
+      let k = e.segs.findIndex((x) => x !== e.title && x.length >= 30);
+      if (k < 0) k = e.segs.findIndex((x) => x !== e.title);
+      const r = k >= 0 ? e.segs[k] : '';
+      return { needle: this.srNorm(e.title), ctx: '', parts: r ? [{ t: r.length > 150 ? r.slice(0, 150) + '…' : r, hl: false }] : [] };
+    }
+    const raw = e.segs[si]; let nm = this.srNorm(raw, true);
+    if (R.loose) nm = this.srLoose(nm.out, nm.map);
+    const p = nm.out.indexOf(nd);
+    const a = nm.map[p]; let b = nm.map[p + nd.length - 1] + 1;
+    while (b < raw.length && this.srNormChar(raw[b]) === '') b++;
+    if (R.loose) while (b < raw.length && /[a-zÀ-ɏ]/i.test(raw[b])) b++;
+    let from = Math.max(0, a - 70); let to = Math.min(raw.length, b + 90);
+    if (from > 0) { const sp = raw.indexOf(' ', from); if (sp > -1 && sp < a) from = sp + 1; }
+    if (to < raw.length) { const sp = raw.lastIndexOf(' ', to); if (sp > b) to = sp; }
+    let cs = Math.max(0, a - 30); let ce = Math.min(raw.length, b + 30);
+    if (cs > 0) { const sp = raw.indexOf(' ', cs); if (sp > -1 && sp < a) cs = sp + 1; }
+    if (ce < raw.length) { const sp = raw.lastIndexOf(' ', ce); if (sp >= b) ce = sp; }
+    const flat = (t) => this.srNorm(t).replace(/\s+/g, ' ').trim();
+    return { needle: flat(raw.slice(a, b)), ctx: flat(raw.slice(cs, ce)), parts: [
+      { t: (from > 0 ? '…' : '') + raw.slice(from, a), hl: false },
+      { t: raw.slice(a, b), hl: true },
+      { t: raw.slice(b, to) + (to < raw.length ? '…' : ''), hl: false }
+    ] };
+  }
+
+  openSearch() {
+    this.go('search');
+    setTimeout(() => { try { const el = document.getElementById('search-q'); if (el) el.focus(); } catch (e) {} }, 120);
+  }
+
+  // Ouvre la fiche du résultat, puis fait défiler jusqu’au passage trouvé et le met en évidence.
+  srOpen(e, needle, ctx) {
+    const g = e.go; const s = this.S();
+    if (g.level && g.level !== s.level) this.setLevel(g.level);
+    if (g.chap) this.setState({ chap: g.chap });
+    this.go(g.screen);
+    setTimeout(() => this.srFocus(g.anchor, needle, ctx), 280);
+  }
+
+  srFocus(anchor, needle, ctx) {
+    try {
+      const root = (anchor && document.getElementById(anchor)) || document.querySelector('main');
+      if (!root) return;
+      let look = '';
+      const has = (el) => this.srNorm(this.srClean(el.textContent)).replace(/\s+/g, ' ').indexOf(look) >= 0;
+      [ctx, needle].some((x) => { look = x || ''; return look && has(root); });
+      let target = null;
+      if (look && has(root)) {
+        target = root;
+        for (let guard = 0; guard < 40; guard++) {
+          const kid = Array.prototype.find.call(target.children, (c) => c.offsetParent !== null && has(c));
+          if (!kid) break;
+          target = kid;
+        }
+        while (target !== root && target.getBoundingClientRect().height < 28 && target.parentElement) target = target.parentElement;
+      }
+      const el = target || root;
+      el.scrollIntoView({ behavior: 'smooth', block: target ? 'center' : 'start' });
+      if (target && el.animate) el.animate([{ backgroundColor: 'rgba(242, 196, 107, 0.55)', boxShadow: '0 0 0 6px rgba(242, 196, 107, 0.55)' }, { backgroundColor: 'rgba(242, 196, 107, 0)', boxShadow: '0 0 0 6px rgba(242, 196, 107, 0)' }], { duration: 2600, easing: 'ease-out', delay: 350 });
+    } catch (err) {}
   }
 
   saveDisp(theme, arScale, arFont) {
@@ -3615,6 +3828,13 @@ class Component extends DCLogic {
       review: () => this.start('review', c.tp)
     }));
     const pad2 = (x) => String(x).padStart(2, '0');
+    const srOn = screen === 'search';
+    const srR = srOn ? this.srRun(s.srQ || '') : { nq: '', terms: [], res: [] };
+    const SR_MAX = 40;
+    const srAr = /([\u0600-\u06ff\u0750-\u077f\u08a0-\u08ff\ufb50-\ufdff\ufe70-\ufeff](?:[\u0600-\u06ff\u0750-\u077f\u08a0-\u08ff\ufb50-\ufdff\ufe70-\ufeff\s]*[\u0600-\u06ff\u0750-\u077f\u08a0-\u08ff\ufb50-\ufdff\ufe70-\ufeff])?)/;
+    const srHl = (t) => 'background: var(--amber-bg); color: var(--amber-fg); border-radius: 4px; box-shadow: 0 0 0 2px var(--amber-bg);' + (/[\u0600-\u06ff]/.test(t) ? '' : ' font-weight: 800;');
+    const srRes = srR.res.slice(0, SR_MAX).map((r) => { const sn = this.srSnippet(r.e, srR); return { where: r.e.where, title: r.e.title, parts: [].concat(...sn.parts.map((p) => p.t.split(srAr).map((t, k) => ({ t, st: (p.hl ? srHl(p.t) : '') + (k % 2 ? ' font-family: var(--arfont); font-size: calc(1.3em * var(--ar));' : '') })).filter((x) => x.t))), open: () => this.srOpen(r.e, sn.needle, sn.ctx) }; });
+    const srN = srR.res.length;
     const topicNames = { ra: 'Lettre Ra', types: 'Types d’arrêts', signes: 'Signes', comp: 'Le Compagnon', comp4b: 'Le Compagnon 4B', comp4a: 'Le Compagnon 4A', a1: '4A · Chapitre 1', a2: '4A · Chapitre 2', a3: '4A · Chapitre 3', a4: '4A · Chapitre 4', a5: '4A · Chapitre 5', a6: '4A · Chapitre 6', a7: '4A · Chapitre 7', c15: '4C · Chapitre 15 (suite)', idgham: 'Assimilations', madd: 'Prolongations' };
     const histRows = (s.prog.hist || []).slice(0, 12).map((h) => {
       const d = new Date(h.t);
@@ -3975,6 +4195,13 @@ class Component extends DCLogic {
       tabHome: 'color: ' + (screen === 'home' ? 'var(--accent)' : 'var(--muted)') + ';', tabHomeCur: screen === 'home' ? 'page' : 'false',
       tabStats: 'color: ' + (screen === 'progress' ? 'var(--accent)' : 'var(--muted)') + ';', tabStatsCur: screen === 'progress' ? 'page' : 'false',
       tabSettings: 'color: ' + (screen === 'settings' ? 'var(--accent)' : 'var(--muted)') + ';', tabSettingsCur: screen === 'settings' ? 'page' : 'false',
+      isSearch: screen === 'search', goSearch: () => this.openSearch(),
+      tabSearch: 'color: ' + (screen === 'search' ? 'var(--accent)' : 'var(--muted)') + ';', tabSearchCur: screen === 'search' ? 'page' : 'false',
+      srQ: s.srQ || '', srInput: (e) => this.setState({ srQ: e && e.target ? String(e.target.value || '').slice(0, 120) : '' }),
+      srKey: (e) => { if (e && e.key === 'Enter' && e.target && e.target.blur) e.target.blur(); },
+      srRes, srHint: srR.nq.length < 2,
+      srStatus: srR.nq.length < 2 ? '' : (srN ? (srR.loose ? 'Aucun résultat exact · ' : '') + (srN > SR_MAX ? srN + (srR.loose ? ' résultats approchés' : ' résultats') + ' · les ' + SR_MAX + ' plus pertinents' : plural(srN, srR.loose ? 'résultat approché' : 'résultat', srR.loose ? 'résultats approchés' : 'résultats')) : 'Aucun résultat pour « ' + String(s.srQ || '').trim() + ' ».'),
+      srEx: ['Ghounnah', 'Tafkhîm', 'Istikhâra', 'إدغام', 'الرحمن'].map((w) => ({ label: w, pick: () => this.setState({ srQ: w }) })),
       tabShare: s.shareMenu ? 'color: var(--accent);' : 'color: var(--muted);', shareMenuShow: !!s.shareMenu, shareExpanded: s.shareMenu ? 'true' : 'false',
       shareOpen: () => this.openShare(), shareClose: () => this.closeShare(), shareAppDo: () => { this.closeShare(true); this.shareApp(); },
       shareProgSub: 'Résumé de tes résultats · niveau ' + s.level,
@@ -3998,7 +4225,7 @@ class Component extends DCLogic {
       startCMix: () => this.start('mix', CTP),
       progWeeks, progProgramme, lvl, isProgramme: screen === 'programme', goProgramme: () => this.go('programme'),
       isHome: screen === 'home', isLearn: screen === 'learn', isLearnTypes: screen === 'learnTypes', isLearnRa: screen === 'learnRa', isInstall: screen === 'install', isInstalled: !!s.installed, showVersion: screen === 'home' && !!s.appVersion, appVersion: s.appVersion, isAbout: screen === 'about', isPrivacy: screen === 'privacy',
-      showQuit: inSession || screen === 'learn' || screen === 'learnTypes' || screen === 'learnRa' || screen === 'learnComp' || screen === 'learnId' || screen === 'learnMd' || screen === 'learnCh' || screen === 'progress' || screen === 'settings' || screen === 'programme' || screen === 'install' || screen === 'about' || screen === 'privacy', isQcm, isVf, isTrous,
+      showQuit: inSession || screen === 'learn' || screen === 'learnTypes' || screen === 'learnRa' || screen === 'learnComp' || screen === 'learnId' || screen === 'learnMd' || screen === 'learnCh' || screen === 'progress' || screen === 'settings' || screen === 'programme' || screen === 'install' || screen === 'about' || screen === 'privacy' || screen === 'search', isQcm, isVf, isTrous,
       isCard: isQcm || isVf, isResult: screen === 'result', inSession,
       modeLabel: (labels[screen] || '') + (inSession ? ' · ' + (topicLabels[s.topic] || '') : ''), qNum: s.idx + 1, total: s.queue.length, score: s.score,
       progressNum, progressPct: progressNum + '%',
