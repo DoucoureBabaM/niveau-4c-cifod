@@ -7,12 +7,14 @@
 #   'unsafe-eval' est nécessaire à petite-vue (expressions des gabarits),
 #   'unsafe-inline' au script principal et aux styles intégrés.
 # - frame-ancestors / X-Frame-Options : interdit l'affichage dans le cadre d'un autre site.
+# - Section Coran : texte et minutage chez quran.com (connect-src), audio des récitateurs (media-src),
+#   micro autorisé pour ce site seulement (enregistrement de sa propre récitation).
 [[headers]]
   for = "/*"
   [headers.values]
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data:; connect-src 'self'; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data:; connect-src 'self' https://api.quran.com https://api.qurancdn.com; media-src 'self' blob: https://download.quranicaudio.com https://*.quranicaudio.com https://verses.quran.com https://*.qurancdn.com; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
-    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()"
+    Permissions-Policy = "camera=(), microphone=(self), geolocation=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()"
     Strict-Transport-Security = "max-age=31536000"

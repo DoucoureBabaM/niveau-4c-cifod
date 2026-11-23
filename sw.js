@@ -1,6 +1,6 @@
 // Niveau 4C — cache pour une ouverture rapide et hors ligne.
 // Change le numéro de CACHE à chaque nouvelle version : les téléphones affichent alors « Nouvelle version disponible ».
-const CACHE = 'niveau4c-v214-2026-11-23';
+const CACHE = 'niveau4c-v215-2026-11-23';
 const PRECACHE = ['./', 'index.html', 'manifest.webmanifest', 'assets/apple-touch-icon.png', 'assets/arpunct.woff2', 'assets/cifod_cercle.webp', 'assets/cifod_logo.webp', 'assets/cifod_logo_prog.webp', 'assets/compagnon_cercle.webp', 'assets/dots.svg', 'assets/facebook_logo.webp', 'assets/fin-de-verset.svg', 'assets/hizb.svg', 'assets/icon-192.png', 'assets/icon-512.png', 'assets/icon-maskable-512.png', 'assets/jim.svg', 'assets/kfgqpc_hafs.woff2', 'assets/fonts/alegreya-latin-400-italic.woff2', 'assets/fonts/alegreya-latin-400-normal.woff2', 'assets/fonts/alegreya-latin-500-italic.woff2', 'assets/fonts/alegreya-latin-500-normal.woff2', 'assets/fonts/alegreya-latin-700-italic.woff2', 'assets/fonts/alegreya-latin-700-normal.woff2', 'assets/fonts/alegreya-latin-800-normal.woff2', 'assets/fonts/alegreya-latin-ext-400-italic.woff2', 'assets/fonts/alegreya-latin-ext-400-normal.woff2', 'assets/fonts/alegreya-latin-ext-500-italic.woff2', 'assets/fonts/alegreya-latin-ext-500-normal.woff2', 'assets/fonts/alegreya-latin-ext-700-italic.woff2', 'assets/fonts/alegreya-latin-ext-700-normal.woff2', 'assets/fonts/alegreya-latin-ext-800-normal.woff2', 'assets/fonts/alegreya-sans-latin-500-normal.woff2', 'assets/fonts/alegreya-sans-latin-700-normal.woff2', 'assets/fonts/alegreya-sans-latin-800-normal.woff2', 'assets/fonts/alegreya-sans-latin-ext-500-normal.woff2', 'assets/fonts/alegreya-sans-latin-ext-700-normal.woff2', 'assets/fonts/alegreya-sans-latin-ext-800-normal.woff2', 'assets/la.svg', 'assets/logo_android.webp', 'assets/logo_apple.webp', 'assets/logo_gmail.webp', 'assets/logo_google_maps.webp', 'assets/logo_psalmodie.svg', 'assets/logo_web_globe.webp', 'assets/logo_tiktok.webp', 'assets/logo_whatsapp.webp', 'assets/logo_youtube.webp', 'assets/mim.svg', 'assets/petite-vue.iife.js', 'assets/qala.svg', 'assets/sajda.svg', 'assets/sala.svg', 'assets/sin.svg', 'assets/viatique_cercle.webp'];
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(PRECACHE)));
@@ -13,6 +13,8 @@ self.addEventListener('activate', (e) => {
 });
 self.addEventListener('fetch', (e) => {
   if (e.request.method !== 'GET') return;
+  // Seuls les fichiers du site sont mis en cache (pas l’audio ni les données de quran.com).
+  if (new URL(e.request.url).origin !== self.location.origin) return;
   e.respondWith(caches.open(CACHE).then((cache) => cache.match(e.request).then((cached) => {
     const network = fetch(e.request).then((res) => {
       if (res && (res.ok || res.type === 'opaque')) cache.put(e.request, res.clone());
