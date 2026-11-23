@@ -4078,8 +4078,8 @@ class Component extends DCLogic {
     const qRecList = this.qRecs(); const qRecId = s.qRec || 12;
     const qRecCur = qRecList.find((r) => r[0] === qRecId) || qRecList[0];
     const qBusy = s.qMePlaying ? !!s.qMeOn : (s.qAudio === 'playing' || s.qAudio === 'loading');
-    // Le texte de Tanzil s’affiche mal avec la police du Mushaf de Médine (signe du alif muet) : Amiri Quran la remplace ici.
-    const qFontSt = "font-family: 'ArPunct', " + ((s.arFont || 'hafs') === 'hafs' ? "'Amiri Quran'" : 'var(--arfont)') + ", 'Amiri Quran', serif;";
+    // Le texte de Tanzil s’affiche mal avec la police du Mushaf de Médine (signe du alif muet) : Scheherazade, conçue pour le texte coranique, la remplace ici.
+    const qFontSt = "font-family: 'ArPunct', " + ((s.arFont || 'hafs') === 'hafs' ? "'Scheherazade New'" : 'var(--arfont)') + ", 'Scheherazade New', 'Amiri Quran', serif;";
     const qLegend = [['silent', 'Lettres non prononcées'], ['ghunna', 'Ghounnah, ikhfâ’, iqlâb, idghâm'], ['qalqala', 'Qolqolah'], ['madd2', 'Prolongation de 2 temps'],
       ['madd246', 'Prolongation permise : 2, 4 ou 6 temps'], ['maddmt', 'Prolongation obligatoire : 4 ou 5 temps'], ['madd6', 'Prolongation nécessaire : 6 temps']]
       .map(([k, label]) => ({ label, dot: 'background: var(--tj-' + k + ');' }));
