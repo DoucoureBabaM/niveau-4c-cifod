@@ -3129,7 +3129,7 @@ class Component extends DCLogic {
     this.qRecLoad(n);
     if (this._qs[n]) { after(); this.qPrefetch(); return; }
     this.setState({ qLoading: true });
-    this.qGet(n).then((d) => { this._qs[n] = d; this.setState({ qLoading: false }); after(); this.qPrefetch(); })
+    this.qGet(n).then((d) => { this._qs[n] = this.qNoBasmala(n, d); this.setState({ qLoading: false }); after(); this.qPrefetch(); })
       .catch(() => this.setState({ qLoading: false, qError: 'Impossible de charger cette sourate.' }));
   }
 
@@ -3466,6 +3466,18 @@ class Component extends DCLogic {
 
   qRecCount() {
     this.qDbDo('readonly', (st) => st.count()).then((n) => this.setState({ qRecTotal: n || 0 })).catch(() => {});
+  }
+
+  // Tanzil place la basmalah au début du premier verset de chaque sourate (sauf Al-Fâtiha et At-Tawbah) :
+  // elle est affichée à part, au-dessus de la sourate, et ne fait donc pas partie du verset 1.
+  qNoBasmala(n, d) {
+    if (n === 1 || n === 9 || !d || !d.v || !d.v[0]) return d;
+    const v = d.v[0]; const end = 'ٱلرَّحِيمِ ';
+    const k = String(v[0]).indexOf(end);
+    if (v[0].charAt(0) !== 'ب' || k < 0 || k > 45) return d;
+    const L = k + end.length;
+    const ann = (v[2] || []).filter((a) => a[1] > L).map((a) => [Math.max(0, a[0] - L), a[1] - L, a[2]]);
+    return Object.assign({}, d, { v: [[v[0].slice(L), v[1], ann]].concat(d.v.slice(1)) });
   }
 
   qGet(what) {
