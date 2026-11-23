@@ -3220,10 +3220,12 @@ class Component extends DCLogic {
       for (let i = 0; i < keys.length; i++) { const t = info.vt[keys[i]]; if (ms >= t.from && ms < t.to) { v = +keys[i]; break; } }
     }
     const t = info.vt[this._qV];
-    if (this._qMode === 'verse' && t && ms >= t.to - 40) {
+    // En mode « Comparer », on s’arrête à la fin du dernier mot (sans le silence qui suit le verset).
+    const tEnd = t ? (this._qThenMe === this._qV && t.seg.length ? Math.min(t.to - 40, t.seg[t.seg.length - 1][2] + 350) : t.to - 40) : 0;
+    if (this._qMode === 'verse' && t && ms >= tEnd) {
       if (s.qRepeat && this._qThenMe == null) { a.currentTime = t.from / 1000; return; }
       a.pause(); this.qMark(this._qV, 0);
-      if (this._qThenMe === this._qV) { const mv = this._qThenMe; this._qThenMe = null; this.qMePlay(mv); }
+      if (this._qThenMe === this._qV) { const mv = this._qThenMe; this._qThenMe = null; (this._meReadyP || Promise.resolve()).then(() => this.qMeGo(mv)); }
       return;
     }
     if (this._qMode === 'surah' && s.qRepeat && t && v !== this._qV) { a.currentTime = t.from / 1000; return; }
@@ -3364,7 +3366,7 @@ class Component extends DCLogic {
         const n = this.S().qSurah;
         this.setState({ qRecording: 0, qRecSec: 0 });
         if (!blob.size) return;
-        this.qDbDo('readwrite', (st) => st.put({ b: blob, d: Date.now() }, n + ':' + v)).then(() => {
+        this.qVoiceStart(blob).then((o) => this.qDbDo('readwrite', (st) => st.put({ b: blob, d: Date.now(), o }, n + ':' + v))).then(() => {
           this.flash('Ta récitation du verset ' + v + ' est enregistrée sur cet appareil.'); this.qRecLoad(n);
         }).catch(() => this.flash('Impossible d’enregistrer sur cet appareil.'));
       };
@@ -3387,25 +3389,64 @@ class Component extends DCLogic {
     if (this.S().qMePlaying || this.S().qMeOn) this.setState({ qMePlaying: 0, qMeOn: false });
   }
 
+  // Prépare ma récitation sans la lancer : fichier, et début de la voix après le silence initial.
+  qMeLoad(v) {
+    const n = this.S().qSurah; const me = this.qMeAud();
+    return this.qDbDo('readonly', (st) => st.get(n + ':' + v)).then((r) => {
+      if (!r || !r.b) throw new Error('vide');
+      const off = typeof r.o === 'number' ? Promise.resolve(r.o) : this.qVoiceStart(r.b);
+      return off.then((o) => {
+        if (this._meUrl) { try { URL.revokeObjectURL(this._meUrl); } catch (e) {} }
+        this._meUrl = URL.createObjectURL(r.b); me.src = this._meUrl; this._meOff = o || 0;
+        try { me.load(); } catch (e) {}
+        return new Promise((ok) => { if (me.readyState >= 1) ok(); else { me.addEventListener('loadedmetadata', () => ok(), { once: true }); setTimeout(ok, 1500); } });
+      });
+    });
+  }
+
+  qMeGo(v) {
+    const me = this.qMeAud();
+    try { me.currentTime = this._meOff || 0; } catch (e) {}
+    this.setState({ qMePlaying: v, qPlayerOn: true, qPlayV: v, qAudio: 'paused' });
+    const p = me.play(); if (p && p.catch) p.catch(() => this.setState({ qMePlaying: 0, qAudioMsg: 'Touche « Ma voix » pour réécouter.' }));
+  }
+
   qMePlay(v) {
-    const n = this.S().qSurah; this.qStopAudio(false); this.qMeStop();
+    this.qStopAudio(false); this.qMeStop();
     const me = this.qMeAud();
     // Le lecteur est « débloqué » dans le geste (iPhone), puis reçoit l’enregistrement.
     try { const u = me.play(); if (u && u.catch) u.catch(() => {}); } catch (e) {}
-    this.qDbDo('readonly', (st) => st.get(n + ':' + v)).then((r) => {
-      if (!r || !r.b) { this.flash('Aucun enregistrement pour ce verset.'); return; }
-      this._meUrl = URL.createObjectURL(r.b); me.src = this._meUrl;
-      this.setState({ qMePlaying: v, qPlayerOn: true, qPlayV: v, qAudio: 'paused' });
-      const p = me.play(); if (p && p.catch) p.catch(() => this.setState({ qMePlaying: 0, qAudioMsg: 'Touche « Ma voix » pour réécouter.' }));
-    }).catch(() => this.flash('Impossible de lire l’enregistrement.'));
+    this.qMeLoad(v).then(() => this.qMeGo(v)).catch((e) => this.flash(e && e.message === 'vide' ? 'Aucun enregistrement pour ce verset.' : 'Impossible de lire l’enregistrement.'));
   }
 
-  // Comparer : le récitateur lit le verset, puis ta voix suit automatiquement.
+  // Comparer : le récitateur lit le verset, puis ta voix suit aussitôt (préparée pendant la récitation).
   qCompare(v) {
     this.qMeStop();
     const me = this.qMeAud(); try { if (!me.getAttribute('src')) { const u = me.play(); if (u && u.catch) u.catch(() => {}); } } catch (e) {}
     this.qPlay(v, 'verse');
     this._qThenMe = v;
+    this._meReadyP = this.qMeLoad(v).catch(() => null);
+  }
+
+  // Début de la voix : saute le silence au début de l’enregistrement.
+  qVoiceStart(blob) {
+    try {
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC || !blob || !blob.arrayBuffer) return Promise.resolve(0);
+      return blob.arrayBuffer().then((buf) => new Promise((ok) => {
+        const ctx = new AC(); let fin = false;
+        const done = (x) => { if (fin) return; fin = true; try { ctx.close(); } catch (e) {} ok(x); };
+        const onBuf = (ab) => {
+          const d = ab.getChannelData(0); let peak = 0;
+          for (let i = 0; i < d.length; i += 32) { const a = Math.abs(d[i]); if (a > peak) peak = a; }
+          const th = Math.max(0.02, peak * 0.12); let idx = 0;
+          for (let i = 0; i < d.length; i += 32) { if (Math.abs(d[i]) > th) { idx = i; break; } }
+          done(Math.max(0, idx / ab.sampleRate - 0.15));
+        };
+        try { const pr = ctx.decodeAudioData(buf, onBuf, () => done(0)); if (pr && pr.catch) pr.catch(() => done(0)); } catch (e) { done(0); }
+        setTimeout(() => done(0), 4000);
+      })).catch(() => 0);
+    } catch (e) { return Promise.resolve(0); }
   }
 
   qMeAud() {
