@@ -881,7 +881,7 @@ Mode mémorisation
 <template v-for="v in qVerses"><li :id="v.id" :aria-label="v.aria" style="scroll-margin-top: 16px; padding: 16px 0; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 10px">
 <p lang="ar" dir="rtl" :style="`margin: 0; ${qFontSt} font-size: calc(30px * var(--ar, 1)); line-height: 2.25; color: var(--ink); text-align: right`"><template v-for="w in v.words"><span class="qw" :id="w.id"><template v-for="p in w.parts"><span :style="p.st">{{p.t}}</span></template></span>{{w.sp}}</template> <span aria-hidden="true" style="font-family: 'Amiri Quran', serif; color: var(--gold)">{{v.mark}}</span></p>
 <template v-if="v.showTr"><p style="margin: 0; font-size: 17px; line-height: 1.6; color: var(--ink2); text-wrap: pretty"><span style="font-family: 'Alegreya Sans', system-ui, sans-serif; font-weight: 800; color: var(--goldtext); margin-right: 6px">{{v.n}}.</span>{{v.fr}}</p></template>
-<div style="display: flex; gap: 8px"><button @click="v.play" :aria-label="v.playAria" style="display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--surface); color: var(--accent); font-size: 14.5px; font-weight: 800"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z" fill="currentColor"></path></svg>Écouter</button></div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px"><button @click="v.play" :aria-label="v.playAria" style="display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--surface); color: var(--accent); font-size: 14.5px; font-weight: 800"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z" fill="currentColor"></path></svg>Écouter</button><button @click="v.rec" :aria-label="v.recAria" :style="`display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1.5px solid ${v.recBorder}; background: ${v.recBg}; color: ${v.recCol}; font-size: 14.5px; font-weight: 800`"><template v-if="v.recOn"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><rect x="1.5" y="1.5" width="9" height="9" rx="1.5" fill="currentColor"></rect></svg></template><template v-if="v.recOff"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="5" fill="currentColor"></circle></svg></template>{{v.recLabel}}</button><template v-if="v.hasRec"><button @click="v.me" :aria-label="v.meAria" style="display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); font-size: 14.5px; font-weight: 800">Ma voix</button><button @click="v.cmp" :aria-label="v.cmpAria" style="display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); font-size: 14.5px; font-weight: 800"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4L3 8l4 4"></path><path d="M3 8h14"></path><path d="M17 20l4-4-4-4"></path><path d="M21 16H7"></path></svg>Comparer</button></template></div>
 
 </li></template>
 </ol>
@@ -889,6 +889,13 @@ Mode mémorisation
 <template v-if="qHasPrev"><button @click="qPrev" style="display: inline-flex; flex-direction: column; align-items: flex-start; gap: 2px; min-height: 56px; padding: 8px 14px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); text-align: left"><span style="font-size: 13px; font-weight: 500; color: var(--muted)">Sourate précédente</span><span style="font-size: 15.5px; font-weight: 800">{{qPrevLabel}}</span></button></template>
 <template v-if="qHasNext"><button @click="qNext" style="margin-left: auto; display: inline-flex; flex-direction: column; align-items: flex-end; gap: 2px; min-height: 56px; padding: 8px 14px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); text-align: right"><span style="font-size: 13px; font-weight: 500; color: var(--muted)">Sourate suivante</span><span style="font-size: 15.5px; font-weight: 800">{{qNextLabel}}</span></button></template>
 </div>
+<template v-if="qRecBanner"><div role="status" aria-live="polite" style="position: fixed; left: 0; right: 0; bottom: calc(66px + env(safe-area-inset-bottom, 0px)); z-index: 39; display: flex; justify-content: center; padding: 0 10px 8px; pointer-events: none">
+<div style="pointer-events: auto; width: 100%; max-width: 560px; display: flex; align-items: center; gap: 12px; padding: 10px 10px 10px 16px; border-radius: 16px; background: var(--surface); border: 1.5px solid var(--rose); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18); font-family: 'Alegreya Sans', system-ui, sans-serif">
+<span aria-hidden="true" style="width: 12px; height: 12px; border-radius: 50%; background: var(--rose); flex-shrink: 0"></span>
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column"><span style="font-size: 15.5px; font-weight: 800; color: var(--ink)">{{qRecBannerLabel}}</span><span style="font-size: 13.5px; font-weight: 500; color: var(--muted)">Récite le verset, puis touche Arrêter</span></span>
+<button @click="qRecStopBtn" style="min-height: 46px; padding: 0 16px; border-radius: 12px; border: 0; background: var(--rose); color: #FFFFFF; font-size: 15px; font-weight: 800">Arrêter</button>
+</div></div><div style="height: 84px" aria-hidden="true"></div></template>
+
 <template v-if="qPlayerOn"><div style="height: 84px" aria-hidden="true"></div>
 <div role="region" aria-label="Lecteur audio" style="position: fixed; left: 0; right: 0; bottom: calc(66px + env(safe-area-inset-bottom, 0px)); z-index: 39; display: flex; justify-content: center; padding: 0 10px 8px; pointer-events: none">
 <div style="pointer-events: auto; width: 100%; max-width: 560px; display: flex; align-items: center; gap: 4px; padding: 8px 8px 8px 14px; border-radius: 16px; background: var(--surface); border: 1px solid var(--line); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18); font-family: 'Alegreya Sans', system-ui, sans-serif">
@@ -979,6 +986,12 @@ Mode mémorisation
 <button class="lift" @click="goAbout" style="width: 100%; text-align: left; display: flex; align-items: center; gap: 14px; min-height: 64px; padding: 10px 4px; border: 0; border-top: 1px solid var(--line); background: transparent; color: var(--ink)"><span :style="`width: 40px; height: 40px; border-radius: 12px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center; flex-shrink: 0`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v6"></path><path d="M12 7.5v.5"></path></svg></span><span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15.5px; font-weight: 800">À propos</span><span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">Pourquoi et comment cette application</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--muted)"><path d="M9 6l6 6-6 6"></path></svg></button>
 <button class="lift" @click="shareApp" style="width: 100%; text-align: left; display: flex; align-items: center; gap: 14px; min-height: 64px; padding: 10px 4px; border: 0; border-top: 1px solid var(--line); background: transparent; color: var(--ink)"><span :style="`width: 40px; height: 40px; border-radius: 12px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center; flex-shrink: 0`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"></path><path d="M8 7l4-4 4 4"></path><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"></path></svg></span><span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15.5px; font-weight: 800">Partager l’application</span><span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">Envoyer le lien à d’autres auditeurs</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--muted)"><path d="M9 6l6 6-6 6"></path></svg></button>
 <button class="lift" @click="goPrivacy" style="width: 100%; text-align: left; display: flex; align-items: center; gap: 14px; min-height: 64px; padding: 10px 4px; border: 0; border-top: 1px solid var(--line); background: transparent; color: var(--ink)"><span :style="`width: 40px; height: 40px; border-radius: 12px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center; flex-shrink: 0`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8.2-7 10-4-1.8-7-5.5-7-10V6l7-3z"></path><path d="M9 12l2.2 2.2L15.5 10"></path></svg></span><span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15.5px; font-weight: 800">Confidentialité</span><span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">Vos données restent sur ce téléphone</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--muted)"><path d="M9 6l6 6-6 6"></path></svg></button>
+</div>
+<div style="background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 14px 20px 16px; display: flex; flex-direction: column; gap: 10px">
+<p style="margin: 0; font-size: 17px; font-weight: 800">Mes récitations enregistrées</p>
+<p style="margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--muted)">{{qRecTotalLabel}} Tes enregistrements restent sur cet appareil&nbsp;: rien n’est envoyé, et seul le dernier enregistrement de chaque verset est gardé.</p>
+<template v-if="qRecIdle"><button @click="qRecClearAsk" style="align-self: flex-start; min-height: 46px; padding: 0 16px; border-radius: 12px; border: 1.5px solid var(--rose); background: var(--surface); color: var(--rose); font-size: 15px; font-weight: 800">Effacer mes enregistrements</button></template>
+<template v-if="qRecAsk"><div role="alertdialog" aria-label="Confirmer l’effacement des enregistrements" style="display: flex; flex-direction: column; gap: 10px; padding: 14px; border-radius: 14px; background: var(--rose-t); border: 1.5px solid var(--rose)"><p style="margin: 0; font-size: 15px; font-weight: 700; line-height: 1.5">Effacer définitivement tes enregistrements&nbsp;? Ils ne pourront pas être récupérés.</p><div style="display: flex; flex-wrap: wrap; gap: 10px"><button @click="qRecClearDo" style="min-height: 46px; padding: 0 18px; border-radius: 12px; border: 0; background: var(--rose); color: #FFFFFF; font-size: 15px; font-weight: 800">Oui, effacer</button><button @click="qRecClearCancel" style="min-height: 46px; padding: 0 18px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); font-size: 15px; font-weight: 700">Annuler</button></div></div></template>
 </div>
 <div style="background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 14px 20px 6px; display: flex; flex-direction: column">
 <p style="margin: 0 0 4px; font-size: 17px; font-weight: 800">Contacter l’auteur</p>
@@ -1097,6 +1110,7 @@ Mode mémorisation
 <p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">Aucune de ces données n’est envoyée sur un serveur. Il n’y a ni compte, ni inscription, ni suivi de votre utilisation.</p>
 <p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">L’application est totalement gratuite et sans aucune publicité. Vos données ne sont ni vendues, ni partagées, ni exploitées&nbsp;: il n’y a aucune monétisation.</p>
 <p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">De plus, elle fonctionne hors ligne (sans connexion internet), sauf l’écoute des récitateurs du Coran&nbsp;: l’audio est alors lu depuis les serveurs de Quran.com, sans qu’aucune donnée personnelle ne leur soit envoyée.</p>
+<p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">Si vous vous enregistrez en récitant le Coran, votre voix reste uniquement sur votre appareil (le dernier enregistrement de chaque verset). Elle n’est jamais envoyée, et vous pouvez l’effacer à tout moment dans Paramètres.</p>
 </article>
 <div style="display: flex; justify-content: flex-start"><button @click="goHome" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Retour à l’accueil</button></div>
 </section>
@@ -2695,7 +2709,7 @@ class Component extends DCLogic {
       screen: 'home', mode: null, topic: 'signes', queue: [], idx: 0, answered: false, picked: null,
       fills: [], checked: false, score: 0, mistakes: [],
       best: { qcm: null, vf: null, trous: null, tqcm: null, tvf: null, ttrous: null }, hide: false, revealed: {},
-      prog: { q: {}, hist: [] }, weeksDone: {}, chap: 'a1', level: '4A', theme: 'auto', arScale: 1, arFont: 'hafs', sysDark: false, confirmReset: false, installed: false, appVersion: '', toast: '', importPending: null, importError: '', shareMenu: false, srQ: '', qSurah: 0, qTr: true, qTj: true, qFilter: '', qLoading: false, qError: '', qRec: 12, qPlayerOn: false, qPlayV: 1, qAudio: 'idle', qAudioMsg: '', qRepeat: false
+      prog: { q: {}, hist: [] }, weeksDone: {}, chap: 'a1', level: '4A', theme: 'auto', arScale: 1, arFont: 'hafs', sysDark: false, confirmReset: false, installed: false, appVersion: '', toast: '', importPending: null, importError: '', shareMenu: false, srQ: '', qSurah: 0, qTr: true, qTj: true, qFilter: '', qLoading: false, qError: '', qRec: 12, qPlayerOn: false, qPlayV: 1, qAudio: 'idle', qAudioMsg: '', qRepeat: false, qRecVer: 0, qRecording: 0, qRecSec: 0, qMePlaying: 0, qMeOn: false, qRecTotal: 0, qRecConfirm: false
     }, this.state || {});
   }
 
@@ -3112,6 +3126,7 @@ class Component extends DCLogic {
       if (v && v > 1) setTimeout(() => { try { const el = document.getElementById('v-' + v); if (el) el.scrollIntoView({ block: 'start' }); } catch (e) {} }, 80);
     };
     this.qSave(n, v || 1);
+    this.qRecLoad(n);
     if (this._qs[n]) { after(); this.qPrefetch(); return; }
     this.setState({ qLoading: true });
     this.qGet(n).then((d) => { this._qs[n] = d; this.setState({ qLoading: false }); after(); this.qPrefetch(); })
@@ -3206,8 +3221,10 @@ class Component extends DCLogic {
     }
     const t = info.vt[this._qV];
     if (this._qMode === 'verse' && t && ms >= t.to - 40) {
-      if (s.qRepeat) { a.currentTime = t.from / 1000; return; }
-      a.pause(); this.qMark(this._qV, 0); return;
+      if (s.qRepeat && this._qThenMe == null) { a.currentTime = t.from / 1000; return; }
+      a.pause(); this.qMark(this._qV, 0);
+      if (this._qThenMe === this._qV) { const mv = this._qThenMe; this._qThenMe = null; this.qMePlay(mv); }
+      return;
     }
     if (this._qMode === 'surah' && s.qRepeat && t && v !== this._qV) { a.currentTime = t.from / 1000; return; }
     if (v !== this._qV) {
@@ -3221,6 +3238,7 @@ class Component extends DCLogic {
 
   qPlay(v, mode) {
     const s = this.S(); const n = s.qSurah; const rec = s.qRec || 12; if (!n) return;
+    this._qThenMe = null; this.qMeStop();
     const a = this.qAud();
     this._qMode = mode; this._qV = v; this._qW = -1;
     this.setState({ qPlayerOn: true, qPlayV: v, qAudio: 'loading', qAudioMsg: '' });
@@ -3254,6 +3272,7 @@ class Component extends DCLogic {
   }
 
   qToggle() {
+    if (this.S().qMePlaying && this._me && this._me.getAttribute('src')) { const me = this._me; if (me.paused) { const p = me.play(); if (p && p.catch) p.catch(() => {}); } else me.pause(); return; }
     const a = this._aud; if (!a) return this.qPlay(this.S().qPlayV || 1, 'surah');
     if (a.paused) { if (this._qCur && a.getAttribute('src')) { const p = a.play(); if (p && p.catch) p.catch(() => {}); clearInterval(this._qTimer); this._qTimer = setInterval(() => this.qTick(), 60); } else this.qPlay(this.S().qPlayV || 1, this._qMode || 'surah'); }
     else a.pause();
@@ -3297,6 +3316,115 @@ class Component extends DCLogic {
       });
     });
     return words.map((w, i) => ({ id: 'w-' + v + '-' + (i + 1), parts: w.parts, sp: i < words.length - 1 ? ' ' : '' }));
+  }
+
+  // ——— Le Coran : ma voix (le dernier enregistrement de chaque verset reste sur l’appareil, dans IndexedDB) ———
+  qDb() {
+    if (this._qdb) return this._qdb;
+    this._qdb = new Promise((ok, ko) => {
+      try {
+        const r = window.indexedDB.open('tadjwid-cifod', 1);
+        r.onupgradeneeded = () => { if (!r.result.objectStoreNames.contains('voix')) r.result.createObjectStore('voix'); };
+        r.onsuccess = () => ok(r.result); r.onerror = () => ko(r.error);
+      } catch (e) { ko(e); }
+    });
+    this._qdb.catch(() => { this._qdb = null; });
+    return this._qdb;
+  }
+
+  qDbDo(mode, fn) {
+    return this.qDb().then((db) => new Promise((ok, ko) => {
+      const tx = db.transaction('voix', mode); const st = tx.objectStore('voix');
+      const req = fn(st); tx.oncomplete = () => ok(req && req.result); tx.onerror = () => ko(tx.error); tx.onabort = () => ko(tx.error);
+    }));
+  }
+
+  // Versets enregistrés de la sourate ouverte (pour afficher « Ma voix » et « Comparer »).
+  qRecLoad(n) {
+    this.qDbDo('readonly', (st) => st.getAllKeys()).then((keys) => {
+      const has = {}; let total = 0;
+      (keys || []).forEach((k) => { total++; const m = /^(\d+):(\d+)$/.exec(String(k)); if (m && +m[1] === n) has[+m[2]] = true; });
+      this._qHas = has; this.setState({ qRecVer: (this.S().qRecVer || 0) + 1, qRecTotal: total });
+    }).catch(() => {});
+  }
+
+  qRecStart(v) {
+    const s = this.S(); if (s.qRecording) { this.qRecStop(); return; }
+    this.qStopAudio(true); this.qMeStop();
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !window.MediaRecorder) { this.setState({ qAudioMsg: 'L’enregistrement n’est pas possible sur ce navigateur.' }); return; }
+    navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
+      const types = ['audio/mp4', 'audio/webm;codecs=opus', 'audio/webm', 'audio/ogg;codecs=opus'];
+      const mt = types.find((t) => MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(t)) || '';
+      const rec = new MediaRecorder(stream, mt ? { mimeType: mt } : undefined); const chunks = [];
+      rec.ondataavailable = (e) => { if (e.data && e.data.size) chunks.push(e.data); };
+      rec.onstop = () => {
+        stream.getTracks().forEach((t) => t.stop());
+        clearInterval(this._qRecTimer); clearTimeout(this._qRecMax);
+        const blob = new Blob(chunks, { type: rec.mimeType || mt || 'audio/webm' });
+        const n = this.S().qSurah;
+        this.setState({ qRecording: 0, qRecSec: 0 });
+        if (!blob.size) return;
+        this.qDbDo('readwrite', (st) => st.put({ b: blob, d: Date.now() }, n + ':' + v)).then(() => {
+          this.flash('Ta récitation du verset ' + v + ' est enregistrée sur cet appareil.'); this.qRecLoad(n);
+        }).catch(() => this.flash('Impossible d’enregistrer sur cet appareil.'));
+      };
+      this._qRec = rec; rec.start();
+      const t0 = Date.now();
+      this.setState({ qRecording: v, qRecSec: 0, qAudioMsg: '' });
+      this._qRecTimer = setInterval(() => this.setState({ qRecSec: Math.floor((Date.now() - t0) / 1000) }), 500);
+      this._qRecMax = setTimeout(() => this.qRecStop(), 90000);
+    }).catch((e) => this.setState({ qAudioMsg: e && e.name === 'NotAllowedError' ? 'Le micro est refusé. Autorise-le dans les réglages du navigateur pour t’enregistrer.' : 'Micro inaccessible sur cet appareil.' }));
+  }
+
+  qRecStop() {
+    try { if (this._qRec && this._qRec.state === 'recording') this._qRec.stop(); } catch (e) {}
+  }
+
+  qMeStop() {
+    if (this._me) { try { this._me.pause(); } catch (e) {} }
+    if (this._meUrl) { try { URL.revokeObjectURL(this._meUrl); } catch (e) {} this._meUrl = null; }
+    if (this._me) this._me.removeAttribute('src');
+    if (this.S().qMePlaying || this.S().qMeOn) this.setState({ qMePlaying: 0, qMeOn: false });
+  }
+
+  qMePlay(v) {
+    const n = this.S().qSurah; this.qStopAudio(false); this.qMeStop();
+    const me = this.qMeAud();
+    // Le lecteur est « débloqué » dans le geste (iPhone), puis reçoit l’enregistrement.
+    try { const u = me.play(); if (u && u.catch) u.catch(() => {}); } catch (e) {}
+    this.qDbDo('readonly', (st) => st.get(n + ':' + v)).then((r) => {
+      if (!r || !r.b) { this.flash('Aucun enregistrement pour ce verset.'); return; }
+      this._meUrl = URL.createObjectURL(r.b); me.src = this._meUrl;
+      this.setState({ qMePlaying: v, qPlayerOn: true, qPlayV: v, qAudio: 'paused' });
+      const p = me.play(); if (p && p.catch) p.catch(() => this.setState({ qMePlaying: 0, qAudioMsg: 'Touche « Ma voix » pour réécouter.' }));
+    }).catch(() => this.flash('Impossible de lire l’enregistrement.'));
+  }
+
+  // Comparer : le récitateur lit le verset, puis ta voix suit automatiquement.
+  qCompare(v) {
+    this.qMeStop();
+    const me = this.qMeAud(); try { if (!me.getAttribute('src')) { const u = me.play(); if (u && u.catch) u.catch(() => {}); } } catch (e) {}
+    this.qPlay(v, 'verse');
+    this._qThenMe = v;
+  }
+
+  qMeAud() {
+    if (this._me) return this._me;
+    const me = new Audio();
+    me.addEventListener('ended', () => this.qMeStop());
+    me.addEventListener('play', () => { if (me.getAttribute('src')) this.setState({ qMeOn: true }); });
+    me.addEventListener('pause', () => this.setState({ qMeOn: false }));
+    this._me = me; return me;
+  }
+
+  qRecClear() {
+    this.qMeStop();
+    this.qDbDo('readwrite', (st) => st.clear()).then(() => { this._qHas = {}; this.setState({ qRecVer: (this.S().qRecVer || 0) + 1, qRecTotal: 0, qRecConfirm: false }); this.flash('Tes enregistrements ont été effacés.'); })
+      .catch(() => this.setState({ qRecConfirm: false }));
+  }
+
+  qRecCount() {
+    this.qDbDo('readonly', (st) => st.count()).then((n) => this.setState({ qRecTotal: n || 0 })).catch(() => {});
   }
 
   qGet(what) {
@@ -3583,6 +3711,8 @@ class Component extends DCLogic {
 
   go(screen) {
     if (screen !== 'quranRead' && this._aud) this.qStopAudio(true);
+    if (screen !== 'quranRead') { this.qRecStop(); if (this._me) this.qMeStop(); }
+    if (screen === 'settings') this.qRecCount();
     // Le compagnon s’ouvre toujours sans le mode mémorisation activé
     if (screen === 'learnComp') this.setState({ screen, hide: false, revealed: {} });
     else this.setState({ screen });
@@ -3878,10 +4008,12 @@ class Component extends DCLogic {
     const qData = s.qSurah ? this._qs[s.qSurah] : null;
     let qVerses = [];
     if (screen === 'quranRead' && qData) {
-      const key = s.qSurah + '|' + qTr + '|' + qTj;
+      const wk = s.qSurah + '|' + qTj;
+      if (!this._qwm || this._qwm.key !== wk) this._qwm = { key: wk, w: qData.v.map((v, i) => this.qWords(qTj ? this.qParts(v[0], v[2]) : [{ t: v[0], st: '' }], i + 1)) };
+      const key = s.qSurah + '|' + qTr + '|' + qTj + '|' + (s.qRecVer || 0) + '|' + (s.qRecording || 0); const qHas = this._qHas || {};
       if (!this._qvm || this._qvm.key !== key) {
         this._qvm = { key, rows: qData.v.map((v, i) => ({ id: 'v-' + (i + 1), n: String(i + 1), num: qAr(i + 1), mark: '\u06DD' + qAr(i + 1),
-          words: this.qWords(qTj ? this.qParts(v[0], v[2]) : [{ t: v[0], st: '' }], i + 1), fr: v[1], showTr: qTr, aria: 'Verset ' + (i + 1), play: () => this.qPlay(i + 1, 'verse'), playAria: 'Écouter le verset ' + (i + 1) })) };
+          words: this._qwm.w[i], fr: v[1], showTr: qTr, aria: 'Verset ' + (i + 1), play: () => this.qPlay(i + 1, 'verse'), playAria: 'Écouter le verset ' + (i + 1), hasRec: !!qHas[i + 1], recOn: s.qRecording === i + 1, recOff: s.qRecording !== i + 1, recLabel: s.qRecording === i + 1 ? 'Arrêter' : 'M’enregistrer', recAria: (s.qRecording === i + 1 ? 'Arrêter l’enregistrement du verset ' : 'M’enregistrer en récitant le verset ') + (i + 1), recCol: 'var(--rose)', recBg: s.qRecording === i + 1 ? 'var(--rose-t)' : 'var(--surface)', recBorder: s.qRecording === i + 1 ? 'var(--rose)' : 'var(--line)', rec: () => this.qRecStart(i + 1), me: () => this.qMePlay(i + 1), meAria: 'Réécouter ma récitation du verset ' + (i + 1), cmp: () => this.qCompare(i + 1), cmpAria: 'Comparer le récitateur puis ma voix, verset ' + (i + 1) })) };
       }
       qVerses = this._qvm.rows;
     }
@@ -3892,6 +4024,7 @@ class Component extends DCLogic {
     const qLast = this._qLast;
     const qRecList = this.qRecs(); const qRecId = s.qRec || 12;
     const qRecCur = qRecList.find((r) => r[0] === qRecId) || qRecList[0];
+    const qBusy = s.qMePlaying ? !!s.qMeOn : (s.qAudio === 'playing' || s.qAudio === 'loading');
     // Le texte de Tanzil s’affiche mal avec la police du Mushaf de Médine (signe du alif muet) : Amiri Quran la remplace ici.
     const qFontSt = "font-family: 'ArPunct', " + ((s.arFont || 'hafs') === 'hafs' ? "'Amiri Quran'" : 'var(--arfont)') + ", 'Amiri Quran', serif;";
     const qLegend = [['silent', 'Lettres non prononcées'], ['ghunna', 'Ghounnah, ikhfâ’, iqlâb, idghâm'], ['qalqala', 'Qolqolah'], ['madd2', 'Prolongation de 2 temps'],
@@ -4309,11 +4442,16 @@ class Component extends DCLogic {
       qTr, qTj, qLegend, qFontSt,
       qRecOpts: qRecList.map(([id, name]) => ({ id: String(id), name, sel: id === qRecId })), qRecPick: (e) => this.qSetRec(parseInt(e && e.target ? e.target.value : 12, 10) || 12),
       qPlaySurah: () => this.qPlay(1, 'surah'), qAudioMsgShow: !!s.qAudioMsg && screen === 'quranRead', qAudioMsg: s.qAudioMsg || '',
-      qPlayerOn: !!s.qPlayerOn && screen === 'quranRead', qRecName: qRecCur[1], qPlayLabel: s.qAudio === 'loading' ? 'Chargement… verset ' + (s.qPlayV || 1) : 'Verset ' + (s.qPlayV || 1),
-      qIsPlaying: s.qAudio === 'playing' || s.qAudio === 'loading', qIsPaused: !(s.qAudio === 'playing' || s.qAudio === 'loading'), qToggleAria: (s.qAudio === 'playing' || s.qAudio === 'loading') ? 'Pause' : 'Lecture',
+      qPlayerOn: !!s.qPlayerOn && screen === 'quranRead', qRecName: s.qMePlaying ? 'Ma récitation' : qRecCur[1], qPlayLabel: s.qMePlaying ? 'Verset ' + s.qMePlaying : s.qAudio === 'loading' ? 'Chargement… verset ' + (s.qPlayV || 1) : 'Verset ' + (s.qPlayV || 1),
+      qIsPlaying: qBusy, qIsPaused: !qBusy, qToggleAria: qBusy ? 'Pause' : 'Lecture',
       qToggle: () => this.qToggle(), qPrevV: () => this.qStep(-1), qNextV: () => this.qStep(1),
       qRepeatToggle: () => this.setState({ qRepeat: !s.qRepeat }), qRepeatPressed: s.qRepeat ? 'true' : 'false', qRepeatCol: s.qRepeat ? 'var(--accent)' : 'var(--muted)', qRepeatBg: s.qRepeat ? 'var(--tint)' : 'transparent',
-      qClosePlayer: () => this.qStopAudio(true),
+      qClosePlayer: () => { this.qMeStop(); this.qStopAudio(true); },
+      qRecBanner: !!s.qRecording && screen === 'quranRead', qRecBannerLabel: 'Enregistrement du verset ' + (s.qRecording || '') + ' : ' + Math.floor((s.qRecSec || 0) / 60) + ':' + String((s.qRecSec || 0) % 60).padStart(2, '0'),
+      qRecStopBtn: () => this.qRecStop(),
+      qRecTotalLabel: (s.qRecTotal || 0) ? plural(s.qRecTotal, 'verset enregistré.', 'versets enregistrés.') : 'Aucun enregistrement pour l’instant.',
+      qRecIdle: !s.qRecConfirm && (s.qRecTotal || 0) > 0, qRecAsk: !!s.qRecConfirm,
+      qRecClearAsk: () => this.setState({ qRecConfirm: true }), qRecClearDo: () => this.qRecClear(), qRecClearCancel: () => this.setState({ qRecConfirm: false }),
       qTrToggle: () => { this.setState({ qTr: !qTr }); this.qSave(s.qSurah || 1, (this._qLast && this._qLast.v) || 1); },
       qTjToggle: () => { this.setState({ qTj: !qTj }); this.qSave(s.qSurah || 1, (this._qLast && this._qLast.v) || 1); },
       qHasPrev: !!qPrevC, qPrevLabel: qPrevC ? qPrevC.tr : '', qPrev: () => { if (qPrevC) this.qOpen(qPrevC.n); },
