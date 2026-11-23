@@ -1,0 +1,55 @@
+Section Coran : sources et licences
+
+1. Texte coranique (assets/quran/s*.json, champ 0 de chaque verset)
+   Reproduit sans modification. Bloc de copyright d’origine :
+
+   # PLEASE DO NOT REMOVE OR CHANGE THIS COPYRIGHT BLOCK
+   #====================================================================
+   #
+   #  Tanzil Quran Text (Uthmani, version 1.0.2)
+   #  Copyright (C) 2008-2010 Tanzil.net
+   #  License: Creative Commons Attribution 3.0
+   #
+   #  This copy of quran text is carefully produced, highly 
+   #  verified and continuously monitored by a group of specialists 
+   #  at Tanzil project.
+   #
+   #  TERMS OF USE:
+   #
+   #  - Permission is granted to copy and distribute verbatim copies 
+   #    of this text, but CHANGING IT IS NOT ALLOWED.
+   #
+   #  - This quran text can be used in any website or application, 
+   #    provided its source (Tanzil.net) is clearly indicated, and 
+   #    a link is made to http://tanzil.net to enable users to keep
+   #    track of changes.
+   #
+   #  - This copyright notice shall be included in all verbatim copies 
+   #    of the text, and shall be reproduced appropriately in all files 
+   #    derived from or containing substantial portion of this text.
+   #
+   #  Please check updates at: http://tanzil.net/updates/
+   # 
+   #====================================================================
+
+2. Traduction française de Muhammad Hamidullah (champ 1), fournie par Tanzil.net :
+
+   # --------------------------------------------------------------------
+   #
+   #  Quran Translation
+   #  Name: Hamidullah
+   #  Translator: Muhammad Hamidullah
+   #  Language: French
+   #  ID: fr.hamidullah
+   #  Last Update: July 18, 2011
+   #  Source: Tanzil.net
+   #
+   # --------------------------------------------------------------------
+
+3. Annotations de tajwîd (champ 2) : projet cpfair/quran-tajweed (https://github.com/cpfair/quran-tajweed),
+   licence Creative Commons Attribution 4.0 International (https://creativecommons.org/licenses/by/4.0/).
+   Codes : g ghunnah, ig idghâm avec ghunnah, in idghâm sans ghunnah, ij idghâm mutajânisayn, iq idghâm mutaqâribayn,
+   is idghâm shafawî, f ikhfâ’, fs ikhfâ’ shafawî, l iqlâb, m2 madd 2, m246 madd 2/4/6, mt madd muttasil, mf madd munfasil,
+   m6 madd lâzim, q qalqalah, h hamzat al-wasl, ls lâm shamsiyyah, s lettre muette.
+
+4. Noms des sourates : Quran.com (traductions françaises légèrement adaptées).

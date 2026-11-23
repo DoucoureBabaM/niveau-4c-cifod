@@ -214,6 +214,15 @@ Quitter
 </ul>
 </section>
 
+<section aria-labelledby="h-quran" style="display: flex; flex-direction: column">
+<div style="display: flex; flex-direction: column; gap: 2px; margin-bottom: 10px">
+<h2 id="h-quran" style="margin: 0; font-size: 25px; line-height: 1.2">Le Coran</h2>
+<p style="margin: 0; font-size: 17px; font-style: italic; color: var(--muted)">Lire les sourates verset par verset, avec la traduction</p>
+</div>
+<button @click="qGoList" style="display: flex; align-items: center; justify-content: space-between; gap: 14px; width: 100%; min-height: 64px; padding: 10px 0; border: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: transparent; text-align: left; color: var(--ink)"><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-family: 'Alegreya', serif; font-size: 18px; font-weight: 500">Ouvrir le Coran</span><span style="font-size: 14px; font-weight: 500; color: var(--muted)">Les 114 sourates, avec les couleurs du tajwîd</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; color: var(--muted)"><path d="M9 6l6 6-6 6"></path></svg></button>
+<template v-if="qHasLast"><button @click="qResume" style="display: flex; align-items: center; justify-content: space-between; gap: 14px; width: 100%; min-height: 64px; padding: 10px 0; border: 0; border-bottom: 1px solid var(--line); background: transparent; text-align: left; color: var(--ink)"><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-family: 'Alegreya', serif; font-size: 18px; font-weight: 500">Reprendre la lecture</span><span style="font-size: 14px; font-weight: 500; color: var(--muted)">{{qLastLabel}}</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; color: var(--muted)"><path d="M9 6l6 6-6 6"></path></svg></button></template>
+</section>
+
 <section aria-labelledby="h-prog" style="display: flex; flex-direction: column">
 <div style="display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 10px">
 <div style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
@@ -820,6 +829,59 @@ Mode mémorisation
 </section>
 </template>
 
+<template v-if="isQuranList">
+<section class="rise" style="display: flex; flex-direction: column; gap: 18px; width: 100%; max-width: 640px; margin: 0 auto">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<h1 style="margin: 0; font-size: 34px; line-height: 1.12">Le Coran</h1>
+<p style="margin: 0; font-size: 16px; line-height: 1.55; color: var(--muted); text-wrap: pretty">Texte arabe de Tanzil, traduction de Muhammad Hamidullah. Disponible hors ligne.</p>
+</div>
+<div role="search" style="position: relative">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.6-3.6"></path></svg>
+<input id="q-filter" type="search" dir="auto" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" maxlength="60" aria-label="Chercher une sourate" placeholder="Nom ou numéro de sourate" :value="qFilter" @input="qFilterInput" style="width: 100%; box-sizing: border-box; min-height: 52px; padding: 0 16px 0 46px; border-radius: 14px; border: 1.5px solid var(--line2); background: var(--surface); color: var(--ink); font-size: 17px; font-family: 'Alegreya Sans', var(--arfont), system-ui, sans-serif">
+</div>
+<template v-if="qListLoading"><p style="margin: 0; font-size: 15px; color: var(--muted)">Chargement des sourates…</p></template>
+<template v-if="qErrorShow"><p role="alert" style="margin: 0; font-size: 15px; font-weight: 700; color: var(--rose)">{{qError}}</p></template>
+<ol style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column">
+<template v-for="r in qListRows"><li><button @click="r.open" style="display: flex; align-items: center; gap: 14px; width: 100%; min-height: 70px; padding: 10px 0; border: 0; border-bottom: 1px solid var(--line); background: transparent; text-align: left; color: var(--ink); font-family: 'Alegreya', serif">
+<span style="position: relative; width: 46px; height: 46px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: var(--gold)"><svg width="46" height="46" viewBox="0 0 46 46" aria-hidden="true" style="position: absolute; left: 0; top: 0"><g fill="none" stroke="currentColor" stroke-width="1.4"><rect x="9.5" y="9.5" width="27" height="27"></rect><rect x="9.5" y="9.5" width="27" height="27" transform="rotate(45 23 23)"></rect><circle cx="23" cy="23" r="12.5"></circle></g></svg><span :style="`position: relative; top: -0.31em; font-family: 'Amiri Quran', serif; ${r.nfs} line-height: 1; color: var(--ink)`">{{r.num}}</span></span>
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 18.5px; line-height: 1.25; font-weight: 500">{{r.tr}}</span><span style="font-family: 'Alegreya Sans', system-ui, sans-serif; font-size: 13.5px; font-weight: 500; color: var(--muted)">{{r.meta}}</span></span>
+<span lang="ar" dir="rtl" style="font-family: var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', serif; font-size: calc(21px * var(--ar, 1)); line-height: 1.6; color: var(--ink); flex-shrink: 0">{{r.ar}}</span>
+</button></li></template>
+</ol>
+</section>
+</template>
+
+<template v-if="isQuranRead">
+<section class="rise" style="display: flex; flex-direction: column; gap: 18px; width: 100%; max-width: 680px; margin: 0 auto">
+<button @click="qGoList" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 4px; border: 0; background: transparent; color: var(--accent); font-size: 16px; font-weight: 800"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg>Les sourates</button>
+<div class="fiche-head" style="display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; text-align: center">
+<div style="position: relative; width: 100%; max-width: 460px; min-height: 100px; display: flex; align-items: center; justify-content: center; padding: 12px 58px; color: var(--gold)"><svg width="100%" height="100%" viewBox="0 0 346 112" preserveAspectRatio="none" aria-hidden="true" style="position: absolute; left: 0; top: 0"><g fill="none" stroke="currentColor"><path d="M4 56 L30 5 H316 L342 56 L316 107 H30 Z" stroke-width="1.6" vector-effect="non-scaling-stroke"></path><path d="M13 56 L35 12 H311 L333 56 L311 100 H35 Z" stroke-width="0.8" vector-effect="non-scaling-stroke"></path></g></svg><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="position: absolute; left: calc(6% - 4px); top: 50%; margin-top: -6px"><path d="M6 0 L12 6 L6 12 L0 6 Z" fill="currentColor"></path></svg><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="position: absolute; right: calc(6% - 4px); top: 50%; margin-top: -6px"><path d="M6 0 L12 6 L6 12 L0 6 Z" fill="currentColor"></path></svg><p lang="ar" dir="rtl" style="position: relative; margin: 0; font-family: 'ArPunct', var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', serif; font-size: calc(26px * var(--ar, 1)); line-height: 1.6; color: var(--ink)">{{qHead.arTitle}}</p></div>
+<div style="display: flex; align-items: center; gap: 10px; font-family: 'Alegreya Sans', system-ui, sans-serif; font-size: 15px; font-weight: 700; color: var(--muted)"><span style="position: relative; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; color: var(--gold)"><svg width="38" height="38" viewBox="0 0 46 46" aria-hidden="true" style="position: absolute; left: 0; top: 0"><g fill="none" stroke="currentColor" stroke-width="1.6"><rect x="9.5" y="9.5" width="27" height="27"></rect><rect x="9.5" y="9.5" width="27" height="27" transform="rotate(45 23 23)"></rect><circle cx="23" cy="23" r="12.5"></circle></g></svg><span :style="`position: relative; top: -0.31em; font-family: 'Amiri Quran', serif; ${qHead.nfs} line-height: 1; color: var(--ink)`">{{qHead.num}}</span></span>Sourate {{qHead.n}}</div>
+<h1 style="margin: 0; font-size: 34px; line-height: 1.12; text-wrap: balance">{{qHead.tr}}</h1>
+<p style="margin: 0; font-size: 18px; font-style: italic; color: var(--ink2)">{{qHead.fr}}</p>
+<p style="margin: 0; font-family: 'Alegreya Sans', system-ui, sans-serif; font-size: 14px; font-weight: 500; color: var(--muted)">{{qHead.meta}}</p>
+</div>
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px">
+<label style="display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 16px; border: 1.5px solid var(--line); border-radius: 999px; background: var(--surface); font-size: 15px; font-weight: 700; cursor: pointer"><input type="checkbox" role="switch" :checked="qTr" @change="qTrToggle" style="width: 18px; height: 18px; margin: 0; accent-color: var(--accent)">Traduction</label>
+<label style="display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 16px; border: 1.5px solid var(--line); border-radius: 999px; background: var(--surface); font-size: 15px; font-weight: 700; cursor: pointer"><input type="checkbox" role="switch" :checked="qTj" @change="qTjToggle" style="width: 18px; height: 18px; margin: 0; accent-color: var(--accent)">Couleurs du tajwîd</label>
+</div>
+<template v-if="qTj"><ul aria-label="Couleurs du tajwîd" style="list-style: none; margin: 0; padding: 14px 16px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); gap: 8px 16px; font-family: 'Alegreya Sans', system-ui, sans-serif; font-size: 14.5px; font-weight: 700"><template v-for="g in qLegend"><li style="display: flex; align-items: center; gap: 9px"><span aria-hidden="true" :style="`width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; ${g.dot}`"></span>{{g.label}}</li></template></ul></template>
+<template v-if="qLoading"><p style="margin: 0; font-size: 15px; color: var(--muted); text-align: center">Chargement de la sourate…</p></template>
+<template v-if="qErrorShow"><p role="alert" style="margin: 0; font-size: 15px; font-weight: 700; color: var(--rose)">{{qError}}</p></template>
+<template v-if="qShowBasmala"><p lang="ar" dir="rtl" :style="`margin: 4px 0 0; text-align: center; ${qFontSt} font-size: calc(28px * var(--ar, 1)); line-height: 2; color: var(--ink)`">{{qBasmala}}</p></template>
+<ol id="q-verses" style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column">
+<template v-for="v in qVerses"><li :id="v.id" :aria-label="v.aria" style="scroll-margin-top: 16px; padding: 16px 0; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 10px">
+<p lang="ar" dir="rtl" :style="`margin: 0; ${qFontSt} font-size: calc(30px * var(--ar, 1)); line-height: 2.25; color: var(--ink); text-align: right`"><template v-for="p in v.parts"><span :style="p.st">{{p.t}}</span></template> <span aria-hidden="true" style="font-family: 'Amiri Quran', serif; color: var(--gold)">{{v.mark}}</span></p>
+<template v-if="v.showTr"><p style="margin: 0; font-size: 17px; line-height: 1.6; color: var(--ink2); text-wrap: pretty"><span style="font-family: 'Alegreya Sans', system-ui, sans-serif; font-weight: 800; color: var(--goldtext); margin-right: 6px">{{v.n}}.</span>{{v.fr}}</p></template>
+</li></template>
+</ol>
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; padding-top: 6px; border-top: 1px solid var(--line)">
+<template v-if="qHasPrev"><button @click="qPrev" style="display: inline-flex; flex-direction: column; align-items: flex-start; gap: 2px; min-height: 56px; padding: 8px 14px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); text-align: left"><span style="font-size: 13px; font-weight: 500; color: var(--muted)">Sourate précédente</span><span style="font-size: 15.5px; font-weight: 800">{{qPrevLabel}}</span></button></template>
+<template v-if="qHasNext"><button @click="qNext" style="margin-left: auto; display: inline-flex; flex-direction: column; align-items: flex-end; gap: 2px; min-height: 56px; padding: 8px 14px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); text-align: right"><span style="font-size: 13px; font-weight: 500; color: var(--muted)">Sourate suivante</span><span style="font-size: 15.5px; font-weight: 800">{{qNextLabel}}</span></button></template>
+</div>
+</section>
+</template>
+
 <template v-if="isSearch">
 <section class="rise" style="display: flex; flex-direction: column; gap: 18px">
 <div style="display: flex; flex-direction: column; gap: 8px; max-width: 560px">
@@ -987,6 +1049,12 @@ Mode mémorisation
 <p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">Cette application a été développée par un auditeur du CIFOD dans le but de faciliter à sa propre personne ainsi qu’aux autres apprenants, la révision des cours théoriques de Psalmodie du QUR’ÂN, conformément au lectionnaire Hafs, selon Ach-châtubiyy. Elle n’a vocation à remplacer ni les cours en présentiel, ni ceux dispensés en ligne, encore moins le manuel de cours, mais aspire plutôt à devenir, inchâ Allah, un compagnon fidèle sur le chemin béni de l’apprentissage du Tadjwîd.</p>
 <p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">Par ailleurs, l’application suit pas à pas les ouvrages de référence en la matière au CIFOD, à savoir, <strong><em>Le Viatique du Lecteur</em></strong> et <strong><em>Le Compagnon</em></strong> (recueil d’invocations prophétiques).</p>
 <p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">Nous espérons que ce modeste travail sera profitable à tous les auditeurs.</p>
+</article>
+<article style="background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 22px 24px; display: flex; flex-direction: column; gap: 12px">
+<h2 style="margin: 0; font-size: 21px; line-height: 1.25">Le Coran : sources</h2>
+<p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">Texte arabe : <a href="https://tanzil.net" target="_blank" rel="noopener">Tanzil Project</a> (texte uthmani, version 1.0.2), reproduit sans modification, sous licence Creative Commons Attribution 3.0.</p>
+<p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">Traduction française : Muhammad Hamidullah, fournie par <a href="https://tanzil.net/trans/" target="_blank" rel="noopener">Tanzil.net</a>.</p>
+<p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">Couleurs du tajwîd : annotations du projet <a href="https://github.com/cpfair/quran-tajweed" target="_blank" rel="noopener">quran-tajweed</a> de Collin Fair, sous licence Creative Commons Attribution 4.0. Noms des sourates : <a href="https://quran.com/fr" target="_blank" rel="noopener">Quran.com</a>.</p>
 </article>
 <div :style="`background: ${tint}; border-radius: 20px; padding: 22px 24px; display: flex; flex-direction: column; align-items: center; text-align: center`">
 <p style="margin: 0; width: 100%; font-size: 16.5px; line-height: 1.8; font-style: italic; font-weight: 600; color: var(--ink2); text-align: center">Seigneur des cieux et de la Terre,<br>Je sais que mes œuvres sont légères,<br>Mais fais que celle-ci soit sincère,<br>Et pardonne à mes père et mère.</p>
@@ -2605,7 +2673,7 @@ class Component extends DCLogic {
       screen: 'home', mode: null, topic: 'signes', queue: [], idx: 0, answered: false, picked: null,
       fills: [], checked: false, score: 0, mistakes: [],
       best: { qcm: null, vf: null, trous: null, tqcm: null, tvf: null, ttrous: null }, hide: false, revealed: {},
-      prog: { q: {}, hist: [] }, weeksDone: {}, chap: 'a1', level: '4A', theme: 'auto', arScale: 1, arFont: 'hafs', sysDark: false, confirmReset: false, installed: false, appVersion: '', toast: '', importPending: null, importError: '', shareMenu: false, srQ: ''
+      prog: { q: {}, hist: [] }, weeksDone: {}, chap: 'a1', level: '4A', theme: 'auto', arScale: 1, arFont: 'hafs', sysDark: false, confirmReset: false, installed: false, appVersion: '', toast: '', importPending: null, importError: '', shareMenu: false, srQ: '', qSurah: 0, qTr: true, qTj: true, qFilter: '', qLoading: false, qError: ''
     }, this.state || {});
   }
 
@@ -2626,6 +2694,25 @@ class Component extends DCLogic {
     try {
       const rd = window.localStorage.getItem('waqf-affichage');
       if (rd) { const d = JSON.parse(rd); this.setState({ theme: d.theme || 'auto', arScale: d.arScale || 1, arFont: d.fv === 2 ? (d.arFont || 'hafs') : 'hafs' }); }
+    } catch (e) {}
+    try {
+      const rq = window.localStorage.getItem('waqf-coran');
+      if (rq) { const q = JSON.parse(rq); if (q && q.last && q.last.s) this._qLast = q.last; this.setState({ qTr: q.tr !== false, qTj: q.tj !== false }); }
+    } catch (e) {}
+    try {
+      // Le Coran : mémorise le verset en haut de l’écran pour « Reprendre la lecture »
+      let tq = null;
+      window.addEventListener('scroll', () => {
+        if (tq) return;
+        tq = setTimeout(() => {
+          tq = null;
+          const s = this.S(); if (s.screen !== 'quranRead' || !s.qSurah) return;
+          const items = document.querySelectorAll('#q-verses > li');
+          for (let i = 0; i < items.length; i++) {
+            if (items[i].getBoundingClientRect().bottom > 90) { if (!this._qLast || this._qLast.s !== s.qSurah || this._qLast.v !== i + 1) this.qSave(s.qSurah, i + 1); break; }
+          }
+        }, 400);
+      }, { passive: true });
     } catch (e) {}
     try {
       const mq = window.matchMedia('(prefers-color-scheme: dark)');
@@ -2975,6 +3062,73 @@ class Component extends DCLogic {
       el.scrollIntoView({ behavior: 'smooth', block: target ? 'center' : 'start' });
       if (target && el.animate) el.animate([{ backgroundColor: 'rgba(242, 196, 107, 0.55)', boxShadow: '0 0 0 6px rgba(242, 196, 107, 0.55)' }, { backgroundColor: 'rgba(242, 196, 107, 0)', boxShadow: '0 0 0 6px rgba(242, 196, 107, 0)' }], { duration: 2600, easing: 'ease-out', delay: 350 });
     } catch (err) {}
+  }
+
+  // ——— Le Coran : lecture hors ligne (texte Tanzil, traduction Hamidullah, couleurs du tajwîd) ———
+  qLoadIndex() {
+    if (this._qn || this._qnLoading) return;
+    this._qnLoading = true;
+    this.qGet('index').then((j) => { this._qn = j; this._qnLoading = false; this.forceUpdate(); })
+      .catch(() => { this._qnLoading = false; this.setState({ qError: 'Impossible de charger la liste des sourates.' }); });
+  }
+
+  qSave(n, v) {
+    const c = this._qn && this._qn.s[n - 1];
+    this._qLast = { s: n, v: v || 1, name: c ? c.tr : (this._qLast && this._qLast.s === n ? this._qLast.name : '') };
+    const s = this.S();
+    try { window.localStorage.setItem('waqf-coran', JSON.stringify({ last: this._qLast, tr: s.qTr !== false, tj: s.qTj !== false })); } catch (e) {}
+  }
+
+  qOpen(n, v) {
+    if (!this._qs) this._qs = {};
+    n = Math.max(1, Math.min(114, n | 0));
+    this.qLoadIndex();
+    this.setState({ qSurah: n, qError: '' });
+    this.go('quranRead');
+    const after = () => {
+      if (v && v > 1) setTimeout(() => { try { const el = document.getElementById('v-' + v); if (el) el.scrollIntoView({ block: 'start' }); } catch (e) {} }, 80);
+    };
+    this.qSave(n, v || 1);
+    if (this._qs[n]) { after(); return; }
+    this.setState({ qLoading: true });
+    this.qGet(n).then((d) => { this._qs[n] = d; this.setState({ qLoading: false }); after(); })
+      .catch(() => this.setState({ qLoading: false, qError: 'Impossible de charger cette sourate.' }));
+  }
+
+  // Découpe un verset selon les annotations de tajwîd ; chaque morceau reçoit la couleur de sa règle.
+  qParts(t, ann) {
+    const COL = { g: 'ghunna', ig: 'ghunna', f: 'ghunna', fs: 'ghunna', l: 'ghunna', is: 'ghunna', in: 'silent', ij: 'silent', iq: 'silent',
+      h: 'silent', ls: 'silent', s: 'silent', q: 'qalqala', m2: 'madd2', m246: 'madd246', mf: 'madd246', mt: 'maddmt', m6: 'madd6' };
+    // Les signes (voyelles, alif suscrit…) restent avec leur lettre : une couleur ne commence jamais au milieu d’une lettre.
+    const isMark = (ch) => /[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06DC\u06DF-\u06E4\u06E7\u06E8\u06EA-\u06ED\u08D3-\u08FF]/.test(ch || '');
+    const back = (x) => { while (x > 0 && x < t.length && isMark(t[x])) x--; return x; };
+    const fwd = (x) => { while (x < t.length && isMark(t[x])) x++; return x; };
+    ann = (ann || []).map((a) => [back(a[0]), fwd(a[1]), a[2]]).filter((a) => a[1] > a[0]);
+    const cuts = [0, t.length]; ann.forEach((a) => { cuts.push(a[0], a[1]); });
+    const pts = Array.from(new Set(cuts)).filter((x) => x >= 0 && x <= t.length).sort((a, b) => a - b);
+    const parts = [];
+    for (let k = 0; k < pts.length - 1; k++) {
+      const a = pts[k], b = pts[k + 1]; if (b <= a) continue;
+      let rule = ''; (ann || []).forEach((x) => { if (x[0] <= a && x[1] >= b) rule = COL[x[2]] || ''; });
+      const last = parts[parts.length - 1];
+      if (last && last.k === rule) last.t += t.slice(a, b); else parts.push({ t: t.slice(a, b), k: rule });
+    }
+    // Lettres attachées d’un morceau à l’autre (même astuce que pour les lettres en couleur des fiches)
+    const MARK = /[ً-ٰٟۖ-ࣰۭ-ࣿ‍]/;
+    const DUAL = 'بتثجحخسشصضطظعغفقكلمنهيئىٮٯـ';
+    const isAr = (ch) => /[ؠ-يٱ-ۓ]/.test(ch);
+    for (let k = 0; k < parts.length - 1; k++) {
+      const a = parts[k].t, b = parts[k + 1].t;
+      let p = a.length - 1; while (p >= 0 && MARK.test(a[p])) p--;
+      const lastBase = p >= 0 ? a[p] : '';
+      if (lastBase && DUAL.indexOf(lastBase) >= 0 && b.length && isAr(b[0])) { parts[k].t = a + '‍'; parts[k + 1].t = '‍' + b; }
+    }
+    return parts.map((x) => ({ t: x.t, st: x.k ? 'color: var(--tj-' + x.k + ');' : '' }));
+  }
+
+  qGet(what) {
+    const url = 'assets/quran/' + (what === 'index' ? 'index' : 's' + String(what).padStart(3, '0')) + '.json';
+    return fetch(url).then((r) => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); });
   }
 
   saveDisp(theme, arScale, arFont) {
@@ -3445,13 +3599,13 @@ class Component extends DCLogic {
     const TV = dark ? {
       bg: '#111A17', surface: '#18231F', surface2: '#1C2824', surface3: '#25322D', ink: '#E8EDE9', ink2: '#CDE3D5', muted: '#9AA7A1',
       line: '#2B3833', line2: '#3E4C46', accent: accHex, tint: this.rgba(accHex, 0.16), tint2: '#1F3A31', btn: accHex,
-      gold: '#CDA954', goldtext: '#D9B866', onaccent: '#0E1714', ghunna: '#6CC488', qalqala: '#72B9EA', tafkhim: '#93AAF0', madd: '#F0837A',
+      gold: '#CDA954', goldtext: '#D9B866', onaccent: '#0E1714', 'tj-ghunna': '#6CC488', 'tj-silent': '#7C8782', 'tj-qalqala': '#72B9EA', 'tj-madd2': '#D9B866', 'tj-madd246': '#F0A35E', 'tj-maddmt': '#F0837A', 'tj-madd6': '#E05A5A', ghunna: '#6CC488', qalqala: '#72B9EA', tafkhim: '#93AAF0', madd: '#F0837A',
       rose: '#FF8A80', 'rose-t': '#3A1F1D', red: '#FF6B6B', green: '#6FCF7F', blue: '#7DB3F5', 'amber-bg': '#3A2E14', 'amber-fg': '#F2C46B',
       'tone-red': '#FF8B8B', 'tone-green': '#79D18F', 'tone-maroon': '#E99AA6'
     } : {
       bg: '#F5F6F1', surface: '#FFFFFF', surface2: '#F9FAF6', surface3: '#ECEFEA', ink: '#17231F', ink2: '#2A4636', muted: '#5E6A65',
       line: '#D9DED6', line2: '#C5CCC3', accent: accHex, tint: this.rgba(accHex, 0.1), tint2: '#E3EFEA', btn: '#17231F',
-      gold: '#A27C25', goldtext: '#85651A', onaccent: '#FFFFFF', ghunna: '#1E7B3C', qalqala: '#2470A8', tafkhim: '#1F3F8C', madd: '#B3261E',
+      gold: '#A27C25', goldtext: '#85651A', onaccent: '#FFFFFF', 'tj-ghunna': '#1E7B3C', 'tj-silent': '#9AA39E', 'tj-qalqala': '#2470A8', 'tj-madd2': '#A8741A', 'tj-madd246': '#D2691E', 'tj-maddmt': '#C62828', 'tj-madd6': '#8E1B1B', ghunna: '#1E7B3C', qalqala: '#2470A8', tafkhim: '#1F3F8C', madd: '#B3261E',
       rose: '#B42318', 'rose-t': '#FCEDEB', red: '#C62828', green: '#2E7D32', blue: '#1F5FA8', 'amber-bg': '#FBEFD6', 'amber-fg': '#7A4E00',
       'tone-red': '#A1262B', 'tone-green': '#1D6B3C', 'tone-maroon': '#7A2430'
     };
@@ -3533,6 +3687,40 @@ class Component extends DCLogic {
       review: () => this.start('review', c.tp)
     }));
     const pad2 = (x) => String(x).padStart(2, '0');
+    if (!this._qs) this._qs = {};
+    // ——— Le Coran ———
+    const qAr = (n) => String(n).replace(/\d/g, (d) => '٠١٢٣٤٥٦٧٨٩'[d]);
+    const qNfs = (n) => 'font-size: ' + (n > 99 ? 11 : (n > 9 ? 14 : 18)) + 'px;';
+    const qIdx = this._qn;
+    const qTr = s.qTr !== false, qTj = s.qTj !== false;
+    const qMeta = (c) => c.nv + ' versets, ' + (c.m ? 'mecquoise' : 'médinoise');
+    let qListRows = [];
+    if (screen === 'quranList' && qIdx) {
+      const f = this.srNorm(this.srClean(s.qFilter || '')).replace(/\s+/g, ' ').trim();
+      qListRows = qIdx.s.filter((c) => !f || String(c.n) === f || this.srNorm(c.tr + ' ' + c.fr + ' ' + c.ar).indexOf(f) >= 0)
+        .map((c) => ({ num: qAr(c.n), nfs: qNfs(c.n), tr: c.tr, ar: c.ar, meta: c.fr + ', ' + qMeta(c), open: () => this.qOpen(c.n) }));
+    }
+    const qCur = qIdx && s.qSurah ? qIdx.s[s.qSurah - 1] : null;
+    const qData = s.qSurah ? this._qs[s.qSurah] : null;
+    let qVerses = [];
+    if (screen === 'quranRead' && qData) {
+      const key = s.qSurah + '|' + qTr + '|' + qTj;
+      if (!this._qvm || this._qvm.key !== key) {
+        this._qvm = { key, rows: qData.v.map((v, i) => ({ id: 'v-' + (i + 1), n: String(i + 1), num: qAr(i + 1), mark: '\u06DD' + qAr(i + 1),
+          parts: qTj ? this.qParts(v[0], v[2]) : [{ t: v[0], st: '' }], fr: v[1], showTr: qTr, aria: 'Verset ' + (i + 1) })) };
+      }
+      qVerses = this._qvm.rows;
+    }
+    const qHead = qCur ? { n: String(qCur.n), num: qAr(qCur.n), nfs: 'font-size: ' + (qCur.n > 99 ? 10 : (qCur.n > 9 ? 13 : 16)) + 'px;', tr: qCur.tr, fr: qCur.fr, meta: qMeta(qCur), arTitle: 'سورة ' + qCur.ar }
+      : { n: String(s.qSurah || ''), num: qAr(s.qSurah || ''), nfs: 'font-size: 16px;', tr: '', fr: '', meta: '', arTitle: '' };
+    const qPrevC = qIdx && s.qSurah > 1 ? qIdx.s[s.qSurah - 2] : null;
+    const qNextC = qIdx && s.qSurah < 114 ? qIdx.s[s.qSurah] : null;
+    const qLast = this._qLast;
+    // Le texte de Tanzil s’affiche mal avec la police du Mushaf de Médine (signe du alif muet) : Amiri Quran la remplace ici.
+    const qFontSt = "font-family: 'ArPunct', " + ((s.arFont || 'hafs') === 'hafs' ? "'Amiri Quran'" : 'var(--arfont)') + ", 'Amiri Quran', serif;";
+    const qLegend = [['silent', 'Lettres non prononcées'], ['ghunna', 'Ghounnah, ikhfâ’, iqlâb, idghâm'], ['qalqala', 'Qolqolah'], ['madd2', 'Prolongation de 2 temps'],
+      ['madd246', 'Prolongation permise : 2, 4 ou 6 temps'], ['maddmt', 'Prolongation obligatoire : 4 ou 5 temps'], ['madd6', 'Prolongation nécessaire : 6 temps']]
+      .map(([k, label]) => ({ label, dot: 'background: var(--tj-' + k + ');' }));
     const srOn = screen === 'search';
     const srR = srOn ? this.srRun(s.srQ || '') : { nq: '', terms: [], res: [] };
     const SR_MAX = 40;
@@ -3935,6 +4123,18 @@ class Component extends DCLogic {
       tabHome: 'color: ' + (screen === 'home' ? 'var(--accent)' : 'var(--muted)') + ';', tabHomeCur: screen === 'home' ? 'page' : 'false',
       tabStats: 'color: ' + (screen === 'progress' ? 'var(--accent)' : 'var(--muted)') + ';', tabStatsCur: screen === 'progress' ? 'page' : 'false',
       tabSettings: 'color: ' + (screen === 'settings' ? 'var(--accent)' : 'var(--muted)') + ';', tabSettingsCur: screen === 'settings' ? 'page' : 'false',
+      isQuranList: screen === 'quranList', isQuranRead: screen === 'quranRead',
+      qGoList: () => { this.qLoadIndex(); this.go('quranList'); }, qListLoading: screen === 'quranList' && !qIdx, qListRows,
+      qFilter: s.qFilter || '', qFilterInput: (e) => this.setState({ qFilter: e && e.target ? String(e.target.value || '').slice(0, 60) : '' }),
+      qHasLast: !!(qLast && qLast.s), qLastLabel: qLast && qLast.s ? (qLast.name || ('Sourate ' + qLast.s)) + ', verset ' + qLast.v : '',
+      qResume: () => { if (qLast && qLast.s) this.qOpen(qLast.s, qLast.v); },
+      qHead, qVerses, qLoading: !!s.qLoading && screen === 'quranRead', qErrorShow: !!s.qError, qError: s.qError || '',
+      qShowBasmala: !!(qData && qIdx && s.qSurah !== 1 && s.qSurah !== 9), qBasmala: qIdx ? qIdx.basmala : '',
+      qTr, qTj, qLegend, qFontSt,
+      qTrToggle: () => { this.setState({ qTr: !qTr }); this.qSave(s.qSurah || 1, (this._qLast && this._qLast.v) || 1); },
+      qTjToggle: () => { this.setState({ qTj: !qTj }); this.qSave(s.qSurah || 1, (this._qLast && this._qLast.v) || 1); },
+      qHasPrev: !!qPrevC, qPrevLabel: qPrevC ? qPrevC.tr : '', qPrev: () => { if (qPrevC) this.qOpen(qPrevC.n); },
+      qHasNext: !!qNextC, qNextLabel: qNextC ? qNextC.tr : '', qNext: () => { if (qNextC) this.qOpen(qNextC.n); },
       isSearch: screen === 'search', goSearch: () => this.openSearch(),
       tabSearch: 'color: ' + (screen === 'search' ? 'var(--accent)' : 'var(--muted)') + ';', tabSearchCur: screen === 'search' ? 'page' : 'false',
       srQ: s.srQ || '', srInput: (e) => this.setState({ srQ: e && e.target ? String(e.target.value || '').slice(0, 120) : '' }),
@@ -3966,7 +4166,7 @@ class Component extends DCLogic {
       homeToc, homeLegend, homeComp, homeCompSub, homeLevels, homeIntro, homeProgLabel, homeProgrammeSub,
       progWeeks, progProgramme, lvl, isProgramme: screen === 'programme', goProgramme: () => this.go('programme'),
       isHome: screen === 'home', isLearn: screen === 'learn', isLearnTypes: screen === 'learnTypes', isLearnRa: screen === 'learnRa', isInstall: screen === 'install', isInstalled: !!s.installed, showVersion: screen === 'home' && !!s.appVersion, appVersion: s.appVersion, isAbout: screen === 'about', isPrivacy: screen === 'privacy',
-      showQuit: inSession || screen === 'learn' || screen === 'learnTypes' || screen === 'learnRa' || screen === 'learnComp' || screen === 'learnId' || screen === 'learnMd' || screen === 'learnCh' || screen === 'progress' || screen === 'settings' || screen === 'programme' || screen === 'install' || screen === 'about' || screen === 'privacy' || screen === 'search', isQcm, isVf, isTrous,
+      showQuit: inSession || screen === 'learn' || screen === 'learnTypes' || screen === 'learnRa' || screen === 'learnComp' || screen === 'learnId' || screen === 'learnMd' || screen === 'learnCh' || screen === 'progress' || screen === 'settings' || screen === 'programme' || screen === 'install' || screen === 'about' || screen === 'privacy' || screen === 'search' || screen === 'quranList' || screen === 'quranRead', isQcm, isVf, isTrous,
       isCard: isQcm || isVf, isResult: screen === 'result', inSession,
       modeLabel: (labels[screen] || '') + (inSession ? ', ' + String(topicLabels[s.topic] || '').replace(/ · /g, ', ') : ''), qNum: s.idx + 1, total: s.queue.length, score: s.score,
       progressNum, progressPct: progressNum + '%',
