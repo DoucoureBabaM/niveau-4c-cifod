@@ -3967,7 +3967,11 @@ class Component extends DCLogic {
     if (screen === 'settings') this.qRecCount();
     // Pile des écrans visités, pour le bouton « Retour » (un cran en arrière)
     const nv = this._nav || (this._nav = ['home']);
-    if (screen === 'home') this._nav = ['home']; else if (nv[nv.length - 1] !== screen) { nv.push(screen); if (nv.length > 30) nv.shift(); }
+    // Revenir à un écran déjà dans la pile (« Les sourates ») coupe la pile à cet endroit : pas de doublon
+    const at = nv.lastIndexOf(screen);
+    if (screen === 'home') this._nav = ['home'];
+    else if (at >= 0) nv.length = at + 1;
+    else { nv.push(screen); if (nv.length > 30) nv.shift(); }
     // Le compagnon s’ouvre toujours sans le mode mémorisation activé
     if (screen === 'learnComp') this.setState({ screen, hide: false, revealed: {} });
     else this.setState({ screen });
