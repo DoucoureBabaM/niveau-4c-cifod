@@ -123,6 +123,7 @@ h1,h2,h3{font-weight:700!important;letter-spacing:0!important}
 .qw[data-on]{background:var(--hl);border-radius:6px;box-shadow:0 0 0 2px var(--hl)}
 #q-verses>li[data-cur]{background:var(--surface);box-shadow:0 0 0 10px var(--surface);border-radius:2px}
 nav button{position:relative}
+.faq summary{list-style:none}.faq summary::-webkit-details-marker{display:none}.faq details[open] .faq-chev{transform:rotate(90deg)}
 nav button[aria-current="page"]::before{content:'';position:absolute;top:0;left:50%;width:22px;height:3px;margin-left:-11px;border-radius:0 0 3px 3px;background:var(--gold)}
 @media (min-width:700px){.share-wrap{align-items:center !important;padding:16px}.share-sheet{border-radius:22px !important;padding-bottom:20px !important}}
 </style>
@@ -985,6 +986,7 @@ Mode mémorisation
 <div style="background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 14px 20px 6px; display: flex; flex-direction: column">
 <p style="margin: 0 0 8px; font-size: 17px; font-weight: 800">Application</p>
 <button class="lift" @click="goInstall" style="width: 100%; text-align: left; display: flex; align-items: center; gap: 14px; min-height: 64px; padding: 10px 4px; border: 0; border-top: 1px solid var(--line); background: transparent; color: var(--ink)"><span :style="`width: 40px; height: 40px; border-radius: 12px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center; flex-shrink: 0`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"></path><path d="M7 10l5 5 5-5"></path><path d="M5 21h14"></path></svg></span><span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15.5px; font-weight: 800">Installer l’application</span><span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">Ordinateur, iPhone et Android</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--muted)"><path d="M9 6l6 6-6 6"></path></svg></button>
+<button class="lift" @click="goFaq" style="width: 100%; text-align: left; display: flex; align-items: center; gap: 14px; min-height: 64px; padding: 10px 4px; border: 0; border-top: 1px solid var(--line); background: transparent; color: var(--ink)"><span :style="`width: 40px; height: 40px; border-radius: 12px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center; flex-shrink: 0`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M9.6 9.4a2.5 2.5 0 1 1 3.6 2.3c-.7.4-1.2.9-1.2 1.7v.4"></path><path d="M12 16.8v.4"></path></svg></span><span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15.5px; font-weight: 800">Questions fréquentes</span><span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">Installation, données, micro, Coran…</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--muted)"><path d="M9 6l6 6-6 6"></path></svg></button>
 <button class="lift" @click="goAbout" style="width: 100%; text-align: left; display: flex; align-items: center; gap: 14px; min-height: 64px; padding: 10px 4px; border: 0; border-top: 1px solid var(--line); background: transparent; color: var(--ink)"><span :style="`width: 40px; height: 40px; border-radius: 12px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center; flex-shrink: 0`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v6"></path><path d="M12 7.5v.5"></path></svg></span><span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15.5px; font-weight: 800">À propos</span><span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">Pourquoi et comment cette application</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--muted)"><path d="M9 6l6 6-6 6"></path></svg></button>
 <button class="lift" @click="shareOpen" aria-haspopup="dialog" style="width: 100%; text-align: left; display: flex; align-items: center; gap: 14px; min-height: 64px; padding: 10px 4px; border: 0; border-top: 1px solid var(--line); background: transparent; color: var(--ink)"><span :style="`width: 40px; height: 40px; border-radius: 12px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center; flex-shrink: 0`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"></path><path d="M8 7l4-4 4 4"></path><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"></path></svg></span><span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15.5px; font-weight: 800">Partager</span><span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">L’application ou mes progrès</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--muted)"><path d="M9 6l6 6-6 6"></path></svg></button>
 <button class="lift" @click="goPrivacy" style="width: 100%; text-align: left; display: flex; align-items: center; gap: 14px; min-height: 64px; padding: 10px 4px; border: 0; border-top: 1px solid var(--line); background: transparent; color: var(--ink)"><span :style="`width: 40px; height: 40px; border-radius: 12px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center; flex-shrink: 0`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8.2-7 10-4-1.8-7-5.5-7-10V6l7-3z"></path><path d="M9 12l2.2 2.2L15.5 10"></path></svg></span><span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15.5px; font-weight: 800">Confidentialité</span><span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">Vos données restent sur ce téléphone</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--muted)"><path d="M9 6l6 6-6 6"></path></svg></button>
@@ -1076,6 +1078,16 @@ Mode mémorisation
 </section>
 </template>
 
+<template v-if="isFaq">
+<section class="rise faq" style="display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 8px; max-width: 560px">
+<h1 style="margin: 0; font-size: 34px; line-height: 1.1; letter-spacing: -0.025em; font-weight: 800">Questions fréquentes</h1>
+<p style="margin: 0; font-size: 16px; line-height: 1.6; color: var(--muted)">Touche une question pour voir la réponse.</p>
+</div>
+<template v-for="g in faqGroups"><article style="background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 18px 20px 4px; display: flex; flex-direction: column"><h2 style="margin: 0 0 8px; font-size: 19px; line-height: 1.25">{{g.title}}</h2><template v-for="it in g.items"><details :id="it.id" style="border-top: 1px solid var(--line)"><summary style="display: flex; align-items: center; gap: 12px; min-height: 52px; padding: 10px 0; cursor: pointer; font-size: 16px; font-weight: 700; line-height: 1.4; color: var(--ink)"><span style="flex: 1">{{it.q}}</span><svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; color: var(--muted); transition: transform .2s"><path d="M9 6l6 6-6 6"></path></svg></summary><div style="display: flex; flex-direction: column; gap: 10px; padding: 0 0 16px"><template v-for="p in it.a"><p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty; color: var(--ink2)">{{p}}</p></template></div></details></template></article></template>
+<div style="display: flex; justify-content: flex-start"><button @click="goHome" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Retour à l’accueil</button></div>
+</section>
+</template>
 <template v-if="isAbout">
 <section class="rise" style="display: flex; flex-direction: column; gap: 16px">
 <div style="display: flex; flex-direction: column; gap: 8px; max-width: 560px">
@@ -2941,6 +2953,67 @@ class Component extends DCLogic {
   }
 
   // Index construit une seule fois : une entrée par partie de fiche, avec l’endroit où l’ouvrir.
+  // Questions fréquentes : données uniques pour l’écran et pour la recherche (même tableau à chaque affichage).
+  faqData() {
+    if (this._faq) return this._faq;
+    const G = [
+      ['Installation et mises à jour', [
+        ['Comment installer l’application sur mon téléphone ?', [
+          'Ouvre l’adresse tadjwiid-cifod.netlify.app dans le navigateur, puis va dans Paramètres, carte « Installer l’application ». Les étapes y sont expliquées pour l’iPhone, Android et l’ordinateur.',
+          'Une fois installée, l’application a sa propre icône sur l’écran d’accueil et s’ouvre comme une application ordinaire.']],
+        ['Comment avoir la dernière version ?', [
+          'L’application se met à jour toute seule quand tu as internet. Si le message « Nouvelle version disponible » apparaît, touche « Mettre à jour ».',
+          'Sinon, ferme complètement l’application puis rouvre-la. Le numéro de la version installée est affiché en bas de l’accueil.']],
+        ['Je tombe sur une ancienne page : que faire ?', [
+          'Le navigateur propose parfois une adresse déjà visitée. Tape l’adresse complète tadjwiid-cifod.netlify.app et choisis la suggestion qui n’a rien après « .app ».',
+          'Si l’application est installée, ouvre-la plutôt depuis son icône.']]
+      ]],
+      ['Sans connexion internet', [
+        ['Qu’est-ce qui fonctionne sans internet ?', [
+          'Presque tout : les fiches des niveaux 4A, 4B et 4C, les exercices, Le Compagnon, tes statistiques et le Coran (texte arabe, traduction et couleurs du tajwîd). Tu peux aussi t’enregistrer et réécouter ta voix.']],
+        ['Qu’est-ce qui demande internet ?', [
+          'L’écoute des récitateurs, et donc le mode « Comparer » : l’audio est lu depuis Quran.com ou EveryAyah. Il faut aussi internet pour installer l’application et recevoir les mises à jour.']]
+      ]],
+      ['Mes données', [
+        ['Où sont gardés mes progrès ?', [
+          'Uniquement sur ton téléphone, dans le navigateur. Rien n’est envoyé sur internet : pas de compte, pas d’inscription.',
+          'Attention : si tu effaces les données du navigateur ou désinstalles l’application, tes progrès sont perdus, sauf si tu as fait une sauvegarde.']],
+        ['Comment sauvegarder mes progrès ou les retrouver sur un autre téléphone ?', [
+          'Va dans l’onglet Stats, carte « Sauvegarder ma progression », et touche « Télécharger ma sauvegarde » : un petit fichier est enregistré sur ton appareil.',
+          'Sur l’autre téléphone, ouvre l’application, va au même endroit, touche « Restaurer une sauvegarde » et choisis ce fichier.']],
+        ['Qui peut voir ou entendre mes enregistrements ?', [
+          'Personne d’autre que toi. Ta voix reste sur ton téléphone : seul le dernier enregistrement de chaque verset est gardé, et il n’est envoyé nulle part.',
+          'Pour les supprimer : Paramètres, carte « Mes récitations enregistrées », puis « Effacer mes enregistrements ». Ils ne font pas partie du fichier de sauvegarde.']]
+      ]],
+      ['Section Coran', [
+        ['Le micro est refusé : comment l’autoriser ?', [
+          'Sur iPhone (Safari) : touche « aA » à gauche de l’adresse, puis « Réglages du site web », « Micro » et « Autoriser ». Si l’application est installée : Réglages de l’iPhone, puis Safari (dans « Apps » sur les iPhone récents) et « Micro ».',
+          'Sur Android (Chrome) : touche l’icône à gauche de l’adresse, puis « Autorisations », « Micro » et « Autoriser ». Si l’application est installée : Chrome, menu à trois points (⋮), « Paramètres », « Paramètres des sites » et « Micro ».']],
+        ['Que veulent dire les couleurs du tajwîd ?', [
+          'Dans une sourate, coche « Couleurs du tajwîd » : la légende s’affiche juste en dessous.',
+          'Gris : lettres non prononcées. Vert : ghounnah, ikhfâ’, iqlâb et idghâm. Bleu : qolqolah. Les prolongations vont du doré (2 temps) à l’orange (permise : 2, 4 ou 6 temps), au rouge (obligatoire : 4 ou 5 temps) et au rouge foncé (nécessaire : 6 temps).']],
+        ['Comment ralentir le récitateur ?', [
+          'Sous le choix du récitateur, le menu « Vitesse » propose 0,5×, 0,75×, normale et 1,25×. La voix garde son ton, et ton choix est mémorisé.']],
+        ['Comment comparer ma récitation à celle du récitateur ?', [
+          'Sous un verset, touche la tête qui parle, récite le verset, puis touche « Arrêter ». Deux boutons apparaissent : « Ma voix » pour te réécouter, et « Comparer » pour entendre le récitateur puis ta voix juste après.']],
+        ['Les mots qui s’allument sont-ils toujours exacts ?', [
+          'Pour la plupart des récitateurs, le minutage mot à mot vient de Quran.com. Pour Ali Jaber, Ali Al-Houdhayfi et Abdullah Al-Matroud, il a été calculé automatiquement par QuranLab : un léger décalage est possible sur certains mots.',
+          'Si tu remarques un décalage important, signale-le à l’auteur (voir la dernière question).']]
+      ]],
+      ['Le cours', [
+        ['Quels niveaux et quels livres l’application suit-elle ?', [
+          'Les niveaux 4A, 4B et 4C du programme de psalmodie du CIFOD. Elle suit pas à pas les ouvrages de référence du CIFOD : Le Viatique du Lecteur et Le Compagnon (recueil d’invocations prophétiques). Tu choisis ton niveau depuis l’accueil.']],
+        ['Comment signaler une erreur dans une fiche ?', [
+          'Va dans Paramètres, carte « Contacter l’auteur », et écris par WhatsApp ou par e-mail. Indique le niveau, le chapitre et ce qui te semble faux : la correction sera faite dans une prochaine version.']]
+      ]]
+    ];
+    // Espaces insécables de la typographie française (« … », :, ?) pour éviter les signes seuls en début de ligne.
+    const nb = (t) => t.replace(/« /g, '«\u00a0').replace(/ »/g, '\u00a0»').replace(/ ([:?!;])/g, '\u00a0$1');
+    let k = 0;
+    this._faq = G.map(([title, items]) => ({ title, items: items.map(([q, a]) => ({ id: 'faq-' + (++k), q: nb(q), a: a.map(nb) })) }));
+    return this._faq;
+  }
+
   srIndex() {
     if (this._si) return this._si;
     const D = this.D(); const out = [];
@@ -2975,6 +3048,7 @@ class Component extends DCLogic {
     D.signs.forEach((sg) => add('4C', 'Niveau 4C, chapitre 15', sg.nom + ', ' + String(sg.designation).charAt(0).toLowerCase() + String(sg.designation).slice(1), { screen: 'learn', level: '4C', anchor: '' }, sg));
     Object.keys(D.CHS).filter((k) => !D.CH4A[k]).forEach((k) => chapter('4C', 'Niveau 4C, chapitre ' + D.CHS[k].num, D.CHS[k].title, 'learnCh', 'ch-', D.CHS[k], k));
     D.COMP.forEach((h) => add('4C', 'Le Compagnon, niveau 4C', h.title, { screen: 'learnComp', level: '4C', anchor: 'comp-' + h.num }, h));
+    this.faqData().forEach((g) => g.items.forEach((it) => add('', 'Questions fréquentes', it.q, { screen: 'faq', anchor: it.id }, it)));
     this._si = out;
     return out;
   }
@@ -3083,6 +3157,7 @@ class Component extends DCLogic {
     try {
       const root = (anchor && document.getElementById(anchor)) || document.querySelector('main');
       if (!root) return;
+      if (root.tagName === 'DETAILS') root.open = true;
       let look = '';
       const has = (el) => this.srNorm(this.srClean(el.textContent)).replace(/\s+/g, ' ').indexOf(look) >= 0;
       [ctx, needle].some((x) => { look = x || ''; return look && has(root); });
@@ -4612,8 +4687,8 @@ class Component extends DCLogic {
       startCMix: () => this.start('mix', CTP),
       homeToc, homeLegend, homeComp, homeCompSub, homeLevels, homeIntro, homeProgLabel, homeProgrammeSub,
       progWeeks, progProgramme, lvl, isProgramme: screen === 'programme', goProgramme: () => this.go('programme'),
-      isHome: screen === 'home', isLearn: screen === 'learn', isLearnTypes: screen === 'learnTypes', isLearnRa: screen === 'learnRa', isInstall: screen === 'install', isInstalled: !!s.installed, showVersion: screen === 'home' && !!s.appVersion, appVersion: s.appVersion, isAbout: screen === 'about', isPrivacy: screen === 'privacy',
-      showQuit: inSession || screen === 'learn' || screen === 'learnTypes' || screen === 'learnRa' || screen === 'learnComp' || screen === 'learnId' || screen === 'learnMd' || screen === 'learnCh' || screen === 'progress' || screen === 'settings' || screen === 'programme' || screen === 'install' || screen === 'about' || screen === 'privacy' || screen === 'search' || screen === 'quranList' || screen === 'quranRead', isQcm, isVf, isTrous,
+      isHome: screen === 'home', isLearn: screen === 'learn', isLearnTypes: screen === 'learnTypes', isLearnRa: screen === 'learnRa', isInstall: screen === 'install', isInstalled: !!s.installed, showVersion: screen === 'home' && !!s.appVersion, appVersion: s.appVersion, isAbout: screen === 'about', isFaq: screen === 'faq', isPrivacy: screen === 'privacy',
+      showQuit: inSession || screen === 'learn' || screen === 'learnTypes' || screen === 'learnRa' || screen === 'learnComp' || screen === 'learnId' || screen === 'learnMd' || screen === 'learnCh' || screen === 'progress' || screen === 'settings' || screen === 'programme' || screen === 'install' || screen === 'about' || screen === 'faq' || screen === 'privacy' || screen === 'search' || screen === 'quranList' || screen === 'quranRead', isQcm, isVf, isTrous,
       isCard: isQcm || isVf, isResult: screen === 'result', inSession,
       modeLabel: (labels[screen] || '') + (inSession ? ', ' + String(topicLabels[s.topic] || '').replace(/ · /g, ', ') : ''), qNum: s.idx + 1, total: s.queue.length, score: s.score,
       progressNum, progressPct: progressNum + '%',
@@ -4643,7 +4718,7 @@ class Component extends DCLogic {
       typeRows, matrixRows,
       learnRows, hide: s.hide, toggleHide: () => this.toggleHide(),
       qc, qcmOptions, vfButtons, tr, fb, res,
-      goHome: () => this.go('home'), goLearn: () => this.go('learn'), goTypes: () => this.go('learnTypes'), goRa: () => this.go('learnRa'), goInstall: () => this.go('install'), goAbout: () => this.go('about'), goPrivacy: () => this.go('privacy'), quit: () => this.go('home'),
+      goHome: () => this.go('home'), goLearn: () => this.go('learn'), goTypes: () => this.go('learnTypes'), goRa: () => this.go('learnRa'), goInstall: () => this.go('install'), goAbout: () => this.go('about'), goFaq: () => this.go('faq'), faqGroups: this.faqData(), goPrivacy: () => this.go('privacy'), quit: () => this.go('home'),
       goFiches: () => /^(a\d|c\d+)$/.test(s.topic) ? this.goCh(s.topic) : this.go(s.topic === 'types' ? 'learnTypes' : (s.topic === 'ra' ? 'learnRa' : ((s.topic === 'comp' || s.topic === 'comp4b' || s.topic === 'comp4a') ? 'learnComp' : (s.topic === 'idgham' ? 'learnId' : (s.topic === 'madd' ? 'learnMd' : 'learn'))))),
       startQcm: () => this.start('qcm', 'signes'), startVf: () => this.start('vf', 'signes'), startTrous: () => this.start('trous', 'signes'), startMix: () => this.start('mix', 'signes'),
       startTQcm: () => this.start('qcm', 'types'), startTVf: () => this.start('vf', 'types'), startTTrous: () => this.start('trous', 'types'), startTMix: () => this.start('mix', 'types'),
