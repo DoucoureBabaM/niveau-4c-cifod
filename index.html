@@ -1093,7 +1093,7 @@ Mode mémorisation
 <p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">Texte arabe : <a href="https://tanzil.net" target="_blank" rel="noopener">Tanzil Project</a> (texte uthmani, version 1.0.2), reproduit sans modification, sous licence Creative Commons Attribution 3.0.</p>
 <p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">Traduction française : Muhammad Hamidullah, fournie par <a href="https://tanzil.net/trans/" target="_blank" rel="noopener">Tanzil.net</a>.</p>
 <p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">Couleurs du tajwîd : annotations du projet <a href="https://github.com/cpfair/quran-tajweed" target="_blank" rel="noopener">quran-tajweed</a> de Collin Fair, sous licence Creative Commons Attribution 4.0. Noms des sourates : <a href="https://quran.com/fr" target="_blank" rel="noopener">Quran.com</a>.</p>
-<p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">Écoute et minutage mot à mot : <a href="https://quran.com/fr" target="_blank" rel="noopener">Quran.com</a> (Quran Foundation). Récitateurs : Mahmoud Khalil Al-Husary, Mohamed Siddiq Al-Minshawi, Mishary Rashid Al-Afasy et Abdul Basit Abdus-Samad.</p>
+<p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">Écoute et minutage mot à mot : <a href="https://quran.com/fr" target="_blank" rel="noopener">Quran.com</a> (Quran Foundation). Récitateurs : Mahmoud Khalil Al-Husary, Mohamed Siddiq Al-Minshawi, Mishary Rashid Al-Afasy, Abdul Basit Abdus-Samad, Abdur-Rahman As-Soudais et Sa’oud Ash-Shouraym.</p>
 </article>
 <div style="display: flex; justify-content: flex-start"><button @click="goHome" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Retour à l’accueil</button></div>
 </section>
@@ -2733,7 +2733,7 @@ class Component extends DCLogic {
     } catch (e) {}
     try {
       const rq = window.localStorage.getItem('waqf-coran');
-      if (rq) { const q = JSON.parse(rq); if (q && q.last && q.last.s) this._qLast = q.last; this.setState({ qTr: q.tr !== false, qTj: q.tj !== false, qRec: [12, 9, 7, 2].indexOf(q.rec) >= 0 ? q.rec : 12 }); }
+      if (rq) { const q = JSON.parse(rq); if (q && q.last && q.last.s) this._qLast = q.last; this.setState({ qTr: q.tr !== false, qTj: q.tj !== false, qRec: this.qRecs().some((r) => r[0] === q.rec) ? q.rec : 12 }); }
     } catch (e) {}
     try {
       // Le Coran : mémorise le verset en haut de l’écran pour « Reprendre la lecture »
@@ -3167,7 +3167,8 @@ class Component extends DCLogic {
 
   // ——— Le Coran : écoute des récitateurs (audio et minutage mot à mot de Quran.com, non mis en cache) ———
   qRecs() {
-    return [[12, 'Al-Husary (muallim)'], [9, 'Al-Minshawi'], [7, 'Mishary Al-Afasy'], [2, 'Abdul Basit']];
+    // Récitateurs de Quran.com qui ont le minutage mot à mot (identifiants de l’API).
+    return [[12, 'Al-Husary (muallim)'], [6, 'Al-Husary (murattal)'], [9, 'Al-Minshawi'], [7, 'Mishary Al-Afasy'], [2, 'Abdul Basit (murattal)'], [1, 'Abdul Basit (mujawwad)'], [3, 'As-Soudais'], [10, 'Ash-Shouraym']];
   }
 
   qAudioInfo(n, rec) {
