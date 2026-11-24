@@ -3120,7 +3120,8 @@ class Component extends DCLogic {
     n = Math.max(1, Math.min(114, n | 0));
     if (this._aud && this.S().qSurah !== n) this.qStopAudio(true);
     this.qLoadIndex();
-    this.setState({ qSurah: n, qError: '' });
+    // Un message d’écoute ou de micro concerne la sourate précédente : on l’efface en changeant de sourate.
+    this.setState({ qSurah: n, qError: '', qAudioMsg: '' });
     this.go('quranRead');
     const after = () => {
       if (v && v > 1) setTimeout(() => { try { const el = document.getElementById('v-' + v); if (el) el.scrollIntoView({ block: 'start' }); } catch (e) {} }, 80);
@@ -3375,7 +3376,7 @@ class Component extends DCLogic {
       this.setState({ qRecording: v, qRecSec: 0, qAudioMsg: '' });
       this._qRecTimer = setInterval(() => this.setState({ qRecSec: Math.floor((Date.now() - t0) / 1000) }), 500);
       this._qRecMax = setTimeout(() => this.qRecStop(), 90000);
-    }).catch((e) => this.setState({ qAudioMsg: e && e.name === 'NotAllowedError' ? 'Le micro est refusé. Autorise-le dans les réglages du navigateur pour t’enregistrer.' : 'Micro inaccessible sur cet appareil.' }));
+    }).catch((e) => this.setState({ qAudioMsg: e && e.name === 'NotAllowedError' ? 'Le micro est refusé : ta voix ne peut pas être enregistrée. Autorise le micro dans les réglages du navigateur. L’écoute des récitateurs, elle, fonctionne sans micro.' : 'Micro inaccessible sur cet appareil.' }));
   }
 
   qRecStop() {
