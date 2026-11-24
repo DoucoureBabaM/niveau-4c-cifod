@@ -870,6 +870,8 @@ Mode mémorisation
 <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px">
 <label style="display: inline-flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 700; color: var(--muted)">Récitateur
 <select @change="qRecPick" aria-label="Choisir le récitateur" style="min-height: 46px; padding: 0 12px; border-radius: 12px; border: 1.5px solid var(--line2); background: var(--surface); color: var(--ink); font-family: 'Alegreya Sans', system-ui, sans-serif; font-size: 15.5px; font-weight: 700"><template v-for="o in qRecOpts"><option :value="o.id" :selected="o.sel">{{o.name}}</option></template></select></label>
+<label style="display: inline-flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 700; color: var(--muted)">Vitesse
+<select @change="qSpdPick" aria-label="Vitesse de lecture" style="min-height: 46px; padding: 0 12px; border-radius: 12px; border: 1.5px solid var(--line2); background: var(--surface); color: var(--ink); font-family: 'Alegreya Sans', system-ui, sans-serif; font-size: 15.5px; font-weight: 700"><template v-for="o in qSpdOpts"><option :value="o.id" :selected="o.sel">{{o.name}}</option></template></select></label>
 <button @click="qPlaySurah" style="display: inline-flex; align-items: center; gap: 8px; min-height: 46px; padding: 0 18px; border-radius: 12px; border: 0; background: var(--accent); color: var(--onaccent); font-size: 15.5px; font-weight: 800"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z" fill="currentColor"></path></svg>Écouter la sourate</button>
 </div>
 <template v-if="qAudioMsgShow"><p role="status" style="margin: 0; text-align: center; font-size: 15px; font-weight: 700; color: var(--rose)">{{qAudioMsg}}</p></template>
@@ -2733,7 +2735,7 @@ class Component extends DCLogic {
     } catch (e) {}
     try {
       const rq = window.localStorage.getItem('waqf-coran');
-      if (rq) { const q = JSON.parse(rq); if (q && q.last && q.last.s) this._qLast = q.last; this.setState({ qTr: q.tr !== false, qTj: q.tj !== false, qRec: this.qRecs().some((r) => r[0] === q.rec) ? q.rec : 12 }); }
+      if (rq) { const q = JSON.parse(rq); if (q && q.last && q.last.s) this._qLast = q.last; this.setState({ qTr: q.tr !== false, qTj: q.tj !== false, qRec: this.qRecs().some((r) => r[0] === q.rec) ? q.rec : 12, qSpd: [0.5, 0.75, 1, 1.25].indexOf(q.spd) >= 0 ? q.spd : 1 }); }
     } catch (e) {}
     try {
       // Le Coran : mémorise le verset en haut de l’écran pour « Reprendre la lecture »
@@ -3112,7 +3114,7 @@ class Component extends DCLogic {
     const c = this._qn && this._qn.s[n - 1];
     this._qLast = { s: n, v: v || 1, name: c ? c.tr : (this._qLast && this._qLast.s === n ? this._qLast.name : '') };
     const s = this.S();
-    try { window.localStorage.setItem('waqf-coran', JSON.stringify({ last: this._qLast, tr: s.qTr !== false, tj: s.qTj !== false, rec: s.qRec || 12 })); } catch (e) {}
+    try { window.localStorage.setItem('waqf-coran', JSON.stringify({ last: this._qLast, tr: s.qTr !== false, tj: s.qTj !== false, rec: s.qRec || 12, spd: s.qSpd || 1 })); } catch (e) {}
   }
 
   qOpen(n, v) {
@@ -3207,6 +3209,7 @@ class Component extends DCLogic {
   qAud() {
     if (this._aud) return this._aud;
     const a = new Audio(); a.preload = 'auto';
+    this._aud = a; this.qApplySpd();
     a.addEventListener('playing', () => this.setState({ qAudio: 'playing', qAudioMsg: '' }));
     a.addEventListener('waiting', () => this.setState({ qAudio: 'loading' }));
     a.addEventListener('pause', () => { if (this.S().qAudio !== 'loading') this.setState({ qAudio: 'paused' }); });
@@ -3244,7 +3247,7 @@ class Component extends DCLogic {
     this._qAdv = v; const t = info.vt[v + 1];
     if (!t) { a.pause(); this.qMark(0, 0); return; }
     this._qV = v + 1; this._qW = -1; this._qSeekTo = 0;
-    a.src = t.url; const p = a.play(); if (p && p.catch) p.catch(() => {});
+    a.src = t.url; this.qApplySpd(); const p = a.play(); if (p && p.catch) p.catch(() => {});
     this.setState({ qPlayV: v + 1 }); this.qSave(this.S().qSurah, v + 1); this.qPvPre(v + 2);
     try { const li = document.getElementById('v-' + (v + 1)); if (li) { const r = li.getBoundingClientRect(); if (r.top < 70 || r.top > window.innerHeight - 260) li.scrollIntoView({ behavior: 'smooth', block: 'center' }); } } catch (e) {}
   }
@@ -3300,6 +3303,7 @@ class Component extends DCLogic {
       const t = info.vt[v]; if (!t) { this.setState({ qAudio: 'paused', qAudioMsg: 'Ce verset n’a pas de minutage chez ce récitateur.' }); return; }
       this._qCur = info;
       const src = info.pv ? t.url : info.url; if (a.getAttribute('src') !== src) a.src = src;
+      this.qApplySpd();
       this._qAdv = 0; if (info.pv) this.qPvPre(v + 1);
       this._qSeekTo = t.from;
       const seek = () => { try { a.currentTime = t.from / 1000; } catch (e) {} };
@@ -3344,6 +3348,17 @@ class Component extends DCLogic {
     if (this._aud) { try { this._aud.pause(); } catch (e) {} }
     this.qMark(0, 0);
     if (hide) this.setState({ qPlayerOn: false, qAudio: 'idle', qAudioMsg: '' });
+  }
+
+  // Vitesse de lecture du récitateur (0,5× à 1,25×), le ton de la voix est conservé.
+  qApplySpd() {
+    const a = this._aud; if (!a) return; const r = this.S().qSpd || 1;
+    try { a.defaultPlaybackRate = r; a.playbackRate = r; a.preservesPitch = true; a.webkitPreservesPitch = true; } catch (e) {}
+  }
+
+  qSetSpd(r) {
+    this.setState({ qSpd: r }); this.qApplySpd();
+    this.qSave(this.S().qSurah || 1, (this._qLast && this._qLast.v) || 1);
   }
 
   qSetRec(rec) {
@@ -4551,6 +4566,7 @@ class Component extends DCLogic {
       qShowBasmala: !!(qData && qIdx && s.qSurah !== 1 && s.qSurah !== 9), qBasmala: qIdx ? qIdx.basmala : '',
       qTr, qTj, qLegend, qFontSt,
       qRecOpts: qRecList.map(([id, name]) => ({ id: String(id), name, sel: id === qRecId })), qRecPick: (e) => this.qSetRec(parseInt(e && e.target ? e.target.value : 12, 10) || 12),
+      qSpdOpts: [[0.5, '0,5×'], [0.75, '0,75×'], [1, 'Normale'], [1.25, '1,25×']].map(([v, name]) => ({ id: String(v), name, sel: v === (s.qSpd || 1) })), qSpdPick: (e) => this.qSetSpd(parseFloat(e && e.target ? e.target.value : 1) || 1),
       qPlaySurah: () => this.qPlay(1, 'surah'), qAudioMsgShow: !!s.qAudioMsg && screen === 'quranRead', qAudioMsg: s.qAudioMsg || '',
       qPlayerOn: !!s.qPlayerOn && screen === 'quranRead', qRecName: s.qMePlaying ? 'Ma récitation' : qRecCur[1], qPlayLabel: s.qMePlaying ? 'Verset ' + s.qMePlaying : s.qAudio === 'loading' ? 'Chargement… verset ' + (s.qPlayV || 1) : 'Verset ' + (s.qPlayV || 1),
       qIsPlaying: qBusy, qIsPaused: !qBusy, qToggleAria: qBusy ? 'Pause' : 'Lecture',
