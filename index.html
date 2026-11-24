@@ -3210,6 +3210,17 @@ class Component extends DCLogic {
     } catch (e) {}
   }
 
+  // Fin d’écoute d’un verset : 0,3 s après le dernier mot, mais toujours avant le premier mot du verset suivant
+  // (chez certains récitateurs, la fin du verset dans le minutage déborde sur le verset suivant).
+  qVerseEnd(info, v) {
+    const t = info.vt[v]; if (!t) return 0;
+    let end = t.to - 40;
+    if (t.seg.length) end = Math.min(end, t.seg[t.seg.length - 1][2] + 300);
+    const nx = info.vt[v + 1];
+    if (nx) end = Math.min(end, (nx.seg.length ? nx.seg[0][1] : nx.from) - 120);
+    return Math.max(end, t.from + 300);
+  }
+
   qTick() {
     const a = this._aud; const info = this._qCur; if (!a || !info) return;
     const ms = a.currentTime * 1000; const s = this.S();
@@ -3222,9 +3233,13 @@ class Component extends DCLogic {
       for (let i = 0; i < keys.length; i++) { const t = info.vt[keys[i]]; if (ms >= t.from && ms < t.to) { v = +keys[i]; break; } }
     }
     const t = info.vt[this._qV];
-    // En mode « Comparer », on s’arrête à la fin du dernier mot (sans le silence qui suit le verset).
-    const tEnd = t ? (this._qThenMe === this._qV && t.seg.length ? Math.min(t.to - 40, t.seg[t.seg.length - 1][2] + 350) : t.to - 40) : 0;
-    if (this._qMode === 'verse' && t && ms >= tEnd) {
+    // Écoute d’un verset : on s’arrête juste après le dernier mot, sans entamer le verset suivant.
+    const tEnd = t ? this.qVerseEnd(info, this._qV) : 0;
+    if (this._qMode === 'verse' && t && ms < tEnd && tEnd - ms < 260 && !this._qStopT && !a.paused) {
+      // Le minuteur régulier passe toutes les 60 ms : pour couper net, on programme l’arrêt au moment exact.
+      this._qStopT = setTimeout(() => { this._qStopT = null; this.qTick(); }, Math.max(0, (tEnd - ms) / (a.playbackRate || 1)));
+    }
+    if (this._qMode === 'verse' && t && ms >= tEnd - 15) {
       if (s.qRepeat && this._qThenMe == null) { a.currentTime = t.from / 1000; return; }
       a.pause(); this.qMark(this._qV, 0);
       if (this._qThenMe === this._qV) { const mv = this._qThenMe; this._qThenMe = null; (this._meReadyP || Promise.resolve()).then(() => this.qMeGo(mv)); }
@@ -3244,7 +3259,7 @@ class Component extends DCLogic {
     const s = this.S(); const n = s.qSurah; const rec = s.qRec || 12; if (!n) return;
     this._qThenMe = null; this.qMeStop();
     const a = this.qAud();
-    this._qMode = mode; this._qV = v; this._qW = -1;
+    this._qMode = mode; this._qV = v; this._qW = -1; clearTimeout(this._qStopT); this._qStopT = null;
     this.setState({ qPlayerOn: true, qPlayV: v, qAudio: 'loading', qAudioMsg: '' });
     const start = (info) => {
       const t = info.vt[v]; if (!t) { this.setState({ qAudio: 'paused', qAudioMsg: 'Ce verset n’a pas de minutage chez ce récitateur.' }); return; }
@@ -3289,7 +3304,7 @@ class Component extends DCLogic {
   }
 
   qStopAudio(hide) {
-    clearInterval(this._qTimer); this._qTimer = null;
+    clearInterval(this._qTimer); this._qTimer = null; clearTimeout(this._qStopT); this._qStopT = null;
     if (this._aud) { try { this._aud.pause(); } catch (e) {} }
     this.qMark(0, 0);
     if (hide) this.setState({ qPlayerOn: false, qAudio: 'idle', qAudioMsg: '' });
