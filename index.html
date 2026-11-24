@@ -2767,7 +2767,7 @@ class Component extends DCLogic {
       screen: 'home', mode: null, topic: 'signes', queue: [], idx: 0, answered: false, picked: null,
       fills: [], checked: false, score: 0, mistakes: [],
       best: { qcm: null, vf: null, trous: null, tqcm: null, tvf: null, ttrous: null }, hide: false, revealed: {},
-      prog: { q: {}, hist: [] }, weeksDone: {}, chap: 'a1', level: '4A', theme: 'auto', arScale: 1, arFont: 'hafs', sysDark: false, confirmReset: false, installed: false, appVersion: '', toast: '', importPending: null, importError: '', shareMenu: false, srQ: '', qSurah: 0, qTr: true, qTj: true, qFilter: '', qLoading: false, qError: '', qRec: 12, qPlayerOn: false, qPlayV: 1, qAudio: 'idle', qAudioMsg: '', qRepeat: false, qRecVer: 0, qRecording: 0, qRecSec: 0, qMePlaying: 0, qMeOn: false, qRecTotal: 0, qRecConfirm: false
+      prog: { q: {}, hist: [] }, weeksDone: {}, chap: 'a1', level: '4A', theme: 'auto', arScale: 1, arFont: 'hafs', sysDark: false, confirmReset: false, installed: false, appVersion: '', toast: '', importPending: null, importError: '', shareMenu: false, srQ: '', qSurah: 0, qTr: false, qTj: false, qFilter: '', qLoading: false, qError: '', qRec: 6, qPlayerOn: false, qPlayV: 1, qAudio: 'idle', qAudioMsg: '', qRepeat: false, qRecVer: 0, qRecording: 0, qRecSec: 0, qMePlaying: 0, qMeOn: false, qRecTotal: 0, qRecConfirm: false
     }, this.state || {});
   }
 
@@ -2791,7 +2791,7 @@ class Component extends DCLogic {
     } catch (e) {}
     try {
       const rq = window.localStorage.getItem('waqf-coran');
-      if (rq) { const q = JSON.parse(rq); if (q && q.last && q.last.s) this._qLast = q.last; this.setState({ qTr: q.tr !== false, qTj: q.tj !== false, qRec: this.qRecs().some((r) => r[0] === q.rec) ? q.rec : 12, qSpd: [0.5, 0.75, 1, 1.25].indexOf(q.spd) >= 0 ? q.spd : 1 }); }
+      if (rq) { const q = JSON.parse(rq); if (q && q.last && q.last.s) this._qLast = q.last; this.setState({ qTr: q.tr === true, qTj: q.tj === true, qRec: this.qRecs().some((r) => r[0] === q.rec) ? q.rec : 6, qSpd: [0.5, 0.75, 1, 1.25].indexOf(q.spd) >= 0 ? q.spd : 1 }); }
     } catch (e) {}
     try {
       // Le Qur’ân : mémorise le verset en haut de l’écran pour « Reprendre la lecture »
@@ -3233,7 +3233,7 @@ class Component extends DCLogic {
     const c = this._qn && this._qn.s[n - 1];
     this._qLast = { s: n, v: v || 1, name: c ? c.tr : (this._qLast && this._qLast.s === n ? this._qLast.name : '') };
     const s = this.S();
-    try { window.localStorage.setItem('waqf-coran', JSON.stringify({ last: this._qLast, tr: s.qTr !== false, tj: s.qTj !== false, rec: s.qRec || 12, spd: s.qSpd || 1 })); } catch (e) {}
+    try { window.localStorage.setItem('waqf-coran', JSON.stringify({ last: this._qLast, tr: s.qTr === true, tj: s.qTj === true, rec: s.qRec || 6, spd: s.qSpd || 1 })); } catch (e) {}
   }
 
   qOpen(n, v) {
@@ -3413,7 +3413,7 @@ class Component extends DCLogic {
   }
 
   qPlay(v, mode) {
-    const s = this.S(); const n = s.qSurah; const rec = s.qRec || 12; if (!n) return;
+    const s = this.S(); const n = s.qSurah; const rec = s.qRec || 6; if (!n) return;
     this._qThenMe = null; this.qMeStop();
     const a = this.qAud();
     this._qMode = mode; this._qV = v; this._qW = -1; clearTimeout(this._qStopT); this._qStopT = null;
@@ -3438,12 +3438,12 @@ class Component extends DCLogic {
     if (ready) { start(ready); return; }
     // Sur iPhone, la lecture doit démarrer dans le geste : on « débloque » le lecteur tout de suite.
     try { if (!a.getAttribute('src')) { const u = a.play(); if (u && u.catch) u.catch(() => {}); } } catch (e) {}
-    this.qAudioInfo(n, rec).then((info) => { if (!this._qaReady) this._qaReady = {}; this._qaReady[key] = info; if (this.S().qSurah === n && (this.S().qRec || 12) === rec) start(info); })
+    this.qAudioInfo(n, rec).then((info) => { if (!this._qaReady) this._qaReady = {}; this._qaReady[key] = info; if (this.S().qSurah === n && (this.S().qRec || 6) === rec) start(info); })
       .catch(() => this.setState({ qAudio: 'paused', qAudioMsg: navigator.onLine === false ? 'Écoute disponible avec une connexion internet.' : 'Impossible de joindre Quran.com pour l’écoute. Réessaie dans un instant.' }));
   }
 
   qPrefetch() {
-    const s = this.S(); const n = s.qSurah; const rec = s.qRec || 12;
+    const s = this.S(); const n = s.qSurah; const rec = s.qRec || 6;
     if (!n || navigator.onLine === false) return;
     const key = n + ':' + rec;
     this.qAudioInfo(n, rec).then((info) => { if (!this._qaReady) this._qaReady = {}; this._qaReady[key] = info; }).catch(() => {});
@@ -4255,7 +4255,7 @@ class Component extends DCLogic {
     const qAr = (n) => String(n).replace(/\d/g, (d) => '٠١٢٣٤٥٦٧٨٩'[d]);
     const qNfs = (n) => 'font-size: ' + (n > 99 ? 11 : (n > 9 ? 14 : 18)) + 'px;';
     const qIdx = this._qn;
-    const qTr = s.qTr !== false, qTj = s.qTj !== false;
+    const qTr = s.qTr === true, qTj = s.qTj === true;
     const qMeta = (c) => c.nv + ' versets, ' + (c.m ? 'mecquoise' : 'médinoise');
     let qListRows = [];
     if (screen === 'quranList' && qIdx) {
@@ -4281,7 +4281,7 @@ class Component extends DCLogic {
     const qPrevC = qIdx && s.qSurah > 1 ? qIdx.s[s.qSurah - 2] : null;
     const qNextC = qIdx && s.qSurah < 114 ? qIdx.s[s.qSurah] : null;
     const qLast = this._qLast;
-    const qRecList = this.qRecs(); const qRecId = s.qRec || 12;
+    const qRecList = this.qRecs(); const qRecId = s.qRec || 6;
     const qRecCur = qRecList.find((r) => r[0] === qRecId) || qRecList[0];
     const qBusy = s.qMePlaying ? !!s.qMeOn : (s.qAudio === 'playing' || s.qAudio === 'loading');
     // Le texte de Tanzil s’affiche mal avec la police du Mushaf de Médine (signe du alif muet) : Scheherazade, conçue pour le texte Coranique, la remplace ici.
@@ -4699,7 +4699,7 @@ class Component extends DCLogic {
       qHead, qVerses, qLoading: !!s.qLoading && screen === 'quranRead', qErrorShow: !!s.qError, qError: s.qError || '',
       qShowBasmala: !!(qData && qIdx && s.qSurah !== 1 && s.qSurah !== 9), qBasmala: qIdx ? qIdx.basmala : '',
       qTr, qTj, qLegend, qFontSt,
-      qRecOpts: qRecList.map(([id, name]) => ({ id: String(id), name, sel: id === qRecId })), qRecPick: (e) => this.qSetRec(parseInt(e && e.target ? e.target.value : 12, 10) || 12),
+      qRecOpts: qRecList.map(([id, name]) => ({ id: String(id), name, sel: id === qRecId })), qRecPick: (e) => this.qSetRec(parseInt(e && e.target ? e.target.value : 6, 10) || 6),
       qSpdOpts: [[0.5, '0,5×'], [0.75, '0,75×'], [1, 'Normale'], [1.25, '1,25×']].map(([v, name]) => ({ id: String(v), name, sel: v === (s.qSpd || 1) })), qSpdPick: (e) => this.qSetSpd(parseFloat(e && e.target ? e.target.value : 1) || 1),
       qPlaySurah: () => this.qPlay(1, 'surah'), qAudioMsgShow: !!s.qAudioMsg && screen === 'quranRead', qAudioMsg: s.qAudioMsg || '',
       qPlayerOn: !!s.qPlayerOn && screen === 'quranRead', qRecName: s.qMePlaying ? 'Ma récitation' : qRecCur[1], qPlayLabel: s.qMePlaying ? 'Verset ' + s.qMePlaying : s.qAudio === 'loading' ? 'Chargement… verset ' + (s.qPlayV || 1) : 'Verset ' + (s.qPlayV || 1),
