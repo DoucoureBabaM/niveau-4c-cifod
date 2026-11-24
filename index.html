@@ -189,6 +189,13 @@ Quitter
 
 <main class="app-main" style="flex: 1; width: 100%; max-width: 760px; margin: 0 auto; padding: 32px 20px 48px; display: flex; flex-direction: column; gap: 20px">
 
+<template v-if="showBack">
+<button @click="goBack" aria-label="Retour à la page précédente" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--surface); font-size: 14px; font-weight: 700">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg>
+Retour
+</button>
+</template>
+
 <template v-if="isHome">
 <section class="rise" style="display: flex; flex-direction: column; gap: 30px; width: 100%; max-width: 640px; margin: 0 auto">
 
@@ -3947,10 +3954,20 @@ class Component extends DCLogic {
       beforeParts: this.redParts(ex.before), afterParts: this.redParts(ex.after), textParts: this.redParts(ex.text) };
   }
 
+  // Retour : l’écran visité juste avant (l’accueil si la pile est vide)
+  goBack() {
+    const nv = this._nav || ['home'];
+    if (nv[nv.length - 1] === this.S().screen) nv.pop();
+    this.go(nv[nv.length - 1] || 'home');
+  }
+
   go(screen) {
     if (screen !== 'quranRead' && this._aud) this.qStopAudio(true);
     if (screen !== 'quranRead') { this.qRecStop(); if (this._me) this.qMeStop(); }
     if (screen === 'settings') this.qRecCount();
+    // Pile des écrans visités, pour le bouton « Retour » (un cran en arrière)
+    const nv = this._nav || (this._nav = ['home']);
+    if (screen === 'home') this._nav = ['home']; else if (nv[nv.length - 1] !== screen) { nv.push(screen); if (nv.length > 30) nv.shift(); }
     // Le compagnon s’ouvre toujours sans le mode mémorisation activé
     if (screen === 'learnComp') this.setState({ screen, hide: false, revealed: {} });
     else this.setState({ screen });
@@ -4726,6 +4743,9 @@ class Component extends DCLogic {
       homeToc, homeLegend, homeComp, homeCompSub, homeLevels, homeIntro, homeProgLabel, homeProgrammeSub,
       progWeeks, progProgramme, lvl, isProgramme: screen === 'programme', goProgramme: () => this.go('programme'),
       isHome: screen === 'home', isLearn: screen === 'learn', isLearnTypes: screen === 'learnTypes', isLearnRa: screen === 'learnRa', isInstall: screen === 'install', isInstalled: !!s.installed, showVersion: screen === 'home' && !!s.appVersion, appVersion: s.appVersion, isAbout: screen === 'about', isFaq: screen === 'faq', isPrivacy: screen === 'privacy',
+      goBack: () => this.goBack(),
+      // Retour : partout sauf à l’accueil ; dans une sourate, le lien « Les sourates » suffit quand on vient de la liste
+      showBack: (() => { const nv = this._nav || ['home']; const prev = nv[nv.length - 1] === screen ? nv[nv.length - 2] : nv[nv.length - 1]; return screen !== 'home' && !(screen === 'quranRead' && prev === 'quranList'); })(),
       showQuit: inSession || screen === 'learn' || screen === 'learnTypes' || screen === 'learnRa' || screen === 'learnComp' || screen === 'learnId' || screen === 'learnMd' || screen === 'learnCh' || screen === 'progress' || screen === 'settings' || screen === 'programme' || screen === 'install' || screen === 'about' || screen === 'faq' || screen === 'privacy' || screen === 'search' || screen === 'quranList' || screen === 'quranRead', isQcm, isVf, isTrous,
       isCard: isQcm || isVf, isResult: screen === 'result', inSession,
       modeLabel: (labels[screen] || '') + (inSession ? ', ' + String(topicLabels[s.topic] || '').replace(/ · /g, ', ') : ''), qNum: s.idx + 1, total: s.queue.length, score: s.score,
