@@ -53,3 +53,10 @@ Section Coran : sources et licences
    m6 madd lâzim, q qalqalah, h hamzat al-wasl, ls lâm shamsiyyah, s lettre muette.
 
 4. Noms des sourates : Quran.com (traductions françaises légèrement adaptées).
+
+5. Minutage mot à mot des récitateurs Ali Jaber, Ali Al-Houdhayfi et Abdullah Al-Matroud (dossier t/) :
+   jeu de données quranlab/quran-audio (https://huggingface.co/datasets/quranlab/quran-audio), minutage généré
+   par QuranLab par alignement forcé, licence Creative Commons Attribution 4.0 International
+   (https://creativecommons.org/licenses/by/4.0/). Format : pour chaque verset, [durée, début mot 1, fin mot 1, …]
+   en millisecondes ; « بَعْدَمَا » (2:181, 8:6, 13:37) est compté comme un seul mot, comme dans le texte Tanzil.
+   L'audio n'est pas hébergé ici : il est lu depuis everyayah.com (© de chaque récitateur et producteur).
