@@ -1014,7 +1014,7 @@ Mode mémorisation
 </ol>
 <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px; padding: 12px 0 2px">
 <label style="display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 16px; border: 1.5px solid var(--line); border-radius: 999px; background: var(--surface); font-size: 15px; font-weight: 700; cursor: pointer"><input type="checkbox" role="switch" :checked="qLuOn" @change="qLuToggle" style="width: 18px; height: 18px; margin: 0; accent-color: var(--accent)">Sourate lue</label>
-<label style="display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 16px; border: 1.5px solid var(--line); border-radius: 999px; background: var(--surface); font-size: 15px; font-weight: 700; cursor: pointer"><input type="checkbox" role="switch" :checked="qApOn" @change="qApToggle" style="width: 18px; height: 18px; margin: 0; accent-color: var(--accent)">Sourate apprise</label>
+
 </div>
 <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; padding-top: 6px; border-top: 1px solid var(--line)">
 <template v-if="qHasPrev"><button class="btn-a" @click="qPrev" style="display: inline-flex; flex-direction: column; align-items: flex-start; gap: 2px; min-height: 56px; padding: 8px 14px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); text-align: left"><span style="font-size: 13px; font-weight: 500; color: var(--muted)">Sourate précédente</span><span style="font-size: 15.5px; font-weight: 800">{{qPrevLabel}}</span></button></template>
@@ -4640,7 +4640,7 @@ class Component extends DCLogic {
       const qSrc = s.qClass ? this.qClassList(s.level).map((n) => qIdx.s[n - 1]).filter(Boolean) : qIdx.s;
       const qKeep = (c) => !f || String(c.n) === f || this.srNorm(c.tr + ' ' + c.fr + ' ' + c.ar).indexOf(f) >= 0;
       const qLuO = s.qLu || {}, qApO = s.qAp || {};
-      const qRow = (c, a, b) => { const part = a > 1 || b < c.nv; const ap = !!qApO[c.n], lu = !!qLuO[c.n]; return { hasBadge: ap || lu, badge: ap ? 'Apprise' : 'Lue', badgeSt: ap ? 'background: var(--accent); color: var(--onaccent);' : 'background: var(--tint); color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent);', num: qAr(c.n), nfs: qNfs(c.n), tr: c.tr, ar: c.ar, meta: c.fr + ', ' + (part ? 'versets ' + a + ' à ' + b : qMeta(c)), open: () => this.qOpen(c.n, a) }; };
+      const qRow = (c, a, b) => { const part = a > 1 || b < c.nv; const lu = !!qLuO[c.n]; return { hasBadge: lu, badge: 'Lue', badgeSt: 'background: var(--tint); color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent);', num: qAr(c.n), nfs: qNfs(c.n), tr: c.tr, ar: c.ar, meta: c.fr + ', ' + (part ? 'versets ' + a + ' à ' + b : qMeta(c)), open: () => this.qOpen(c.n, a) }; };
       qListRows = qSrc.filter(qKeep).map((c) => qRow(c, 1, c.nv));
       if (s.qJuz) {
         const at = {}; qSrc.forEach((c, i) => { at[c.n] = i + 1; });
@@ -5107,8 +5107,8 @@ class Component extends DCLogic {
         return {
           qTodayN: String(nT), qGoal: String(g), qGoalPct: pc + '%', qGoalPctN: String(pc),
           qGoalOpts: [10, 20, 30, 50, 100].map((k) => ({ v: String(k), sel: k === g })), qGoalPick: (e) => { this.setState({ qGoal: parseInt(e && e.target ? e.target.value : 20, 10) || 20 }); this.qSuiviSave(); },
-          qLuLine: 'Sourates lues : ' + nLu + ' sur 114, apprises : ' + nAp,
-          qLuOn: !!(s.qLu || {})[s.qSurah], qApOn: !!(s.qAp || {})[s.qSurah], qLuToggle: () => this.qMarkRead(s.qSurah, 'lu'), qApToggle: () => this.qMarkRead(s.qSurah, 'ap')
+          qLuLine: 'Sourates lues : ' + nLu + ' sur 114',
+          qLuOn: !!(s.qLu || {})[s.qSurah], qLuToggle: () => this.qMarkRead(s.qSurah, 'lu')
         };
       })(),
       isQuranQuiz: screen === 'quranQuiz', qzGo: () => this.qzStart(), qzNext: () => this.qzNext(), qzHomeSub: 'Exercice sur les sourates lues en classe (' + s.level + ')',
