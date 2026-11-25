@@ -3739,7 +3739,7 @@ class Component extends DCLogic {
     const tot = Object.keys(m).reduce((a, k) => a + (m[k].b || 0), 0) / 1e6;
     const nOther = Object.keys(m).filter((k) => k !== key).length;
     return {
-      qOffIntro: 'Télécharge l’audio des sourates lues en classe du niveau de ton choix, pour les écouter sans internet, avec les mots qui s’allument.',
+      qOffIntro: 'Télécharge l’audio des sourates lues en classe, du niveau et du lecteur de ton choix, pour les écouter sans internet, avec les mots qui s’allument.',
       qOffLvlLine: 'Niveau ' + lvl + '\u00a0: sourates ' + list[0] + ' à ' + list[list.length - 1] + '.',
       qOffLvls: ['4A', '4B', '4C'].map((l) => ({ label: 'Niveau ' + l, pressed: l === lvl ? 'true' : 'false', off: busy, pick: () => { if (!this.S().qOffBusy) this.setState({ qOffLvl: l, qOffMsg: '' }); },
         style: 'min-height: 44px; padding: 0 16px; border-radius: 12px; font-size: 14.5px; font-weight: 700; display: inline-flex; align-items: center; ' + (l === lvl ? 'background: var(--accent); color: var(--onaccent); border: 1.5px solid var(--accent);' : 'background: var(--surface); color: var(--ink); border: 1.5px solid var(--line);') + (busy ? ' opacity: .55;' : '') })),
