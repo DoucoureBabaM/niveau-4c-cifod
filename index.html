@@ -254,6 +254,7 @@ Retour
 <img src="assets/quran_cercle.webp" alt="Médaillon doré portant la calligraphie « Al-Qur’ân Al-Majîd »" style="width: 78px; height: 78px; border-radius: 999px; display: block; flex-shrink: 0; object-fit: cover; box-shadow: 0 0 0 3px var(--bg), 0 0 0 4.5px var(--gold)">
 </div>
 <button @click="qGoList" style="display: flex; align-items: center; justify-content: space-between; gap: 14px; width: 100%; min-height: 64px; padding: 10px 0; border: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: transparent; text-align: left; color: var(--ink)"><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-family: 'Alegreya', serif; font-size: 18px; font-weight: 500">Ouvrir le Qur’ân</span><span style="font-size: 14px; font-weight: 500; color: var(--muted)">Les 114 sourates, avec les couleurs du tajwîd</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; color: var(--muted)"><path d="M9 6l6 6-6 6"></path></svg></button>
+<button @click="qzGo" style="display: flex; align-items: center; justify-content: space-between; gap: 14px; width: 100%; min-height: 64px; padding: 10px 0; border: 0; border-bottom: 1px solid var(--line); background: transparent; text-align: left; color: var(--ink)"><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-family: 'Alegreya', serif; font-size: 18px; font-weight: 500">Trouver la règle dans un verset</span><span style="font-size: 14px; font-weight: 500; color: var(--muted)">{{qzHomeSub}}</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; color: var(--muted)"><path d="M9 6l6 6-6 6"></path></svg></button>
 <template v-if="qHasLast"><button @click="qResume" style="display: flex; align-items: center; justify-content: space-between; gap: 14px; width: 100%; min-height: 64px; padding: 10px 0; border: 0; border-bottom: 1px solid var(--line); background: transparent; text-align: left; color: var(--ink)"><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-family: 'Alegreya', serif; font-size: 18px; font-weight: 500">Reprendre la lecture</span><span style="font-size: 14px; font-weight: 500; color: var(--muted)">{{qLastLabel}}</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; color: var(--muted)"><path d="M9 6l6 6-6 6"></path></svg></button></template>
 </section>
 
@@ -876,6 +877,56 @@ Mode mémorisation
 </section>
 </template>
 
+<template v-if="isQuranQuiz">
+<section class="rise" style="display: flex; flex-direction: column; gap: 18px; width: 100%; max-width: 640px; margin: 0 auto">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<h1 style="margin: 0; font-size: 32px; line-height: 1.12">Trouver la règle</h1>
+<p style="margin: 0; font-size: 16px; line-height: 1.55; color: var(--muted); text-wrap: pretty">{{qzLevelLabel}}</p>
+</div>
+<template v-if="qzLoading"><p style="margin: 0; font-size: 15px; color: var(--muted)">Préparation des questions…</p></template>
+<template v-if="qzHasErr"><p role="alert" style="margin: 0; font-size: 15px; font-weight: 700; color: var(--rose)">{{qzErr}}</p></template>
+<template v-if="qzRun">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 14px; font-weight: 600; color: var(--muted); font-variant-numeric: tabular-nums">Question {{qzNum}} sur {{qzTotal}}, score {{qzScore}}</span>
+<div role="progressbar" aria-label="Progression" aria-valuemin="0" aria-valuemax="100" :aria-valuenow="qzPctNum" style="height: 6px; border-radius: 999px; background: var(--surface3); overflow: hidden"><div :style="`height: 100%; width: ${qzPct}; background: var(--accent); border-radius: 999px; transition: width .35s ease`"></div></div>
+</div>
+<article style="background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 16px 20px 18px; display: flex; flex-direction: column; gap: 8px">
+<span style="font-family: 'Alegreya Sans', system-ui, sans-serif; font-size: 13.5px; font-weight: 700; color: var(--muted)">{{qzRef}}</span>
+<p lang="ar" dir="rtl" :style="`margin: 0; ${qFontSt} font-size: calc(28px * var(--ar, 1)); line-height: 2.3; color: var(--ink); text-align: right`"><template v-for="p in qzParts"><span :style="p.st">{{p.t}}</span></template></p>
+</article>
+<p style="margin: 0; font-size: 18px; font-weight: 700; line-height: 1.4; text-wrap: pretty">Quelle règle s’applique à la partie encadrée&nbsp;?</p>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<template v-for="o in qzOpts"><button class="lift" @click="o.pick" :disabled="o.disabled" :aria-label="o.aria" :style="`width: 100%; min-height: 62px; padding: 12px 16px; display: flex; align-items: center; gap: 14px; text-align: left; background: ${o.bg}; border: 1.5px solid ${o.border}; border-radius: 15px; opacity: ${o.op}; color: var(--ink)`">
+<span :style="`width: 34px; height: 34px; flex-shrink: 0; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; background: ${o.badgeBg}; color: ${o.badgeFg}`"><template v-if="o.showLetter"><span>{{o.letter}}</span></template><template v-if="o.showCheck"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></template><template v-if="o.showCross"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17"></path></svg></template></span>
+<span style="font-size: 16px; font-weight: 600; line-height: 1.35">{{o.text}}</span>
+</button></template>
+</div>
+<template v-if="qzFb"><div id="qz-fb" class="rise" role="status" :style="`scroll-margin-bottom: 96px; border-radius: 18px; padding: 18px 20px; display: flex; flex-direction: column; gap: 16px; background: ${qzFbBg}; border: 1px solid ${qzFbColor}`">
+<div style="display: flex; gap: 14px; align-items: flex-start">
+<span :style="`width: 34px; height: 34px; flex-shrink: 0; border-radius: 999px; background: ${qzFbColor}; color: #FFFFFF; display: flex; align-items: center; justify-content: center`"><template v-if="qzOk"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></template><template v-if="qzKo"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17"></path></svg></template></span>
+<div style="display: flex; flex-direction: column; gap: 6px; min-width: 0">
+<p :style="`margin: 0; font-size: 17px; font-weight: 800; color: ${qzFbColor}`">{{qzFbTitle}}</p>
+<template v-if="qzKo"><p style="margin: 0; font-size: 15px; font-weight: 700; line-height: 1.5; color: var(--ink)">{{qzFbRight}}</p></template>
+<p style="margin: 0; font-size: 15px; line-height: 1.55; color: var(--ink); text-wrap: pretty">{{qzFbExplain}}</p>
+</div>
+</div>
+<button class="btn-b" @click="qzNext" style="align-self: flex-end; min-height: 48px; padding: 0 22px; border-radius: 12px; border: 0; background: var(--btn); color: var(--onaccent); font-size: 15px; font-weight: 700; display: inline-flex; align-items: center; gap: 8px">{{qzNextLabel}}
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+</button>
+</div></template>
+</template>
+<template v-if="qzDone"><div class="rise" style="background: var(--surface); border: 1px solid var(--line); border-radius: 24px; padding: 32px 24px; display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center">
+<span style="font-size: 16.5px; font-weight: 400; font-style: italic; color: var(--muted)">Résultat</span>
+<p style="margin: 0; font-size: 72px; font-weight: 800; letter-spacing: -0.04em; line-height: 1; font-variant-numeric: tabular-nums">{{qzScore}}<span style="font-size: 30px; font-weight: 700; color: var(--muted); letter-spacing: -0.01em"> / {{qzTotal}}</span></p>
+<div aria-hidden="true" style="width: 100%; max-width: 320px; height: 8px; border-radius: 999px; background: var(--surface3); overflow: hidden"><div :style="`height: 100%; width: ${qzResW}; background: var(--accent); border-radius: 999px`"></div></div>
+<p style="margin: 0; font-size: 17px; line-height: 1.55; max-width: 440px; text-wrap: pretty">{{qzResMsg}}</p>
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 6px">
+<button class="btn-b" @click="qzGo" style="min-height: 48px; padding: 0 22px; border-radius: 12px; border: 0; background: var(--accent); color: var(--onaccent); font-size: 15px; font-weight: 700; display: inline-flex; align-items: center; gap: 8px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"></path><path d="M20 4v7h-7"></path></svg>Recommencer</button>
+<button class="btn-a" @click="qGoList" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Ouvrir le Qur’ân</button>
+</div>
+</div></template>
+</section>
+</template>
 <template v-if="isQuranList">
 <section class="rise" style="display: flex; flex-direction: column; gap: 18px; width: 100%; max-width: 640px; margin: 0 auto">
 <div style="display: flex; flex-direction: column; gap: 6px">
@@ -910,7 +961,7 @@ Mode mémorisation
 <section class="rise" style="display: flex; flex-direction: column; gap: 18px; width: 100%; max-width: 680px; margin: 0 auto">
 <button @click="qGoList" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 4px; border: 0; background: transparent; color: var(--accent); font-size: 16px; font-weight: 800"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg>Les sourates</button>
 <div class="fiche-head" style="display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; text-align: center">
-<div style="position: relative; width: 100%; max-width: 420px; color: var(--gold)"><svg viewBox="0 0 360 120" width="100%" aria-hidden="true" style="display: block"><defs><pattern id="q-tpat" width="24" height="24" patternUnits="userSpaceOnUse" x="0" y="0"><path d="M12 5L19 12L12 19L5 12Z M7.05 7.05H16.95V16.95H7.05Z" fill="none" stroke="currentColor" stroke-width="0.8" stroke-linejoin="round"></path><path d="M0 0L5 5M24 0L19 5M0 24L5 19M24 24L19 19" stroke="currentColor" stroke-width="0.8"></path></pattern></defs><rect x="2" y="2" width="356" height="116" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"></rect><rect x="7.5" y="7.5" width="345" height="105" fill="url(#q-tpat)" stroke="currentColor" stroke-width="0.9" style="fill-opacity: 0.55"></rect><path d="M84 18H276C296 18 300.8 38.16 316 60C300.8 81.84 296 102 276 102H84C64 102 59.2 81.84 44 60C59.2 38.16 64 18 84 18Z" style="fill: var(--surface)" stroke="currentColor" stroke-width="1.8"></path><path d="M87 23H273C290 23 294.08 40.76 307 60C294.08 79.24 290 97 273 97H87C70 97 65.92 79.24 53 60C65.92 40.76 70 23 87 23Z" fill="none" stroke="currentColor" stroke-width="0.9"></path><circle cx="36" cy="60" r="3" fill="currentColor"></circle><circle cx="324" cy="60" r="3" fill="currentColor"></circle></svg><p lang="ar" dir="rtl" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; margin: 0; padding: 0 20% 4px; font-family: 'ArPunct', var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', serif; font-size: min(calc(36px * var(--ar, 1)), 9.5vw); font-weight: 400; line-height: 1.2; text-align: center; color: var(--ink)">{{qHead.arTitle}}</p></div>
+<div style="position: relative; width: 100%; max-width: 420px; color: var(--gold)"><svg viewBox="0 0 360 120" width="100%" aria-hidden="true" style="display: block"><defs><pattern id="q-tpat" width="24" height="24" patternUnits="userSpaceOnUse" x="0" y="0"><path d="M12 5L19 12L12 19L5 12Z M7.05 7.05H16.95V16.95H7.05Z" fill="none" stroke="currentColor" stroke-width="0.8" stroke-linejoin="round"></path><path d="M0 0L5 5M24 0L19 5M0 24L5 19M24 24L19 19" stroke="currentColor" stroke-width="0.8"></path></pattern></defs><rect x="2" y="2" width="356" height="116" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"></rect><rect x="7.5" y="7.5" width="345" height="105" fill="url(#q-tpat)" stroke="currentColor" stroke-width="0.9" style="fill-opacity: 0.55"></rect><path d="M104 18H256C276 18 280.8 38.16 296 60C280.8 81.84 276 102 256 102H104C84 102 79.2 81.84 64 60C79.2 38.16 84 18 104 18Z" style="fill: var(--surface)" stroke="currentColor" stroke-width="1.8"></path><path d="M107 23H253C270 23 274.08 40.76 287 60C274.08 79.24 270 97 253 97H107C90 97 85.92 79.24 73 60C85.92 40.76 90 23 107 23Z" fill="none" stroke="currentColor" stroke-width="0.9"></path><g transform="translate(328 60)"><rect x="-15" y="-15" width="30" height="30" style="fill: var(--surface)"></rect><rect x="-15" y="-15" width="30" height="30" transform="rotate(45)" style="fill: var(--surface)"></rect><rect x="-15" y="-15" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.1"></rect><rect x="-15" y="-15" width="30" height="30" transform="rotate(45)" fill="none" stroke="currentColor" stroke-width="1.1"></rect><circle r="13.5" fill="none" stroke="currentColor" stroke-width="0.9"></circle><text x="0" y="4.5" text-anchor="middle" style="font-family: 'Amiri Quran', serif; font-size: 12.5px; fill: var(--ink)">{{qHead.place}}</text></g><g transform="translate(32 60)"><rect x="-15" y="-15" width="30" height="30" style="fill: var(--surface)"></rect><rect x="-15" y="-15" width="30" height="30" transform="rotate(45)" style="fill: var(--surface)"></rect><rect x="-15" y="-15" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.1"></rect><rect x="-15" y="-15" width="30" height="30" transform="rotate(45)" fill="none" stroke="currentColor" stroke-width="1.1"></rect><circle r="13.5" fill="none" stroke="currentColor" stroke-width="0.9"></circle><text x="0" y="4.5" text-anchor="middle" style="font-family: 'Amiri Quran', serif; font-size: 12.5px; fill: var(--ink)">{{qHead.nvAr}}</text></g></svg><p lang="ar" dir="rtl" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; margin: 0; padding: 0 23% 4px; font-family: 'ArPunct', var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', serif; font-size: min(calc(32px * var(--ar, 1)), 8.2vw); white-space: nowrap; font-weight: 400; line-height: 1.2; text-align: center; color: var(--ink)">{{qHead.arTitle}}</p></div>
 <div style="display: flex; align-items: center; gap: 10px; font-family: 'Alegreya Sans', system-ui, sans-serif; font-size: 15px; font-weight: 700; color: var(--muted)"><span style="position: relative; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; color: var(--gold)"><svg width="38" height="38" viewBox="0 0 46 46" aria-hidden="true" style="position: absolute; left: 0; top: 0"><g fill="none" stroke="currentColor" stroke-width="1.6"><rect x="9.5" y="9.5" width="27" height="27"></rect><rect x="9.5" y="9.5" width="27" height="27" transform="rotate(45 23 23)"></rect><circle cx="23" cy="23" r="12.5"></circle></g></svg><span :style="`position: relative; top: -0.31em; font-family: 'Amiri Quran', serif; ${qHead.nfs} line-height: 1; color: var(--ink)`">{{qHead.num}}</span></span>Sourate {{qHead.n}}</div>
 <h1 style="margin: 0; font-size: 34px; line-height: 1.12; text-wrap: balance">{{qHead.tr}}</h1>
 <p style="margin: 0; font-size: 18px; font-style: italic; color: var(--ink2)">{{qHead.fr}}</p>
@@ -928,13 +979,14 @@ Mode mémorisation
 <button class="btn-b" @click="qPlaySurah" style="display: inline-flex; align-items: center; gap: 8px; min-height: 46px; padding: 0 18px; border-radius: 12px; border: 0; background: var(--accent); color: var(--onaccent); font-size: 15.5px; font-weight: 800"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z" fill="currentColor"></path></svg>Écouter la sourate</button>
 </div>
 <template v-if="qAudioMsgShow"><p role="status" style="margin: 0; text-align: center; font-size: 15px; font-weight: 700; color: var(--rose)">{{qAudioMsg}}</p></template>
-<template v-if="qTj"><ul aria-label="Couleurs du tajwîd" style="list-style: none; margin: 0; padding: 14px 16px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); gap: 8px 16px; font-family: 'Alegreya Sans', system-ui, sans-serif; font-size: 14.5px; font-weight: 700"><template v-for="g in qLegend"><li style="display: flex; align-items: center; gap: 9px"><span aria-hidden="true" :style="`width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; ${g.dot}`"></span>{{g.label}}</li></template></ul></template>
+<template v-if="qTj"><ul aria-label="Couleurs du tajwîd" style="list-style: none; margin: 0; padding: 14px 16px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); gap: 8px 16px; font-family: 'Alegreya Sans', system-ui, sans-serif; font-size: 14.5px; font-weight: 700"><template v-for="g in qLegend"><li style="display: flex; align-items: center; gap: 9px"><span aria-hidden="true" :style="`width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; ${g.dot}`"></span>{{g.label}}</li></template></ul>
+<p style="margin: -6px 0 0; font-family: 'Alegreya Sans', system-ui, sans-serif; font-size: 14px; font-weight: 600; color: var(--muted)">Touche une lettre en couleur pour voir sa règle.</p></template>
 <template v-if="qLoading"><p style="margin: 0; font-size: 15px; color: var(--muted); text-align: center">Chargement de la sourate…</p></template>
 <template v-if="qErrorShow"><p role="alert" style="margin: 0; font-size: 15px; font-weight: 700; color: var(--rose)">{{qError}}</p></template>
 <template v-if="qShowBasmala"><p lang="ar" dir="rtl" :style="`margin: 4px 0 0; text-align: center; ${qFontSt} font-size: calc(28px * var(--ar, 1)); line-height: 2; color: var(--ink)`">{{qBasmala}}</p></template>
 <ol id="q-verses" style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column">
 <template v-for="v in qVerses"><li :id="v.id" :aria-label="v.aria" style="scroll-margin-top: 16px; padding: 16px 0; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 10px">
-<p lang="ar" dir="rtl" :style="`margin: 0; ${qFontSt} font-size: calc(30px * var(--ar, 1)); line-height: 2.25; color: var(--ink); text-align: right`"><template v-for="w in v.words"><span class="qw" :id="w.id"><template v-for="p in w.parts"><span :style="p.st">{{p.t}}</span></template></span>{{w.sp}}</template> <span aria-hidden="true" style="font-family: 'Hafs', 'Amiri Quran', serif; font-size: 1.35em; line-height: 1; color: var(--gold)">{{v.mark}}</span></p>
+<p lang="ar" dir="rtl" @click="qTapRule" :style="`margin: 0; ${qFontSt} font-size: calc(30px * var(--ar, 1)); line-height: 2.25; color: var(--ink); text-align: right`"><template v-for="w in v.words"><span class="qw" :id="w.id"><template v-for="p in w.parts"><span :style="p.st" :data-r="p.r">{{p.t}}</span></template></span>{{w.sp}}</template> <span aria-hidden="true" style="font-family: 'Hafs', 'Amiri Quran', serif; font-size: 1.35em; line-height: 1; color: var(--gold)">{{v.mark}}</span></p>
 <template v-if="v.showTr"><p style="margin: 0; font-size: 17px; line-height: 1.6; color: var(--ink2); text-wrap: pretty"><span style="font-family: 'Alegreya Sans', system-ui, sans-serif; font-weight: 800; color: var(--goldtext); margin-right: 6px">{{v.n}}.</span>{{v.fr}}</p></template>
 <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px"><button @click="v.play" :aria-label="v.playAria" :title="v.playAria" style="display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: 50px; height: 50px; padding: 0; border-radius: 50%; border: 1.5px solid var(--line); background: var(--surface); color: var(--accent)"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5a8 8 0 0 1 16 0c0 4.6-2.6 6.4-4.4 8.2-1.4 1.4-1.6 2.6-1.6 4a4 4 0 0 1-7.4 2.2"></path><path d="M15.6 13.5a3.2 3.2 0 1 0-6.2-1.1c0 2.2 2.6 2.6 2.6 4.8a2 2 0 0 1-3.2 1.6"></path><path d="M23.6 9.8a6 6 0 0 1 0 5.4"></path><path d="M26.4 7.2a10 10 0 0 1 0 10.6"></path><path d="M29.2 4.6a14 14 0 0 1 0 15.8"></path></svg></button><button @click="v.rec" :aria-label="v.recAria" :title="v.recAria" :style="`display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: 50px; height: 50px; padding: 0; border-radius: 50%; border: 1.5px solid ${v.recBorder}; background: ${v.recBg}; color: ${v.recCol}`"><template v-if="v.recOn"><svg width="18" height="18" viewBox="0 0 12 12" aria-hidden="true"><rect x="1.5" y="1.5" width="9" height="9" rx="1.5" fill="currentColor"></rect></svg></template><template v-if="v.recOff"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M27 29c-.4-2.4 2.8-4.6 2.8-12 0-6.4-4.2-10.8-9.8-10.8-4.4 0-7.4 3-7.6 7.2l-2.2 4.2 2.1.7-.4 1.6 1 .7-1 .8.4 1.3c.2 1.7 1.5 2.4 3.6 2.4 1.6 0 2.5 1 2.7 2.4l.3 2.4"></path><path d="M7.4 17.4a4.5 4.5 0 0 0 0 5.2"></path><path d="M4.4 15.2a8 8 0 0 0 0 9.6"></path></svg></template></button><template v-if="v.hasRec"><button @click="v.me" :aria-label="v.meAria" style="display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); font-size: 14.5px; font-weight: 800">Ma voix</button><button @click="v.cmp" :aria-label="v.cmpAria" style="display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); font-size: 14.5px; font-weight: 800"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4L3 8l4 4"></path><path d="M3 8h14"></path><path d="M17 20l4-4-4-4"></path><path d="M21 16H7"></path></svg>Comparer</button></template></div>
 
@@ -944,6 +996,18 @@ Mode mémorisation
 <template v-if="qHasPrev"><button class="btn-a" @click="qPrev" style="display: inline-flex; flex-direction: column; align-items: flex-start; gap: 2px; min-height: 56px; padding: 8px 14px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); text-align: left"><span style="font-size: 13px; font-weight: 500; color: var(--muted)">Sourate précédente</span><span style="font-size: 15.5px; font-weight: 800">{{qPrevLabel}}</span></button></template>
 <template v-if="qHasNext"><button class="btn-a" @click="qNext" style="margin-left: auto; display: inline-flex; flex-direction: column; align-items: flex-end; gap: 2px; min-height: 56px; padding: 8px 14px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); text-align: right"><span style="font-size: 13px; font-weight: 500; color: var(--muted)">Sourate suivante</span><span style="font-size: 15.5px; font-weight: 800">{{qNextLabel}}</span></button></template>
 </div>
+<template v-if="qRuleShow"><div role="dialog" aria-modal="false" :aria-label="qRuleAria" style="position: fixed; left: 0; right: 0; bottom: calc(66px + env(safe-area-inset-bottom, 0px)); z-index: 45; display: flex; justify-content: center; padding: 0 10px 10px; pointer-events: none">
+<div style="pointer-events: auto; width: 100%; max-width: 560px; max-height: 70vh; overflow-y: auto; box-sizing: border-box; display: flex; flex-direction: column; gap: 10px; padding: 14px 16px 16px 18px; border-radius: 18px; background: var(--surface); border: 1.5px solid var(--gold); box-shadow: 0 12px 34px rgba(0, 0, 0, 0.22)">
+<div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 10px">
+<div style="display: flex; align-items: center; gap: 10px; min-width: 0; padding-top: 8px"><span aria-hidden="true" :style="`width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; ${qRuleDot}`"></span><h2 style="margin: 0; font-size: 19px; line-height: 1.25; font-weight: 700">{{qRuleName}}</h2></div>
+<button @click="qRuleClose" aria-label="Fermer" style="width: 44px; height: 44px; flex-shrink: 0; border: 0; border-radius: 12px; background: transparent; color: var(--muted); display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+</div>
+<p lang="ar" dir="rtl" style="margin: -6px 0 0; text-align: right; font-family: var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', serif; font-size: calc(19px * var(--ar, 1)); line-height: 1.7; color: var(--goldtext)">{{qRuleAr}}</p>
+<p lang="ar" dir="rtl" :style="`margin: 0; padding: 4px 14px; border-radius: 12px; background: var(--bg); text-align: center; ${qFontSt} font-size: calc(34px * var(--ar, 1)); line-height: 1.9; color: var(--ink)`"><template v-for="p in qRuleWord"><span :style="p.st">{{p.t}}</span></template></p>
+<p style="margin: 0; font-size: 16px; line-height: 1.55; color: var(--ink2); text-wrap: pretty">{{qRuleText}}</p>
+<template v-if="qRuleHasFiche"><button class="btn-b" @click="qRuleFiche" style="align-self: flex-start; display: inline-flex; flex-direction: column; align-items: flex-start; gap: 1px; min-height: 52px; padding: 8px 20px; border-radius: 12px; border: 0; background: var(--accent); color: var(--onaccent); text-align: left"><span style="font-size: 15.5px; font-weight: 800">Voir la fiche</span><span style="font-size: 13px; font-weight: 600; opacity: 0.85">{{qRuleWhere}}</span></button></template>
+<template v-if="qRuleNoFiche"><p style="margin: 0; font-size: 13.5px; color: var(--muted)">Cette notion n’a pas de fiche dédiée dans le programme.</p></template>
+</div></div></template>
 <template v-if="qRecBanner"><div role="status" aria-live="polite" style="position: fixed; left: 0; right: 0; bottom: calc(66px + env(safe-area-inset-bottom, 0px)); z-index: 39; display: flex; justify-content: center; padding: 0 10px 8px; pointer-events: none">
 <div style="pointer-events: auto; width: 100%; max-width: 560px; display: flex; align-items: center; gap: 12px; padding: 10px 10px 10px 16px; border-radius: 16px; background: var(--surface); border: 1.5px solid var(--gold); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18); font-family: 'Alegreya Sans', system-ui, sans-serif">
 <span aria-hidden="true" style="width: 12px; height: 12px; border-radius: 50%; background: var(--gold); flex-shrink: 0"></span>
@@ -2775,7 +2839,7 @@ class Component extends DCLogic {
       screen: 'home', mode: null, topic: 'signes', queue: [], idx: 0, answered: false, picked: null,
       fills: [], checked: false, score: 0, mistakes: [],
       best: { qcm: null, vf: null, trous: null, tqcm: null, tvf: null, ttrous: null }, hide: false, revealed: {},
-      prog: { q: {}, hist: [] }, weeksDone: {}, chap: 'a1', level: '4A', theme: 'auto', arScale: 1, arFont: 'hafs', sysDark: false, confirmReset: false, installed: false, appVersion: '', toast: '', importPending: null, importError: '', shareMenu: false, srQ: '', qSurah: 0, qTr: false, qTj: false, qFilter: '', qClass: false, qJuz: false, qLoading: false, qError: '', qRec: 6, qPlayerOn: false, qPlayV: 1, qAudio: 'idle', qAudioMsg: '', qRepeat: false, qRecVer: 0, qRecording: 0, qRecSec: 0, qMePlaying: 0, qMeOn: false, qRecTotal: 0, qRecConfirm: false
+      prog: { q: {}, hist: [] }, weeksDone: {}, chap: 'a1', level: '4A', theme: 'auto', arScale: 1, arFont: 'hafs', sysDark: false, confirmReset: false, installed: false, appVersion: '', toast: '', importPending: null, importError: '', shareMenu: false, srQ: '', qSurah: 0, qTr: false, qTj: false, qFilter: '', qClass: false, qJuz: false, qRule: null, qz: null, qLoading: false, qError: '', qRec: 6, qPlayerOn: false, qPlayV: 1, qAudio: 'idle', qAudioMsg: '', qRepeat: false, qRecVer: 0, qRecording: 0, qRecSec: 0, qMePlaying: 0, qMeOn: false, qRecTotal: 0, qRecConfirm: false
     }, this.state || {});
   }
 
@@ -3260,6 +3324,7 @@ class Component extends DCLogic {
   }
 
   qOpen(n, v) {
+    this._qBackY = null;
     if (!this._qs) this._qs = {};
     n = Math.max(1, Math.min(114, n | 0));
     if (this._aud && this.S().qSurah !== n) this.qStopAudio(true);
@@ -3292,9 +3357,9 @@ class Component extends DCLogic {
     const parts = [];
     for (let k = 0; k < pts.length - 1; k++) {
       const a = pts[k], b = pts[k + 1]; if (b <= a) continue;
-      let rule = ''; (ann || []).forEach((x) => { if (x[0] <= a && x[1] >= b) rule = COL[x[2]] || ''; });
+      let rule = '', code = ''; (ann || []).forEach((x) => { if (x[0] <= a && x[1] >= b) { rule = COL[x[2]] || ''; code = rule ? x[2] : ''; } });
       const last = parts[parts.length - 1];
-      if (last && last.k === rule) last.t += t.slice(a, b); else parts.push({ t: t.slice(a, b), k: rule });
+      if (last && last.c === code) last.t += t.slice(a, b); else parts.push({ t: t.slice(a, b), k: rule, c: code });
     }
     // Lettres attachées d’un morceau à l’autre (même astuce que pour les lettres en couleur des fiches)
     const MARK = /[ً-ٰٟۖ-ࣰۭ-ࣿ‍]/;
@@ -3306,7 +3371,7 @@ class Component extends DCLogic {
       const lastBase = p >= 0 ? a[p] : '';
       if (lastBase && DUAL.indexOf(lastBase) >= 0 && b.length && isAr(b[0])) { parts[k].t = a + '‍'; parts[k + 1].t = '‍' + b; }
     }
-    return parts.map((x) => ({ t: x.t, st: x.k ? 'color: var(--tj-' + x.k + ');' : '' }));
+    return parts.map((x) => ({ t: x.t, st: x.k ? 'color: var(--tj-' + x.k + ');' : '', r: x.c }));
   }
 
   // ——— Le Qur’ân : écoute des récitateurs (audio et minutage mot à mot de Quran.com, non mis en cache) ———
@@ -3513,6 +3578,118 @@ class Component extends DCLogic {
   }
 
   // Regroupe les morceaux colorés d’un verset en mots (les signes de pause restent avec le mot précédent).
+  // ——— Le Qur’ân : exercice « Trouver la règle » sur les sourates lues en classe ———
+  qzStart() {
+    const lvl = this.S().level; const list = this.qClassList(lvl);
+    const blank = { loading: true, qs: [], i: 0, picked: -1, score: 0, done: false, err: '' };
+    this.setState({ qz: blank });
+    if (this.S().screen !== 'quranQuiz') this.go('quranQuiz'); else this.top();
+    this.qLoadIndex();
+    if (!this._qs) this._qs = {};
+    Promise.all(list.map((n) => this._qs[n] ? Promise.resolve(this._qs[n]) : this.qGet(n).then((d) => { this._qs[n] = this.qNoBasmala(n, d); return this._qs[n]; })))
+      .then((ds) => { const qs = this.qzBuild(lvl, list, ds); this.setState({ qz: Object.assign({}, blank, { loading: false, qs, err: qs.length ? '' : 'Aucune question disponible pour ces sourates.' }) }); })
+      .catch(() => this.setState({ qz: Object.assign({}, blank, { loading: false, err: 'Impossible de charger les sourates. Vérifie ta connexion, puis réessaie.' }) }));
+  }
+
+  // 10 questions : une partie de verset annotée, réparties entre les règles vues au niveau choisi.
+  qzBuild(lvl, list, ds) {
+    const base = ['g', 'ig', 'in', 'l', 'f', 'is', 'fs', 'q'];
+    const pool = lvl === '4A' ? base : base.concat(['m2', 'mt', 'mf', 'm246', 'm6']);
+    const fam = (c) => (c.charAt(0) === 'm' ? 'm' : 'n');
+    const byCode = {};
+    ds.forEach((d, k) => {
+      ((d && d.v) || []).forEach((v, i) => {
+        const ann = v[2] || [];
+        ann.forEach((a) => {
+          if (pool.indexOf(a[2]) < 0) return;
+          // Une partie couverte par deux règles différentes serait ambiguë : on l’écarte.
+          if (ann.some((o) => o !== a && o[2] !== a[2] && o[0] < a[1] && a[0] < o[1])) return;
+          (byCode[a[2]] = byCode[a[2]] || []).push({ n: list[k], v: i + 1, t: v[0], a: a[0], b: a[1], c: a[2] });
+        });
+      });
+    });
+    const codes = this.shuffle(Object.keys(byCode)); const out = []; const used = {};
+    for (let r = 0; out.length < 10 && r < 600 && codes.some((c) => byCode[c].length); r++) {
+      const L = byCode[codes[r % codes.length]]; if (!L.length) continue;
+      const x = L.splice(Math.floor(Math.random() * L.length), 1)[0];
+      const key = x.n + ':' + x.v; if (used[key] && r < 300) continue;
+      used[key] = 1; out.push(x);
+    }
+    return this.shuffle(out).map((x) => {
+      const same = this.shuffle(pool.filter((c) => c !== x.c && fam(c) === fam(x.c)));
+      const diff = this.shuffle(pool.filter((c) => fam(c) !== fam(x.c)));
+      const d = same.slice(0, diff.length ? 2 : 3).concat(diff.slice(0, 1));
+      return Object.assign(x, { opts: this.shuffle([x.c].concat(d.concat(same.slice(d.length)).slice(0, 3))) });
+    });
+  }
+
+  qzPick(k) {
+    const z = this.S().qz; if (!z || z.picked >= 0) return;
+    const q = z.qs[z.i]; if (!q) return;
+    this.setState({ qz: Object.assign({}, z, { picked: k, score: z.score + (q.opts[k] === q.c ? 1 : 0) }) });
+    setTimeout(() => { try { const el = document.getElementById('qz-fb'); if (el) el.scrollIntoView({ block: 'nearest' }); } catch (x) {} }, 80);
+  }
+
+  qzNext() {
+    const z = this.S().qz; if (!z) return;
+    if (z.i + 1 >= z.qs.length) this.setState({ qz: Object.assign({}, z, { done: true }) });
+    else this.setState({ qz: Object.assign({}, z, { i: z.i + 1, picked: -1 }) });
+    this.top();
+  }
+
+  // ——— Le Qur’ân : toucher une lettre en couleur affiche sa règle de tajwîd ———
+  // Codes des annotations cpfair/quran-tajweed → nom, nom arabe, couleur, explication et fiche du programme.
+  qRuleInfo(c) {
+    const A6 = (a) => ({ screen: 'learnCh', chap: 'a6', level: '4A', anchor: a, where: 'Niveau 4A, chapitre 6' });
+    const A7 = (a) => ({ screen: 'learnCh', chap: 'a7', level: '4A', anchor: a, where: 'Niveau 4A, chapitre 7' });
+    const ID = (a) => ({ screen: 'learnId', level: '4B', anchor: a, where: 'Niveau 4B, chapitre 8' });
+    const MD = (a) => ({ screen: 'learnMd', level: '4B', anchor: a, where: 'Niveau 4B, chapitre 10' });
+    const R = {
+      g: ['Al-Ghounnah (le nasillement)', 'ٱلۡغُنَّةُ', 'ghunna', 'Le Noûn ou le Mîm portant la chaddah se renforce, avec un nasillement de 2 temps.', { screen: 'learnCh', chap: 'a4', level: '4A', anchor: 'ch-1', where: 'Niveau 4A, chapitre 4' }],
+      ig: ['Al-Idghâm avec Ghounnah', 'ٱلۡإِدۡغَامُ بِغُنَّةٍ', 'ghunna', 'Le Noûn sâkinah ou le tanwîn fusionne avec la lettre suivante (ي ن م و), avec un nasillement de 2 temps.', A6('ch-2')],
+      in: ['Al-Idghâm sans Ghounnah', 'ٱلۡإِدۡغَامُ بِلَا غُنَّةٍ', 'silent', 'Le Noûn sâkinah ou le tanwîn fusionne complètement avec le ل ou le ر qui suit, sans nasillement : il ne se prononce pas.', A6('ch-2')],
+      l: ['Al-Iqlâb (la substitution)', 'ٱلۡإِقۡلَابُ', 'ghunna', 'Devant la lettre ب, le Noûn sâkinah ou le tanwîn se change en Mîm, prononcé avec un nasillement de 2 temps.', A6('ch-3')],
+      f: ['Al-Ikhfâ (la dissimulation)', 'ٱلۡإِخۡفَاءُ', 'ghunna', 'Devant l’une des 15 lettres de la dissimulation, le Noûn sâkinah ou le tanwîn est caché, avec un nasillement de 2 temps.', A6('ch-4')],
+      is: ['Al-Idghâm Ach-chafawiyy (la fusion labiale)', 'ٱلۡإِدۡغَامُ ٱلشَّفَوِيُّ', 'ghunna', 'Le Mîm sâkinah suivi d’un autre Mîm fusionne avec lui, avec un nasillement de 2 temps.', A7('ch-1')],
+      fs: ['Al-Ikhfâ Ach-chafawiyy (la dissimulation labiale)', 'ٱلۡإِخۡفَاءُ ٱلشَّفَوِيُّ', 'ghunna', 'Le Mîm sâkinah suivi de la lettre ب est caché, avec un nasillement de 2 temps.', A7('ch-2')],
+      ij: ['Idghâm al-Moutadjânissayn', 'إِدۡغَامُ ٱلۡمُتَجَانِسَيۡنِ', 'silent', 'Deux lettres de même point de sortie mais d’attributs différents : la première, sâkinah, s’assimile dans la seconde.', ID('id-2')],
+      iq: ['Idghâm al-Moutaqâribayn', 'إِدۡغَامُ ٱلۡمُتَقَارِبَيۡنِ', 'silent', 'Deux lettres aux points de sortie et aux attributs proches : la première, sâkinah, fusionne dans la seconde.', ID('id-3')],
+      q: ['Al-Qolqolah (l’écho)', 'ٱلۡقَلۡقَلَةُ', 'qalqala', 'Une des 5 lettres قُطۡبُ جَدٍّ sans voyelle : elle se prononce avec un léger écho.', { screen: 'learnCh', chap: 'a5', level: '4A', anchor: '', where: 'Niveau 4A, chapitre 5' }],
+      h: ['Hamzatou-l-wasl (la hamzah de liaison)', 'هَمۡزَةُ ٱلۡوَصۡلِ', 'silent', 'Cet Alif ne se prononce pas quand on enchaîne avec le mot précédent. On ne le lit qu’en début de lecture.', null],
+      ls: ['Le Lâm solaire (Al-Lâm Ach-chamsiyyah)', 'ٱللَّامُ ٱلشَّمۡسِيَّةُ', 'silent', 'Le Lâm de l’article ٱل ne se prononce pas : il s’assimile dans la lettre solaire qui suit, qui porte la chaddah.', null],
+      s: ['Lettre non prononcée', 'حَرۡفٌ لَا يُنۡطَقُ', 'silent', 'Cette lettre s’écrit mais ne se prononce pas dans la lecture.', null],
+      m2: ['Al-Madd Al-Asliyy (la prolongation de base)', 'ٱلۡمَدُّ ٱلۡأَصۡلِيُّ', 'madd2', 'Prolongation de 2 temps : la lettre de prolongation n’est suivie ni d’un Hamzah ni d’un soukoûn.', MD('md-1')],
+      m246: ['Al-Madd Al-’Âridou li-s-soukoûn', 'ٱلۡمَدُّ ٱلۡعَارِضُ لِلسُّكُونِ', 'madd246', 'Si l’on s’arrête sur ce mot, la prolongation dure 2, 4 ou 6 temps. Sans arrêt, elle reste de 2 temps.', MD('md-3')],
+      mf: ['Al-Madd Al-Djâ’iz Al-Mounfasil', 'ٱلۡمَدُّ ٱلۡجَائِزُ ٱلۡمُنۡفَصِلُ', 'madd246', 'La lettre de prolongation termine le mot et le Hamzah commence le mot suivant : 4 ou 5 temps (2 temps pour certaines lectures).', MD('md-2')],
+      mt: ['Al-Madd Al-Wâjib Al-Mouttasil', 'ٱلۡمَدُّ ٱلۡوَاجِبُ ٱلۡمُتَّصِلُ', 'maddmt', 'La lettre de prolongation est suivie d’un Hamzah dans le même mot : 4 ou 5 temps.', MD('md-2')],
+      m6: ['Al-Madd Al-Lâzim (la prolongation nécessaire)', 'ٱلۡمَدُّ ٱللَّازِمُ', 'madd6', 'La prolongation est suivie d’un soukoûn constant : 6 temps, que l’on s’arrête ou non.', MD('md-3')]
+    };
+    const x = R[c]; if (!x) return null;
+    return { name: x[0], ar: x[1], k: x[2], text: x[3], go: x[4] };
+  }
+
+  qTapRule(e) {
+    const t = e && e.target; if (!t || !t.closest) return;
+    const el = t.closest('[data-r]'); const c = el ? el.getAttribute('data-r') : '';
+    if (!c || !this.qRuleInfo(c)) return;
+    let w = [{ t: el.textContent, st: '' }];
+    const wEl = el.closest('.qw'); const m = wEl && /^w-(\d+)-(\d+)$/.exec(wEl.id || '');
+    const word = m && this._qwm && (this._qwm.w[+m[1] - 1] || [])[+m[2] - 1];
+    if (word) w = word.parts.map((p) => ({ t: p.t, st: p.r === c ? p.st : '' }));
+    this.setState({ qRule: { c, w } });
+  }
+
+  qRuleGo(c) {
+    const R = this.qRuleInfo(c); if (!R || !R.go) return;
+    const g = R.go;
+    try { this._qBackY = window.scrollY; } catch (x) {}
+    this.setState({ qRule: null });
+    if (g.level !== this.S().level) this.setLevel(g.level);
+    if (g.chap) this.setState({ chap: g.chap });
+    this.go(g.screen);
+    if (g.anchor) setTimeout(() => { try { const el = document.getElementById(g.anchor); if (el) el.scrollIntoView({ block: 'start' }); } catch (x) {} }, 280);
+  }
+
   qWords(parts, v) {
     const words = []; let cur = null;
     const markOnly = (x) => /^[ۖ-ۭؕ-ؚ]+$/.test(x);
@@ -3521,10 +3698,10 @@ class Component extends DCLogic {
         if (i > 0) cur = null;
         if (!piece) return;
         if (!cur) {
-          if (markOnly(piece) && words.length) { cur = words[words.length - 1]; cur.parts.push({ t: ' ', st: '' }); }
+          if (markOnly(piece) && words.length) { cur = words[words.length - 1]; cur.parts.push({ t: ' ', st: '', r: '' }); }
           else { cur = { parts: [] }; words.push(cur); }
         }
-        cur.parts.push({ t: piece, st: p.st });
+        cur.parts.push({ t: piece, st: p.st, r: p.r || '' });
       });
     });
     return words.map((w, i) => ({ id: 'w-' + v + '-' + (i + 1), parts: w.parts, sp: i < words.length - 1 ? ' ' : '' }));
@@ -3986,6 +4163,7 @@ class Component extends DCLogic {
 
   go(screen) {
     if (screen !== 'quranRead' && this._aud) this.qStopAudio(true);
+    if (this.S().qRule) this.setState({ qRule: null });
     if (screen !== 'quranRead') { this.qRecStop(); if (this._me) this.qMeStop(); }
     if (screen === 'settings') this.qRecCount();
     // Pile des écrans visités, pour le bouton « Retour » (un cran en arrière)
@@ -3999,6 +4177,8 @@ class Component extends DCLogic {
     if (screen === 'learnComp') this.setState({ screen, hide: false, revealed: {} });
     else this.setState({ screen });
     this.top();
+    // Retour au lecteur après une fiche ouverte depuis une lettre : même hauteur qu’avant
+    if (screen === 'quranRead' && this._qBackY != null) { const y = this._qBackY; this._qBackY = null; setTimeout(() => { try { window.scrollTo(0, y); } catch (x) {} }, 60); }
   }
 
   start(mode, topic) {
@@ -4314,7 +4494,7 @@ class Component extends DCLogic {
       }
       qVerses = this._qvm.rows;
     }
-    const qHead = qCur ? { n: String(qCur.n), num: qAr(qCur.n), nfs: 'font-size: ' + (qCur.n > 99 ? 10 : (qCur.n > 9 ? 13 : 16)) + 'px;', tr: qCur.tr, fr: qCur.fr, meta: qMeta(qCur), arTitle: 'سورة ' + qCur.ar }
+    const qHead = qCur ? { n: String(qCur.n), num: qAr(qCur.n), nfs: 'font-size: ' + (qCur.n > 99 ? 10 : (qCur.n > 9 ? 13 : 16)) + 'px;', tr: qCur.tr, fr: qCur.fr, meta: qMeta(qCur), arTitle: 'سورة ' + qCur.ar, place: qCur.m ? 'مكية' : 'مدنية', nvAr: qAr(qCur.nv) }
       : { n: String(s.qSurah || ''), num: qAr(s.qSurah || ''), nfs: 'font-size: 16px;', tr: '', fr: '', meta: '', arTitle: '' };
     const qPrevC = qIdx && s.qSurah > 1 ? qIdx.s[s.qSurah - 2] : null;
     const qNextC = qIdx && s.qSurah < 114 ? qIdx.s[s.qSurah] : null;
@@ -4741,6 +4921,36 @@ class Component extends DCLogic {
       qHead, qVerses, qLoading: !!s.qLoading && screen === 'quranRead', qErrorShow: !!s.qError, qError: s.qError || '',
       qShowBasmala: !!(qData && qIdx && s.qSurah !== 1 && s.qSurah !== 9), qBasmala: qIdx ? qIdx.basmala : '',
       qTr, qTj, qLegend, qFontSt,
+      isQuranQuiz: screen === 'quranQuiz', qzGo: () => this.qzStart(), qzNext: () => this.qzNext(), qzHomeSub: 'Exercice sur les sourates lues en classe (' + s.level + ')',
+      ...(() => {
+        const z = s.qz || {}; const qs = z.qs || []; const q = qs[z.i || 0]; const ans = !!q && z.picked >= 0;
+        const ok = ans && q.opts[z.picked] === q.c; const R = q ? this.qRuleInfo(q.c) : null;
+        const nm = (n) => { const c = this._qn && this._qn.s[n - 1]; return c ? c.tr : String(n); };
+        const HL = 'background: var(--hl); border-radius: 6px; box-shadow: 0 0 0 2px var(--gold);';
+        const parts = q ? this.qParts(q.t, [[q.a, q.b, q.c]]).map((p) => ({ t: p.t, st: p.r === q.c ? (ans ? 'color: var(--tj-' + R.k + '); ' : '') + HL : '' })) : [];
+        const opts = q ? q.opts.map((c, i) => {
+          const isRight = c === q.c, isPicked = z.picked === i;
+          let border = 'var(--line)', bg = 'var(--surface)', op = '1', badgeBg = 'var(--surface3)', badgeFg = 'var(--ink)';
+          if (ans) { if (isRight) { border = 'var(--accent)'; bg = 'var(--tint)'; badgeBg = 'var(--accent)'; badgeFg = '#FFFFFF'; } else if (isPicked) { border = 'var(--rose)'; bg = 'var(--rose-t)'; badgeBg = 'var(--rose)'; badgeFg = '#FFFFFF'; } else op = '0.5'; }
+          const letter = 'ABCD'.charAt(i); const text = (this.qRuleInfo(c) || {}).name || c;
+          return { letter, text, border, bg, op, badgeBg, badgeFg, disabled: ans, showLetter: !(ans && (isRight || isPicked)), showCheck: ans && isRight, showCross: ans && isPicked && !isRight, aria: 'Réponse ' + letter + ' : ' + text, pick: () => this.qzPick(i) };
+        }) : [];
+        const tot = qs.length; const sc = z.score || 0; const ratio = tot ? sc / tot : 0;
+        const pctN = tot ? Math.round(((z.i || 0) + (ans ? 1 : 0)) / tot * 100) : 0;
+        return {
+          qzLevelLabel: 'Sourates lues en classe, niveau ' + s.level, qzLoading: !!z.loading, qzErr: z.err || '', qzHasErr: !!z.err,
+          qzRun: !!q && !z.done && !z.loading, qzDone: !!z.done, qzNum: (z.i || 0) + 1, qzTotal: tot, qzScore: sc, qzPct: pctN + '%', qzPctNum: String(pctN),
+          qzRef: q ? 'Sourate ' + nm(q.n) + ', verset ' + q.v : '', qzParts: parts, qzOpts: opts,
+          qzFb: ans, qzOk: ans && ok, qzKo: ans && !ok, qzFbTitle: ok ? 'Bonne réponse' : 'Pas tout à fait', qzFbColor: ok ? 'var(--accent)' : 'var(--rose)', qzFbBg: ok ? 'var(--tint)' : 'var(--rose-t)',
+          qzFbRight: R ? 'La bonne réponse : ' + R.name + '.' : '', qzFbExplain: R ? R.text : '', qzNextLabel: (z.i || 0) + 1 >= tot ? 'Voir le résultat' : 'Question suivante',
+          qzResW: Math.round(ratio * 100) + '%',
+          qzResMsg: ratio >= 0.9 ? 'Excellent ! Tu reconnais très bien les règles dans le Qur’ân.' : ratio >= 0.6 ? 'Bien ! Encore un peu d’entraînement et ce sera parfait.' : 'Relis les fiches des règles, puis réessaie : tu vas progresser.'
+        };
+      })(),
+      qTapRule: (e) => this.qTapRule(e), qRuleClose: () => this.setState({ qRule: null }), qRuleFiche: () => { if (s.qRule) this.qRuleGo(s.qRule.c); },
+      ...(() => { const R = screen === 'quranRead' && s.qRule ? this.qRuleInfo(s.qRule.c) : null;
+        return { qRuleShow: !!R, qRuleName: R ? R.name : '', qRuleAr: R ? R.ar : '', qRuleText: R ? R.text : '', qRuleDot: R ? 'background: var(--tj-' + R.k + ');' : '',
+          qRuleWord: R ? s.qRule.w : [], qRuleAria: R ? 'Règle de tajwîd : ' + R.name : '', qRuleHasFiche: !!(R && R.go), qRuleNoFiche: !!(R && !R.go), qRuleWhere: R && R.go ? R.go.where : '' }; })(),
       qRecOpts: qRecList.map(([id, name]) => ({ id: String(id), name, sel: id === qRecId })), qRecPick: (e) => this.qSetRec(parseInt(e && e.target ? e.target.value : 6, 10) || 6),
       qSpdOpts: [[0.5, '0,5×'], [0.75, '0,75×'], [1, 'Normale'], [1.25, '1,25×']].map(([v, name]) => ({ id: String(v), name, sel: v === (s.qSpd || 1) })), qSpdPick: (e) => this.qSetSpd(parseFloat(e && e.target ? e.target.value : 1) || 1),
       qPlaySurah: () => this.qPlay(1, 'surah'), qAudioMsgShow: !!s.qAudioMsg && screen === 'quranRead', qAudioMsg: s.qAudioMsg || '',
@@ -4792,7 +5002,7 @@ class Component extends DCLogic {
       goBack: () => this.goBack(),
       // Retour : partout sauf à l’accueil ; dans une sourate, le lien « Les sourates » suffit quand on vient de la liste
       showBack: (() => { const nv = this._nav || ['home']; const prev = nv[nv.length - 1] === screen ? nv[nv.length - 2] : nv[nv.length - 1]; return screen !== 'home' && !(screen === 'quranRead' && prev === 'quranList'); })(),
-      showQuit: inSession || screen === 'learn' || screen === 'learnTypes' || screen === 'learnRa' || screen === 'learnComp' || screen === 'learnId' || screen === 'learnMd' || screen === 'learnCh' || screen === 'progress' || screen === 'settings' || screen === 'programme' || screen === 'install' || screen === 'about' || screen === 'faq' || screen === 'privacy' || screen === 'search' || screen === 'quranList' || screen === 'quranRead', isQcm, isVf, isTrous,
+      showQuit: inSession || screen === 'learn' || screen === 'learnTypes' || screen === 'learnRa' || screen === 'learnComp' || screen === 'learnId' || screen === 'learnMd' || screen === 'learnCh' || screen === 'progress' || screen === 'settings' || screen === 'programme' || screen === 'install' || screen === 'about' || screen === 'faq' || screen === 'privacy' || screen === 'search' || screen === 'quranList' || screen === 'quranRead' || screen === 'quranQuiz', isQcm, isVf, isTrous,
       isCard: isQcm || isVf, isResult: screen === 'result', inSession,
       modeLabel: (labels[screen] || '') + (inSession ? ', ' + String(topicLabels[s.topic] || '').replace(/ · /g, ', ') : ''), qNum: s.idx + 1, total: s.queue.length, score: s.score,
       progressNum, progressPct: progressNum + '%',
