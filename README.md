@@ -48,4 +48,5 @@ L’application s’ouvre ensuite en plein écran depuis l’icône « Niveau 4C
 - Polices : Alegreya et Alegreya Sans (textes), Amiri, Amiri Quran, Scheherazade New, Noto Naskh Arabic, Harmattan, Lateef et Noto Sans Arabic (arabe), hébergées sur le site (licence SIL Open Font, voir `assets/fonts/licences`).
 - Ponctuation arabe (virgule, point-virgule, point d’interrogation) : sous-ensemble de la police Amiri (licence SIL Open Font), car la police du Mushaf ne dessine pas ces signes.
 - Logos WhatsApp, Gmail et Google Maps : marques de leurs propriétaires respectifs (Meta, Google), utilisées uniquement pour signaler les liens de contact et de localisation. Icône WhatsApp : Freepik.
+- Repères de juz, de hizb et de quarts de hizb : données du paquet [quran-meta](https://github.com/quran-center/quran-meta) (licence MIT), voir `assets/quran/LICENCES.txt`.
 - Bibliothèque : [petite-vue](https://github.com/vuejs/petite-vue) 0.4.1 (licence MIT), avec une petite correction pour l’affichage des listes imbriquées.

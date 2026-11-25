@@ -933,6 +933,19 @@ Mode mémorisation
 <h1 style="margin: 0; font-size: 34px; line-height: 1.12">Le Qur’ân</h1>
 <p style="margin: 0; font-size: 16px; line-height: 1.55; color: var(--muted); text-wrap: pretty">Texte arabe de Tanzil, traduction de Muhammad Hamidullah. Disponible hors ligne.</p>
 </div>
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 16px 18px; border-radius: 16px; background: var(--surface); border: 1px solid var(--line); font-family: 'Alegreya Sans', system-ui, sans-serif">
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 14px">
+<p style="margin: 0; font-size: 16px; font-weight: 800; font-variant-numeric: tabular-nums">Aujourd’hui : {{qTodayN}} versets lus sur {{qGoal}}</p>
+<label style="display: inline-flex; align-items: center; gap: 8px; font-size: 14.5px; font-weight: 700; color: var(--muted)">Objectif<select @change="qGoalPick" aria-label="Objectif de versets par jour" style="min-height: 44px; padding: 0 10px; border-radius: 12px; border: 1.5px solid var(--line2); background: var(--surface); color: var(--ink); font-family: 'Alegreya Sans', system-ui, sans-serif; font-size: 15px; font-weight: 700"><template v-for="o in qGoalOpts"><option :value="o.v" :selected="o.sel">{{o.v}}</option></template></select></label>
+</div>
+<div role="progressbar" aria-label="Objectif du jour" aria-valuemin="0" aria-valuemax="100" :aria-valuenow="qGoalPctN" style="height: 8px; border-radius: 999px; background: var(--surface3); overflow: hidden"><div :style="`height: 100%; width: ${qGoalPct}; background: var(--gold); border-radius: 999px; transition: width .35s ease`"></div></div>
+<p style="margin: 0; font-size: 14.5px; font-weight: 600; color: var(--muted)">{{qLuLine}}</p>
+<p style="margin: 0; font-size: 13px; font-weight: 500; color: var(--muted)">Un verset compte comme lu quand il reste 2 secondes à l’écran.</p>
+</div>
+<template v-if="qBmHas"><div style="display: flex; flex-direction: column">
+<h2 style="margin: 0 0 4px; font-size: 20px; font-weight: 700">Mes marque-pages</h2>
+<template v-for="b in qBmList"><button @click="b.open" style="display: flex; align-items: center; gap: 12px; width: 100%; min-height: 56px; padding: 10px 0; border: 0; border-bottom: 1px solid var(--line); background: transparent; text-align: left; color: var(--ink)"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; color: var(--gold)"><path d="M6 3.5h12v17l-6-4.2-6 4.2z"></path></svg><span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 17px; font-weight: 500">{{b.ref}}</span><template v-if="b.hasNote"><span style="font-family: 'Alegreya Sans', system-ui, sans-serif; font-size: 14px; font-weight: 500; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{b.note}}</span></template></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; color: var(--muted)"><path d="M9 6l6 6-6 6"></path></svg></button></template>
+</div></template>
 <div role="search" style="position: relative">
 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--gold); pointer-events: none"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.6-3.6"></path></svg>
 <input class="field-a" id="q-filter" type="search" dir="auto" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" maxlength="60" aria-label="Chercher une sourate" placeholder="Nom ou numéro de sourate" :value="qFilter" @input="qFilterInput" style="width: 100%; box-sizing: border-box; min-height: 52px; padding: 0 16px 0 46px; border-radius: 14px; border: 1.5px solid var(--line2); background: var(--surface); color: var(--ink); font-size: 17px; font-family: 'Alegreya Sans', var(--arfont), system-ui, sans-serif">
@@ -949,7 +962,7 @@ Mode mémorisation
 <ol style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column">
 <template v-for="r in g.rows"><li><button @click="r.open" style="display: flex; align-items: center; gap: 14px; width: 100%; min-height: 70px; padding: 10px 0; border: 0; border-bottom: 1px solid var(--line); background: transparent; text-align: left; color: var(--ink); font-family: 'Alegreya', serif">
 <span style="position: relative; width: 46px; height: 46px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: var(--gold)"><svg width="46" height="46" viewBox="0 0 46 46" aria-hidden="true" style="position: absolute; left: 0; top: 0"><g fill="none" stroke="currentColor" stroke-width="1.4"><rect x="9.5" y="9.5" width="27" height="27"></rect><rect x="9.5" y="9.5" width="27" height="27" transform="rotate(45 23 23)"></rect><circle cx="23" cy="23" r="12.5"></circle></g></svg><span :style="`position: relative; top: -0.31em; font-family: 'Amiri Quran', serif; ${r.nfs} line-height: 1; color: var(--ink)`">{{r.num}}</span></span>
-<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 18.5px; line-height: 1.25; font-weight: 500">{{r.tr}}</span><span style="font-family: 'Alegreya Sans', system-ui, sans-serif; font-size: 13.5px; font-weight: 500; color: var(--muted)">{{r.meta}}</span></span>
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px"><span style="font-size: 18.5px; line-height: 1.25; font-weight: 500">{{r.tr}}</span><template v-if="r.hasBadge"><span :style="`font-family: 'Alegreya Sans', system-ui, sans-serif; font-size: 12px; font-weight: 800; line-height: 1; padding: 4px 8px; border-radius: 999px; ${r.badgeSt}`">{{r.badge}}</span></template></span><span style="font-family: 'Alegreya Sans', system-ui, sans-serif; font-size: 13.5px; font-weight: 500; color: var(--muted)">{{r.meta}}</span></span>
 <span lang="ar" dir="rtl" style="font-family: var(--arfont, 'Hafs'), 'Hafs', 'Amiri Quran', serif; font-size: calc(21px * var(--ar, 1)); line-height: 1.6; color: var(--ink); flex-shrink: 0">{{r.ar}}</span>
 </button></li></template>
 </ol>
@@ -958,6 +971,7 @@ Mode mémorisation
 </template>
 
 <template v-if="isQuranRead">
+<div id="q-progress" aria-hidden="true" style="position: fixed; top: env(safe-area-inset-top, 0px); left: 0; z-index: 50; height: 3px; width: 0; background: var(--gold); border-radius: 0 3px 3px 0; pointer-events: none"></div>
 <section class="rise" style="display: flex; flex-direction: column; gap: 18px; width: 100%; max-width: 680px; margin: 0 auto">
 <button @click="qGoList" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 4px; border: 0; background: transparent; color: var(--accent); font-size: 16px; font-weight: 800"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg>Les sourates</button>
 <div class="fiche-head" style="display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; text-align: center">
@@ -970,7 +984,25 @@ Mode mémorisation
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px">
 <label style="display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 16px; border: 1.5px solid var(--line); border-radius: 999px; background: var(--surface); font-size: 15px; font-weight: 700; cursor: pointer"><input type="checkbox" role="switch" :checked="qTr" @change="qTrToggle" style="width: 18px; height: 18px; margin: 0; accent-color: var(--accent)">Traduction</label>
 <label style="display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 16px; border: 1.5px solid var(--line); border-radius: 999px; background: var(--surface); font-size: 15px; font-weight: 700; cursor: pointer"><input type="checkbox" role="switch" :checked="qTj" @change="qTjToggle" style="width: 18px; height: 18px; margin: 0; accent-color: var(--accent)">Couleurs du tajwîd</label>
+<label style="display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 16px; border: 1.5px solid var(--line); border-radius: 999px; background: var(--surface); font-size: 15px; font-weight: 700; cursor: pointer"><input type="checkbox" role="switch" :checked="qMemo" @change="qMemoToggle" style="width: 18px; height: 18px; margin: 0; accent-color: var(--accent)">Mémorisation</label>
 </div>
+<template v-if="qMemo"><div style="display: flex; flex-direction: column; gap: 14px; padding: 16px 18px; border-radius: 16px; background: var(--surface); border: 1.5px solid var(--gold); font-family: 'Alegreya Sans', system-ui, sans-serif">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 15px; font-weight: 800">Masquer le texte</span>
+<div role="group" aria-label="Masquer le texte" style="display: flex; flex-wrap: wrap; gap: 8px"><template v-for="o in qMaskOpts"><button @click="o.pick" :aria-pressed="o.pressed" :style="o.st">{{o.label}}</button></template></div>
+<template v-if="qMaskOn"><p style="margin: 0; font-size: 14px; font-weight: 600; color: var(--muted)">Touche un mot masqué pour le voir, touche-le encore pour le cacher.</p></template>
+<template v-if="qMemoHasRv"><button @click="qMemoHideAll" style="align-self: flex-start; min-height: 44px; padding: 0 14px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); font-size: 14.5px; font-weight: 700">Tout recacher</button></template>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px; padding-top: 12px; border-top: 1px solid var(--line)">
+<span style="font-size: 15px; font-weight: 800">Répéter des versets</span>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 15px; font-weight: 700; color: var(--muted)">
+<label style="display: inline-flex; align-items: center; gap: 6px">Du verset<select @change="qRgFromPick" aria-label="Premier verset" style="min-height: 46px; padding: 0 10px; border-radius: 12px; border: 1.5px solid var(--line2); background: var(--surface); color: var(--ink); font-family: 'Alegreya Sans', system-ui, sans-serif; font-size: 15.5px; font-weight: 700"><template v-for="o in qRgFromOpts"><option :value="o.v" :selected="o.sel">{{o.v}}</option></template></select></label>
+<label style="display: inline-flex; align-items: center; gap: 6px">au<select @change="qRgToPick" aria-label="Dernier verset" style="min-height: 46px; padding: 0 10px; border-radius: 12px; border: 1.5px solid var(--line2); background: var(--surface); color: var(--ink); font-family: 'Alegreya Sans', system-ui, sans-serif; font-size: 15.5px; font-weight: 700"><template v-for="o in qRgToOpts"><option :value="o.v" :selected="o.sel">{{o.v}}</option></template></select></label>
+<label style="display: inline-flex; align-items: center; gap: 6px"><select @change="qRgTimesPick" aria-label="Nombre de répétitions" style="min-height: 46px; padding: 0 10px; border-radius: 12px; border: 1.5px solid var(--line2); background: var(--surface); color: var(--ink); font-family: 'Alegreya Sans', system-ui, sans-serif; font-size: 15.5px; font-weight: 700"><template v-for="o in qRgTimesOpts"><option :value="o.v" :selected="o.sel">{{o.v}}</option></template></select>fois</label>
+</div>
+<button class="btn-b" @click="qRgPlay" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; min-height: 46px; padding: 0 18px; border-radius: 12px; border: 0; background: var(--accent); color: var(--onaccent); font-size: 15.5px; font-weight: 800"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z" fill="currentColor"></path></svg>{{qRgLabel}}</button>
+</div>
+</div></template>
 <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px">
 <label style="display: inline-flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 700; color: var(--muted)">Récitateur
 <select @change="qRecPick" aria-label="Choisir le récitateur" style="min-height: 46px; padding: 0 12px; border-radius: 12px; border: 1.5px solid var(--line2); background: var(--surface); color: var(--ink); font-family: 'Alegreya Sans', system-ui, sans-serif; font-size: 15.5px; font-weight: 700"><template v-for="o in qRecOpts"><option :value="o.id" :selected="o.sel">{{o.name}}</option></template></select></label>
@@ -986,12 +1018,22 @@ Mode mémorisation
 <template v-if="qShowBasmala"><p lang="ar" dir="rtl" :style="`margin: 4px 0 0; text-align: center; ${qFontSt} font-size: calc(28px * var(--ar, 1)); line-height: 2; color: var(--ink)`">{{qBasmala}}</p></template>
 <ol id="q-verses" style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column">
 <template v-for="v in qVerses"><li :id="v.id" :aria-label="v.aria" style="scroll-margin-top: 16px; padding: 16px 0; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 10px">
-<p lang="ar" dir="rtl" @click="qTapRule" :style="`margin: 0; ${qFontSt} font-size: calc(30px * var(--ar, 1)); line-height: 2.25; color: var(--ink); text-align: right`"><template v-for="w in v.words"><span class="qw" :id="w.id"><template v-for="p in w.parts"><span :style="p.st" :data-r="p.r">{{p.t}}</span></template></span>{{w.sp}}</template> <span aria-hidden="true" style="font-family: 'Hafs', 'Amiri Quran', serif; font-size: 1.35em; line-height: 1; color: var(--gold)">{{v.mark}}</span></p>
+<template v-if="v.hasRub"><p style="margin: 0; display: flex; align-items: center; gap: 8px; font-family: 'Alegreya Sans', system-ui, sans-serif; font-size: 14px; font-weight: 800; color: var(--goldtext)"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="flex-shrink: 0; color: var(--gold)"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14"></rect><rect x="5" y="5" width="14" height="14" transform="rotate(45 12 12)"></rect><circle cx="12" cy="12" r="3.2"></circle></g></svg>{{v.rubLabel}}</p></template>
+<p lang="ar" dir="rtl" @click="qTapRule" :style="`margin: 0; ${qFontSt} font-size: calc(30px * var(--ar, 1)); line-height: 2.25; color: var(--ink); text-align: right`"><template v-if="v.hasRub"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 0.85em; height: 0.85em; vertical-align: -0.05em; margin-left: 0.25em; color: var(--gold)"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14"></rect><rect x="5" y="5" width="14" height="14" transform="rotate(45 12 12)"></rect><circle cx="12" cy="12" r="3.2"></circle></g></svg></template><template v-for="w in v.words"><span class="qw" :id="w.id"><template v-for="p in w.parts"><span :style="p.st" :data-r="p.r">{{p.t}}</span></template></span>{{w.sp}}</template> <span aria-hidden="true" style="font-family: 'Hafs', 'Amiri Quran', serif; font-size: 1.35em; line-height: 1; color: var(--gold)">{{v.mark}}</span></p>
 <template v-if="v.showTr"><p style="margin: 0; font-size: 17px; line-height: 1.6; color: var(--ink2); text-wrap: pretty"><span style="font-family: 'Alegreya Sans', system-ui, sans-serif; font-weight: 800; color: var(--goldtext); margin-right: 6px">{{v.n}}.</span>{{v.fr}}</p></template>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px"><button @click="v.play" :aria-label="v.playAria" :title="v.playAria" style="display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: 50px; height: 50px; padding: 0; border-radius: 50%; border: 1.5px solid var(--line); background: var(--surface); color: var(--accent)"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5a8 8 0 0 1 16 0c0 4.6-2.6 6.4-4.4 8.2-1.4 1.4-1.6 2.6-1.6 4a4 4 0 0 1-7.4 2.2"></path><path d="M15.6 13.5a3.2 3.2 0 1 0-6.2-1.1c0 2.2 2.6 2.6 2.6 4.8a2 2 0 0 1-3.2 1.6"></path><path d="M23.6 9.8a6 6 0 0 1 0 5.4"></path><path d="M26.4 7.2a10 10 0 0 1 0 10.6"></path><path d="M29.2 4.6a14 14 0 0 1 0 15.8"></path></svg></button><button @click="v.rec" :aria-label="v.recAria" :title="v.recAria" :style="`display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: 50px; height: 50px; padding: 0; border-radius: 50%; border: 1.5px solid ${v.recBorder}; background: ${v.recBg}; color: ${v.recCol}`"><template v-if="v.recOn"><svg width="18" height="18" viewBox="0 0 12 12" aria-hidden="true"><rect x="1.5" y="1.5" width="9" height="9" rx="1.5" fill="currentColor"></rect></svg></template><template v-if="v.recOff"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M27 29c-.4-2.4 2.8-4.6 2.8-12 0-6.4-4.2-10.8-9.8-10.8-4.4 0-7.4 3-7.6 7.2l-2.2 4.2 2.1.7-.4 1.6 1 .7-1 .8.4 1.3c.2 1.7 1.5 2.4 3.6 2.4 1.6 0 2.5 1 2.7 2.4l.3 2.4"></path><path d="M7.4 17.4a4.5 4.5 0 0 0 0 5.2"></path><path d="M4.4 15.2a8 8 0 0 0 0 9.6"></path></svg></template></button><template v-if="v.hasRec"><button @click="v.me" :aria-label="v.meAria" style="display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); font-size: 14.5px; font-weight: 800">Ma voix</button><button @click="v.cmp" :aria-label="v.cmpAria" style="display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); font-size: 14.5px; font-weight: 800"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4L3 8l4 4"></path><path d="M3 8h14"></path><path d="M17 20l4-4-4-4"></path><path d="M21 16H7"></path></svg>Comparer</button></template></div>
-
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px"><button @click="v.play" :aria-label="v.playAria" :title="v.playAria" style="display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: 50px; height: 50px; padding: 0; border-radius: 50%; border: 1.5px solid var(--line); background: var(--surface); color: var(--accent)"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5a8 8 0 0 1 16 0c0 4.6-2.6 6.4-4.4 8.2-1.4 1.4-1.6 2.6-1.6 4a4 4 0 0 1-7.4 2.2"></path><path d="M15.6 13.5a3.2 3.2 0 1 0-6.2-1.1c0 2.2 2.6 2.6 2.6 4.8a2 2 0 0 1-3.2 1.6"></path><path d="M23.6 9.8a6 6 0 0 1 0 5.4"></path><path d="M26.4 7.2a10 10 0 0 1 0 10.6"></path><path d="M29.2 4.6a14 14 0 0 1 0 15.8"></path></svg></button><button @click="v.rec" :aria-label="v.recAria" :title="v.recAria" :style="`display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: 50px; height: 50px; padding: 0; border-radius: 50%; border: 1.5px solid ${v.recBorder}; background: ${v.recBg}; color: ${v.recCol}`"><template v-if="v.recOn"><svg width="18" height="18" viewBox="0 0 12 12" aria-hidden="true"><rect x="1.5" y="1.5" width="9" height="9" rx="1.5" fill="currentColor"></rect></svg></template><template v-if="v.recOff"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M27 29c-.4-2.4 2.8-4.6 2.8-12 0-6.4-4.2-10.8-9.8-10.8-4.4 0-7.4 3-7.6 7.2l-2.2 4.2 2.1.7-.4 1.6 1 .7-1 .8.4 1.3c.2 1.7 1.5 2.4 3.6 2.4 1.6 0 2.5 1 2.7 2.4l.3 2.4"></path><path d="M7.4 17.4a4.5 4.5 0 0 0 0 5.2"></path><path d="M4.4 15.2a8 8 0 0 0 0 9.6"></path></svg></template></button><template v-if="v.hasRec"><button @click="v.me" :aria-label="v.meAria" style="display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); font-size: 14.5px; font-weight: 800">Ma voix</button><button @click="v.cmp" :aria-label="v.cmpAria" style="display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); font-size: 14.5px; font-weight: 800"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4L3 8l4 4"></path><path d="M3 8h14"></path><path d="M17 20l4-4-4-4"></path><path d="M21 16H7"></path></svg>Comparer</button></template><button @click="v.bm" :aria-pressed="v.bmPressed" :aria-label="v.bmAria" :title="v.bmAria" :style="`margin-left: auto; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: 46px; height: 46px; padding: 0; border-radius: 50%; border: 0; background: transparent; color: ${v.bmCol}`"><svg width="22" height="22" viewBox="0 0 24 24" :fill="v.bmFill" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5h12v17l-6-4.2-6 4.2z"></path></svg></button></div>
+<template v-if="v.bmShowNote"><button @click="v.bmEdit" aria-label="Modifier ma note" style="text-align: left; display: flex; gap: 10px; align-items: flex-start; padding: 10px 14px; border-radius: 12px; border: 0; background: var(--hl); color: var(--ink); font-size: 16px; line-height: 1.5"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px; color: var(--gold)"><path d="M6 3.5h12v17l-6-4.2-6 4.2z"></path></svg><span style="flex: 1; min-width: 0; white-space: pre-wrap; overflow-wrap: anywhere">{{v.bmNote}}</span></button></template>
+<template v-if="v.bmEditing"><div style="display: flex; flex-direction: column; gap: 8px; padding: 12px 14px; border-radius: 14px; background: var(--surface); border: 1.5px solid var(--gold); font-family: 'Alegreya Sans', system-ui, sans-serif">
+<label :for="v.bmTaId" style="font-size: 14.5px; font-weight: 800">Ma note sur ce verset</label>
+<textarea :id="v.bmTaId" :value="v.bmNote" @input="v.bmInput" maxlength="500" rows="3" placeholder="Facultatif : une remarque, une règle à revoir…" style="width: 100%; box-sizing: border-box; padding: 10px 12px; border-radius: 10px; border: 1.5px solid var(--line2); background: var(--bg); color: var(--ink); font-family: 'Alegreya', serif; font-size: 16px; line-height: 1.5; resize: vertical"></textarea>
+<div style="display: flex; flex-wrap: wrap; gap: 8px"><button class="btn-b" @click="v.bmSave" style="min-height: 44px; padding: 0 18px; border-radius: 12px; border: 0; background: var(--accent); color: var(--onaccent); font-size: 15px; font-weight: 800">Enregistrer</button><button @click="v.bmDel" style="min-height: 44px; padding: 0 14px; border-radius: 12px; border: 1.5px solid var(--rose); background: transparent; color: var(--rose); font-size: 14.5px; font-weight: 700">Retirer le marque-page</button></div>
+</div></template>
 </li></template>
 </ol>
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px; padding: 12px 0 2px">
+<label style="display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 16px; border: 1.5px solid var(--line); border-radius: 999px; background: var(--surface); font-size: 15px; font-weight: 700; cursor: pointer"><input type="checkbox" role="switch" :checked="qLuOn" @change="qLuToggle" style="width: 18px; height: 18px; margin: 0; accent-color: var(--accent)">Sourate lue</label>
+<label style="display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 16px; border: 1.5px solid var(--line); border-radius: 999px; background: var(--surface); font-size: 15px; font-weight: 700; cursor: pointer"><input type="checkbox" role="switch" :checked="qApOn" @change="qApToggle" style="width: 18px; height: 18px; margin: 0; accent-color: var(--accent)">Sourate apprise</label>
+</div>
 <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; padding-top: 6px; border-top: 1px solid var(--line)">
 <template v-if="qHasPrev"><button class="btn-a" @click="qPrev" style="display: inline-flex; flex-direction: column; align-items: flex-start; gap: 2px; min-height: 56px; padding: 8px 14px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); text-align: left"><span style="font-size: 13px; font-weight: 500; color: var(--muted)">Sourate précédente</span><span style="font-size: 15.5px; font-weight: 800">{{qPrevLabel}}</span></button></template>
 <template v-if="qHasNext"><button class="btn-a" @click="qNext" style="margin-left: auto; display: inline-flex; flex-direction: column; align-items: flex-end; gap: 2px; min-height: 56px; padding: 8px 14px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); text-align: right"><span style="font-size: 13px; font-weight: 500; color: var(--muted)">Sourate suivante</span><span style="font-size: 15.5px; font-weight: 800">{{qNextLabel}}</span></button></template>
@@ -1223,6 +1265,7 @@ Mode mémorisation
 <p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">Texte arabe : <a href="https://tanzil.net" target="_blank" rel="noopener">Tanzil Project</a> (texte uthmani, version 1.0.2), reproduit sans modification, sous licence Creative Commons Attribution 3.0.</p>
 <p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">Traduction française : Muhammad Hamidullah, fournie par <a href="https://tanzil.net/trans/" target="_blank" rel="noopener">Tanzil.net</a>.</p>
 <p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">Couleurs du tajwîd : annotations du projet <a href="https://github.com/cpfair/quran-tajweed" target="_blank" rel="noopener">quran-tajweed</a> de Collin Fair, sous licence Creative Commons Attribution 4.0. Noms des sourates : <a href="https://quran.com/fr" target="_blank" rel="noopener">Quran.com</a>.</p>
+<p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">Repères de juz, de hizb et de quarts de hizb : données du projet <a href="https://github.com/quran-center/quran-meta" target="_blank" rel="noopener">quran-meta</a>, sous licence MIT (lecture de Hafs, mushaf de Médine).</p>
 <p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">Écoute et minutage mot à mot : <a href="https://quran.com/fr" target="_blank" rel="noopener">Quran.com</a> (Quran Foundation). Récitateurs : Mahmoud Khalil Al-Husary, Mohamed Siddiq Al-Minshawi, Mishary Rashid Al-Afasy, Abdul Basit Abdus-Samad, Abdur-Rahman As-Soudais et Sa’oud Ash-Shouraym. Ali Jaber, Ali Al-Houdhayfi et Abdullah Al-Matroud : audio d’<a href="https://everyayah.com" target="_blank" rel="noopener">EveryAyah</a>, minutage mot à mot de <a href="https://huggingface.co/datasets/quranlab/quran-audio" target="_blank" rel="noopener">QuranLab</a>, sous licence Creative Commons Attribution 4.0.</p>
 </article>
 <div style="display: flex; justify-content: flex-start"><button class="btn-a" @click="goHome" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Retour à l’accueil</button></div>
@@ -2839,7 +2882,7 @@ class Component extends DCLogic {
       screen: 'home', mode: null, topic: 'signes', queue: [], idx: 0, answered: false, picked: null,
       fills: [], checked: false, score: 0, mistakes: [],
       best: { qcm: null, vf: null, trous: null, tqcm: null, tvf: null, ttrous: null }, hide: false, revealed: {},
-      prog: { q: {}, hist: [] }, weeksDone: {}, chap: 'a1', level: '4A', theme: 'auto', arScale: 1, arFont: 'hafs', sysDark: false, confirmReset: false, installed: false, appVersion: '', toast: '', importPending: null, importError: '', shareMenu: false, srQ: '', qSurah: 0, qTr: false, qTj: false, qFilter: '', qClass: false, qJuz: false, qRule: null, qz: null, qLoading: false, qError: '', qRec: 6, qPlayerOn: false, qPlayV: 1, qAudio: 'idle', qAudioMsg: '', qRepeat: false, qRecVer: 0, qRecording: 0, qRecSec: 0, qMePlaying: 0, qMeOn: false, qRecTotal: 0, qRecConfirm: false
+      prog: { q: {}, hist: [] }, weeksDone: {}, chap: 'a1', level: '4A', theme: 'auto', arScale: 1, arFont: 'hafs', sysDark: false, confirmReset: false, installed: false, appVersion: '', toast: '', importPending: null, importError: '', shareMenu: false, srQ: '', qSurah: 0, qTr: false, qTj: false, qFilter: '', qClass: false, qJuz: false, qRule: null, qz: null, qMemo: false, qMask: '', qMemoRv: {}, qRgFrom: 0, qRgTo: 0, qRgTimes: 3, qLu: {}, qAp: {}, qGoal: 20, qDay: '', qSeen: {}, qBm: {}, qBmEdit: '', qLoading: false, qError: '', qRec: 6, qPlayerOn: false, qPlayV: 1, qAudio: 'idle', qAudioMsg: '', qRepeat: false, qRecVer: 0, qRecording: 0, qRecSec: 0, qMePlaying: 0, qMeOn: false, qRecTotal: 0, qRecConfirm: false
     }, this.state || {});
   }
 
@@ -2862,8 +2905,33 @@ class Component extends DCLogic {
       if (rd) { const d = JSON.parse(rd); this.setState({ theme: d.theme || 'auto', arScale: d.arScale || 1, arFont: d.fv === 2 ? ((d.arFont === 'jom' ? 'naskh' : d.arFont) || 'hafs') : 'hafs' }); }
     } catch (e) {}
     try {
+      const rb = window.localStorage.getItem('waqf-signets');
+      if (rb) { const o = JSON.parse(rb); if (o && typeof o === 'object' && !Array.isArray(o)) this.setState({ qBm: o }); }
+    } catch (e) {}
+    try {
+      const rs = window.localStorage.getItem('waqf-suivi');
+      if (rs) { const u = JSON.parse(rs) || {}; const ok = (o) => (o && typeof o === 'object' && !Array.isArray(o) ? o : {}); this.setState({ qLu: ok(u.lu), qAp: ok(u.ap), qGoal: [10, 20, 30, 50, 100].indexOf(u.goal) >= 0 ? u.goal : 20, qDay: typeof u.day === 'string' ? u.day : '', qSeen: ok(u.seen) }); }
+    } catch (e) {}
+    try { this._qSeenT = setInterval(() => this.qSeenTick(), 2000); } catch (e) {}
+    try {
       const rq = window.localStorage.getItem('waqf-coran');
-      if (rq) { const q = JSON.parse(rq); if (q && q.last && q.last.s) this._qLast = q.last; this.setState({ qTr: q.tr === true, qTj: q.tj === true, qClass: q.cl === true, qJuz: q.jz === true, qRec: this.qRecs().some((r) => r[0] === q.rec) ? q.rec : 6, qSpd: [0.5, 0.75, 1, 1.25].indexOf(q.spd) >= 0 ? q.spd : 1 }); }
+      if (rq) { const q = JSON.parse(rq); if (q && q.last && q.last.s) this._qLast = q.last; this.setState({ qTr: q.tr === true, qTj: q.tj === true, qClass: q.cl === true, qJuz: q.jz === true, qMemo: q.mm === true, qMask: q.mk === 'lettres' || q.mk === 'tout' ? q.mk : '', qRec: this.qRecs().some((r) => r[0] === q.rec) ? q.rec : 6, qSpd: [0.5, 0.75, 1, 1.25].indexOf(q.spd) >= 0 ? q.spd : 1 }); }
+    } catch (e) {}
+    try {
+      // Le Qur’ân : fine barre dorée en haut du lecteur, qui avance avec la lecture de la sourate
+      let tp = false;
+      const upd = () => {
+        tp = false;
+        const bar = document.getElementById('q-progress'); const list = document.getElementById('q-verses'); if (!bar || !list) return;
+        const r = list.getBoundingClientRect(); const H = window.innerHeight;
+        const span = r.height - H * 0.5; const done = H * 0.5 - r.top;
+        const pc = span > 0 ? Math.max(0, Math.min(1, done / span)) : 1;
+        bar.style.width = (pc * 100).toFixed(1) + '%';
+      };
+      this._qProgUpd = upd;
+      window.addEventListener('scroll', () => { if (!tp) { tp = true; window.requestAnimationFrame(upd); } }, { passive: true });
+      window.addEventListener('resize', () => { if (!tp) { tp = true; window.requestAnimationFrame(upd); } }, { passive: true });
+      this._qProgT = setInterval(() => { if (this.S().screen === 'quranRead') upd(); }, 1000);
     } catch (e) {}
     try {
       // Le Qur’ân : mémorise le verset en haut de l’écran pour « Reprendre la lecture »
@@ -3310,7 +3378,7 @@ class Component extends DCLogic {
   // Préférences du Qur’ân (sans toucher à la dernière lecture).
   qStore() {
     const s = this.S();
-    try { window.localStorage.setItem('waqf-coran', JSON.stringify({ last: this._qLast, tr: s.qTr === true, tj: s.qTj === true, cl: s.qClass === true, jz: s.qJuz === true, rec: s.qRec || 6, spd: s.qSpd || 1 })); } catch (e) {}
+    try { window.localStorage.setItem('waqf-coran', JSON.stringify({ last: this._qLast, tr: s.qTr === true, tj: s.qTj === true, cl: s.qClass === true, jz: s.qJuz === true, mm: s.qMemo === true, mk: s.qMask || '', rec: s.qRec || 6, spd: s.qSpd || 1 })); } catch (e) {}
   }
 
   // Début de chacun des 30 juz : [sourate, verset] (découpage du mushaf de Médine).
@@ -3330,7 +3398,7 @@ class Component extends DCLogic {
     if (this._aud && this.S().qSurah !== n) this.qStopAudio(true);
     this.qLoadIndex();
     // Un message d’écoute ou de micro concerne la sourate précédente : on l’efface en changeant de sourate.
-    this.setState({ qSurah: n, qError: '', qAudioMsg: '' });
+    this.setState({ qSurah: n, qError: '', qAudioMsg: '', qMemoRv: {}, qRgFrom: 0, qRgTo: 0, qBmEdit: '' });
     this.go('quranRead');
     const after = () => {
       if (v && v > 1) setTimeout(() => { try { const el = document.getElementById('v-' + v); if (el) el.scrollIntoView({ block: 'start' }); } catch (e) {} }, 80);
@@ -3450,6 +3518,7 @@ class Component extends DCLogic {
   // Écoute de la sourate avec un fichier par verset : on enchaîne le verset suivant (ou on répète le verset).
   qPvAdvance() {
     const a = this._aud; const info = this._qCur; const v = this._qV; if (!a || !info || this._qAdv === v) return;
+    if (this._qRange && v === this._qRange.to && this.qRangeHit()) return;
     if (this.S().qRepeat) { a.currentTime = 0; if (a.paused) { const p = a.play(); if (p && p.catch) p.catch(() => {}); } return; }
     this._qAdv = v; const t = info.vt[v + 1];
     if (!t) { a.pause(); this.qMark(0, 0); return; }
@@ -3489,6 +3558,7 @@ class Component extends DCLogic {
       if (this._qThenMe === this._qV) { const mv = this._qThenMe; this._qThenMe = null; (this._meReadyP || Promise.resolve()).then(() => this.qMeGo(mv)); }
       return;
     }
+    if (this._qMode === 'surah' && !info.pv && this._qRange && this._qV === this._qRange.to && t && ms >= tEnd - 15 && this.qRangeHit()) return;
     if (this._qMode === 'surah' && info.pv && t && ms >= tEnd - 15) { this.qPvAdvance(); return; }
     if (this._qMode === 'surah' && s.qRepeat && t && v !== this._qV) { a.currentTime = t.from / 1000; return; }
     if (v !== this._qV) {
@@ -3503,6 +3573,7 @@ class Component extends DCLogic {
   qPlay(v, mode) {
     const s = this.S(); const n = s.qSurah; const rec = s.qRec || 6; if (!n) return;
     this._qThenMe = null; this.qMeStop();
+    this._qRange = this._qRangeNext || null; this._qRangeNext = null;
     const a = this.qAud();
     this._qMode = mode; this._qV = v; this._qW = -1; clearTimeout(this._qStopT); this._qStopT = null;
     this.setState({ qPlayerOn: true, qPlayV: v, qAudio: 'loading', qAudioMsg: '' });
@@ -3637,6 +3708,128 @@ class Component extends DCLogic {
     this.top();
   }
 
+  // ——— Le Qur’ân : repères de hizb et de quart (۞) ———
+  // Début des 240 quarts de hizb, [sourate, verset] par paires (données quran-meta, licence MIT ; mushaf de Médine, Hafs).
+  qRubRow(n, v) {
+    if (!this._rubMap) {
+      const L = [1,1,2,26,2,44,2,60,2,75,2,92,2,106,2,124,2,142,2,158,2,177,2,189,2,203,2,219,2,233,2,243,2,253,2,263,2,272,2,283,3,15,3,33,3,52,3,75,3,93,3,113,3,133,3,153,3,171,3,186,4,1,4,12,4,24,4,36,4,58,4,74,4,88,4,100,4,114,4,135,4,148,4,163,5,1,5,12,5,27,5,41,5,51,5,67,5,82,5,97,5,109,6,13,6,36,6,59,6,74,6,95,6,111,6,127,6,141,6,151,7,1,7,31,7,47,7,65,7,88,7,117,7,142,7,156,7,171,7,189,8,1,8,22,8,41,8,61,9,1,9,19,9,34,9,46,9,60,9,75,9,93,9,111,9,122,10,11,10,26,10,53,10,71,10,90,11,6,11,24,11,41,11,61,11,84,11,108,12,7,12,30,12,53,12,77,12,101,13,5,13,19,13,35,14,10,14,28,15,1,15,50,16,1,16,30,16,51,16,75,16,90,16,111,17,1,17,23,17,50,17,70,17,99,18,17,18,32,18,51,18,75,18,99,19,22,19,59,20,1,20,55,20,83,20,111,21,1,21,29,21,51,21,83,22,1,22,19,22,38,22,60,23,1,23,36,23,75,24,1,24,21,24,35,24,53,25,1,25,21,25,53,26,1,26,52,26,111,26,181,27,1,27,27,27,56,27,82,28,12,28,29,28,51,28,76,29,1,29,26,29,46,30,1,30,31,30,54,31,22,32,11,33,1,33,18,33,31,33,51,33,60,34,10,34,24,34,46,35,15,35,41,36,28,36,60,37,22,37,83,37,145,38,21,38,52,39,8,39,32,39,53,40,1,40,21,40,41,40,66,41,9,41,25,41,47,42,13,42,27,42,51,43,24,43,57,44,17,45,12,46,1,46,21,47,10,47,33,48,18,49,1,49,14,50,27,51,31,52,24,53,26,54,9,55,1,56,1,56,75,57,16,58,1,58,14,59,11,60,7,62,1,63,4,65,1,66,1,67,1,68,1,69,1,70,19,72,1,73,20,75,1,76,19,78,1,80,1,82,1,84,1,87,1,90,1,94,1,100,9]; this._rubMap = {};
+      for (let k = 0; k < L.length; k += 2) this._rubMap[L[k] + ':' + L[k + 1]] = k / 2 + 1;
+    }
+    const q = this._rubMap[n + ':' + v]; if (!q) return { hasRub: false, rubLabel: '' };
+    const h = Math.ceil(q / 4); const part = (q - 1) % 4;
+    const label = part ? 'Hizb ' + h + ', ' + ['', '¼', '½', '¾'][part] : ((q - 1) % 8 === 0 ? 'Juz ' + ((q - 1) / 8 + 1) + ', hizb ' + h : 'Hizb ' + h);
+    return { hasRub: true, rubLabel: label };
+  }
+
+  // ——— Le Qur’ân : marque-pages et notes (sur l’appareil) ———
+  qBmStore() {
+    try { window.localStorage.setItem('waqf-signets', JSON.stringify(this.S().qBm || {})); } catch (e) {}
+  }
+
+  qBmRow(s, v) {
+    const k = s.qSurah + ':' + v; const b = (s.qBm || {})[k]; const ed = s.qBmEdit === k;
+    return {
+      bmPressed: b ? 'true' : 'false', bmAria: b ? 'Marque-page du verset ' + v + ', ouvrir la note' : 'Ajouter un marque-page au verset ' + v,
+      bmCol: b ? 'var(--gold)' : 'var(--muted)', bmFill: b ? 'currentColor' : 'none', bmEditing: ed, bmShowNote: !!b && !ed && !!b.n, bmNote: b ? b.n || '' : '', bmTaId: 'bm-' + v,
+      bm: () => this.qBmTap(v), bmEdit: () => this.qBmOpen(v), bmSave: () => this.qBmSave(v), bmDel: () => this.qBmDel(v),
+      bmInput: (e) => { this._bmDraft = e && e.target ? String(e.target.value || '').slice(0, 500) : ''; }
+    };
+  }
+
+  qBmTap(v) {
+    const s = this.S(); const k = s.qSurah + ':' + v;
+    if (!(s.qBm || {})[k]) { const bm = Object.assign({}, s.qBm || {}); bm[k] = { n: '', t: this.qToday() }; this.setState({ qBm: bm }); this.qBmStore(); this.flash('Marque-page ajouté.'); }
+    this.qBmOpen(v);
+  }
+
+  qBmOpen(v) {
+    const s = this.S(); const k = s.qSurah + ':' + v;
+    if (s.qBmEdit === k) { this.setState({ qBmEdit: '' }); return; }
+    this._bmDraft = ((s.qBm || {})[k] || {}).n || '';
+    this.setState({ qBmEdit: k });
+  }
+
+  qBmSave(v) {
+    const s = this.S(); const k = s.qSurah + ':' + v; const bm = Object.assign({}, s.qBm || {});
+    bm[k] = { n: String(this._bmDraft || '').trim().slice(0, 500), t: (bm[k] && bm[k].t) || this.qToday() };
+    this.setState({ qBm: bm, qBmEdit: '' }); this.qBmStore();
+  }
+
+  qBmDel(v) {
+    const s = this.S(); const k = s.qSurah + ':' + v; const bm = Object.assign({}, s.qBm || {});
+    delete bm[k]; this.setState({ qBm: bm, qBmEdit: '' }); this.qBmStore(); this.flash('Marque-page retiré.');
+  }
+
+  // ——— Le Qur’ân : suivi de lecture (sourates lues ou apprises, versets lus aujourd’hui) ———
+  qToday() {
+    const d = new Date();
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  }
+
+  qSuiviSave() {
+    const s = this.S();
+    try { window.localStorage.setItem('waqf-suivi', JSON.stringify({ lu: s.qLu || {}, ap: s.qAp || {}, goal: s.qGoal || 20, day: s.qDay || '', seen: s.qSeen || {} })); } catch (e) {}
+  }
+
+  qMarkRead(n, kind) {
+    const s = this.S(); if (!n) return;
+    const key = kind === 'ap' ? 'qAp' : 'qLu'; const o = Object.assign({}, s[key] || {});
+    if (o[n]) delete o[n]; else o[n] = this.qToday();
+    const up = {}; up[key] = o;
+    // Une sourate apprise est aussi une sourate lue.
+    if (kind === 'ap' && o[n] && !(s.qLu || {})[n]) { up.qLu = Object.assign({}, s.qLu || {}); up.qLu[n] = this.qToday(); }
+    this.setState(up); this.qSuiviSave();
+  }
+
+  // Toutes les 2 secondes dans le lecteur : un verset visible deux fois de suite compte comme lu aujourd’hui.
+  qSeenTick() {
+    const s = this.S();
+    if (s.screen !== 'quranRead' || !s.qSurah || document.hidden) { this._qVis = null; return; }
+    const today = this.qToday(); const fresh = s.qDay !== today; const seen = fresh ? {} : (s.qSeen || {});
+    const vis = {}; const H = window.innerHeight;
+    try { document.querySelectorAll('#q-verses > li').forEach((li) => { const r = li.getBoundingClientRect(); if (r.height && ((r.top >= -4 && r.bottom <= H - 70) || (r.top <= H * 0.3 && r.bottom >= H * 0.7))) vis[li.id] = 1; }); } catch (e) {}
+    const prev = this._qVis || {}; this._qVis = vis;
+    const ns = Object.assign({}, seen); let add = 0;
+    Object.keys(vis).forEach((id) => { if (prev[id]) { const k = s.qSurah + ':' + id.slice(2); if (!ns[k]) { ns[k] = 1; add++; } } });
+    if (!add && !fresh) return;
+    const g = s.qGoal || 20; const before = Object.keys(seen).length; const after = Object.keys(ns).length;
+    this.setState({ qSeen: ns, qDay: today }); this.qSuiviSave();
+    if (before < g && after >= g) this.flash('Objectif du jour atteint : ' + g + ' versets. Bravo !');
+  }
+
+  // ——— Le Qur’ân : mode mémorisation (texte masqué, plage de versets répétée) ———
+  qMaskWord(word, mask) {
+    const txt = word.parts.map((p) => p.t).join('').replace(/‍/g, '');
+    const HIDE = 'color: transparent; background: var(--surface3); border-radius: 6px;';
+    if (mask === 'tout') return { id: word.id, sp: word.sp, parts: [{ t: txt, st: HIDE, r: '' }] };
+    const isMark = (ch) => /[ؐ-ًؚ-ٰٟۖ-ۜ۟-۪ۤۧۨ-ۭ࣓-ࣿ]/.test(ch || '');
+    let k = 1; while (k < txt.length && isMark(txt[k])) k++;
+    const a = txt.slice(0, k), b = txt.slice(k);
+    if (!b.replace(/[\s ]/g, '')) return { id: word.id, sp: word.sp, parts: [{ t: txt, st: '', r: '' }] };
+    const join = 'بتثجحخسشصضطظعغفقكلمنهيئىٮٯـ'.indexOf(a[0]) >= 0 && /[ؠ-يٱ-ۓ]/.test(b[0]);
+    return { id: word.id, sp: word.sp, parts: [{ t: a + (join ? '‍' : ''), st: '', r: '' }, { t: (join ? '‍' : '') + b, st: HIDE, r: '' }] };
+  }
+
+  qRgPlay(from, to, times) {
+    this._qRangeNext = { from, to, times, k: 0 };
+    this.qPlay(from, 'surah');
+  }
+
+  // Fin du dernier verset de la plage : on recommence au premier, ou on s’arrête après le dernier tour.
+  qRangeHit() {
+    const R = this._qRange; const a = this._aud; const info = this._qCur;
+    if (!R || !a || !info || this._qV !== R.to) return false;
+    R.k++;
+    if (R.k >= R.times) { this._qRange = null; a.pause(); this.qMark(0, 0); return true; }
+    const t = info.vt[R.from]; if (!t) return false;
+    this._qV = R.from; this._qW = -1; this._qAdv = 0;
+    if (info.pv) { a.src = t.url; this.qApplySpd(); const p = a.play(); if (p && p.catch) p.catch(() => {}); this.qPvPre(R.from + 1); }
+    else { this._qSeekTo = t.from; a.currentTime = t.from / 1000; }
+    this.setState({ qPlayV: R.from });
+    try { const li = document.getElementById('v-' + R.from); if (li) li.scrollIntoView({ block: 'center' }); } catch (e) {}
+    return true;
+  }
+
   // ——— Le Qur’ân : toucher une lettre en couleur affiche sa règle de tajwîd ———
   // Codes des annotations cpfair/quran-tajweed → nom, nom arabe, couleur, explication et fiche du programme.
   qRuleInfo(c) {
@@ -3670,6 +3863,8 @@ class Component extends DCLogic {
 
   qTapRule(e) {
     const t = e && e.target; if (!t || !t.closest) return;
+    const s0 = this.S();
+    if (s0.qMemo && s0.qMask) { const w = t.closest('.qw'); if (w && w.id) { const rv = Object.assign({}, s0.qMemoRv || {}); if (rv[w.id]) delete rv[w.id]; else rv[w.id] = 1; this.setState({ qMemoRv: rv }); } return; }
     const el = t.closest('[data-r]'); const c = el ? el.getAttribute('data-r') : '';
     if (!c || !this.qRuleInfo(c)) return;
     let w = [{ t: el.textContent, st: '' }];
@@ -3904,7 +4099,7 @@ class Component extends DCLogic {
     const s = this.S();
     const payload = {
       app: 'tadjwiid-cifod', format: 1, date: new Date().toISOString(),
-      data: { progres: s.prog, records: s.best, programme: s.weeksDone, affichage: { theme: s.theme, arScale: s.arScale, arFont: s.arFont } }
+      data: { progres: s.prog, records: s.best, programme: s.weeksDone, affichage: { theme: s.theme, arScale: s.arScale, arFont: s.arFont }, coran: { lues: s.qLu || {}, apprises: s.qAp || {}, objectif: s.qGoal || 20, signets: s.qBm || {} } }
     };
     try {
       const blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
@@ -3932,13 +4127,17 @@ class Component extends DCLogic {
     const weeks = {};
     if (isObj(d.programme)) Object.keys(d.programme).slice(0, 200).forEach((k) => { if (k.length < 12 && d.programme[k]) weeks[k] = true; });
     const a = isObj(d.affichage) ? d.affichage : {};
-    const theme = ['auto', 'clair', 'sombre'].indexOf(a.theme) >= 0 ? a.theme : 'auto';
+    const theme = ['auto', 'clair', 'papier', 'sombre'].indexOf(a.theme) >= 0 ? a.theme : 'auto';
     const arScale = typeof a.arScale === 'number' && a.arScale >= 0.7 && a.arScale <= 2 ? a.arScale : 1;
     const arFont0 = a.arFont === 'jom' ? 'naskh' : a.arFont; // Jomhuria remplacée par Amiri (v245)
     const arFont = ['hafs', 'amiri', 'sch', 'noto', 'harm', 'lat', 'sans', 'naskh'].indexOf(arFont0) >= 0 ? arFont0 : 'hafs';
     const dt = new Date(j.date);
     const date = isNaN(dt) ? '' : dt.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
-    return { prog: { q, hist }, best, weeks, theme, arScale, arFont, date };
+    const co = isObj(d.coran) ? d.coran : {}; const dayOk = (x) => typeof x === 'string' && x.length <= 10;
+    const marks = (o) => { const r = {}; if (isObj(o)) Object.keys(o).slice(0, 114).forEach((k) => { const n = parseInt(k, 10); if (n >= 1 && n <= 114 && dayOk(o[k])) r[n] = o[k]; }); return r; };
+    const signets = {}; if (isObj(co.signets)) Object.keys(co.signets).slice(0, 2000).forEach((k) => { const b = co.signets[k]; if (/^\d{1,3}:\d{1,3}$/.test(k) && isObj(b)) signets[k] = { n: String(b.n || '').slice(0, 500), t: dayOk(b.t) ? b.t : '' }; });
+    const coran = { lu: marks(co.lues), ap: marks(co.apprises), goal: [10, 20, 30, 50, 100].indexOf(co.objectif) >= 0 ? co.objectif : 20, bm: signets };
+    return { prog: { q, hist }, best, weeks, theme, arScale, arFont, date, coran };
   }
 
   pickBackup(e) {
@@ -3957,6 +4156,7 @@ class Component extends DCLogic {
   restoreBackup() {
     const c = this.S().importPending;
     if (!c) return;
+    if (c.coran) { this.setState({ qLu: c.coran.lu, qAp: c.coran.ap, qGoal: c.coran.goal, qBm: c.coran.bm }); this.qSuiviSave(); this.qBmStore(); }
     this.setState({ prog: c.prog, best: c.best, weeksDone: c.weeks, theme: c.theme, arScale: c.arScale, arFont: c.arFont, importPending: null, importError: '', confirmReset: false });
     this.saveProg(c.prog);
     this.save(c.best);
@@ -4375,6 +4575,9 @@ class Component extends DCLogic {
       rose: '#B42318', 'rose-t': '#FCEDEB', red: '#C62828', green: '#2E7D32', blue: '#1F5FA8', 'amber-bg': '#FBEFD6', 'amber-fg': '#7A4E00',
       'tone-red': '#A1262B', 'tone-green': '#1D6B3C', 'tone-maroon': '#7A2430'
     };
+    // Thème « papier » : le thème clair sur un fond de papier ancien, pour lire longtemps.
+    if (s.theme === 'papier') Object.assign(TV, { bg: '#F3EAD3', surface: '#FBF5E6', surface2: '#F7EFDC', surface3: '#EBDFC3', ink: '#2B2217', ink2: '#4A3A26', muted: '#665641',
+      line: '#E0D2B4', line2: '#CDBB97', tint2: '#EDE5CF', btn: '#2B2217', gold: '#9A7320', goldtext: '#7A5A14', hl: 'rgba(154, 115, 32, 0.22)', 'rose-t': '#F7E3DA', 'amber-bg': '#F3E2BF' });
     const AR_FONTS = { hafs: "'Hafs'", amiri: "'Amiri Quran'", sch: "'Scheherazade New'", noto: "'Noto Naskh Arabic'", harm: "'Harmattan'", lat: "'Lateef'", sans: "'Noto Sans Arabic'", naskh: "'Amiri'" };
     const themeVars = Object.keys(TV).map((k) => '--' + k + ': ' + TV[k] + ';').join(' ') + ' --ar: ' + (s.arScale || 1) + '; --arfont: ' + (AR_FONTS[s.arFont] || AR_FONTS.hafs) + '; --hafs: ' + ((s.arFont || 'hafs') === 'hafs' ? 1 : 0) + '; color-scheme: ' + (dark ? 'dark' : 'light') + ';';
     const accent = 'var(--accent)';
@@ -4465,7 +4668,8 @@ class Component extends DCLogic {
       const f = this.srNorm(this.srClean(s.qFilter || '')).replace(/\s+/g, ' ').trim();
       const qSrc = s.qClass ? this.qClassList(s.level).map((n) => qIdx.s[n - 1]).filter(Boolean) : qIdx.s;
       const qKeep = (c) => !f || String(c.n) === f || this.srNorm(c.tr + ' ' + c.fr + ' ' + c.ar).indexOf(f) >= 0;
-      const qRow = (c, a, b) => { const part = a > 1 || b < c.nv; return { num: qAr(c.n), nfs: qNfs(c.n), tr: c.tr, ar: c.ar, meta: c.fr + ', ' + (part ? 'versets ' + a + ' à ' + b : qMeta(c)), open: () => this.qOpen(c.n, a) }; };
+      const qLuO = s.qLu || {}, qApO = s.qAp || {};
+      const qRow = (c, a, b) => { const part = a > 1 || b < c.nv; const ap = !!qApO[c.n], lu = !!qLuO[c.n]; return { hasBadge: ap || lu, badge: ap ? 'Apprise' : 'Lue', badgeSt: ap ? 'background: var(--accent); color: var(--onaccent);' : 'background: var(--tint); color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent);', num: qAr(c.n), nfs: qNfs(c.n), tr: c.tr, ar: c.ar, meta: c.fr + ', ' + (part ? 'versets ' + a + ' à ' + b : qMeta(c)), open: () => this.qOpen(c.n, a) }; };
       qListRows = qSrc.filter(qKeep).map((c) => qRow(c, 1, c.nv));
       if (s.qJuz) {
         const at = {}; qSrc.forEach((c, i) => { at[c.n] = i + 1; });
@@ -4477,7 +4681,7 @@ class Component extends DCLogic {
           for (let n = s1; n <= s2; n++) { const c = qIdx.s[n - 1]; if (c && at[n] && qKeep(c)) parts.push({ o: at[n], r: qRow(c, n === s1 ? v1 : 1, n === s2 ? v2 : c.nv) }); }
           parts.sort((x, y) => x.o - y.o);
           const j = k + 1;
-          return { id: 'juz-' + j, j: String(j), hasHead: true, title: 'Juz ' + j, ar: 'الجزء ' + qAr(j), range: 'De ' + qIdx.s[s1 - 1].tr + ' ' + v1 + ' à ' + qIdx.s[s2 - 1].tr + ' ' + v2, rows: parts.map((x) => x.r) };
+          return { id: 'juz-' + j, j: String(j), hasHead: true, title: 'Juz ' + j, ar: 'الجزء ' + qAr(j), range: 'De ' + qIdx.s[s1 - 1].tr + ' ' + v1 + ' à ' + qIdx.s[s2 - 1].tr + ' ' + v2 + ', ' + parts.filter((x) => x.r.hasBadge).length + ' sur ' + parts.length + ' lue' + (parts.filter((x) => x.r.hasBadge).length > 1 ? 's' : ''), rows: parts.map((x) => x.r) };
         }).filter((g) => g.rows.length);
       } else qGroups = [{ id: 'juz-tout', j: '', hasHead: false, title: '', ar: '', range: '', rows: qListRows }];
     }
@@ -4487,10 +4691,10 @@ class Component extends DCLogic {
     if (screen === 'quranRead' && qData) {
       const wk = s.qSurah + '|' + qTj;
       if (!this._qwm || this._qwm.key !== wk) this._qwm = { key: wk, w: qData.v.map((v, i) => this.qWords(qTj ? this.qParts(v[0], v[2]) : [{ t: v[0], st: '' }], i + 1)) };
-      const key = s.qSurah + '|' + qTr + '|' + qTj + '|' + (s.qRecVer || 0) + '|' + (s.qRecording || 0); const qHas = this._qHas || {};
+      const qBmSig = JSON.stringify(Object.keys(s.qBm || {}).filter((k) => k.indexOf(s.qSurah + ':') === 0).map((k) => [k, s.qBm[k].n])) + '|' + (s.qBmEdit || ''); const qMk = s.qMemo && s.qMask ? s.qMask : ''; const qRv = s.qMemoRv || {}; const key = s.qSurah + '|' + qTr + '|' + qTj + '|' + (s.qRecVer || 0) + '|' + (s.qRecording || 0) + '|' + qMk + '|' + Object.keys(qRv).join(',') + '|' + qBmSig; const qHas = this._qHas || {};
       if (!this._qvm || this._qvm.key !== key) {
         this._qvm = { key, rows: qData.v.map((v, i) => ({ id: 'v-' + (i + 1), n: String(i + 1), num: qAr(i + 1), mark: qAr(i + 1),
-          words: this._qwm.w[i], fr: v[1], showTr: qTr, aria: 'Verset ' + (i + 1), play: () => this.qPlay(i + 1, 'verse'), playAria: 'Écouter le verset ' + (i + 1), hasRec: !!qHas[i + 1], recOn: s.qRecording === i + 1, recOff: s.qRecording !== i + 1, recLabel: s.qRecording === i + 1 ? 'Arrêter' : 'M’enregistrer', recAria: (s.qRecording === i + 1 ? 'Arrêter l’enregistrement du verset ' : 'M’enregistrer en récitant le verset ') + (i + 1), recCol: 'var(--gold)', recBg: s.qRecording === i + 1 ? 'var(--hl)' : 'var(--surface)', recBorder: s.qRecording === i + 1 ? 'var(--gold)' : 'var(--line)', rec: () => this.qRecStart(i + 1), me: () => this.qMePlay(i + 1), meAria: 'Réécouter ma récitation du verset ' + (i + 1), cmp: () => this.qCompare(i + 1), cmpAria: 'Comparer le récitateur puis ma voix, verset ' + (i + 1) })) };
+          words: qMk ? this._qwm.w[i].map((w) => (qRv[w.id] ? w : this.qMaskWord(w, qMk))) : this._qwm.w[i], fr: v[1], showTr: qTr, aria: 'Verset ' + (i + 1), ...this.qBmRow(s, i + 1), ...this.qRubRow(s.qSurah, i + 1), play: () => this.qPlay(i + 1, 'verse'), playAria: 'Écouter le verset ' + (i + 1), hasRec: !!qHas[i + 1], recOn: s.qRecording === i + 1, recOff: s.qRecording !== i + 1, recLabel: s.qRecording === i + 1 ? 'Arrêter' : 'M’enregistrer', recAria: (s.qRecording === i + 1 ? 'Arrêter l’enregistrement du verset ' : 'M’enregistrer en récitant le verset ') + (i + 1), recCol: 'var(--gold)', recBg: s.qRecording === i + 1 ? 'var(--hl)' : 'var(--surface)', recBorder: s.qRecording === i + 1 ? 'var(--gold)' : 'var(--line)', rec: () => this.qRecStart(i + 1), me: () => this.qMePlay(i + 1), meAria: 'Réécouter ma récitation du verset ' + (i + 1), cmp: () => this.qCompare(i + 1), cmpAria: 'Comparer le récitateur puis ma voix, verset ' + (i + 1) })) };
       }
       qVerses = this._qvm.rows;
     }
@@ -4608,7 +4812,7 @@ class Component extends DCLogic {
     // ——— Affichage ———
     const optStyle = (on) => 'min-height: 44px; padding: 0 16px; border-radius: 12px; font-size: 14.5px; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; ' +
       (on ? 'background: var(--accent); color: var(--onaccent); border: 1.5px solid var(--accent);' : 'background: var(--surface); color: var(--ink); border: 1.5px solid var(--line);');
-    const themeOpts = [['auto', 'Automatique'], ['clair', 'Clair'], ['sombre', 'Sombre']].map(([k, l]) => ({ label: l, pressed: s.theme === k ? 'true' : 'false', style: optStyle(s.theme === k), pick: () => this.setTheme(k) }));
+    const themeOpts = [['auto', 'Automatique'], ['clair', 'Clair'], ['papier', 'Papier'], ['sombre', 'Sombre']].map(([k, l]) => ({ label: l, pressed: s.theme === k ? 'true' : 'false', style: optStyle(s.theme === k), pick: () => this.setTheme(k) }));
     const fontOpts = [['hafs', 'Uthmanic (Mushaf de Médine)', "'Hafs', serif"], ['amiri', 'Amiri Quran', "'Amiri Quran', serif"], ['sch', 'Scheherazade', "'Scheherazade New', serif"], ['noto', 'Noto Naskh', "'Noto Naskh Arabic', serif"], ['harm', 'Harmattan', "'Harmattan', serif"], ['lat', 'Lateef', "'Lateef', serif"], ['sans', 'Arabe moderne', "'Noto Sans Arabic', sans-serif"], ['naskh', 'Naskh classique (Amiri)', "'Amiri', serif"]]
       .map(([k, l, ff]) => ({ label: l, ff, pressed: (s.arFont || 'hafs') === k ? 'true' : 'false', style: optStyle((s.arFont || 'hafs') === k) + ' flex-direction: column; justify-content: center; gap: 0; min-height: 72px; padding: 6px 14px;', pick: () => this.setFont(k) }));
     const arOpts = [[1, 'Normale'], [1.18, 'Grande'], [1.36, 'Très grande']].map(([v, l]) => ({ label: l, pressed: s.arScale === v ? 'true' : 'false', style: optStyle(s.arScale === v), pick: () => this.setAr(v) }));
@@ -4893,7 +5097,7 @@ class Component extends DCLogic {
     const doneCount = s.idx + (s.answered ? 1 : 0);
     const progressNum = inSession ? Math.round((doneCount / total) * 100) : 0;
     // Couleur de la barre système (téléphone) accordée au thème clair ou sombre
-    try { const tc = document.querySelector('meta[name="theme-color"]'); const want = dark ? '#0F1513' : '#F3F4F0'; if (tc && tc.getAttribute('content') !== want) tc.setAttribute('content', want); } catch (e) {}
+    try { const tc = document.querySelector('meta[name="theme-color"]'); const want = dark ? '#0F1513' : (s.theme === 'papier' ? '#F3EAD3' : '#F3F4F0'); if (tc && tc.getAttribute('content') !== want) tc.setAttribute('content', want); } catch (e) {}
 
     return {
       accent, tint, themeVars, themeName: dark ? 'dark' : 'light',
@@ -4921,6 +5125,37 @@ class Component extends DCLogic {
       qHead, qVerses, qLoading: !!s.qLoading && screen === 'quranRead', qErrorShow: !!s.qError, qError: s.qError || '',
       qShowBasmala: !!(qData && qIdx && s.qSurah !== 1 && s.qSurah !== 9), qBasmala: qIdx ? qIdx.basmala : '',
       qTr, qTj, qLegend, qFontSt,
+      ...(() => {
+        const bm = s.qBm || {}; const idx = this._qn;
+        const list = Object.keys(bm).map((k) => { const p = k.split(':'); return { s: +p[0], v: +p[1], k }; }).filter((x) => x.s >= 1 && x.s <= 114 && x.v >= 1).sort((a, b) => a.s - b.s || a.v - b.v);
+        return { qBmHas: list.length > 0, qBmList: list.map((x) => { const c = idx && idx.s[x.s - 1]; const n = (bm[x.k] && bm[x.k].n) || ''; return { ref: (c ? c.tr : 'Sourate ' + x.s) + ', verset ' + x.v, note: n, hasNote: !!n, open: () => this.qOpen(x.s, x.v) }; }) };
+      })(),
+      ...(() => {
+        const today = this.qToday(); const nT = s.qDay === today ? Object.keys(s.qSeen || {}).length : 0; const g = s.qGoal || 20; const pc = Math.min(100, Math.round(nT / g * 100));
+        const nLu = Object.keys(s.qLu || {}).length, nAp = Object.keys(s.qAp || {}).length;
+        return {
+          qTodayN: String(nT), qGoal: String(g), qGoalPct: pc + '%', qGoalPctN: String(pc),
+          qGoalOpts: [10, 20, 30, 50, 100].map((k) => ({ v: String(k), sel: k === g })), qGoalPick: (e) => { this.setState({ qGoal: parseInt(e && e.target ? e.target.value : 20, 10) || 20 }); this.qSuiviSave(); },
+          qLuLine: 'Sourates lues : ' + nLu + ' sur 114, apprises : ' + nAp,
+          qLuOn: !!(s.qLu || {})[s.qSurah], qApOn: !!(s.qAp || {})[s.qSurah], qLuToggle: () => this.qMarkRead(s.qSurah, 'lu'), qApToggle: () => this.qMarkRead(s.qSurah, 'ap')
+        };
+      })(),
+      ...(() => {
+        const nv = qCur ? qCur.nv : 1; const from = Math.min(nv, s.qRgFrom || 1); const to = Math.max(from, Math.min(nv, s.qRgTo || Math.min(nv, from + 4))); const times = s.qRgTimes || 3;
+        const mk = s.qMask || ''; const nums = (a, b) => { const r = []; for (let k = a; k <= b; k++) r.push(k); return r; };
+        const pill = (on) => 'min-height: 44px; padding: 0 14px; border-radius: 999px; font-size: 14.5px; font-weight: 800; ' + (on ? 'background: var(--accent); color: var(--onaccent); border: 1.5px solid var(--accent);' : 'background: var(--surface); color: var(--ink); border: 1.5px solid var(--line);');
+        return {
+          qMemo: s.qMemo === true, qMemoToggle: () => { this.setState({ qMemo: !(s.qMemo === true), qMemoRv: {} }); this.qStore(); },
+          qMaskOpts: [['', 'Tout voir'], ['lettres', 'Premières lettres'], ['tout', 'Tout masquer']].map(([k, label]) => ({ label, pressed: mk === k ? 'true' : 'false', st: pill(mk === k), pick: () => { this.setState({ qMask: k, qMemoRv: {} }); this.qStore(); } })),
+          qMaskOn: !!(s.qMemo && mk), qMemoHasRv: !!(s.qMemo && mk && Object.keys(s.qMemoRv || {}).length), qMemoHideAll: () => this.setState({ qMemoRv: {} }),
+          qRgFromOpts: nums(1, nv).map((k) => ({ v: String(k), sel: k === from })), qRgToOpts: nums(from, nv).map((k) => ({ v: String(k), sel: k === to })),
+          qRgTimesOpts: [1, 2, 3, 5, 7, 10].map((k) => ({ v: String(k), sel: k === times })),
+          qRgFromPick: (e) => { const f = parseInt(e && e.target ? e.target.value : 1, 10) || 1; this.setState({ qRgFrom: f, qRgTo: s.qRgTo ? Math.max(f, s.qRgTo) : 0 }); },
+          qRgToPick: (e) => this.setState({ qRgTo: parseInt(e && e.target ? e.target.value : 1, 10) || 1 }),
+          qRgTimesPick: (e) => this.setState({ qRgTimes: parseInt(e && e.target ? e.target.value : 3, 10) || 3 }),
+          qRgPlay: () => this.qRgPlay(from, to, times), qRgLabel: 'Écouter ' + (from === to ? 'le verset ' + from : 'les versets ' + from + ' à ' + to) + ', ' + times + ' fois'
+        };
+      })(),
       isQuranQuiz: screen === 'quranQuiz', qzGo: () => this.qzStart(), qzNext: () => this.qzNext(), qzHomeSub: 'Exercice sur les sourates lues en classe (' + s.level + ')',
       ...(() => {
         const z = s.qz || {}; const qs = z.qs || []; const q = qs[z.i || 0]; const ans = !!q && z.picked >= 0;
