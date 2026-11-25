@@ -984,25 +984,7 @@ Mode mémorisation
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px">
 <label style="display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 16px; border: 1.5px solid var(--line); border-radius: 999px; background: var(--surface); font-size: 15px; font-weight: 700; cursor: pointer"><input type="checkbox" role="switch" :checked="qTr" @change="qTrToggle" style="width: 18px; height: 18px; margin: 0; accent-color: var(--accent)">Traduction</label>
 <label style="display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 16px; border: 1.5px solid var(--line); border-radius: 999px; background: var(--surface); font-size: 15px; font-weight: 700; cursor: pointer"><input type="checkbox" role="switch" :checked="qTj" @change="qTjToggle" style="width: 18px; height: 18px; margin: 0; accent-color: var(--accent)">Couleurs du tajwîd</label>
-<label style="display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 16px; border: 1.5px solid var(--line); border-radius: 999px; background: var(--surface); font-size: 15px; font-weight: 700; cursor: pointer"><input type="checkbox" role="switch" :checked="qMemo" @change="qMemoToggle" style="width: 18px; height: 18px; margin: 0; accent-color: var(--accent)">Mémorisation</label>
 </div>
-<template v-if="qMemo"><div style="display: flex; flex-direction: column; gap: 14px; padding: 16px 18px; border-radius: 16px; background: var(--surface); border: 1.5px solid var(--gold); font-family: 'Alegreya Sans', system-ui, sans-serif">
-<div style="display: flex; flex-direction: column; gap: 8px">
-<span style="font-size: 15px; font-weight: 800">Masquer le texte</span>
-<div role="group" aria-label="Masquer le texte" style="display: flex; flex-wrap: wrap; gap: 8px"><template v-for="o in qMaskOpts"><button @click="o.pick" :aria-pressed="o.pressed" :style="o.st">{{o.label}}</button></template></div>
-<template v-if="qMaskOn"><p style="margin: 0; font-size: 14px; font-weight: 600; color: var(--muted)">Touche un mot masqué pour le voir, touche-le encore pour le cacher.</p></template>
-<template v-if="qMemoHasRv"><button @click="qMemoHideAll" style="align-self: flex-start; min-height: 44px; padding: 0 14px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); font-size: 14.5px; font-weight: 700">Tout recacher</button></template>
-</div>
-<div style="display: flex; flex-direction: column; gap: 8px; padding-top: 12px; border-top: 1px solid var(--line)">
-<span style="font-size: 15px; font-weight: 800">Répéter des versets</span>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 15px; font-weight: 700; color: var(--muted)">
-<label style="display: inline-flex; align-items: center; gap: 6px">Du verset<select @change="qRgFromPick" aria-label="Premier verset" style="min-height: 46px; padding: 0 10px; border-radius: 12px; border: 1.5px solid var(--line2); background: var(--surface); color: var(--ink); font-family: 'Alegreya Sans', system-ui, sans-serif; font-size: 15.5px; font-weight: 700"><template v-for="o in qRgFromOpts"><option :value="o.v" :selected="o.sel">{{o.v}}</option></template></select></label>
-<label style="display: inline-flex; align-items: center; gap: 6px">au<select @change="qRgToPick" aria-label="Dernier verset" style="min-height: 46px; padding: 0 10px; border-radius: 12px; border: 1.5px solid var(--line2); background: var(--surface); color: var(--ink); font-family: 'Alegreya Sans', system-ui, sans-serif; font-size: 15.5px; font-weight: 700"><template v-for="o in qRgToOpts"><option :value="o.v" :selected="o.sel">{{o.v}}</option></template></select></label>
-<label style="display: inline-flex; align-items: center; gap: 6px"><select @change="qRgTimesPick" aria-label="Nombre de répétitions" style="min-height: 46px; padding: 0 10px; border-radius: 12px; border: 1.5px solid var(--line2); background: var(--surface); color: var(--ink); font-family: 'Alegreya Sans', system-ui, sans-serif; font-size: 15.5px; font-weight: 700"><template v-for="o in qRgTimesOpts"><option :value="o.v" :selected="o.sel">{{o.v}}</option></template></select>fois</label>
-</div>
-<button class="btn-b" @click="qRgPlay" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; min-height: 46px; padding: 0 18px; border-radius: 12px; border: 0; background: var(--accent); color: var(--onaccent); font-size: 15.5px; font-weight: 800"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z" fill="currentColor"></path></svg>{{qRgLabel}}</button>
-</div>
-</div></template>
 <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px">
 <label style="display: inline-flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 700; color: var(--muted)">Récitateur
 <select @change="qRecPick" aria-label="Choisir le récitateur" style="min-height: 46px; padding: 0 12px; border-radius: 12px; border: 1.5px solid var(--line2); background: var(--surface); color: var(--ink); font-family: 'Alegreya Sans', system-ui, sans-serif; font-size: 15.5px; font-weight: 700"><template v-for="o in qRecOpts"><option :value="o.id" :selected="o.sel">{{o.name}}</option></template></select></label>
@@ -2882,7 +2864,7 @@ class Component extends DCLogic {
       screen: 'home', mode: null, topic: 'signes', queue: [], idx: 0, answered: false, picked: null,
       fills: [], checked: false, score: 0, mistakes: [],
       best: { qcm: null, vf: null, trous: null, tqcm: null, tvf: null, ttrous: null }, hide: false, revealed: {},
-      prog: { q: {}, hist: [] }, weeksDone: {}, chap: 'a1', level: '4A', theme: 'auto', arScale: 1, arFont: 'hafs', sysDark: false, confirmReset: false, installed: false, appVersion: '', toast: '', importPending: null, importError: '', shareMenu: false, srQ: '', qSurah: 0, qTr: false, qTj: false, qFilter: '', qClass: false, qJuz: false, qRule: null, qz: null, qMemo: false, qMask: '', qMemoRv: {}, qRgFrom: 0, qRgTo: 0, qRgTimes: 3, qLu: {}, qAp: {}, qGoal: 20, qDay: '', qSeen: {}, qBm: {}, qBmEdit: '', qLoading: false, qError: '', qRec: 6, qPlayerOn: false, qPlayV: 1, qAudio: 'idle', qAudioMsg: '', qRepeat: false, qRecVer: 0, qRecording: 0, qRecSec: 0, qMePlaying: 0, qMeOn: false, qRecTotal: 0, qRecConfirm: false
+      prog: { q: {}, hist: [] }, weeksDone: {}, chap: 'a1', level: '4A', theme: 'auto', arScale: 1, arFont: 'hafs', sysDark: false, confirmReset: false, installed: false, appVersion: '', toast: '', importPending: null, importError: '', shareMenu: false, srQ: '', qSurah: 0, qTr: false, qTj: false, qFilter: '', qClass: false, qJuz: false, qRule: null, qz: null, qLu: {}, qAp: {}, qGoal: 20, qDay: '', qSeen: {}, qBm: {}, qBmEdit: '', qLoading: false, qError: '', qRec: 6, qPlayerOn: false, qPlayV: 1, qAudio: 'idle', qAudioMsg: '', qRepeat: false, qRecVer: 0, qRecording: 0, qRecSec: 0, qMePlaying: 0, qMeOn: false, qRecTotal: 0, qRecConfirm: false
     }, this.state || {});
   }
 
@@ -2915,7 +2897,7 @@ class Component extends DCLogic {
     try { this._qSeenT = setInterval(() => this.qSeenTick(), 2000); } catch (e) {}
     try {
       const rq = window.localStorage.getItem('waqf-coran');
-      if (rq) { const q = JSON.parse(rq); if (q && q.last && q.last.s) this._qLast = q.last; this.setState({ qTr: q.tr === true, qTj: q.tj === true, qClass: q.cl === true, qJuz: q.jz === true, qMemo: q.mm === true, qMask: q.mk === 'lettres' || q.mk === 'tout' ? q.mk : '', qRec: this.qRecs().some((r) => r[0] === q.rec) ? q.rec : 6, qSpd: [0.5, 0.75, 1, 1.25].indexOf(q.spd) >= 0 ? q.spd : 1 }); }
+      if (rq) { const q = JSON.parse(rq); if (q && q.last && q.last.s) this._qLast = q.last; this.setState({ qTr: q.tr === true, qTj: q.tj === true, qClass: q.cl === true, qJuz: q.jz === true, qRec: this.qRecs().some((r) => r[0] === q.rec) ? q.rec : 6, qSpd: [0.5, 0.75, 1, 1.25].indexOf(q.spd) >= 0 ? q.spd : 1 }); }
     } catch (e) {}
     try {
       // Le Qur’ân : fine barre dorée en haut du lecteur, qui avance avec la lecture de la sourate
@@ -3378,7 +3360,7 @@ class Component extends DCLogic {
   // Préférences du Qur’ân (sans toucher à la dernière lecture).
   qStore() {
     const s = this.S();
-    try { window.localStorage.setItem('waqf-coran', JSON.stringify({ last: this._qLast, tr: s.qTr === true, tj: s.qTj === true, cl: s.qClass === true, jz: s.qJuz === true, mm: s.qMemo === true, mk: s.qMask || '', rec: s.qRec || 6, spd: s.qSpd || 1 })); } catch (e) {}
+    try { window.localStorage.setItem('waqf-coran', JSON.stringify({ last: this._qLast, tr: s.qTr === true, tj: s.qTj === true, cl: s.qClass === true, jz: s.qJuz === true, rec: s.qRec || 6, spd: s.qSpd || 1 })); } catch (e) {}
   }
 
   // Début de chacun des 30 juz : [sourate, verset] (découpage du mushaf de Médine).
@@ -3398,7 +3380,7 @@ class Component extends DCLogic {
     if (this._aud && this.S().qSurah !== n) this.qStopAudio(true);
     this.qLoadIndex();
     // Un message d’écoute ou de micro concerne la sourate précédente : on l’efface en changeant de sourate.
-    this.setState({ qSurah: n, qError: '', qAudioMsg: '', qMemoRv: {}, qRgFrom: 0, qRgTo: 0, qBmEdit: '' });
+    this.setState({ qSurah: n, qError: '', qAudioMsg: '', qBmEdit: '' });
     this.go('quranRead');
     const after = () => {
       if (v && v > 1) setTimeout(() => { try { const el = document.getElementById('v-' + v); if (el) el.scrollIntoView({ block: 'start' }); } catch (e) {} }, 80);
@@ -3518,7 +3500,6 @@ class Component extends DCLogic {
   // Écoute de la sourate avec un fichier par verset : on enchaîne le verset suivant (ou on répète le verset).
   qPvAdvance() {
     const a = this._aud; const info = this._qCur; const v = this._qV; if (!a || !info || this._qAdv === v) return;
-    if (this._qRange && v === this._qRange.to && this.qRangeHit()) return;
     if (this.S().qRepeat) { a.currentTime = 0; if (a.paused) { const p = a.play(); if (p && p.catch) p.catch(() => {}); } return; }
     this._qAdv = v; const t = info.vt[v + 1];
     if (!t) { a.pause(); this.qMark(0, 0); return; }
@@ -3558,7 +3539,6 @@ class Component extends DCLogic {
       if (this._qThenMe === this._qV) { const mv = this._qThenMe; this._qThenMe = null; (this._meReadyP || Promise.resolve()).then(() => this.qMeGo(mv)); }
       return;
     }
-    if (this._qMode === 'surah' && !info.pv && this._qRange && this._qV === this._qRange.to && t && ms >= tEnd - 15 && this.qRangeHit()) return;
     if (this._qMode === 'surah' && info.pv && t && ms >= tEnd - 15) { this.qPvAdvance(); return; }
     if (this._qMode === 'surah' && s.qRepeat && t && v !== this._qV) { a.currentTime = t.from / 1000; return; }
     if (v !== this._qV) {
@@ -3573,7 +3553,6 @@ class Component extends DCLogic {
   qPlay(v, mode) {
     const s = this.S(); const n = s.qSurah; const rec = s.qRec || 6; if (!n) return;
     this._qThenMe = null; this.qMeStop();
-    this._qRange = this._qRangeNext || null; this._qRangeNext = null;
     const a = this.qAud();
     this._qMode = mode; this._qV = v; this._qW = -1; clearTimeout(this._qStopT); this._qStopT = null;
     this.setState({ qPlayerOn: true, qPlayV: v, qAudio: 'loading', qAudioMsg: '' });
@@ -3797,39 +3776,6 @@ class Component extends DCLogic {
     if (before < g && after >= g) this.flash('Objectif du jour atteint : ' + g + ' versets. Bravo !');
   }
 
-  // ——— Le Qur’ân : mode mémorisation (texte masqué, plage de versets répétée) ———
-  qMaskWord(word, mask) {
-    const txt = word.parts.map((p) => p.t).join('').replace(/‍/g, '');
-    const HIDE = 'color: transparent; background: var(--surface3); border-radius: 6px;';
-    if (mask === 'tout') return { id: word.id, sp: word.sp, parts: [{ t: txt, st: HIDE, r: '' }] };
-    const isMark = (ch) => /[ؐ-ًؚ-ٰٟۖ-ۜ۟-۪ۤۧۨ-ۭ࣓-ࣿ]/.test(ch || '');
-    let k = 1; while (k < txt.length && isMark(txt[k])) k++;
-    const a = txt.slice(0, k), b = txt.slice(k);
-    if (!b.replace(/[\s ]/g, '')) return { id: word.id, sp: word.sp, parts: [{ t: txt, st: '', r: '' }] };
-    const join = 'بتثجحخسشصضطظعغفقكلمنهيئىٮٯـ'.indexOf(a[0]) >= 0 && /[ؠ-يٱ-ۓ]/.test(b[0]);
-    return { id: word.id, sp: word.sp, parts: [{ t: a + (join ? '‍' : ''), st: '', r: '' }, { t: (join ? '‍' : '') + b, st: HIDE, r: '' }] };
-  }
-
-  qRgPlay(from, to, times) {
-    this._qRangeNext = { from, to, times, k: 0 };
-    this.qPlay(from, 'surah');
-  }
-
-  // Fin du dernier verset de la plage : on recommence au premier, ou on s’arrête après le dernier tour.
-  qRangeHit() {
-    const R = this._qRange; const a = this._aud; const info = this._qCur;
-    if (!R || !a || !info || this._qV !== R.to) return false;
-    R.k++;
-    if (R.k >= R.times) { this._qRange = null; a.pause(); this.qMark(0, 0); return true; }
-    const t = info.vt[R.from]; if (!t) return false;
-    this._qV = R.from; this._qW = -1; this._qAdv = 0;
-    if (info.pv) { a.src = t.url; this.qApplySpd(); const p = a.play(); if (p && p.catch) p.catch(() => {}); this.qPvPre(R.from + 1); }
-    else { this._qSeekTo = t.from; a.currentTime = t.from / 1000; }
-    this.setState({ qPlayV: R.from });
-    try { const li = document.getElementById('v-' + R.from); if (li) li.scrollIntoView({ block: 'center' }); } catch (e) {}
-    return true;
-  }
-
   // ——— Le Qur’ân : toucher une lettre en couleur affiche sa règle de tajwîd ———
   // Codes des annotations cpfair/quran-tajweed → nom, nom arabe, couleur, explication et fiche du programme.
   qRuleInfo(c) {
@@ -3863,8 +3809,6 @@ class Component extends DCLogic {
 
   qTapRule(e) {
     const t = e && e.target; if (!t || !t.closest) return;
-    const s0 = this.S();
-    if (s0.qMemo && s0.qMask) { const w = t.closest('.qw'); if (w && w.id) { const rv = Object.assign({}, s0.qMemoRv || {}); if (rv[w.id]) delete rv[w.id]; else rv[w.id] = 1; this.setState({ qMemoRv: rv }); } return; }
     const el = t.closest('[data-r]'); const c = el ? el.getAttribute('data-r') : '';
     if (!c || !this.qRuleInfo(c)) return;
     let w = [{ t: el.textContent, st: '' }];
@@ -4691,10 +4635,10 @@ class Component extends DCLogic {
     if (screen === 'quranRead' && qData) {
       const wk = s.qSurah + '|' + qTj;
       if (!this._qwm || this._qwm.key !== wk) this._qwm = { key: wk, w: qData.v.map((v, i) => this.qWords(qTj ? this.qParts(v[0], v[2]) : [{ t: v[0], st: '' }], i + 1)) };
-      const qBmSig = JSON.stringify(Object.keys(s.qBm || {}).filter((k) => k.indexOf(s.qSurah + ':') === 0).map((k) => [k, s.qBm[k].n])) + '|' + (s.qBmEdit || ''); const qMk = s.qMemo && s.qMask ? s.qMask : ''; const qRv = s.qMemoRv || {}; const key = s.qSurah + '|' + qTr + '|' + qTj + '|' + (s.qRecVer || 0) + '|' + (s.qRecording || 0) + '|' + qMk + '|' + Object.keys(qRv).join(',') + '|' + qBmSig; const qHas = this._qHas || {};
+      const qBmSig = JSON.stringify(Object.keys(s.qBm || {}).filter((k) => k.indexOf(s.qSurah + ':') === 0).map((k) => [k, s.qBm[k].n])) + '|' + (s.qBmEdit || ''); const key = s.qSurah + '|' + qTr + '|' + qTj + '|' + (s.qRecVer || 0) + '|' + (s.qRecording || 0) + '|' + qBmSig; const qHas = this._qHas || {};
       if (!this._qvm || this._qvm.key !== key) {
         this._qvm = { key, rows: qData.v.map((v, i) => ({ id: 'v-' + (i + 1), n: String(i + 1), num: qAr(i + 1), mark: qAr(i + 1),
-          words: qMk ? this._qwm.w[i].map((w) => (qRv[w.id] ? w : this.qMaskWord(w, qMk))) : this._qwm.w[i], fr: v[1], showTr: qTr, aria: 'Verset ' + (i + 1), ...this.qBmRow(s, i + 1), ...this.qRubRow(s.qSurah, i + 1), play: () => this.qPlay(i + 1, 'verse'), playAria: 'Écouter le verset ' + (i + 1), hasRec: !!qHas[i + 1], recOn: s.qRecording === i + 1, recOff: s.qRecording !== i + 1, recLabel: s.qRecording === i + 1 ? 'Arrêter' : 'M’enregistrer', recAria: (s.qRecording === i + 1 ? 'Arrêter l’enregistrement du verset ' : 'M’enregistrer en récitant le verset ') + (i + 1), recCol: 'var(--gold)', recBg: s.qRecording === i + 1 ? 'var(--hl)' : 'var(--surface)', recBorder: s.qRecording === i + 1 ? 'var(--gold)' : 'var(--line)', rec: () => this.qRecStart(i + 1), me: () => this.qMePlay(i + 1), meAria: 'Réécouter ma récitation du verset ' + (i + 1), cmp: () => this.qCompare(i + 1), cmpAria: 'Comparer le récitateur puis ma voix, verset ' + (i + 1) })) };
+          words: this._qwm.w[i], fr: v[1], showTr: qTr, aria: 'Verset ' + (i + 1), ...this.qBmRow(s, i + 1), ...this.qRubRow(s.qSurah, i + 1), play: () => this.qPlay(i + 1, 'verse'), playAria: 'Écouter le verset ' + (i + 1), hasRec: !!qHas[i + 1], recOn: s.qRecording === i + 1, recOff: s.qRecording !== i + 1, recLabel: s.qRecording === i + 1 ? 'Arrêter' : 'M’enregistrer', recAria: (s.qRecording === i + 1 ? 'Arrêter l’enregistrement du verset ' : 'M’enregistrer en récitant le verset ') + (i + 1), recCol: 'var(--gold)', recBg: s.qRecording === i + 1 ? 'var(--hl)' : 'var(--surface)', recBorder: s.qRecording === i + 1 ? 'var(--gold)' : 'var(--line)', rec: () => this.qRecStart(i + 1), me: () => this.qMePlay(i + 1), meAria: 'Réécouter ma récitation du verset ' + (i + 1), cmp: () => this.qCompare(i + 1), cmpAria: 'Comparer le récitateur puis ma voix, verset ' + (i + 1) })) };
       }
       qVerses = this._qvm.rows;
     }
@@ -5138,22 +5082,6 @@ class Component extends DCLogic {
           qGoalOpts: [10, 20, 30, 50, 100].map((k) => ({ v: String(k), sel: k === g })), qGoalPick: (e) => { this.setState({ qGoal: parseInt(e && e.target ? e.target.value : 20, 10) || 20 }); this.qSuiviSave(); },
           qLuLine: 'Sourates lues : ' + nLu + ' sur 114, apprises : ' + nAp,
           qLuOn: !!(s.qLu || {})[s.qSurah], qApOn: !!(s.qAp || {})[s.qSurah], qLuToggle: () => this.qMarkRead(s.qSurah, 'lu'), qApToggle: () => this.qMarkRead(s.qSurah, 'ap')
-        };
-      })(),
-      ...(() => {
-        const nv = qCur ? qCur.nv : 1; const from = Math.min(nv, s.qRgFrom || 1); const to = Math.max(from, Math.min(nv, s.qRgTo || Math.min(nv, from + 4))); const times = s.qRgTimes || 3;
-        const mk = s.qMask || ''; const nums = (a, b) => { const r = []; for (let k = a; k <= b; k++) r.push(k); return r; };
-        const pill = (on) => 'min-height: 44px; padding: 0 14px; border-radius: 999px; font-size: 14.5px; font-weight: 800; ' + (on ? 'background: var(--accent); color: var(--onaccent); border: 1.5px solid var(--accent);' : 'background: var(--surface); color: var(--ink); border: 1.5px solid var(--line);');
-        return {
-          qMemo: s.qMemo === true, qMemoToggle: () => { this.setState({ qMemo: !(s.qMemo === true), qMemoRv: {} }); this.qStore(); },
-          qMaskOpts: [['', 'Tout voir'], ['lettres', 'Premières lettres'], ['tout', 'Tout masquer']].map(([k, label]) => ({ label, pressed: mk === k ? 'true' : 'false', st: pill(mk === k), pick: () => { this.setState({ qMask: k, qMemoRv: {} }); this.qStore(); } })),
-          qMaskOn: !!(s.qMemo && mk), qMemoHasRv: !!(s.qMemo && mk && Object.keys(s.qMemoRv || {}).length), qMemoHideAll: () => this.setState({ qMemoRv: {} }),
-          qRgFromOpts: nums(1, nv).map((k) => ({ v: String(k), sel: k === from })), qRgToOpts: nums(from, nv).map((k) => ({ v: String(k), sel: k === to })),
-          qRgTimesOpts: [1, 2, 3, 5, 7, 10].map((k) => ({ v: String(k), sel: k === times })),
-          qRgFromPick: (e) => { const f = parseInt(e && e.target ? e.target.value : 1, 10) || 1; this.setState({ qRgFrom: f, qRgTo: s.qRgTo ? Math.max(f, s.qRgTo) : 0 }); },
-          qRgToPick: (e) => this.setState({ qRgTo: parseInt(e && e.target ? e.target.value : 1, 10) || 1 }),
-          qRgTimesPick: (e) => this.setState({ qRgTimes: parseInt(e && e.target ? e.target.value : 3, 10) || 3 }),
-          qRgPlay: () => this.qRgPlay(from, to, times), qRgLabel: 'Écouter ' + (from === to ? 'le verset ' + from : 'les versets ' + from + ' à ' + to) + ', ' + times + ' fois'
         };
       })(),
       isQuranQuiz: screen === 'quranQuiz', qzGo: () => this.qzStart(), qzNext: () => this.qzNext(), qzHomeSub: 'Exercice sur les sourates lues en classe (' + s.level + ')',
