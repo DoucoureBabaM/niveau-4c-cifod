@@ -179,7 +179,7 @@ nav button[aria-current="page"]::before{content:'';position:absolute;top:0;left:
 </figure>
 </div>
 <template v-if="showQuit">
-<button @click="quit" style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--surface); font-size: 14px; font-weight: 700">
+<button @click="quit" style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--gold); background: var(--surface); font-size: 14px; font-weight: 700">
 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17"></path></svg>
 Quitter
 </button>
@@ -190,7 +190,7 @@ Quitter
 <main class="app-main" style="flex: 1; width: 100%; max-width: 760px; margin: 0 auto; padding: 32px 20px 48px; display: flex; flex-direction: column; gap: 20px">
 
 <template v-if="showBack">
-<button @click="goBack" aria-label="Retour à la page précédente" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--surface); font-size: 14px; font-weight: 700">
+<button @click="goBack" aria-label="Retour à la page précédente" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--gold); background: var(--surface); font-size: 14px; font-weight: 700">
 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg>
 Retour
 </button>
@@ -996,7 +996,7 @@ Mode mémorisation
 <template v-if="v.hasRub"><p style="margin: 0; display: flex; align-items: center; gap: 8px; font-family: 'Alegreya Sans', system-ui, sans-serif; font-size: 14px; font-weight: 800; color: var(--goldtext)"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="flex-shrink: 0; color: var(--gold)"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14"></rect><rect x="5" y="5" width="14" height="14" transform="rotate(45 12 12)"></rect><circle cx="12" cy="12" r="3.2"></circle></g></svg>{{v.rubLabel}}</p></template>
 <p lang="ar" dir="rtl" @click="qTapRule" :style="`margin: 0; ${qFontSt} font-size: calc(30px * var(--ar, 1)); line-height: 2.25; color: var(--ink); text-align: right`"><template v-if="v.hasRub"><svg viewBox="0 0 24 24" aria-hidden="true" style="width: 0.85em; height: 0.85em; vertical-align: -0.05em; margin-left: 0.25em; color: var(--gold)"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><rect x="5" y="5" width="14" height="14"></rect><rect x="5" y="5" width="14" height="14" transform="rotate(45 12 12)"></rect><circle cx="12" cy="12" r="3.2"></circle></g></svg></template><template v-for="w in v.words"><span class="qw" :id="w.id"><template v-for="p in w.parts"><span :style="p.st" :data-r="p.r">{{p.t}}</span></template></span>{{w.sp}}</template> <span aria-hidden="true" style="font-family: 'Hafs', 'Amiri Quran', serif; font-size: 1.35em; line-height: 1; color: var(--gold)">{{v.mark}}</span></p>
 <template v-if="v.showTr"><p style="margin: 0; font-size: 17px; line-height: 1.6; color: var(--ink2); text-wrap: pretty"><span style="font-family: 'Alegreya Sans', system-ui, sans-serif; font-weight: 800; color: var(--goldtext); margin-right: 6px">{{v.n}}.</span>{{v.fr}}</p></template>
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px"><button @click="v.play" :aria-label="v.playAria" :title="v.playAria" style="display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: 50px; height: 50px; padding: 0; border-radius: 50%; border: 1.5px solid var(--line); background: var(--surface); color: var(--accent)"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5a8 8 0 0 1 16 0c0 4.6-2.6 6.4-4.4 8.2-1.4 1.4-1.6 2.6-1.6 4a4 4 0 0 1-7.4 2.2"></path><path d="M15.6 13.5a3.2 3.2 0 1 0-6.2-1.1c0 2.2 2.6 2.6 2.6 4.8a2 2 0 0 1-3.2 1.6"></path><path d="M23.6 9.8a6 6 0 0 1 0 5.4"></path><path d="M26.4 7.2a10 10 0 0 1 0 10.6"></path><path d="M29.2 4.6a14 14 0 0 1 0 15.8"></path></svg></button><button @click="v.rec" :aria-label="v.recAria" :title="v.recAria" :style="`display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: 50px; height: 50px; padding: 0; border-radius: 50%; border: 1.5px solid ${v.recBorder}; background: ${v.recBg}; color: ${v.recCol}`"><template v-if="v.recOn"><svg width="18" height="18" viewBox="0 0 12 12" aria-hidden="true"><rect x="1.5" y="1.5" width="9" height="9" rx="1.5" fill="currentColor"></rect></svg></template><template v-if="v.recOff"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M27 29c-.4-2.4 2.8-4.6 2.8-12 0-6.4-4.2-10.8-9.8-10.8-4.4 0-7.4 3-7.6 7.2l-2.2 4.2 2.1.7-.4 1.6 1 .7-1 .8.4 1.3c.2 1.7 1.5 2.4 3.6 2.4 1.6 0 2.5 1 2.7 2.4l.3 2.4"></path><path d="M7.4 17.4a4.5 4.5 0 0 0 0 5.2"></path><path d="M4.4 15.2a8 8 0 0 0 0 9.6"></path></svg></template></button><template v-if="v.hasRec"><button @click="v.me" :aria-label="v.meAria" style="display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); font-size: 14.5px; font-weight: 800">Ma voix</button><button @click="v.cmp" :aria-label="v.cmpAria" style="display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); font-size: 14.5px; font-weight: 800"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4L3 8l4 4"></path><path d="M3 8h14"></path><path d="M17 20l4-4-4-4"></path><path d="M21 16H7"></path></svg>Comparer</button></template><button @click="v.bm" :aria-pressed="v.bmPressed" :aria-label="v.bmAria" :title="v.bmAria" :style="`margin-left: auto; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: 46px; height: 46px; padding: 0; border-radius: 50%; border: 0; background: transparent; color: ${v.bmCol}`"><svg width="22" height="22" viewBox="0 0 24 24" :fill="v.bmFill" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5h12v17l-6-4.2-6 4.2z"></path></svg></button></div>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px"><button @click="v.play" :aria-label="v.playAria" :title="v.playAria" style="display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: 50px; height: 50px; padding: 0; border-radius: 50%; border: 1.5px solid var(--gold); background: var(--surface); color: var(--accent)"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5a8 8 0 0 1 16 0c0 4.6-2.6 6.4-4.4 8.2-1.4 1.4-1.6 2.6-1.6 4a4 4 0 0 1-7.4 2.2"></path><path d="M15.6 13.5a3.2 3.2 0 1 0-6.2-1.1c0 2.2 2.6 2.6 2.6 4.8a2 2 0 0 1-3.2 1.6"></path><path d="M23.6 9.8a6 6 0 0 1 0 5.4"></path><path d="M26.4 7.2a10 10 0 0 1 0 10.6"></path><path d="M29.2 4.6a14 14 0 0 1 0 15.8"></path></svg></button><button @click="v.rec" :aria-label="v.recAria" :title="v.recAria" :style="`display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: 50px; height: 50px; padding: 0; border-radius: 50%; border: 1.5px solid ${v.recBorder}; background: ${v.recBg}; color: ${v.recCol}`"><template v-if="v.recOn"><svg width="18" height="18" viewBox="0 0 12 12" aria-hidden="true"><rect x="1.5" y="1.5" width="9" height="9" rx="1.5" fill="currentColor"></rect></svg></template><template v-if="v.recOff"><svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M27 29c-.4-2.4 2.8-4.6 2.8-12 0-6.4-4.2-10.8-9.8-10.8-4.4 0-7.4 3-7.6 7.2l-2.2 4.2 2.1.7-.4 1.6 1 .7-1 .8.4 1.3c.2 1.7 1.5 2.4 3.6 2.4 1.6 0 2.5 1 2.7 2.4l.3 2.4"></path><path d="M7.4 17.4a4.5 4.5 0 0 0 0 5.2"></path><path d="M4.4 15.2a8 8 0 0 0 0 9.6"></path></svg></template></button><template v-if="v.hasRec"><button @click="v.me" :aria-label="v.meAria" style="display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--gold); background: var(--surface); color: var(--ink); font-size: 14.5px; font-weight: 800">Ma voix</button><button @click="v.cmp" :aria-label="v.cmpAria" style="display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--gold); background: var(--surface); color: var(--ink); font-size: 14.5px; font-weight: 800"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4L3 8l4 4"></path><path d="M3 8h14"></path><path d="M17 20l4-4-4-4"></path><path d="M21 16H7"></path></svg>Comparer</button></template><button @click="v.bm" :aria-pressed="v.bmPressed" :aria-label="v.bmAria" :title="v.bmAria" :style="`margin-left: auto; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: 46px; height: 46px; padding: 0; border-radius: 50%; border: 0; background: transparent; color: ${v.bmCol}`"><svg width="22" height="22" viewBox="0 0 24 24" :fill="v.bmFill" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5h12v17l-6-4.2-6 4.2z"></path></svg></button></div>
 <template v-if="v.bmShowNote"><button @click="v.bmEdit" aria-label="Modifier ma note" style="text-align: left; display: flex; gap: 10px; align-items: flex-start; padding: 10px 14px; border-radius: 12px; border: 0; background: var(--hl); color: var(--ink); font-size: 16px; line-height: 1.5"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 4px; color: var(--gold)"><path d="M6 3.5h12v17l-6-4.2-6 4.2z"></path></svg><span style="flex: 1; min-width: 0; white-space: pre-wrap; overflow-wrap: anywhere">{{v.bmNote}}</span></button></template>
 <template v-if="v.bmEditing"><div style="display: flex; flex-direction: column; gap: 8px; padding: 12px 14px; border-radius: 14px; background: var(--surface); border: 1.5px solid var(--gold); font-family: 'Alegreya Sans', system-ui, sans-serif">
 <label :for="v.bmTaId" style="font-size: 14.5px; font-weight: 800">{{v.bmTitle}}</label>
@@ -1127,6 +1127,17 @@ Mode mémorisation
 <button class="lift" @click="goSources" style="width: 100%; text-align: left; display: flex; align-items: center; gap: 14px; min-height: 64px; padding: 10px 4px; border: 0; border-top: 1px solid var(--line); background: transparent; color: var(--ink)"><span :style="`width: 40px; height: 40px; border-radius: 12px; background: ${tint}; color: ${accent}; display: flex; align-items: center; justify-content: center; flex-shrink: 0`"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"></path><path d="M4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5"></path></svg></span><span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15.5px; font-weight: 800">Sources</span><span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">Texte, traduction et données du Qur’ân</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--muted)"><path d="M9 6l6 6-6 6"></path></svg></button>
 </div>
 <div style="background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 14px 20px 16px; display: flex; flex-direction: column; gap: 10px">
+<p style="margin: 0; font-size: 17px; font-weight: 800">Écoute hors connexion</p>
+<p style="margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--muted)">{{qOffIntro}}</p>
+<label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 700; color: var(--muted)">Récitateur
+<select @change="qRecPick" aria-label="Choisir le récitateur à télécharger" style="min-height: 46px; padding: 0 12px; border-radius: 12px; border: 1.5px solid var(--line2); background: var(--surface); color: var(--ink); font-family: 'Alegreya Sans', system-ui, sans-serif; font-size: 15.5px; font-weight: 700"><template v-for="o in qRecOpts"><option :value="o.id" :selected="o.sel">{{o.name}}</option></template></select></label>
+<template v-if="qOffNot"><p style="margin: 0; font-size: 14px; line-height: 1.5; color: var(--muted)">{{qOffSize}}</p><button class="btn-b" @click="qOffGo" :style="`align-self: flex-start; min-height: 48px; padding: 0 20px; border-radius: 12px; border: 0; background: ${accent}; color: var(--onaccent); font-size: 15px; font-weight: 700`">{{qOffDlLabel}}</button></template>
+<template v-if="qOffBusy"><div role="progressbar" aria-label="Téléchargement de l’audio" aria-valuemin="0" aria-valuemax="100" :aria-valuenow="qOffPctN" style="height: 8px; border-radius: 999px; background: var(--surface3); overflow: hidden"><div :style="`height: 100%; width: ${qOffPctW}; background: var(--gold); border-radius: 999px; transition: width .3s ease`"></div></div><div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px"><span role="status" style="font-size: 14.5px; font-weight: 700">{{qOffBusyLabel}}</span><button class="lift btn-a" @click="qOffStop" style="min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Arrêter</button></div></template>
+<template v-if="qOffHave"><p style="margin: 0; font-size: 14.5px; line-height: 1.5; font-weight: 700; color: var(--accent)">{{qOffHaveLine}}</p><button @click="qOffDelCur" style="align-self: flex-start; min-height: 46px; padding: 0 16px; border-radius: 12px; border: 1.5px solid var(--rose); background: var(--surface); color: var(--rose); font-size: 15px; font-weight: 800">Supprimer cet audio</button></template>
+<template v-if="qOffMsgShow"><p role="status" style="margin: 0; font-size: 14px; line-height: 1.5; color: var(--rose); font-weight: 700">{{qOffMsg}}</p></template>
+<template v-if="qOffTotShow"><div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 12px; padding-top: 10px; border-top: 1px solid var(--line)"><span style="font-size: 13.5px; line-height: 1.5; color: var(--muted)">{{qOffTotLine}}</span><button @click="qOffDelAll" style="min-height: 44px; padding: 0 14px; border-radius: 12px; border: 1.5px solid var(--rose); background: var(--surface); color: var(--rose); font-size: 14px; font-weight: 800">Tout supprimer</button></div></template>
+</div>
+<div style="background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 14px 20px 16px; display: flex; flex-direction: column; gap: 10px">
 <p style="margin: 0; font-size: 17px; font-weight: 800">Mes récitations enregistrées</p>
 <p style="margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--muted)">{{qRecTotalLabel}} Tes enregistrements restent sur cet appareil&nbsp;: rien n’est envoyé, et seul le dernier enregistrement de chaque verset est gardé.</p>
 <template v-if="qRecIdle"><button @click="qRecClearAsk" style="align-self: flex-start; min-height: 46px; padding: 0 16px; border-radius: 12px; border: 1.5px solid var(--rose); background: var(--surface); color: var(--rose); font-size: 15px; font-weight: 800">Effacer mes enregistrements</button></template>
@@ -1162,9 +1173,9 @@ Mode mémorisation
 <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px"><h2 style="margin: 0; font-size: 18px; font-weight: 800">{{w.title}}</h2><span :style="`font-size: 12px; font-weight: 800; border-radius: 999px; padding: 4px 10px; ${w.modStyle}`">{{w.modLabel}}</span></div>
 <div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 15.5px; font-weight: 400; font-style: italic; color: var(--muted)">Objectifs</span><ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px"><template v-for="o in w.obj"><li style="font-size: 14.5px; line-height: 1.5">{{o.t}}</li></template></ul></div>
 <div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 15.5px; font-weight: 400; font-style: italic; color: var(--muted)">Thème du cours</span><div style="display: flex; flex-wrap: wrap; gap: 6px"><template v-for="t in w.themes"><span style="font-size: 14px; font-weight: 700; line-height: 1.4; background: var(--surface2); border: 1px solid var(--line); border-radius: 10px; padding: 6px 10px">{{t.t}}</span></template></div></div>
-<template v-if="w.hasInv"><button class="lift" @click="w.openInv" style="text-align: left; display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 14px; border: 1.5px solid var(--line); background: var(--surface2); color: var(--ink)"><span style="display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0"><span style="font-size: 15.5px; font-weight: 400; font-style: italic; color: var(--muted)">Invocation</span><span style="font-size: 15px; font-weight: 800">{{w.invTitle}}</span><span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">{{w.invRef}}</span></span><span :style="`font-size: 13px; font-weight: 800; color: ${accent}; white-space: nowrap`">{{w.invAction}}</span></button></template>
+<template v-if="w.hasInv"><button class="lift" @click="w.openInv" style="text-align: left; display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 14px; border: 1.5px solid var(--gold); background: var(--surface2); color: var(--ink)"><span style="display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0"><span style="font-size: 15.5px; font-weight: 400; font-style: italic; color: var(--muted)">Invocation</span><span style="font-size: 15px; font-weight: 800">{{w.invTitle}}</span><span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">{{w.invRef}}</span></span><span :style="`font-size: 13px; font-weight: 800; color: ${accent}; white-space: nowrap`">{{w.invAction}}</span></button></template>
 <template v-if="w.hasHome"><p style="margin: 0; font-size: 14.5px; line-height: 1.5"><strong>Exercice à domicile&nbsp;:</strong> {{w.home}}</p></template>
-<template v-if="w.hasLinks"><div style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 15.5px; font-weight: 400; font-style: italic; color: var(--muted)">Réviser dans l’application</span><div style="display: flex; flex-wrap: wrap; gap: 8px"><template v-for="l in w.links"><button class="lift" @click="l.run" :style="`min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--surface); color: ${accent}; font-size: 13.5px; font-weight: 800`">{{l.label}}</button></template></div></div></template>
+<template v-if="w.hasLinks"><div style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 15.5px; font-weight: 400; font-style: italic; color: var(--muted)">Réviser dans l’application</span><div style="display: flex; flex-wrap: wrap; gap: 8px"><template v-for="l in w.links"><button class="lift" @click="l.run" :style="`min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--gold); background: var(--surface); color: ${accent}; font-size: 13.5px; font-weight: 800`">{{l.label}}</button></template></div></div></template>
 <label style="align-self: flex-start; display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--surface); font-size: 14px; font-weight: 700; cursor: pointer"><input type="checkbox" :checked="w.done" @change="w.toggle" :style="`width: 18px; height: 18px; margin: 0; accent-color: ${accent}`">{{w.checkLabel}}</label>
 </article>
 </li>
@@ -1251,7 +1262,7 @@ Mode mémorisation
 <p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">Cette application est à l’image d’un cahier personnel que vous gardez dans votre sac&nbsp;: vos résultats, vos progrès et vos réglages ne sont enregistrés que sur votre appareil.</p>
 <p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">Aucune de ces données n’est envoyée sur un serveur. Il n’y a ni compte, ni inscription, ni suivi de votre utilisation.</p>
 <p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">L’application est totalement gratuite et sans aucune publicité. Vos données ne sont ni vendues, ni partagées, ni exploitées&nbsp;: il n’y a aucune monétisation.</p>
-<p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">De plus, elle fonctionne hors ligne (sans connexion internet), sauf l’écoute des récitateurs du Qur’ân&nbsp;: l’audio est alors lu depuis les serveurs de Quran.com, sans qu’aucune donnée personnelle ne leur soit envoyée.</p>
+<p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">De plus, elle fonctionne hors ligne (sans connexion internet), sauf l’écoute des récitateurs du Qur’ân&nbsp;: l’audio est alors lu depuis les serveurs de Quran.com, sans qu’aucune donnée personnelle ne leur soit envoyée. L’audio des sourates lues en classe peut aussi être téléchargé et gardé sur votre appareil.</p>
 <p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty">Si vous vous enregistrez en récitant le Qur’ân, votre voix reste uniquement sur votre appareil (le dernier enregistrement de chaque verset). Elle n’est jamais envoyée, et vous pouvez l’effacer à tout moment dans Paramètres.</p>
 </article>
 <div style="display: flex; justify-content: flex-start"><button class="btn-a" @click="goHome" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Retour à l’accueil</button></div>
@@ -1268,7 +1279,7 @@ Mode mémorisation
 <article style="background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 18px 20px 6px; display: flex; flex-direction: column"><h2 style="margin: 0 0 6px; font-size: 19px; line-height: 1.25">S’exercer</h2><button class="lift" @click="goHome" style="width: 100%; text-align: left; display: flex; align-items: center; gap: 14px; min-height: 64px; padding: 12px 4px; border: 0; border-top: 0; background: transparent; color: var(--ink)"><span style="flex: 1; display: flex; flex-direction: column; gap: 3px"><span style="font-size: 15.5px; font-weight: 800">Exercices</span><span style="font-size: 14px; line-height: 1.5; font-weight: 500; color: var(--muted)">QCM, vrai ou faux, texte à trous et « Remets dans l’ordre », pour chaque chapitre. À la fin, tu peux revoir tes erreurs.</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--muted); flex-shrink: 0"><path d="M9 6l6 6-6 6"></path></svg></button><button class="lift" @click="qzGo" style="width: 100%; text-align: left; display: flex; align-items: center; gap: 14px; min-height: 64px; padding: 12px 4px; border: 0; border-top: 1px solid var(--line); background: transparent; color: var(--ink)"><span style="flex: 1; display: flex; flex-direction: column; gap: 3px"><span style="font-size: 15.5px; font-weight: 800">Trouver la règle dans un verset</span><span style="font-size: 14px; line-height: 1.5; font-weight: 500; color: var(--muted)">Dix questions sur les sourates lues en classe.</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--muted); flex-shrink: 0"><path d="M9 6l6 6-6 6"></path></svg></button></article>
 <article style="background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 18px 20px 6px; display: flex; flex-direction: column"><h2 style="margin: 0 0 6px; font-size: 19px; line-height: 1.25">Lire le Qur’ân</h2><button class="lift" @click="qGoList" style="width: 100%; text-align: left; display: flex; align-items: center; gap: 14px; min-height: 64px; padding: 12px 4px; border: 0; border-top: 0; background: transparent; color: var(--ink)"><span style="flex: 1; display: flex; flex-direction: column; gap: 3px"><span style="font-size: 15.5px; font-weight: 800">Lecture</span><span style="font-size: 14px; line-height: 1.5; font-weight: 500; color: var(--muted)">Texte arabe, traduction et couleurs du tajwîd. Touche une lettre colorée pour voir sa règle.</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--muted); flex-shrink: 0"><path d="M9 6l6 6-6 6"></path></svg></button><button class="lift" @click="qGoList" style="width: 100%; text-align: left; display: flex; align-items: center; gap: 14px; min-height: 64px; padding: 12px 4px; border: 0; border-top: 1px solid var(--line); background: transparent; color: var(--ink)"><span style="flex: 1; display: flex; flex-direction: column; gap: 3px"><span style="font-size: 15.5px; font-weight: 800">Écoute</span><span style="font-size: 14px; line-height: 1.5; font-weight: 500; color: var(--muted)">Plusieurs récitateurs, vitesse réglable et mots qui s’allument pendant la récitation.</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--muted); flex-shrink: 0"><path d="M9 6l6 6-6 6"></path></svg></button><button class="lift" @click="qGoList" style="width: 100%; text-align: left; display: flex; align-items: center; gap: 14px; min-height: 64px; padding: 12px 4px; border: 0; border-top: 1px solid var(--line); background: transparent; color: var(--ink)"><span style="flex: 1; display: flex; flex-direction: column; gap: 3px"><span style="font-size: 15.5px; font-weight: 800">Ma récitation</span><span style="font-size: 14px; line-height: 1.5; font-weight: 500; color: var(--muted)">Enregistre-toi, puis compare ta voix à celle du récitateur.</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--muted); flex-shrink: 0"><path d="M9 6l6 6-6 6"></path></svg></button><button class="lift" @click="qGoList" style="width: 100%; text-align: left; display: flex; align-items: center; gap: 14px; min-height: 64px; padding: 12px 4px; border: 0; border-top: 1px solid var(--line); background: transparent; color: var(--ink)"><span style="flex: 1; display: flex; flex-direction: column; gap: 3px"><span style="font-size: 15.5px; font-weight: 800">Repères et marque-pages</span><span style="font-size: 14px; line-height: 1.5; font-weight: 500; color: var(--muted)">Sourates lues en classe, juz et hizb, et marque-pages avec ta note.</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--muted); flex-shrink: 0"><path d="M9 6l6 6-6 6"></path></svg></button></article>
 <article style="background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 18px 20px 6px; display: flex; flex-direction: column"><h2 style="margin: 0 0 6px; font-size: 19px; line-height: 1.25">Suivre ma progression</h2><button class="lift" @click="goProgress" style="width: 100%; text-align: left; display: flex; align-items: center; gap: 14px; min-height: 64px; padding: 12px 4px; border: 0; border-top: 0; background: transparent; color: var(--ink)"><span style="flex: 1; display: flex; flex-direction: column; gap: 3px"><span style="font-size: 15.5px; font-weight: 800">Statistiques</span><span style="font-size: 14px; line-height: 1.5; font-weight: 500; color: var(--muted)">Tes résultats par chapitre et l’historique de tes exercices.</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--muted); flex-shrink: 0"><path d="M9 6l6 6-6 6"></path></svg></button><button class="lift" @click="qGoList" style="width: 100%; text-align: left; display: flex; align-items: center; gap: 14px; min-height: 64px; padding: 12px 4px; border: 0; border-top: 1px solid var(--line); background: transparent; color: var(--ink)"><span style="flex: 1; display: flex; flex-direction: column; gap: 3px"><span style="font-size: 15.5px; font-weight: 800">Suivi de lecture</span><span style="font-size: 14px; line-height: 1.5; font-weight: 500; color: var(--muted)">Sourates lues, et objectif de lecture du jour.</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--muted); flex-shrink: 0"><path d="M9 6l6 6-6 6"></path></svg></button><button class="lift" @click="goProgress" style="width: 100%; text-align: left; display: flex; align-items: center; gap: 14px; min-height: 64px; padding: 12px 4px; border: 0; border-top: 1px solid var(--line); background: transparent; color: var(--ink)"><span style="flex: 1; display: flex; flex-direction: column; gap: 3px"><span style="font-size: 15.5px; font-weight: 800">Sauvegarde</span><span style="font-size: 14px; line-height: 1.5; font-weight: 500; color: var(--muted)">Télécharge tes progrès et retrouve-les sur un autre téléphone.</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--muted); flex-shrink: 0"><path d="M9 6l6 6-6 6"></path></svg></button></article>
-<article style="background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 18px 20px 6px; display: flex; flex-direction: column"><h2 style="margin: 0 0 6px; font-size: 19px; line-height: 1.25">Personnaliser</h2><button class="lift" @click="goSettings" style="width: 100%; text-align: left; display: flex; align-items: center; gap: 14px; min-height: 64px; padding: 12px 4px; border: 0; border-top: 0; background: transparent; color: var(--ink)"><span style="flex: 1; display: flex; flex-direction: column; gap: 3px"><span style="font-size: 15.5px; font-weight: 800">Affichage</span><span style="font-size: 14px; line-height: 1.5; font-weight: 500; color: var(--muted)">Thème clair, papier ou sombre, taille et police du texte arabe.</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--muted); flex-shrink: 0"><path d="M9 6l6 6-6 6"></path></svg></button><button class="lift" @click="goFaq" style="width: 100%; text-align: left; display: flex; align-items: center; gap: 14px; min-height: 64px; padding: 12px 4px; border: 0; border-top: 1px solid var(--line); background: transparent; color: var(--ink)"><span style="flex: 1; display: flex; flex-direction: column; gap: 3px"><span style="font-size: 15.5px; font-weight: 800">Hors connexion</span><span style="font-size: 14px; line-height: 1.5; font-weight: 500; color: var(--muted)">Tout fonctionne sans internet, sauf l’écoute des récitateurs.</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--muted); flex-shrink: 0"><path d="M9 6l6 6-6 6"></path></svg></button></article>
+<article style="background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 18px 20px 6px; display: flex; flex-direction: column"><h2 style="margin: 0 0 6px; font-size: 19px; line-height: 1.25">Personnaliser</h2><button class="lift" @click="goSettings" style="width: 100%; text-align: left; display: flex; align-items: center; gap: 14px; min-height: 64px; padding: 12px 4px; border: 0; border-top: 0; background: transparent; color: var(--ink)"><span style="flex: 1; display: flex; flex-direction: column; gap: 3px"><span style="font-size: 15.5px; font-weight: 800">Affichage</span><span style="font-size: 14px; line-height: 1.5; font-weight: 500; color: var(--muted)">Thème clair, papier ou sombre, taille et police du texte arabe.</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--muted); flex-shrink: 0"><path d="M9 6l6 6-6 6"></path></svg></button><button class="lift" @click="goFaq" style="width: 100%; text-align: left; display: flex; align-items: center; gap: 14px; min-height: 64px; padding: 12px 4px; border: 0; border-top: 1px solid var(--line); background: transparent; color: var(--ink)"><span style="flex: 1; display: flex; flex-direction: column; gap: 3px"><span style="font-size: 15.5px; font-weight: 800">Hors connexion</span><span style="font-size: 14px; line-height: 1.5; font-weight: 500; color: var(--muted)">Tout fonctionne sans internet, sauf l’écoute des récitateurs. Pour les sourates lues en classe, tu peux télécharger l’audio.</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--muted); flex-shrink: 0"><path d="M9 6l6 6-6 6"></path></svg></button></article>
 <div style="display: flex; justify-content: flex-start"><button class="btn-a" @click="goHome" style="min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Retour à l’accueil</button></div>
 </section>
 </template>
@@ -1539,7 +1550,7 @@ Recommencer
 </footer>
 
 <div aria-hidden="true" style="height: calc(82px + env(safe-area-inset-bottom, 0px)); flex-shrink: 0"></div>
-<template v-if="shareMenuShow"><div class="share-wrap" style="position: fixed; inset: 0; z-index: 60; display: flex; align-items: flex-end; justify-content: center"><div @click="shareClose" aria-hidden="true" style="position: absolute; inset: 0; background: rgba(0,0,0,0.45)"></div><div role="dialog" aria-modal="true" aria-labelledby="share-title" class="share-sheet rise" style="position: relative; width: 100%; max-width: 520px; background: var(--surface); color: var(--ink); border-radius: 22px 22px 0 0; padding: 20px 16px calc(18px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; gap: 10px; box-shadow: 0 -10px 40px rgba(0,0,0,0.25)"><h2 id="share-title" style="margin: 0 0 4px; font-size: 19px; font-weight: 800">Que veux-tu partager&nbsp;?</h2><button id="share-first" class="lift" @click="shareAppDo" style="min-height: 64px; width: 100%; text-align: left; display: flex; align-items: center; gap: 14px; padding: 10px 14px; border-radius: 14px; border: 1px solid var(--line); background: var(--surface2); color: var(--ink)"><span style="width: 40px; height: 40px; border-radius: 12px; background: var(--tint); color: var(--accent); display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"></path><path d="M8 7l4-4 4 4"></path><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"></path></svg></span><span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15.5px; font-weight: 800">Partager l’application</span><span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">Envoyer le lien à d’autres auditeurs</span></span></button><button class="lift" @click="shareProgDo" style="min-height: 64px; width: 100%; text-align: left; display: flex; align-items: center; gap: 14px; padding: 10px 14px; border-radius: 14px; border: 1px solid var(--line); background: var(--surface2); color: var(--ink)"><span style="width: 40px; height: 40px; border-radius: 12px; background: var(--tint); color: var(--accent); display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"></path><path d="M6 17v-4"></path><path d="M11 17V8"></path><path d="M16 17v-6"></path><path d="M21 17V5"></path></svg></span><span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15.5px; font-weight: 800">Partager mes progrès</span><span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">{{shareProgSub}}</span></span></button><button class="btn-a" @click="shareClose" style="margin-top: 2px; min-height: 48px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); font-size: 15px; font-weight: 700">Annuler</button></div></div></template>
+<template v-if="shareMenuShow"><div class="share-wrap" style="position: fixed; inset: 0; z-index: 60; display: flex; align-items: flex-end; justify-content: center"><div @click="shareClose" aria-hidden="true" style="position: absolute; inset: 0; background: rgba(0,0,0,0.45)"></div><div role="dialog" aria-modal="true" aria-labelledby="share-title" class="share-sheet rise" style="position: relative; width: 100%; max-width: 520px; background: var(--surface); color: var(--ink); border-radius: 22px 22px 0 0; padding: 20px 16px calc(18px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; gap: 10px; box-shadow: 0 -10px 40px rgba(0,0,0,0.25)"><h2 id="share-title" style="margin: 0 0 4px; font-size: 19px; font-weight: 800">Que veux-tu partager&nbsp;?</h2><button id="share-first" class="lift" @click="shareAppDo" style="min-height: 64px; width: 100%; text-align: left; display: flex; align-items: center; gap: 14px; padding: 10px 14px; border-radius: 14px; border: 1px solid var(--gold); background: var(--surface2); color: var(--ink)"><span style="width: 40px; height: 40px; border-radius: 12px; background: var(--tint); color: var(--accent); display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"></path><path d="M8 7l4-4 4 4"></path><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"></path></svg></span><span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15.5px; font-weight: 800">Partager l’application</span><span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">Envoyer le lien à d’autres auditeurs</span></span></button><button class="lift" @click="shareProgDo" style="min-height: 64px; width: 100%; text-align: left; display: flex; align-items: center; gap: 14px; padding: 10px 14px; border-radius: 14px; border: 1px solid var(--gold); background: var(--surface2); color: var(--ink)"><span style="width: 40px; height: 40px; border-radius: 12px; background: var(--tint); color: var(--accent); display: flex; align-items: center; justify-content: center; flex-shrink: 0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"></path><path d="M6 17v-4"></path><path d="M11 17V8"></path><path d="M16 17v-6"></path><path d="M21 17V5"></path></svg></span><span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15.5px; font-weight: 800">Partager mes progrès</span><span style="font-size: 12.5px; font-weight: 600; color: var(--muted)">{{shareProgSub}}</span></span></button><button class="btn-a" @click="shareClose" style="margin-top: 2px; min-height: 48px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); font-size: 15px; font-weight: 700">Annuler</button></div></div></template>
 <template v-if="toastShow"><div role="status" style="position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(80px + env(safe-area-inset-bottom, 0px)); z-index: 41; max-width: min(92vw, 460px); padding: 12px 16px; border-radius: 14px; background: var(--btn); color: var(--onaccent); font-size: 14px; font-weight: 700; line-height: 1.4; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.25); overflow-wrap: anywhere">{{toast}}</div></template>
 <nav aria-label="Navigation principale" style="position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; background: var(--surface); border-top: 1px solid var(--line); padding: 0 env(safe-area-inset-right, 0px) max(env(safe-area-inset-bottom, 0px), 6px) env(safe-area-inset-left, 0px); box-shadow: 0 -6px 20px rgba(0,0,0,0.06)">
 <div style="max-width: 760px; margin: 0 auto; display: flex; align-items: stretch">
@@ -3156,7 +3167,7 @@ class Component extends DCLogic {
         ['Qu’est-ce qui fonctionne sans internet ?', [
           'Presque tout : les fiches des niveaux 4A, 4B et 4C, les exercices, Le Compagnon, tes statistiques et le Qur’ân (texte arabe, traduction et couleurs du tajwîd). Tu peux aussi t’enregistrer et réécouter ta voix.']],
         ['Qu’est-ce qui demande internet ?', [
-          'L’écoute des récitateurs, et donc le mode « Comparer » : l’audio est lu depuis Quran.com ou EveryAyah. Il faut aussi internet pour installer l’application et recevoir les mises à jour.']]
+          'L’écoute des récitateurs, et donc le mode « Comparer » : l’audio est lu depuis Quran.com ou EveryAyah. Exception : les sourates lues en classe, si tu as téléchargé leur audio (Paramètres, carte « Écoute hors connexion »). Il faut aussi internet pour installer l’application et recevoir les mises à jour.']]
       ]],
       ['Mes données', [
         ['Où sont gardés mes progrès ?', [
@@ -3465,11 +3476,11 @@ class Component extends DCLogic {
         const vt = {};
         vs.forEach((f, i) => { const seg = []; for (let k = 1; k + 1 < f.length; k += 2) seg.push([(k + 1) / 2, f[k], f[k + 1]]); vt[i + 1] = { from: 0, to: f[0], seg, url: 'https://everyayah.com/data/' + ea[1] + '/' + p3(n) + p3(i + 1) + '.mp3' }; });
         return { url: null, pv: true, vt, ready: true };
-      }).catch((e) => { delete this._qa[key]; throw e; });
+      }).then((info) => this.qOffBlobs(info)).catch((e) => { delete this._qa[key]; throw e; });
       return this._qa[key];
     }
     const url = 'https://api.qurancdn.com/api/qdc/audio/reciters/' + rec + '/audio_files?chapter=' + n + '&segments=true';
-    this._qa[key] = fetch(url).then((r) => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }).then((j) => {
+    this._qa[key] = this.qOffGet(url).then((r) => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }).then((j) => {
       const f = j.audio_files && j.audio_files[0]; if (!f || !f.audio_url) throw new Error('audio absent');
       const vt = {};
       (f.verse_timings || []).forEach((t) => {
@@ -3477,7 +3488,7 @@ class Component extends DCLogic {
         vt[v] = { from: t.timestamp_from, to: t.timestamp_to, seg: (t.segments || []).filter((sg) => sg.length >= 3).map((sg) => [sg[sg.length - 3], sg[sg.length - 2], sg[sg.length - 1]]) };
       });
       return { url: f.audio_url, vt, ready: true };
-    }).catch((e) => { delete this._qa[key]; throw e; });
+    }).then((info) => this.qOffBlobs(info)).catch((e) => { delete this._qa[key]; throw e; });
     return this._qa[key];
   }
 
@@ -3595,12 +3606,152 @@ class Component extends DCLogic {
     // Sur iPhone, la lecture doit démarrer dans le geste : on « débloque » le lecteur tout de suite.
     try { if (!a.getAttribute('src')) { const u = a.play(); if (u && u.catch) u.catch(() => {}); } } catch (e) {}
     this.qAudioInfo(n, rec).then((info) => { if (!this._qaReady) this._qaReady = {}; this._qaReady[key] = info; if (this.S().qSurah === n && (this.S().qRec || 6) === rec) start(info); })
-      .catch(() => this.setState({ qAudio: 'paused', qAudioMsg: navigator.onLine === false ? 'Écoute disponible avec une connexion internet.' : 'Impossible de joindre Quran.com pour l’écoute. Réessaie dans un instant.' }));
+      .catch(() => this.setState({ qAudio: 'paused', qAudioMsg: navigator.onLine === false ? 'Écoute disponible avec une connexion internet. Sans internet, tu peux écouter les sourates lues en classe après les avoir téléchargées (Paramètres, carte « Écoute hors connexion »).' : 'Impossible de joindre Quran.com pour l’écoute. Réessaie dans un instant.' }));
+  }
+
+  // ——— Écoute hors connexion : l’audio des sourates lues en classe, gardé sur l’appareil (cache « waqf-audio ») ———
+  qOffSz(rec, lvl) {
+    // Taille de chaque pack en dixièmes de Mo, mesurée sur les serveurs audio (Quran.com et EveryAyah) le 25 novembre 2026.
+    const T = { 1: [374, 268, 491], 2: [311, 253, 410], 3: [207, 172, 310], 6: [135, 103, 179], 7: [180, 136, 258], 9: [209, 155, 249], 10: [119, 93, 160], 12: [314, 236, 391], 1001: [78, 58, 102], 1002: [204, 149, 275], 1003: [198, 147, 223] };
+    const i = ({ '4A': 0, '4B': 1, '4C': 2 })[lvl];
+    return T[rec] && i != null ? T[rec][i] / 10 : 0;
+  }
+
+  qOffMo(mo) { return (Math.round(mo * 10) / 10).toFixed(1).replace('.', ','); }
+
+  qOffMan() { try { return JSON.parse(window.localStorage.getItem('waqf-audio') || '{}') || {}; } catch (e) { return {}; } }
+
+  qOffSaveMan(m) { try { window.localStorage.setItem('waqf-audio', JSON.stringify(m)); } catch (e) {} this.setState({ qOffMan: m }); }
+
+  // Lit d’abord la copie gardée sur l’appareil, sinon passe par internet.
+  qOffGet(url) {
+    if (!('caches' in window)) return fetch(url);
+    return caches.open('waqf-audio').then((c) => c.match(url)).then((r) => r || fetch(url), () => fetch(url));
+  }
+
+  // Si l’audio est sur l’appareil, le lecteur le lit depuis la mémoire (adresse « blob: ») : aucun réseau nécessaire.
+  qOffBlobs(info) {
+    if (!('caches' in window) || !info) return Promise.resolve(info);
+    if (!this._qBlob) this._qBlob = {};
+    const one = (u) => {
+      if (!u || /^blob:/.test(u)) return Promise.resolve(u);
+      if (this._qBlob[u]) return Promise.resolve(this._qBlob[u]);
+      return caches.open('waqf-audio').then((c) => c.match(u)).then((r) => (r ? r.blob().then((b) => (this._qBlob[u] = URL.createObjectURL(b))) : u)).catch(() => u);
+    };
+    const jobs = [one(info.url).then((x) => { info.url = x; })];
+    Object.keys(info.vt || {}).forEach((v) => { const t = info.vt[v]; if (t.url) jobs.push(one(t.url).then((x) => { t.url = x; })); });
+    return Promise.all(jobs).then(() => info);
+  }
+
+  qOffForget(rec, list) {
+    (list || []).forEach((n) => { const k = n + ':' + rec; if (this._qa) delete this._qa[k]; if (this._qaReady) delete this._qaReady[k]; });
+  }
+
+  qOffDl() {
+    const s = this.S(); if (s.qOffBusy) return;
+    if (!('caches' in window)) { this.setState({ qOffMsg: 'Ce navigateur ne permet pas de garder l’audio sur l’appareil.' }); return; }
+    if (navigator.onLine === false) { this.setState({ qOffMsg: 'Il faut une connexion internet pour télécharger.' }); return; }
+    const rec = s.qRec || 6, lvl = s.level, list = this.qClassList(lvl) || [], ea = this.qEA(rec);
+    const key = rec + ':' + lvl, est = (this.qOffSz(rec, lvl) || 10) * 1e6;
+    const p3 = (x) => String(x).padStart(3, '0');
+    this._qOffStop = false;
+    this.setState({ qOffBusy: key, qOffPct: 0, qOffMsg: '' });
+    try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {}); } catch (e) {}
+    let done = 0; const urls = [];
+    const tick = () => this.setState({ qOffPct: Math.min(99, Math.round(done / est * 100)) });
+    const get = (c, u) => {
+      if (this._qOffStop) return Promise.reject(new Error('stop'));
+      return c.match(u).then((hit) => {
+        if (hit) { done += +hit.headers.get('content-length') || 0; urls.push(u); tick(); return; }
+        return fetch(u).then((r) => {
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          const len = +r.headers.get('content-length') || 0;
+          return c.put(u, r).then(() => { done += len; urls.push(u); tick(); });
+        });
+      });
+    };
+    const run = async () => {
+      const c = await caches.open('waqf-audio');
+      for (const n of list) {
+        if (ea) {
+          const tu = 'assets/quran/t/' + ea[0] + '/s' + p3(n) + '.json';
+          await get(c, tu);
+          const nv = ((await (await c.match(tu)).json()).v || []).length;
+          const vv = []; for (let v = 1; v <= nv; v++) vv.push('https://everyayah.com/data/' + ea[1] + '/' + p3(n) + p3(v) + '.mp3');
+          while (vv.length) await Promise.all(vv.splice(0, 6).map((u) => get(c, u)));
+        } else {
+          const api = 'https://api.qurancdn.com/api/qdc/audio/reciters/' + rec + '/audio_files?chapter=' + n + '&segments=true';
+          await get(c, api);
+          const j = await (await c.match(api)).json();
+          const f = j.audio_files && j.audio_files[0]; if (!f || !f.audio_url) throw new Error('audio absent');
+          await get(c, f.audio_url);
+        }
+      }
+    };
+    run().then(() => {
+      const m = this.qOffMan(); m[key] = { b: done, k: urls }; this.qOffSaveMan(m);
+      this.qOffForget(rec, list);
+      this.setState({ qOffBusy: '', qOffPct: 100 });
+      this.flash('Audio téléchargé : ces sourates s’écoutent maintenant sans internet.');
+    }).catch((e) => {
+      const stop = e && e.message === 'stop'; const full = e && e.name === 'QuotaExceededError';
+      const m = this.qOffMan();
+      // Fichiers à moitié téléchargés : on les retire, sauf ceux d’un autre pack déjà complet.
+      const keep = {}; Object.keys(m).forEach((k) => (m[k].k || []).forEach((u) => { keep[u] = 1; }));
+      caches.open('waqf-audio').then((c) => Promise.all(urls.filter((u) => !keep[u]).map((u) => c.delete(u)))).catch(() => {});
+      this.setState({ qOffBusy: '', qOffPct: 0, qOffMsg: stop ? 'Téléchargement arrêté.' : full ? 'Pas assez de place sur l’appareil pour cet audio.' : 'Le téléchargement a échoué. Vérifie ta connexion internet et réessaie.' });
+    });
+  }
+
+  qOffDel(key) {
+    const m = this.qOffMan(); const it = m[key]; if (!it) return;
+    delete m[key];
+    const keep = {}; Object.keys(m).forEach((k) => (m[k].k || []).forEach((u) => { keep[u] = 1; }));
+    const p = key.split(':'); this.qOffForget(+p[0], this.qClassList(p[1]));
+    if (this._qBlob) { (it.k || []).forEach((u) => { if (this._qBlob[u]) { try { URL.revokeObjectURL(this._qBlob[u]); } catch (e) {} delete this._qBlob[u]; } }); }
+    if ('caches' in window) caches.open('waqf-audio').then((c) => Promise.all((it.k || []).filter((u) => !keep[u]).map((u) => c.delete(u)))).catch(() => {});
+    this.qOffSaveMan(m); this.setState({ qOffMsg: '' });
+    this.flash('Audio supprimé de l’appareil.');
+  }
+
+  qOffDelAll() {
+    if ('caches' in window) caches.delete('waqf-audio').catch(() => {});
+    if (this._qBlob) { Object.keys(this._qBlob).forEach((u) => { try { URL.revokeObjectURL(this._qBlob[u]); } catch (e) {} }); this._qBlob = {}; }
+    this._qa = {}; this._qaReady = {};
+    this.qOffSaveMan({}); this.setState({ qOffMsg: '' });
+    this.flash('Tous les audios téléchargés ont été supprimés.');
+  }
+
+  // Le navigateur peut effacer le cache en cas de manque de place : on vérifie que chaque pack est encore là.
+  qOffCheck() {
+    const m = this.qOffMan(); const keys = Object.keys(m);
+    if (!keys.length || !('caches' in window)) { this.setState({ qOffMan: m }); return; }
+    caches.open('waqf-audio').then((c) => Promise.all(keys.map((k) => { const u = (m[k].k || [])[(m[k].k || []).length - 1]; return u ? c.match(u).then((r) => { if (!r) delete m[k]; }) : (delete m[k], null); })))
+      .then(() => this.qOffSaveMan(m)).catch(() => this.setState({ qOffMan: m }));
+  }
+
+  qOffVals(s) {
+    const m = s.qOffMan || {}; const rec = s.qRec || 6; const lvl = s.level; const key = rec + ':' + lvl;
+    const list = this.qClassList(lvl) || []; const mo = this.qOffSz(rec, lvl);
+    const busy = !!s.qOffBusy; const have = !!m[key];
+    const tot = Object.keys(m).reduce((a, k) => a + (m[k].b || 0), 0) / 1e6;
+    const nOther = Object.keys(m).filter((k) => k !== key).length;
+    return {
+      qOffIntro: 'Télécharge l’audio des sourates lues en classe du niveau ' + lvl + ' (sourates ' + list[0] + ' à ' + list[list.length - 1] + ') pour les écouter sans internet, avec les mots qui s’allument.',
+      qOffNot: !have && !busy, qOffHave: have && !busy, qOffBusy: busy,
+      qOffSize: 'Taille : environ ' + this.qOffMo(mo) + ' Mo. Conseil : utilise le Wi-Fi.',
+      qOffDlLabel: 'Télécharger (' + this.qOffMo(mo) + ' Mo)',
+      qOffHaveLine: have ? 'Téléchargé sur cet appareil (' + this.qOffMo((m[key].b || 0) / 1e6) + ' Mo).' : '',
+      qOffPctW: (s.qOffPct || 0) + '%', qOffPctN: String(s.qOffPct || 0), qOffBusyLabel: 'Téléchargement… ' + (s.qOffPct || 0) + ' %',
+      qOffTotShow: nOther > 0 && !busy, qOffTotLine: 'Total des audios gardés sur cet appareil : ' + this.qOffMo(tot) + ' Mo.',
+      qOffMsgShow: !!s.qOffMsg, qOffMsg: s.qOffMsg || '',
+      qOffGo: () => this.qOffDl(), qOffStop: () => { this._qOffStop = true; }, qOffDelCur: () => this.qOffDel(key), qOffDelAll: () => this.qOffDelAll()
+    };
   }
 
   qPrefetch() {
     const s = this.S(); const n = s.qSurah; const rec = s.qRec || 6;
-    if (!n || navigator.onLine === false) return;
+    if (!n) return;
     const key = n + ':' + rec;
     this.qAudioInfo(n, rec).then((info) => { if (!this._qaReady) this._qaReady = {}; this._qaReady[key] = info; }).catch(() => {});
   }
@@ -4027,7 +4178,7 @@ class Component extends DCLogic {
   }
 
   qTim(key, n) {
-    return fetch('assets/quran/t/' + key + '/s' + String(n).padStart(3, '0') + '.json').then((r) => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }).then((j) => j.v);
+    return this.qOffGet('assets/quran/t/' + key + '/s' + String(n).padStart(3, '0') + '.json').then((r) => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }).then((j) => j.v);
   }
 
   qGet(what) {
@@ -4329,7 +4480,7 @@ class Component extends DCLogic {
     if (screen !== 'quranRead' && this._aud) this.qStopAudio(true);
     if (this.S().qRule) this.setState({ qRule: null });
     if (screen !== 'quranRead') { this.qRecStop(); if (this._me) this.qMeStop(); }
-    if (screen === 'settings') this.qRecCount();
+    if (screen === 'settings') { this.qRecCount(); this.qOffCheck(); }
     // Pile des écrans visités, pour le bouton « Retour » (un cran en arrière)
     const nv = this._nav || (this._nav = ['home']);
     // Revenir à un écran déjà dans la pile (« Les sourates ») coupe la pile à cet endroit : pas de doublon
@@ -5134,6 +5285,7 @@ class Component extends DCLogic {
       ...(() => { const R = screen === 'quranRead' && s.qRule ? this.qRuleInfo(s.qRule.c) : null;
         return { qRuleShow: !!R, qRuleName: R ? R.name : '', qRuleAr: R ? R.ar : '', qRuleText: R ? R.text : '', qRuleDot: R ? 'background: var(--tj-' + R.k + ');' : '',
           qRuleWord: R ? s.qRule.w : [], qRuleAria: R ? 'Règle de tajwîd : ' + R.name : '', qRuleHasFiche: !!(R && R.go), qRuleNoFiche: !!(R && !R.go), qRuleWhere: R && R.go ? R.go.where : '' }; })(),
+      ...this.qOffVals(s),
       qRecOpts: qRecList.map(([id, name]) => ({ id: String(id), name, sel: id === qRecId })), qRecPick: (e) => this.qSetRec(parseInt(e && e.target ? e.target.value : 6, 10) || 6),
       qSpdOpts: [[0.5, '0,5×'], [0.75, '0,75×'], [1, 'Normale'], [1.25, '1,25×']].map(([v, name]) => ({ id: String(v), name, sel: v === (s.qSpd || 1) })), qSpdPick: (e) => this.qSetSpd(parseFloat(e && e.target ? e.target.value : 1) || 1),
       qPlaySurah: () => this.qPlay(1, 'surah'), qAudioMsgShow: !!s.qAudioMsg && screen === 'quranRead', qAudioMsg: s.qAudioMsg || '',
