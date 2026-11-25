@@ -1129,6 +1129,8 @@ Mode mémorisation
 <div style="background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 14px 20px 16px; display: flex; flex-direction: column; gap: 10px">
 <p style="margin: 0; font-size: 17px; font-weight: 800">Écoute hors connexion</p>
 <p style="margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--muted)">{{qOffIntro}}</p>
+<div role="group" aria-label="Niveau à télécharger" style="display: flex; flex-wrap: wrap; gap: 8px"><template v-for="o in qOffLvls"><button @click="o.pick" :aria-pressed="o.pressed" :disabled="o.off" :style="o.style">{{o.label}}</button></template></div>
+<p style="margin: 0; font-size: 14px; line-height: 1.5; font-weight: 700; color: var(--ink2)">{{qOffLvlLine}}</p>
 <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 700; color: var(--muted)">Récitateur
 <select @change="qRecPick" aria-label="Choisir le récitateur à télécharger" style="min-height: 46px; padding: 0 12px; border-radius: 12px; border: 1.5px solid var(--line2); background: var(--surface); color: var(--ink); font-family: 'Alegreya Sans', system-ui, sans-serif; font-size: 15.5px; font-weight: 700"><template v-for="o in qRecOpts"><option :value="o.id" :selected="o.sel">{{o.name}}</option></template></select></label>
 <template v-if="qOffNot"><p style="margin: 0; font-size: 14px; line-height: 1.5; color: var(--muted)">{{qOffSize}}</p><button class="btn-b" @click="qOffGo" :style="`align-self: flex-start; min-height: 48px; padding: 0 20px; border-radius: 12px; border: 0; background: ${accent}; color: var(--onaccent); font-size: 15px; font-weight: 700`">{{qOffDlLabel}}</button></template>
@@ -3651,7 +3653,7 @@ class Component extends DCLogic {
     const s = this.S(); if (s.qOffBusy) return;
     if (!('caches' in window)) { this.setState({ qOffMsg: 'Ce navigateur ne permet pas de garder l’audio sur l’appareil.' }); return; }
     if (navigator.onLine === false) { this.setState({ qOffMsg: 'Il faut une connexion internet pour télécharger.' }); return; }
-    const rec = s.qRec || 6, lvl = s.level, list = this.qClassList(lvl) || [], ea = this.qEA(rec);
+    const rec = s.qRec || 6, lvl = s.qOffLvl || s.level, list = this.qClassList(lvl) || [], ea = this.qEA(rec);
     const key = rec + ':' + lvl, est = (this.qOffSz(rec, lvl) || 10) * 1e6;
     const p3 = (x) => String(x).padStart(3, '0');
     this._qOffStop = false;
@@ -3731,13 +3733,16 @@ class Component extends DCLogic {
   }
 
   qOffVals(s) {
-    const m = s.qOffMan || {}; const rec = s.qRec || 6; const lvl = s.level; const key = rec + ':' + lvl;
+    const m = s.qOffMan || {}; const rec = s.qRec || 6; const lvl = s.qOffLvl || s.level; const key = rec + ':' + lvl;
     const list = this.qClassList(lvl) || []; const mo = this.qOffSz(rec, lvl);
     const busy = !!s.qOffBusy; const have = !!m[key];
     const tot = Object.keys(m).reduce((a, k) => a + (m[k].b || 0), 0) / 1e6;
     const nOther = Object.keys(m).filter((k) => k !== key).length;
     return {
-      qOffIntro: 'Télécharge l’audio des sourates lues en classe du niveau ' + lvl + ' (sourates ' + list[0] + ' à ' + list[list.length - 1] + ') pour les écouter sans internet, avec les mots qui s’allument.',
+      qOffIntro: 'Télécharge l’audio des sourates lues en classe du niveau de ton choix, pour les écouter sans internet, avec les mots qui s’allument.',
+      qOffLvlLine: 'Niveau ' + lvl + '\u00a0: sourates ' + list[0] + ' à ' + list[list.length - 1] + '.',
+      qOffLvls: ['4A', '4B', '4C'].map((l) => ({ label: 'Niveau ' + l, pressed: l === lvl ? 'true' : 'false', off: busy, pick: () => { if (!this.S().qOffBusy) this.setState({ qOffLvl: l, qOffMsg: '' }); },
+        style: 'min-height: 44px; padding: 0 16px; border-radius: 12px; font-size: 14.5px; font-weight: 700; display: inline-flex; align-items: center; ' + (l === lvl ? 'background: var(--accent); color: var(--onaccent); border: 1.5px solid var(--accent);' : 'background: var(--surface); color: var(--ink); border: 1.5px solid var(--line);') + (busy ? ' opacity: .55;' : '') })),
       qOffNot: !have && !busy, qOffHave: have && !busy, qOffBusy: busy,
       qOffSize: 'Taille : environ ' + this.qOffMo(mo) + ' Mo. Conseil : utilise le Wi-Fi.',
       qOffDlLabel: 'Télécharger (' + this.qOffMo(mo) + ' Mo)',
