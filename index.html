@@ -2903,7 +2903,7 @@ class Component extends DCLogic {
       screen: 'home', mode: null, topic: 'signes', queue: [], idx: 0, answered: false, picked: null,
       fills: [], checked: false, score: 0, mistakes: [],
       best: { qcm: null, vf: null, trous: null, tqcm: null, tvf: null, ttrous: null }, hide: false, revealed: {},
-      prog: { q: {}, hist: [] }, weeksDone: {}, chap: 'a1', level: '4A', theme: 'auto', arScale: 1, arFont: 'hafs', sysDark: false, confirmReset: false, installed: false, appVersion: '', toast: '', importPending: null, importError: '', shareMenu: false, srQ: '', qSurah: 0, qTr: false, qTj: false, qFilter: '', qClass: false, qJuz: false, qRule: null, qz: null, qLu: {}, qAp: {}, qGoal: 20, qDay: '', qSeen: {}, qBm: {}, qBmEdit: '', qLoading: false, qError: '', qRec: 6, qPlayerOn: false, qPlayV: 1, qAudio: 'idle', qAudioMsg: '', qRepeat: false, qRecVer: 0, qRecording: 0, qRecSec: 0, qMePlaying: 0, qMeOn: false, qRecTotal: 0, qRecConfirm: false
+      prog: { q: {}, hist: [] }, weeksDone: {}, chap: 'a1', level: '4A', theme: 'auto', arScale: 1, arFont: 'hafs', sysDark: false, confirmReset: false, installed: false, appVersion: '', toast: '', importPending: null, importError: '', shareMenu: false, srQ: '', qSurah: 0, qTr: true, qTj: false, qFilter: '', qClass: false, qJuz: false, qRule: null, qz: null, qLu: {}, qAp: {}, qGoal: 20, qDay: '', qSeen: {}, qBm: {}, qBmEdit: '', qLoading: false, qError: '', qRec: 6, qPlayerOn: false, qPlayV: 1, qAudio: 'idle', qAudioMsg: '', qRepeat: false, qRecVer: 0, qRecording: 0, qRecSec: 0, qMePlaying: 0, qMeOn: false, qRecTotal: 0, qRecConfirm: false
     }, this.state || {});
   }
 
@@ -2936,7 +2936,7 @@ class Component extends DCLogic {
     try { this._qSeenT = setInterval(() => this.qSeenTick(), 2000); } catch (e) {}
     try {
       const rq = window.localStorage.getItem('waqf-coran');
-      if (rq) { const q = JSON.parse(rq); if (q && q.last && q.last.s) this._qLast = q.last; this.setState({ qTr: q.tr === true, qTj: q.tj === true, qClass: q.cl === true, qHome: q.ho === true, qJuz: q.jz === true, qRec: this.qRecs().some((r) => r[0] === q.rec) ? q.rec : 6, qSpd: [0.5, 0.75, 1, 1.25].indexOf(q.spd) >= 0 ? q.spd : 1 }); }
+      if (rq) { const q = JSON.parse(rq); if (q && q.last && q.last.s) this._qLast = q.last; const nw = q.v >= 2; /* v2 : réglages par défaut = traduction, Al-Husary murattal, vitesse normale (une seule remise à zéro) */ this.setState({ qTr: nw ? q.tr === true : true, qTj: q.tj === true, qClass: q.cl === true, qHome: q.ho === true, qJuz: q.jz === true, qRec: nw && this.qRecs().some((r) => r[0] === q.rec) ? q.rec : 6, qSpd: nw && [0.5, 0.75, 1, 1.25].indexOf(q.spd) >= 0 ? q.spd : 1 }); if (!nw) this.qStore(); }
     } catch (e) {}
     try {
       // Le Qur’ân : fine barre dorée en haut du lecteur, qui avance avec la lecture de la sourate
@@ -3399,7 +3399,7 @@ class Component extends DCLogic {
   // Préférences du Qur’ân (sans toucher à la dernière lecture).
   qStore() {
     const s = this.S();
-    try { window.localStorage.setItem('waqf-coran', JSON.stringify({ last: this._qLast, tr: s.qTr === true, tj: s.qTj === true, cl: s.qClass === true, ho: s.qHome === true, jz: s.qJuz === true, rec: s.qRec || 6, spd: s.qSpd || 1 })); } catch (e) {}
+    try { window.localStorage.setItem('waqf-coran', JSON.stringify({ v: 2, last: this._qLast, tr: s.qTr === true, tj: s.qTj === true, cl: s.qClass === true, ho: s.qHome === true, jz: s.qJuz === true, rec: s.qRec || 6, spd: s.qSpd || 1 })); } catch (e) {}
   }
 
   // Début de chacun des 30 juz : [sourate, verset] (découpage du mushaf de Médine).
