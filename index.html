@@ -952,6 +952,7 @@ Mode mémorisation
 <template v-if="qJuz"><select @change="qJuzJump" aria-label="Aller directement à un juz" style="min-height: 48px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--line2); background: var(--surface); color: var(--ink); font-family: 'Alegreya Sans', system-ui, sans-serif; font-size: 15px; font-weight: 700"><option value="">Aller au juz…</option><template v-for="o in qJuzOpts"><option :value="o.v">{{o.label}}</option></template></select></template>
 </div>
 <label style="display: inline-flex; align-self: flex-start; align-items: center; gap: 10px; min-height: 48px; padding: 0 16px; border: 1.5px solid var(--line); border-radius: 999px; background: var(--surface); font-size: 15px; font-weight: 700; cursor: pointer"><input type="checkbox" role="switch" :checked="qClass" @change="qClassToggle" style="width: 18px; height: 18px; margin: 0; accent-color: var(--accent)">{{qClassLabel}}</label>
+<label style="display: inline-flex; align-self: flex-start; align-items: center; gap: 10px; min-height: 48px; padding: 0 16px; border: 1.5px solid var(--line); border-radius: 999px; background: var(--surface); font-size: 15px; font-weight: 700; cursor: pointer"><input type="checkbox" role="switch" :checked="qHome" @change="qHomeToggle" style="width: 18px; height: 18px; margin: 0; accent-color: var(--accent)">{{qHomeLabel}}</label>
 <template v-if="qListLoading"><p style="margin: 0; font-size: 15px; color: var(--muted)">Chargement des sourates…</p></template>
 <template v-if="qErrorShow"><p role="alert" style="margin: 0; font-size: 15px; font-weight: 700; color: var(--rose)">{{qError}}</p></template>
 <template v-for="g in qGroups">
@@ -1957,7 +1958,7 @@ class Component extends DCLogic {
       { num: 1, ref: 'IX-6', page: 'page 39', title: 'Être à l’abri des injustes', intro: '', blocks: [
         { lead: '', ar: '[[r:رَبَّنَا]] لَا تَجۡعَلۡنَا مَعَ ٱلۡقَوۡمِ ٱلظَّٰلِمِينَ', fr: 'Seigneur, ne nous place pas parmi les injustes.', src: 'Qur’ân 7/47', nb: '' }
       ] },
-      { num: 2, ref: 'II-13', page: 'pages 12-13', title: 'Après l’appel à la prière (Al-Azhan)', intro: 'Le Prophète ﷺ dit que son intercession sera acquise le jour de la résurrection pour quiconque fait cette invocation pour lui après l’Azhan.', blocks: [
+      { num: 2, ref: 'II-13', page: 'pages 12-13', title: 'Après l’appel à la prière (Al-Azhan)', intro: 'Le Prophète (ﷺ) dit que son intercession sera acquise le jour de la résurrection pour quiconque fait cette invocation pour lui après l’Azhan.', blocks: [
         { lead: '', ar: 'ٱللَّهُمَّ رَبَّ هَٰذِهِ ٱلدَّعۡوَةِ ٱلتَّامَّةِ وَٱلصَّلَاةِ ٱلۡقَائِمَةِ آتِ مُحَمَّدًا ٱلۡوَسِيلَةَ وَٱلۡفَضِيلَةَ، وَٱبۡعَثۡهُ مَقَامًا مَحۡمُودًا ٱلَّذِي وَعَدۡتَهُ', fr: 'Seigneur Allah ! Seigneur de cet appel parfait, et la prière éternelle, accorde à Mohammad la place éminente et la supériorité, et envoie-le au poste glorieux que Tu lui as promis, certainement.', src: '', nb: 'Chacun doit faire des invocations pour soi-même ; l’invocation entre l’azhan et al iqamat est toujours exaucée.' }
       ] },
       { num: 3, ref: 'IV-7', page: 'pages 23-24', title: 'En sortant de la maison', intro: '', blocks: [
@@ -2003,7 +2004,7 @@ class Component extends DCLogic {
     const QS = 'Dans quelle situation dit-on cette invocation ?';
     const cqcm = [
       { p: QS, k: 'c1', v: 'c1', o: [SIT.inj, SIT.azh, SIT.sort, SIT.rent], e: 'Fiche 1 : « Seigneur, ne nous place pas parmi les injustes » (Qur’ân 7/47).' },
-      { p: QS, k: 'c2', v: 'c2', o: [SIT.azh, SIT.sort, SIT.mont, SIT.inj], e: 'Fiche 2 : on la dit après l’Azhan ; le Prophète ﷺ promet son intercession à celui qui la fait.' },
+      { p: QS, k: 'c2', v: 'c2', o: [SIT.azh, SIT.sort, SIT.mont, SIT.inj], e: 'Fiche 2 : on la dit après l’Azhan ; le Prophète (ﷺ) promet son intercession à celui qui la fait.' },
       { p: QS, k: 'c3', v: 'c3', o: [SIT.sort, SIT.rent, SIT.mont, SIT.azh], e: 'Fiche 3 : « Au nom d’Allah, je m’en remets entièrement à Allah… » se dit en sortant de la maison.' },
       { p: QS, k: 'c4', v: 'c4', o: [SIT.mont, SIT.sort, SIT.rent, SIT.inj], e: 'Fiche 4 : « Gloire à celui qui nous a soumis ceci… » (Qur’ân 43/13-14) se dit en montant sur une monture ou dans un moyen de transport.' },
       { p: QS, k: 'c6', v: 'c6', o: [SIT.rent, SIT.sort, SIT.mont, SIT.inj], e: 'Fiche 5 : « … nous sommes rentrés et … nous sommes sortis » se dit en rentrant à la maison.' },
@@ -2054,7 +2055,7 @@ class Component extends DCLogic {
     ];
     const COMP4B = [
       { num: 1, ref: 'II-17', page: 'pp. 14-15', title: 'Pour la consultation du sort (Al-Istikhâra)',
-        intro: 'Cette prière est un bienfait dont dispose notre communauté. En effet, elle nous permet de consulter notre Seigneur avant d’effectuer un choix, en particulier dans nos affaires, entreprises ou projets. Elle nous ferme les portes des devins, charlatans ou escrocs. À travers elle, nous plaçons toute notre confiance en Allah (Swt). Elle permet d’éviter de tomber dans l’erreur, etc. Jâber Ibn ’Abdullah – qu’Allah les agrée tous les deux – a rapporté : « Le Messager d’Allah ﷺ nous enseignait la consultation dans toutes les décisions à prendre comme il nous enseignait le Qur’ân. » Il disait : « Lorsque l’un de vous décide de faire quelque chose, qu’il fasse deux rak’ât autres que les prières obligatoires, puis qu’il dise : »',
+        intro: 'Cette prière est un bienfait dont dispose notre communauté. En effet, elle nous permet de consulter notre Seigneur avant d’effectuer un choix, en particulier dans nos affaires, entreprises ou projets. Elle nous ferme les portes des devins, charlatans ou escrocs. À travers elle, nous plaçons toute notre confiance en Allah (Swt). Elle permet d’éviter de tomber dans l’erreur, etc. Jâber Ibn ’Abdullah – qu’Allah les agrée tous les deux – a rapporté : « Le Messager d’Allah (ﷺ) nous enseignait la consultation dans toutes les décisions à prendre comme il nous enseignait le Qur’ân. » Il disait : « Lorsque l’un de vous décide de faire quelque chose, qu’il fasse deux rak’ât autres que les prières obligatoires, puis qu’il dise : »',
         blocks: [
           { lead: '1re partie', ar: 'ٱللَّهُمَّ إِنِّي أَسۡتَخِيرُكَ بِعِلۡمِكَ، وَأَسۡتَقۡدِرُكَ بِقُدۡرَتِكَ، وَأَسۡأَلُكَ مِنۡ فَضۡلِكَ ٱلۡعَظِيمِ، فَإِنَّكَ تَقۡدِرُ وَلَا أَقۡدِرُ، وَتَعۡلَمُ وَلَا أَعۡلَمُ، وَأَنۡتَ عَلَّامُ ٱلۡغُيُوبِ', fr: 'Seigneur, je Te demande de m’indiquer le bien grâce à Ton savoir, je Te demande de m’accorder la puissance grâce à Ta puissance et je Te demande de me faire bénéficier de Ta grâce sublime. En vérité, Tu peux tout et je ne peux rien. Tu possèdes le savoir alors que je ne le possède pas, et Tu détiens la science des mystères.', src: '', nb: '' },
           { lead: '2e partie', ar: 'ٱللَّهُمَّ إِنۡ كُنۡتَ تَعۡلَمُ أَنَّ هَٰذَا ٱلۡأَمۡرَ (هنا تسمي حاجتك) خَيۡرٌ لِي فِي دِينِي وَمَعَاشِي وَعَاقِبَةِ أَمۡرِي (أو قال: عَاجِلِ أَمۡرِي وَآجِلِهِ)، فَٱقۡدُرۡهُ لِي وَيَسِّرۡهُ لِي، ثُمَّ بَارِكۡ لِي فِيهِ', fr: '(Ensuite il peut révéler son besoin.) Seigneur, si Tu sais que cette affaire est un bien pour moi dans ma religion, dans ma vie et dans ma fin, alors fais qu’elle soit la mienne, facilite-la et bénis-la pour moi.', src: '', nb: '' },
@@ -2096,7 +2097,7 @@ class Component extends DCLogic {
       { p: 'Quelle invocation dit-on lorsqu’on est malade ?', ar: true, o: [AB.mal, AB.shar, AB.isti, AB.inj], e: 'Fiche 2 : l’invocation du prophète Ayyoub (Job).' },
       { p: 'Quelle invocation protège contre le mauvais œil et la sorcellerie ?', ar: true, o: [AB.oeil, AB.rabb, AB.isti, AB.ibr], e: 'Fiche 3 : « Je m’appuie sur les paroles parfaites d’Allah… »' },
       { p: 'Par quelle invocation consulte-t-on Allah avant de faire un choix ?', ar: true, o: [AB.isti, AB.shar, AB.mal, AB.rabb], e: 'Fiche 1 : l’Istikhâra, la consultation du sort.' },
-      { p: 'Avant de dire l’Istikhâra, que faut-il faire ?', o: ['Prier deux rak’ât autres que les prières obligatoires', 'Prier quatre rak’ât obligatoires', 'Donner une aumône', 'Jeûner un jour'], e: 'Le Prophète ﷺ a dit : « … qu’il fasse deux rak’ât autres que les prières obligatoires, puis qu’il dise… »' },
+      { p: 'Avant de dire l’Istikhâra, que faut-il faire ?', o: ['Prier deux rak’ât autres que les prières obligatoires', 'Prier quatre rak’ât obligatoires', 'Donner une aumône', 'Jeûner un jour'], e: 'Le Prophète (ﷺ) a dit : « … qu’il fasse deux rak’ât autres que les prières obligatoires, puis qu’il dise… »' },
       { p: 'De quel prophète vient l’invocation « رَبِّ إِنِّي مَسَّنِيَ ٱلضُّرُّ » ?', o: ['Ayyoub (Job)', 'Ibrahim (Abraham)', 'Noûh (Noé)', 'Moûssâ (Moïse)'], e: 'Allah (Swt) éprouva Ayyoub (Job) par plusieurs années de maladies ; cette invocation fut la cause de sa guérison.' },
       { p: 'De quel prophète vient l’invocation « وَإِذَا مَرِضۡتُ فَهُوَ يَشۡفِينِ » ?', o: ['Ibrahim (Abraham)', 'Ayyoub (Job)', 'Noûh (Noé)', 'Yoûnous (Jonas)'], e: 'C’est l’invocation du prophète Ibrahim (Abraham), paix sur lui.' }
     ];
@@ -2346,24 +2347,24 @@ class Component extends DCLogic {
     const HAMM_FR = 'Ô Allah, je me réfugie auprès de Toi contre l’angoisse et la tristesse, la faiblesse et la paresse, l’avarice et la lâcheté, le fardeau des dettes et la prééminence des hommes.';
     const COMP4A = [
       { num: 1, ref: 'IV-1', page: 'pp. 19-22', title: 'Avant de dormir',
-        intro: 'Lorsque le Prophète ﷺ se mettait au lit, il joignait les paumes de ses mains, y soufflait et récitait les trois dernières sourates du Qur’ân, ensuite il passait ses mains sur ce qu’il pouvait de son corps, en commençant par la tête, le visage et la partie antérieure du corps ; il répétait cela trois fois. Le Prophète ﷺ a aussi dit : « Lorsque vous allez dormir, lisez Ayat-ul-Kursiyy jusqu’à la fin du verset. Allah vous protégera et le démon ne vous approchera pas jusqu’au matin. »',
+        intro: 'Lorsque le Prophète (ﷺ) se mettait au lit, il joignait les paumes de ses mains, y soufflait et récitait les trois dernières sourates du Qur’ân, ensuite il passait ses mains sur ce qu’il pouvait de son corps, en commençant par la tête, le visage et la partie antérieure du corps ; il répétait cela trois fois. Le Prophète (ﷺ) a aussi dit : « Lorsque vous allez dormir, lisez Ayat-ul-Kursiyy jusqu’à la fin du verset. Allah vous protégera et le démon ne vous approchera pas jusqu’au matin. »',
         blocks: [
           { lead: 'Ayat-ul-Kursiyy', ar: KURSI, fr: 'Allah ! Point de divinité à part Lui, le Vivant, Celui qui subsiste par lui-même « Al-Qayyûm ». Ni somnolence ni sommeil ne Le saisissent. À Lui appartient tout ce qui est dans les cieux et sur la terre. Qui peut intercéder auprès de Lui sans Sa permission ? Il connaît leur passé et leur futur. Et, de Sa science, ils n’embrassent que ce qu’Il veut. Son Trône « Kursiy » déborde les cieux et la terre, dont la garde ne Lui coûte aucune peine. Et Il est le Très-Haut, le Très-Grand.', src: 'Qur’ân 2/255', nb: '' }
         ] },
       { num: 2, ref: 'VII-1', page: 'pp. 32-33', title: 'Dans les moments de soucis, de tristesse, de difficultés', intro: '',
         blocks: [
-          { lead: '', ar: HAMM, fr: HAMM_FR, src: '', nb: 'Le Prophète ﷺ recommanda à l’un de ses compagnons qui traversait des moments de soucis et d’angoisse de la répéter matin et soir.' },
+          { lead: '', ar: HAMM, fr: HAMM_FR, src: '', nb: 'Le Prophète (ﷺ) recommanda à l’un de ses compagnons qui traversait des moments de soucis et d’angoisse de la répéter matin et soir.' },
           { lead: 'Et aussi :', ar: 'لَآ إِلَٰهَ إِلَّآ أَنتَ سُبۡحَٰنَكَ إِنِّي كُنتُ مِنَ ٱلظَّٰلِمِينَ', fr: 'Il n’y a de dieu que Toi (ALLAH), gloire et pureté à Toi ! J’étais vraiment du nombre des injustes.', src: 'Qur’ân 21/87',
-            nb: 'Le prophète Younouss (Jonas), paix sur lui, faisait cette invocation lorsqu’il fut avalé par la baleine. Allah (Swt) le délivra par la suite. Le Prophète ﷺ a dit : « Ne voulez-vous pas que je vous enseigne un appel à réciter quand vous frappe ici-bas une affliction ou un malheur, et ce dans le but de vous détendre, de dissiper vos soucis et de vous soulager ? C’est l’invocation faite par Zinnoun (le prophète Younouss) : “Il n’y a de dieu que Toi, gloire et pureté à Toi ! J’étais vraiment du nombre des injustes.” » Allah (Swt) promet aussi la délivrance à quiconque L’invoque par cette invocation.' }
+            nb: 'Le prophète Younouss (Jonas), paix sur lui, faisait cette invocation lorsqu’il fut avalé par la baleine. Allah (Swt) le délivra par la suite. Le Prophète (ﷺ) a dit : « Ne voulez-vous pas que je vous enseigne un appel à réciter quand vous frappe ici-bas une affliction ou un malheur, et ce dans le but de vous détendre, de dissiper vos soucis et de vous soulager ? C’est l’invocation faite par Zinnoun (le prophète Younouss) : “Il n’y a de dieu que Toi, gloire et pureté à Toi ! J’étais vraiment du nombre des injustes.” » Allah (Swt) promet aussi la délivrance à quiconque L’invoque par cette invocation.' }
         ] },
       { num: 3, ref: 'VII-2', page: 'pp. 33-34', title: 'Devant une affaire difficile ou pour faciliter une entreprise', intro: '',
         blocks: [
           { lead: '', ar: 'ٱللَّهُمَّ لَا سَهۡلَ إِلَّا مَا جَعَلۡتَهُ سَهۡلًا، وَأَنتَ تَجۡعَلُ ٱلۡحَزۡنَ إِذَا شِئۡتَ سَهۡلًا', fr: 'Seigneur, il n’y a de facile que ce que Tu as rendu facile, et si Tu veux Tu rends facile ce qui est difficile.', src: '', nb: '' },
           { lead: 'Et aussi :', ar: 'لَا حَوۡلَ وَلَا قُوَّةَ إِلَّا بِٱللَّهِ', fr: 'Il n’y a de force, ni de puissance que par Allah.', src: '',
-            nb: 'Cette invocation est très efficace devant les situations difficiles et même le stress. Lorsque l’on se sent faible, incapable, malade… il faut y avoir recours. Le Prophète ﷺ recommandait à certains de ses compagnons de la répéter très souvent ; il nous dit que cette invocation est un Trésor des Trésors du Paradis.' }
+            nb: 'Cette invocation est très efficace devant les situations difficiles et même le stress. Lorsque l’on se sent faible, incapable, malade… il faut y avoir recours. Le Prophète (ﷺ) recommandait à certains de ses compagnons de la répéter très souvent ; il nous dit que cette invocation est un Trésor des Trésors du Paradis.' }
         ] },
       { num: 4, ref: 'VII-7', page: 'p. 36', title: 'Pour le remboursement des dettes',
-        intro: 'Le Prophète ﷺ dit : « Ne veux-tu pas, Musulman, que je t’enseigne certaines paroles afin qu’Allah (Swt) éteigne tes dettes, même si elles sont autant que le mont “Thabir” ? Alors dis : »',
+        intro: 'Le Prophète (ﷺ) dit : « Ne veux-tu pas, Musulman, que je t’enseigne certaines paroles afin qu’Allah (Swt) éteigne tes dettes, même si elles sont autant que le mont “Thabir” ? Alors dis : »',
         blocks: [
           { lead: '', ar: 'ٱللَّهُمَّ ٱكۡفِنِي بِحَلَالِكَ عَنۡ حَرَامِكَ، وَأَغۡنِنِي بِفَضۡلِكَ عَمَّنۡ سِوَاكَ', fr: 'Seigneur, suffis-moi par Ton licite contre Ton illicite, et aide-moi par Ta grâce à me dispenser d’autre que Toi.', src: '', nb: '' },
           { lead: 'Et aussi :', ar: HAMM, fr: HAMM_FR, src: '', nb: '' }
@@ -2398,10 +2399,10 @@ class Component extends DCLogic {
       { p: QSA, k: 'f8', v: 'f8', o: [SA.det, SA.grp, SA.dif, SA.dor], e: 'Fiche 4 : « Seigneur, suffis-moi par Ton licite contre Ton illicite… »' },
       { p: 'Quelle invocation dit-on pour le remboursement des dettes ?', ar: true, o: [AA.kfini, AA.nuhur, AA.sahl, AA.kursi], e: 'Fiche 4 (VII-7).' },
       { p: 'Quelle invocation dit-on quand on craint un groupe de gens ?', ar: true, o: [AA.nuhur, AA.kfini, AA.sahl, AA.yun], e: 'Fiche 5 (VII-3).' },
-      { p: 'Que récitait le Prophète ﷺ en se mettant au lit, après avoir soufflé dans ses mains ?', o: ['Les trois dernières sourates du Qur’ân', 'La sourate Al-Fâtiha', 'La sourate Yâ-Sîn', 'Les dix derniers versets de la sourate 2'], e: 'Puis il passait ses mains sur son corps, en commençant par la tête et le visage, et répétait cela trois fois.' },
+      { p: 'Que récitait le Prophète (ﷺ) en se mettant au lit, après avoir soufflé dans ses mains ?', o: ['Les trois dernières sourates du Qur’ân', 'La sourate Al-Fâtiha', 'La sourate Yâ-Sîn', 'Les dix derniers versets de la sourate 2'], e: 'Puis il passait ses mains sur son corps, en commençant par la tête et le visage, et répétait cela trois fois.' },
       { p: 'Que promet le hadith à celui qui lit Ayat-ul-Kursiyy avant de dormir ?', o: ['Allah le protège et le démon ne l’approche pas jusqu’au matin', 'Ses dettes sont effacées', 'Il est guéri de toute maladie', 'Il est délivré de la tristesse'], e: 'Fiche 1 (IV-1).' },
       { p: 'De quel prophète vient l’invocation « لَآ إِلَٰهَ إِلَّآ أَنتَ سُبۡحَٰنَكَ إِنِّي كُنتُ مِنَ ٱلظَّٰلِمِينَ » ?', o: ['Younouss (Jonas)', 'Ayyoub (Job)', 'Ibrahim (Abraham)', 'Noûh (Noé)'], e: 'Il la faisait lorsqu’il fut avalé par la baleine ; Allah (Swt) le délivra.' },
-      { p: 'Comment le Prophète ﷺ a-t-il décrit « لَا حَوۡلَ وَلَا قُوَّةَ إِلَّا بِٱللَّهِ » ?', o: ['Un Trésor des Trésors du Paradis', 'La meilleure invocation du matin', 'L’invocation du voyageur', 'La clé de la prière'], e: 'Fiche 3 : il recommandait de la répéter très souvent.' }
+      { p: 'Comment le Prophète (ﷺ) a-t-il décrit « لَا حَوۡلَ وَلَا قُوَّةَ إِلَّا بِٱللَّهِ » ?', o: ['Un Trésor des Trésors du Paradis', 'La meilleure invocation du matin', 'L’invocation du voyageur', 'La clé de la prière'], e: 'Fiche 3 : il recommandait de la répéter très souvent.' }
     ];
     const eordre = [
       { w: 'ٱللَّهُ لَآ إِلَٰهَ إِلَّا هُوَ ٱلۡحَيُّ ٱلۡقَيُّومُۚ لَا تَأۡخُذُهُۥ سِنَةٞ وَلَا نَوۡمٞ', fr: 'Allah ! Point de divinité à part Lui, le Vivant, Celui qui subsiste par lui-même « Al-Qayyûm ». Ni somnolence ni sommeil ne Le saisissent.', e: 'Fiche 1 · Avant de dormir.' },
@@ -2461,9 +2462,9 @@ class Component extends DCLogic {
         sections: [
           { num: '1', title: 'Histoire, but et position légale', ar: '', verdict: 'Présentation', chipBg: 'var(--tint2)', chipFg: 'var(--accent)', def: '',
             cases: [
-              { rule: '**Histoire** (bref rappel sur les lectionnaires) : il existe environ une dizaine de variations de lectures différentes (Hafs, Warsh, Qôlûn, Ad-Duriy, etc.). Allah, dans Sa grande sagesse et dans Son immense miséricorde, nous a permis d’avoir plusieurs lectures pour plusieurs peuples et tribus, pour des raisons de facilité : le dialecte des Arabes n’était pas le même d’une région à une autre. La lecture Warsh se rapprochait le plus de la récitation du Prophète ﷺ, mais celle de Hafs est la plus répandue dans le monde.', ex: [] },
+              { rule: '**Histoire** (bref rappel sur les lectionnaires) : il existe environ une dizaine de variations de lectures différentes (Hafs, Warsh, Qôlûn, Ad-Duriy, etc.). Allah, dans Sa grande sagesse et dans Son immense miséricorde, nous a permis d’avoir plusieurs lectures pour plusieurs peuples et tribus, pour des raisons de facilité : le dialecte des Arabes n’était pas le même d’une région à une autre. La lecture Warsh se rapprochait le plus de la récitation du Prophète (ﷺ), mais celle de Hafs est la plus répandue dans le monde.', ex: [] },
               { rule: '**La lecture Hafs** : le mot « Hafs » vient de l’imam Hafs Ibn Sulaymân Al-Bazzâz, né à Koufa (Irak) en 90 H / 709 et décédé à 86 ans en 180 H / 795. Il fut l’élève de ’Âsim Ibn Abî An-Najoûd, qui étudia le Qur’ân auprès d’Abou Abderrahmân As-Soulamiy. Celui-ci rapporte sa lecture de cinq illustres Compagnons : ’Othmân Ibn ’Affân, ’Aliy Ibn Abî Tôlib, ’Abdullah Ibn Mas’oûd, Oubay Ibn Ka’b et Zayd Ibn Thâbit. La lecture Hafs existe dans tous les pays musulmans, sauf au Maghreb, en Afrique subsaharienne et au Soudan, où l’on lit Warsh (Maroc, Algérie, Mauritanie, Afrique subsaharienne, est de la Tunisie), Qôlûn (Libye, nord de la Tunisie) et Ad-Duriy (Soudan, Somalie, Tchad, une partie du Yémen).', ex: [] },
-              { rule: '**But** : lire le QUR’ÂN de la même façon que le Prophète ﷺ l’avait enseigné, afin de plaire à ALLAH.', ex: [] },
+              { rule: '**But** : lire le QUR’ÂN de la même façon que le Prophète (ﷺ) l’avait enseigné, afin de plaire à ALLAH.', ex: [] },
               { rule: '**Position légale** : lire avec At-tadjwîd est une obligation individuelle (sur chaque musulman), comme les prières canoniques ; mais sa connaissance théorique est une obligation collective (sur la communauté musulmane), comme la prière mortuaire.', ex: [] },
               { rule: '**Champs d’application** : principalement le QUR’ÂN. Selon certains savants, même les hadiths sont concernés. Il est clair que lors de la récitation des invocations prophétiques, on ne doit pas faire de fautes.', ex: [] }
             ] },
@@ -2483,7 +2484,7 @@ class Component extends DCLogic {
                 ex: [{ label: 'Clarifier le Noûn au lieu de nasiller', text: 'مِ[[r:ن]] شَرِّ ≠ مِ[[r:نۡ]] شَرِّ' }],
                 note: 'La majorité des savants d’At-tadjwîd jugent Al-Lahn Al-Khafiyy makroûh (détestable). Cependant, d’autres la considèrent comme harâm (interdite), à un degré moindre que la faute grave.' }
             ] },
-          { num: '4', title: 'Mérites de la lecture du QUR’ÂN', ar: '', verdict: 'Hadiths', chipBg: 'var(--surface3)', chipFg: 'var(--ink)', def: 'Nombreux sont les hadiths faisant l’éloge des mérites liés à la lecture du Qur’ân : il offre la science, la connaissance, la purification, la sagesse, l’accroissement de la piété, des bonnes actions, l’intercession le jour de la résurrection… Le Prophète ﷺ a dit :',
+          { num: '4', title: 'Mérites de la lecture du QUR’ÂN', ar: '', verdict: 'Hadiths', chipBg: 'var(--surface3)', chipFg: 'var(--ink)', def: 'Nombreux sont les hadiths faisant l’éloge des mérites liés à la lecture du Qur’ân : il offre la science, la connaissance, la purification, la sagesse, l’accroissement de la piété, des bonnes actions, l’intercession le jour de la résurrection… Le Prophète (ﷺ) a dit :',
             cases: [
               { rule: '« Le Qur’ân est un intercesseur agréé et un défenseur véritable. Alors quiconque prend pour guide le Qur’ân, il le mènera au Paradis, et quiconque le délaisse derrière lui, il le poussera dans le feu de l’enfer. » (Ibn Hibbân)', ex: [] },
               { rule: '« Celui qui apprend le Qur’ân par cœur, en observe les décrets permissifs et ceux prohibitifs, Allah le fera entrer au paradis et lui accordera l’intercession en faveur de dix proches parents qui seront voués à l’enfer. » (Tirmidhi)', ex: [] },
@@ -2614,7 +2615,7 @@ class Component extends DCLogic {
             cases: [
               { rule: 'Précédée d’une lettre portant la voyelle Al-Fathah (ٱلۡفَتۡحَةُ) « ـَ » : le Lâm se lit avec l’emphase, « Lô ».', ex: [{ label: 'Sourate 10, verset 10', text: '… سُبۡحَٰنَ[[r:كَ]] ٱ[[b:للَّ]]هُمَّ …' }, { label: 'Sourate 112, verset 1', text: 'قُلۡ هُ[[r:وَ]] ٱ[[b:للَّ]]هُ أَحَدٌ' }] },
               { rule: 'Précédée d’une lettre portant la voyelle Ad-Dommah (ٱلضَّمَّةُ) « ـُ » : le Lâm se lit aussi avec l’emphase, « Lô ».', ex: [{ label: 'Sourate 8, verset 32', text: 'وَإِذۡ قَا[[r:لُواْ]] ٱ[[b:للَّ]]هُمَّ …' }, { label: 'Sourate 110, verset 1', text: '… نَصۡ[[r:رُ]] ٱ[[b:للَّ]]هِ …' }],
-                note: 'Remarque : la lettre Lâm dans Lafzoul-Djalâlah n’est pas suivie d’Alif (ا). Mais dans la pratique, il faut la prolonger (tirer) de 2 temps, conformément à la parole de Oum Salama sur la lecture du Prophète ﷺ : « Il prolongeait la lettre ل dans le nom d’Allah. »' }
+                note: 'Remarque : la lettre Lâm dans Lafzoul-Djalâlah n’est pas suivie d’Alif (ا). Mais dans la pratique, il faut la prolonger (tirer) de 2 temps, conformément à la parole de Oum Salama sur la lecture du Prophète (ﷺ) : « Il prolongeait la lettre ل dans le nom d’Allah. »' }
             ] }
         ],
         notes: [{ title: 'À retenir', text: '\n• Kasrah avant le nom d’Allah : Lâm léger, «\u00a0La\u00a0».\n• Fathah ou Dommah avant : Lâm emphatique, «\u00a0Lô\u00a0».\n• Dans tous les cas, on prolonge le Lâm de 2 temps.' }] },
@@ -2661,7 +2662,7 @@ class Component extends DCLogic {
       { p: 'Dans « نَصۡرُ ٱللَّهِ » (sourate 110, verset 1), comment se lit le Lâm ?', o: [LT.td, LT.tq, LT.tf, 'Avec un écho (Qolqolah)'], e: 'Le Rô porte une Dommah.' },
       { p: 'Dans « قُلِ ٱللَّهُمَّ » (sourate 3, verset 26), comment se lit le Lâm ?', o: [LT.tq, LT.td, LT.tf, 'Avec un nasillement'], e: 'Le Lâm de قُلِ porte une Kasrah.' },
       { p: 'De combien de temps prolonge-t-on le Lâm du nom d’Allah ?', o: ['2 temps', 'Pas du tout, car il n’est pas suivi d’Alif', '4 temps', '6 temps'], e: 'Il n’est pas suivi d’Alif à l’écrit, mais on le prolonge de 2 temps.' },
-      { p: 'Qui a rapporté que le Prophète ﷺ prolongeait le Lâm dans le nom d’Allah ?', o: ['Oum Salama', 'Zayd Ibn Thâbit', '’Âsim', 'Hafs'], e: 'Remarque du chapitre 3.' }
+      { p: 'Qui a rapporté que le Prophète (ﷺ) prolongeait le Lâm dans le nom d’Allah ?', o: ['Oum Salama', 'Zayd Ibn Thâbit', '’Âsim', 'Hafs'], e: 'Remarque du chapitre 3.' }
     ];
     const a3vf = [
       { s: 'La lettre Lâm se lit toujours avec la légèreté, sauf dans le nom majestueux d’Allah.', a: true, e: 'Chapitre 3, introduction.' },
@@ -2933,7 +2934,7 @@ class Component extends DCLogic {
     try { this._qSeenT = setInterval(() => this.qSeenTick(), 2000); } catch (e) {}
     try {
       const rq = window.localStorage.getItem('waqf-coran');
-      if (rq) { const q = JSON.parse(rq); if (q && q.last && q.last.s) this._qLast = q.last; this.setState({ qTr: q.tr === true, qTj: q.tj === true, qClass: q.cl === true, qJuz: q.jz === true, qRec: this.qRecs().some((r) => r[0] === q.rec) ? q.rec : 6, qSpd: [0.5, 0.75, 1, 1.25].indexOf(q.spd) >= 0 ? q.spd : 1 }); }
+      if (rq) { const q = JSON.parse(rq); if (q && q.last && q.last.s) this._qLast = q.last; this.setState({ qTr: q.tr === true, qTj: q.tj === true, qClass: q.cl === true, qHome: q.ho === true, qJuz: q.jz === true, qRec: this.qRecs().some((r) => r[0] === q.rec) ? q.rec : 6, qSpd: [0.5, 0.75, 1, 1.25].indexOf(q.spd) >= 0 ? q.spd : 1 }); }
     } catch (e) {}
     try {
       // Le Qur’ân : fine barre dorée en haut du lecteur, qui avance avec la lecture de la sourate
@@ -3396,7 +3397,7 @@ class Component extends DCLogic {
   // Préférences du Qur’ân (sans toucher à la dernière lecture).
   qStore() {
     const s = this.S();
-    try { window.localStorage.setItem('waqf-coran', JSON.stringify({ last: this._qLast, tr: s.qTr === true, tj: s.qTj === true, cl: s.qClass === true, jz: s.qJuz === true, rec: s.qRec || 6, spd: s.qSpd || 1 })); } catch (e) {}
+    try { window.localStorage.setItem('waqf-coran', JSON.stringify({ last: this._qLast, tr: s.qTr === true, tj: s.qTj === true, cl: s.qClass === true, ho: s.qHome === true, jz: s.qJuz === true, rec: s.qRec || 6, spd: s.qSpd || 1 })); } catch (e) {}
   }
 
   // Début de chacun des 30 juz : [sourate, verset] (découpage du mushaf de Médine).
@@ -3407,6 +3408,15 @@ class Component extends DCLogic {
   // Sourates lues en classe, par niveau, dans l’ordre suivi en classe.
   qClassList(level) {
     return ({ '4A': [77, 76, 75, 74], '4B': [73, 72, 71], '4C': [70, 69, 68, 67] })[level] || [];
+  }
+
+  // Sourates lues à domicile, par niveau : [sourate] entière, ou [sourate, premier verset, dernier verset].
+  qHomeList(level) {
+    return ({
+      '4A': [[77], [76], [75], [74], [73], [72], [18, 1, 74]],
+      '4B': [[73], [72], [71], [70], [69], [68], [67], [18, 75, 110], [25, 1, 43]],
+      '4C': [[69], [68], [67], [66], [65], [64], [25, 33, 77], [47, 1, 38]]
+    })[level] || [];
   }
 
   qOpen(n, v) {
@@ -4791,11 +4801,12 @@ class Component extends DCLogic {
     let qListRows = [], qGroups = [];
     if (screen === 'quranList' && qIdx) {
       const f = this.srNorm(this.srClean(s.qFilter || '')).replace(/\s+/g, ' ').trim();
-      const qSrc = s.qClass ? this.qClassList(s.level).map((n) => qIdx.s[n - 1]).filter(Boolean) : qIdx.s;
+      const qHomeL = s.qHome ? this.qHomeList(s.level) : null; const qLim = {}; if (qHomeL) qHomeL.forEach((h) => { qLim[h[0]] = [h[1] || 1, h[2] || 999]; });
+      const qSrc = qHomeL ? qHomeL.map((h) => qIdx.s[h[0] - 1]).filter(Boolean) : s.qClass ? this.qClassList(s.level).map((n) => qIdx.s[n - 1]).filter(Boolean) : qIdx.s;
       const qKeep = (c) => !f || String(c.n) === f || this.srNorm(c.tr + ' ' + c.fr + ' ' + c.ar).indexOf(f) >= 0;
       const qLuO = s.qLu || {}, qApO = s.qAp || {};
       const qRow = (c, a, b) => { const part = a > 1 || b < c.nv; const lu = !!qLuO[c.n]; return { hasBadge: lu, badge: 'Lue', badgeSt: 'background: var(--tint); color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent);', num: qAr(c.n), nfs: qNfs(c.n), tr: c.tr, ar: c.ar, meta: c.fr + ', ' + (part ? 'versets ' + a + ' à ' + b : qMeta(c)), open: () => this.qOpen(c.n, a) }; };
-      qListRows = qSrc.filter(qKeep).map((c) => qRow(c, 1, c.nv));
+      qListRows = qSrc.filter(qKeep).map((c) => { const lm = qLim[c.n]; return qRow(c, lm ? lm[0] : 1, lm ? Math.min(lm[1], c.nv) : c.nv); });
       if (s.qJuz) {
         const at = {}; qSrc.forEach((c, i) => { at[c.n] = i + 1; });
         const J = this.qJuzStarts();
@@ -4803,7 +4814,7 @@ class Component extends DCLogic {
           const nx = J[k + 1]; let s2, v2;
           if (!nx) { s2 = 114; v2 = qIdx.s[113].nv; } else if (nx[1] > 1) { s2 = nx[0]; v2 = nx[1] - 1; } else { s2 = nx[0] - 1; v2 = qIdx.s[s2 - 1].nv; }
           const parts = [];
-          for (let n = s1; n <= s2; n++) { const c = qIdx.s[n - 1]; if (c && at[n] && qKeep(c)) parts.push({ o: at[n], r: qRow(c, n === s1 ? v1 : 1, n === s2 ? v2 : c.nv) }); }
+          for (let n = s1; n <= s2; n++) { const c = qIdx.s[n - 1]; if (c && at[n] && qKeep(c)) { let a = n === s1 ? v1 : 1, b = n === s2 ? v2 : c.nv; const lm = qLim[n]; if (lm) { a = Math.max(a, lm[0]); b = Math.min(b, lm[1]); } if (a <= b) parts.push({ o: at[n], r: qRow(c, a, b) }); }; }
           parts.sort((x, y) => x.o - y.o);
           const j = k + 1;
           return { id: 'juz-' + j, j: String(j), hasHead: true, title: 'Juz ' + j, ar: 'الجزء ' + qAr(j), range: 'De ' + qIdx.s[s1 - 1].tr + ' ' + v1 + ' à ' + qIdx.s[s2 - 1].tr + ' ' + v2 + ', ' + parts.filter((x) => x.r.hasBadge).length + ' sur ' + parts.length + ' lue' + (parts.filter((x) => x.r.hasBadge).length > 1 ? 's' : ''), rows: parts.map((x) => x.r) };
@@ -5243,7 +5254,7 @@ class Component extends DCLogic {
       qGroups, qJuz: s.qJuz === true, qJuzToggle: () => { this.setState({ qJuz: !(s.qJuz === true) }); this.qStore(); },
       qJuzOpts: qGroups.filter((g) => g.hasHead).map((g) => ({ v: g.j, label: g.title })),
       qJuzJump: (e) => { const el = e && e.target; const v = el ? el.value : ''; if (!v) return; try { const h = document.getElementById('juz-' + v); if (h) h.scrollIntoView({ block: 'start' }); } catch (x) {} el.value = ''; },
-      qClass: s.qClass === true, qClassLabel: 'Sourates lues en classe (' + s.level + ')', qClassToggle: () => { this.setState({ qClass: !(s.qClass === true) }); this.qStore(); },
+      qClass: s.qClass === true, qClassLabel: 'Sourates lues en classe (' + s.level + ')', qClassToggle: () => { const on = !(s.qClass === true); this.setState(on ? { qClass: true, qHome: false } : { qClass: false }); this.qStore(); }, qHome: s.qHome === true, qHomeLabel: 'Sourates lues à domicile (' + s.level + ')', qHomeToggle: () => { const on = !(s.qHome === true); this.setState(on ? { qHome: true, qClass: false } : { qHome: false }); this.qStore(); },
       qFilter: s.qFilter || '', qFilterInput: (e) => this.setState({ qFilter: e && e.target ? String(e.target.value || '').slice(0, 60) : '' }),
       qHasLast: !!(qLast && qLast.s), qLastLabel: qLast && qLast.s ? (qLast.name || ('Sourate ' + qLast.s)) + ', verset ' + qLast.v : '',
       qResume: () => { if (qLast && qLast.s) this.qOpen(qLast.s, qLast.v); },
