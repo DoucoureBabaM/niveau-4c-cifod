@@ -86,3 +86,5 @@ Section Qur’ân : sources et licences
    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
    SOFTWARE.
+
+- Tafsir en français (dossier tf/) : « Al-Mukhtasar fî Tafsîr Al-Qur’ân Al-Karîm », Centre d’Exégèse pour les Études Coraniques, traduction française publiée par QuranEnc (https://quranenc.com/fr/browse/french_mokhtasar), clé french_mokhtasar, téléchargée le 26/11/2026. Changements : accents graves de translittération retirés ; « Coran » écrit « Qur’ân ».
