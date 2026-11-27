@@ -29,8 +29,8 @@ PWA française de révision des règles de tadjwîd du CIFOD, niveaux 4A, 4B et 
 - Carte « Application » : Installer, Fonctionnalités, Questions fréquentes, À propos, Partager, Confidentialité, Sources.
 
 ## Version courante
-- En ligne (GitHub et Netlify) : **v318** (`CACHE = 'niveau4c-v318-2026-11-27'`).
-- Artefact : **version 478** (identique à v318).
+- En ligne (GitHub et Netlify) : **v320** (`CACHE = 'niveau4c-v320-2026-11-27'`).
+- Artefact : **version 480** (identique à v320).
 - Derniers changements :
   - v298 à v300 : boutons du lecteur et filtres des sourates habillés (`orne_*.webp`, couleurs du cadre sourates).
   - v301 : cadres pour Retour, Quitter (médaillon sous 480 px), Mode mémorisation et boutons d'action des exercices (classe `cadre-pill act`). Choix de réponse et lignes de cartes de l'accueil non habillés.
@@ -44,7 +44,9 @@ PWA française de révision des règles de tadjwîd du CIFOD, niveaux 4A, 4B et 
   - v315 : plus de bouton Traduction global ; bouton « Traduction » par verset avant Tafsir (`qTrOpen` par sourate, en mémoire pendant la session, `qTrVToggle`) ; en mode Mushaf, toucher un numéro ouvre le verset. Ligne des boutons sur une ligne dès 360 px (icônes des pilules masquées sous 440 px).
   - v316 : Basmala d’ouverture à chaque démarrage (plus de limite par session ; toujours masquée si mouvement réduit).
   - v317 : la Basmala attend l’événement `load` puis reste 1,6 s (`spArm`, classe `.out`) ; sécurité CSS : disparaît après 6 s. Confirmé sur iPhone : visible après mise à jour, mais pas à la réouverture (l’iPhone garde la page en mémoire, sans rechargement).
-  - v318 : la Basmala revient aussi au retour au premier plan après plus de 30 s d’absence (`visibilitychange`) et sur `pageshow` persisté ; masquée par la classe `.out` (plus retirée du DOM). À confirmer sur téléphone.
+  - v318 : la Basmala revient aussi au retour au premier plan après plus de 30 s d’absence (`visibilitychange`) et sur `pageshow` persisté ; masquée par la classe `.out` (plus retirée du DOM). Confirmé sur iPhone.
+  - v319 : Fonctionnalités (Lecture : Traduction/Tafsir par verset + Mode Mushaf ; Stats : étoile ; Affichage : bleu nuit) et FAQ (traduction/tafsir, Mushaf, Basmala).
+  - v320 : cadres `.cadre-pill` plus fins (`border-width:5px 13px`, `border-image … / 5px 22px`, au lieu de 7/17 et 7/30) ; même image `orne_pill*.webp`. `.cadre-sel`, Traduction/Tafsir et Quitter inchangés.
 - Bouton Retour dans une sourate : masqué si on vient de la liste, gardé sinon (décision de l'utilisateur).
 
 ## Règles de travail
