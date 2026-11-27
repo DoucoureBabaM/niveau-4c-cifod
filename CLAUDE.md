@@ -29,8 +29,8 @@ PWA française de révision des règles de tadjwîd du CIFOD, niveaux 4A, 4B et 
 - Carte « Application » : Installer, Fonctionnalités, Questions fréquentes, À propos, Partager, Confidentialité, Sources.
 
 ## Version courante
-- En ligne (GitHub et Netlify) : **v324** (`CACHE = 'niveau4c-v324-2026-11-27'`).
-- Artefact : **version 484** (identique à v324). Assets de l'artefact : police `/_blob/539a5ef52c5fcacc02d32088eed388d1`, `mushaf.json` `/_blob/5e5068f56bc17ed1384de35c469a3a68`.
+- En ligne (GitHub et Netlify) : **v328** (`CACHE = 'niveau4c-v328-2026-11-27'`).
+- Artefact : **version 488** (identique à v328). Assets de l'artefact : police `/_blob/539a5ef52c5fcacc02d32088eed388d1`, `mushaf.json` `/_blob/5e5068f56bc17ed1384de35c469a3a68`, `cadre_mushaf.webp` `/_blob/ec8998d55ba82c1e8a17e3020fe05a90`, `fleuron_mushaf.webp` `/_blob/3ae90cb599580509591b28dd697b404d`, `cartouche_sourate.webp` `/_blob/7f75fceaf7f90a7e87bf4927d1819d63`.
 - Derniers changements :
   - v298 à v300 : boutons du lecteur et filtres des sourates habillés (`orne_*.webp`, couleurs du cadre sourates).
   - v301 : cadres pour Retour, Quitter (médaillon sous 480 px), Mode mémorisation et boutons d'action des exercices (classe `cadre-pill act`). Choix de réponse et lignes de cartes de l'accueil non habillés.
@@ -51,6 +51,10 @@ PWA française de révision des règles de tadjwîd du CIFOD, niveaux 4A, 4B et 
   - v322 : commandes du lecteur regroupées (`.rd-wrap`) : filtre `.seg` Versets | Mushaf (`qMuSetV/M`), ligne `.rd-row` Couleurs du tajwîd + bouton « Écoute ▾ » (`qEcToggle`, panneau `#q-ec-panel` `.rd-panel` avec Récitateur et Vitesse, ouvert pour la sourate courante seulement : `qEcOpen === qSurah`), Écouter la sourate + légende `.rd-cap` (`qEcCap`). Sous 340 px : icône Écoute masquée. Textes : Fonctionnalités « vue Mushaf », FAQ Mushaf et Vitesse.
   - v323 : vue Mushaf = pages et lignes exactes du Mushaf de Médine (604 pages × 15 lignes). Données `assets/quran/mushaf.json` (1,4 Mo ; par page `j`, `h`, `s`, `a`, `l` lignes : nombre = en-tête de sourate, texte = mots + `۝`+numéro ; `w` = largeur de ligne mesurée à 100 px) générées depuis `@quran.ws/text` 0.1.0 (CC BY 4.0, texte et mise en page KFGQPC) ; police `assets/fonts/UthmanicHafs-v-3.0.ttf` (KFGQPC, non modifiable : TTF d'origine). Rendu `qMxGet`/`qMxBuild` (`#q-verses.mx`, `.mx-pg`, `.mx-ln` justifiée, taille `100cqi * --mxk`, `.mx-m` numéros cliquables, autre sourate → `qOpen`) ; ids `v-N` (ancre `.mx-a`) et `w-N-k` pour le surlignage ; Couleurs du tajwîd masquées en vue Mushaf (`qTjWrap`, `qTjLeg`). Basmala du haut masquée en vue Mushaf. Sources, LICENCES, FAQ et Fonctionnalités mis à jour. Taille du texte : ~15 px à 360 px, ~30 px à 768 px.
   - v324 : vue Mushaf, pendant l'écoute seul le mot courant s'allume (plus de surlignage du verset entier : retrait de `#q-verses.mx [data-cur]` et des `_qOnVs` dans `qMark`).
+  - v325 : vue Versets, le numéro de fin de verset devient un bouton (`.mx-m`, `v.toVerse` → `qMuSet(true, n)`, « Voir le verset N dans le Mushaf ») : retour au Mushaf au même verset. Consigne Mushaf et FAQ mises à jour.
+  - v326 : nouveau cadre des pages Mushaf (image de l'utilisateur, bande verte et or à fleurs) : `assets/cadre_mushaf.webp` en `border-image` (slice 74, centre transparent, `--mxb` = clamp(16px, 4.6vw, 30px)) + fleurons haut et bas `assets/fleuron_mushaf.webp` (`::before`, `::after` retourné). Marge intérieure 6 px sous 480 px. Texte : ~14 px à 360 px, ~27 px à 768 px. Images ajoutées au PRECACHE.
+  - v327 : sous 480 px, `#q-verses.mx` déborde de 14 px de chaque côté (`margin-left/right:-14px`, cadre à 6 px des bords de l'écran). Texte : ~15,5 px à 360 px, ~17 px à 390 px (plus grand qu'avant le cadre).
+  - v328 : en-têtes de sourate du Mushaf (`.mx-sh`) dans un cartouche (image de l'utilisateur, Basmala effacée, extérieur transparent) : `assets/cartouche_sourate.webp`, `height:4.4em; width:9.7em`, nom en vert `#1C4A35` à 1,15× la taille du texte. Les 114 noms tiennent (78 % max de la largeur utile). Image ajoutée au PRECACHE.
 - Bouton Retour dans une sourate : masqué si on vient de la liste, gardé sinon (décision de l'utilisateur).
 
 ## Règles de travail
