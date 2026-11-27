@@ -3017,11 +3017,19 @@ class Component extends DCLogic {
     } catch (e) {}
     // Basmala d’ouverture : à chaque démarrage. Elle attend la fin du chargement de la page (sur iPhone, l’écran de lancement
     // reste affiché jusque-là), reste 1,6 s puis s’efface. Sécurité en CSS : elle disparaît d’elle-même après 6 s.
+    // L’iPhone garde souvent l’application en mémoire quand on la ferme : à la réouverture, la page n’est pas rechargée.
+    // La Basmala revient donc aussi quand l’application revient au premier plan après plus de 30 s d’absence.
     try {
-      const spHide = (sp) => { sp.classList.add('out'); setTimeout(() => { try { sp.parentNode && sp.parentNode.removeChild(sp); } catch (e) {} }, 600); };
+      let spAway = 0, spT = 0;
+      const spHide = (sp) => sp.classList.add('out');
+      const spShow = () => { const sp = document.getElementById('splash'); if (!sp) return; sp.style.animation = 'none'; sp.classList.remove('out');
+        sp.querySelectorAll('p, i').forEach((x) => { x.style.animation = 'none'; void x.offsetWidth; x.style.animation = ''; });
+        clearTimeout(spT); spT = setTimeout(() => spHide(sp), 1600); };
       const spArm = (k) => { const sp = document.getElementById('splash'); if (!sp) { if (k < 40) setTimeout(() => spArm(k + 1), 100); return; }
-        const go = () => setTimeout(() => spHide(sp), 1600); if (document.readyState === 'complete') go(); else window.addEventListener('load', go, { once: true }); };
+        const go = () => { spT = setTimeout(() => spHide(sp), 1600); }; if (document.readyState === 'complete') go(); else window.addEventListener('load', go, { once: true }); };
       spArm(0);
+      window.addEventListener('pageshow', (e) => { if (e.persisted) spShow(); });
+      document.addEventListener('visibilitychange', () => { if (document.hidden) spAway = Date.now(); else { if (spAway && Date.now() - spAway > 30000) spShow(); spAway = 0; } });
     } catch (e) {}
     try { this._qSeenT = setInterval(() => this.qSeenTick(), 2000); } catch (e) {}
     try {
