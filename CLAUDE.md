@@ -20,7 +20,7 @@ PWA française de révision des règles de tadjwîd du CIFOD, niveaux 4A, 4B et 
 - Police `salat-calligraphie.woff2` (ﷺ, U+FDFA) : à régénérer si une police ou graisse est ajoutée.
 - Coran : texte Tanzil, traduction Hamidullah, couleurs du tadjwîd (CC BY 4.0), lisibles hors connexion. Écoute et minutage depuis Quran.com et EveryAyah (en ligne seulement, sauf packs hors ligne).
 - Écoute hors connexion : packs par niveau et récitateur, dans le cache `waqf-audio`. Tailles codées dans `qOffSz`.
-- Cadres : `assets/cadre_sourate.webp` (lecteur) et `assets/cadre_chapitre.webp` (6 en-têtes de chapitre), titre arabe superposé.
+- Cadres : `assets/cartouche_sourate.webp` (en-tête du lecteur et noms de sourate du Mushaf ; `cadre_sourate.webp` n'est plus utilisé depuis v330) et `assets/cadre_chapitre.webp` (6 en-têtes de chapitre), titre arabe superposé.
 - Boutons : `btn-a` (secondaires, bordure dorée) et `btn-b` (principaux). Barre de recherche des sourates : `field-a`. Barre de l'onglet Rechercher : `field-a` avec bordure dorée seule (`:focus` sans outline bleu).
 - Bouton Quitter : croix seule sous 480 px (`.quit-btn`, `aria-label="Quitter"`).
 - Icônes : `icon-192.png`, `icon-512.png`, `icon-maskable-512.png`, `apple-touch-icon.png` (fond ardoise), référencées avec `?v=284`.
@@ -29,8 +29,8 @@ PWA française de révision des règles de tadjwîd du CIFOD, niveaux 4A, 4B et 
 - Carte « Application » : Installer, Fonctionnalités, Questions fréquentes, À propos, Partager, Confidentialité, Sources.
 
 ## Version courante
-- En ligne (GitHub et Netlify) : **v328** (`CACHE = 'niveau4c-v328-2026-11-27'`).
-- Artefact : **version 488** (identique à v328). Assets de l'artefact : police `/_blob/539a5ef52c5fcacc02d32088eed388d1`, `mushaf.json` `/_blob/5e5068f56bc17ed1384de35c469a3a68`, `cadre_mushaf.webp` `/_blob/ec8998d55ba82c1e8a17e3020fe05a90`, `fleuron_mushaf.webp` `/_blob/3ae90cb599580509591b28dd697b404d`, `cartouche_sourate.webp` `/_blob/7f75fceaf7f90a7e87bf4927d1819d63`.
+- En ligne (GitHub et Netlify) : **v331** (`CACHE = 'niveau4c-v331-2026-11-27'`).
+- Artefact : **version 491** (identique à v331). Assets de l'artefact : police `/_blob/539a5ef52c5fcacc02d32088eed388d1`, `mushaf.json` `/_blob/5e5068f56bc17ed1384de35c469a3a68`, `cadre_mushaf.webp` `/_blob/ec8998d55ba82c1e8a17e3020fe05a90`, `fleuron_mushaf.webp` `/_blob/3ae90cb599580509591b28dd697b404d`, `cartouche_sourate.webp` `/_blob/7f75fceaf7f90a7e87bf4927d1819d63`.
 - Derniers changements :
   - v298 à v300 : boutons du lecteur et filtres des sourates habillés (`orne_*.webp`, couleurs du cadre sourates).
   - v301 : cadres pour Retour, Quitter (médaillon sous 480 px), Mode mémorisation et boutons d'action des exercices (classe `cadre-pill act`). Choix de réponse et lignes de cartes de l'accueil non habillés.
@@ -55,6 +55,9 @@ PWA française de révision des règles de tadjwîd du CIFOD, niveaux 4A, 4B et 
   - v326 : nouveau cadre des pages Mushaf (image de l'utilisateur, bande verte et or à fleurs) : `assets/cadre_mushaf.webp` en `border-image` (slice 74, centre transparent, `--mxb` = clamp(16px, 4.6vw, 30px)) + fleurons haut et bas `assets/fleuron_mushaf.webp` (`::before`, `::after` retourné). Marge intérieure 6 px sous 480 px. Texte : ~14 px à 360 px, ~27 px à 768 px. Images ajoutées au PRECACHE.
   - v327 : sous 480 px, `#q-verses.mx` déborde de 14 px de chaque côté (`margin-left/right:-14px`, cadre à 6 px des bords de l'écran). Texte : ~15,5 px à 360 px, ~17 px à 390 px (plus grand qu'avant le cadre).
   - v328 : en-têtes de sourate du Mushaf (`.mx-sh`) dans un cartouche (image de l'utilisateur, Basmala effacée, extérieur transparent) : `assets/cartouche_sourate.webp`, `height:4.4em; width:9.7em`, nom en vert `#1C4A35` à 1,15× la taille du texte. Les 114 noms tiennent (78 % max de la largeur utile). Image ajoutée au PRECACHE.
+  - v329 : pied de page Mushaf avec le numéro de page en chiffres arabes (`pg.numAr`, `.mx-fa`, police HafsMx) et en chiffres français, séparés par un filet doré (`.mx-ft i`).
+  - v330 : en-tête du lecteur, l'ancien cadre `cadre_sourate.webp` est remplacé par le cartouche du Mushaf (`aspect-ratio: 681 / 309`, nom en vert `#1C4A35`, zone `left/right 21 %`, `top/bottom 27 %`). Médaillons latéraux (nombre de versets, مكية) retirés : l'info reste sous le titre. `cadre_sourate.webp` retiré du PRECACHE. Les 114 noms tiennent (70 % max).
+  - v331 : icône maison remplacée par l'arc de mihrab (même tracé que l'onglet Accueil) sur les 7 boutons « Retour au sommaire » et les 3 « Retour à l’accueil ».
 - Bouton Retour dans une sourate : masqué si on vient de la liste, gardé sinon (décision de l'utilisateur).
 
 ## Règles de travail
