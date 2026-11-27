@@ -29,8 +29,8 @@ PWA française de révision des règles de tadjwîd du CIFOD, niveaux 4A, 4B et 
 - Carte « Application » : Installer, Fonctionnalités, Questions fréquentes, À propos, Partager, Confidentialité, Sources.
 
 ## Version courante
-- En ligne (GitHub et Netlify) : **v320** (`CACHE = 'niveau4c-v320-2026-11-27'`) ; local, non poussé : v321 et v322 (`CACHE = 'niveau4c-v322-2026-11-27'`).
-- Artefact : **version 482** (identique à v322 local).
+- En ligne (GitHub et Netlify) : **v323** (`CACHE = 'niveau4c-v323-2026-11-27'`).
+- Artefact : **version 483** (identique à v323). Assets de l'artefact : police `/_blob/539a5ef52c5fcacc02d32088eed388d1`, `mushaf.json` `/_blob/5e5068f56bc17ed1384de35c469a3a68`.
 - Derniers changements :
   - v298 à v300 : boutons du lecteur et filtres des sourates habillés (`orne_*.webp`, couleurs du cadre sourates).
   - v301 : cadres pour Retour, Quitter (médaillon sous 480 px), Mode mémorisation et boutons d'action des exercices (classe `cadre-pill act`). Choix de réponse et lignes de cartes de l'accueil non habillés.
@@ -47,8 +47,9 @@ PWA française de révision des règles de tadjwîd du CIFOD, niveaux 4A, 4B et 
   - v318 : la Basmala revient aussi au retour au premier plan après plus de 30 s d’absence (`visibilitychange`) et sur `pageshow` persisté ; masquée par la classe `.out` (plus retirée du DOM). Confirmé sur iPhone.
   - v319 : Fonctionnalités (Lecture : Traduction/Tafsir par verset + Mode Mushaf ; Stats : étoile ; Affichage : bleu nuit) et FAQ (traduction/tafsir, Mushaf, Basmala).
   - v320 : cadres `.cadre-pill` plus fins (`border-width:5px 13px`, `border-image … / 5px 22px`, au lieu de 7/17 et 7/30) ; même image `orne_pill*.webp`. `.cadre-sel`, Traduction/Tafsir et Quitter inchangés.
-  - v321 (local) : liste des sourates, filtre segmenté `.seg` (Toutes | En classe | À domicile, cadre ornementé `orne_pill`, choix actif en or) + légende `.seg-cap` « Sourates du niveau X » ; état inchangé (`qClass`/`qHome`, via `qSegSetAll/Cl/Ho`) ; « Sourates par juz » devient « Grouper par juz » (combinable).
-  - v322 (local) : commandes du lecteur regroupées (`.rd-wrap`) : filtre `.seg` Versets | Mushaf (`qMuSetV/M`), ligne `.rd-row` Couleurs du tajwîd + bouton « Écoute ▾ » (`qEcToggle`, panneau `#q-ec-panel` `.rd-panel` avec Récitateur et Vitesse, ouvert pour la sourate courante seulement : `qEcOpen === qSurah`), Écouter la sourate + légende `.rd-cap` (`qEcCap`). Sous 340 px : icône Écoute masquée. Textes : Fonctionnalités « vue Mushaf », FAQ Mushaf et Vitesse.
+  - v321 : liste des sourates, filtre segmenté `.seg` (Toutes | En classe | À domicile, cadre ornementé `orne_pill`, choix actif en or) + légende `.seg-cap` « Sourates du niveau X » ; état inchangé (`qClass`/`qHome`, via `qSegSetAll/Cl/Ho`) ; « Sourates par juz » devient « Grouper par juz » (combinable).
+  - v322 : commandes du lecteur regroupées (`.rd-wrap`) : filtre `.seg` Versets | Mushaf (`qMuSetV/M`), ligne `.rd-row` Couleurs du tajwîd + bouton « Écoute ▾ » (`qEcToggle`, panneau `#q-ec-panel` `.rd-panel` avec Récitateur et Vitesse, ouvert pour la sourate courante seulement : `qEcOpen === qSurah`), Écouter la sourate + légende `.rd-cap` (`qEcCap`). Sous 340 px : icône Écoute masquée. Textes : Fonctionnalités « vue Mushaf », FAQ Mushaf et Vitesse.
+  - v323 : vue Mushaf = pages et lignes exactes du Mushaf de Médine (604 pages × 15 lignes). Données `assets/quran/mushaf.json` (1,4 Mo ; par page `j`, `h`, `s`, `a`, `l` lignes : nombre = en-tête de sourate, texte = mots + `۝`+numéro ; `w` = largeur de ligne mesurée à 100 px) générées depuis `@quran.ws/text` 0.1.0 (CC BY 4.0, texte et mise en page KFGQPC) ; police `assets/fonts/UthmanicHafs-v-3.0.ttf` (KFGQPC, non modifiable : TTF d'origine). Rendu `qMxGet`/`qMxBuild` (`#q-verses.mx`, `.mx-pg`, `.mx-ln` justifiée, taille `100cqi * --mxk`, `.mx-m` numéros cliquables, autre sourate → `qOpen`) ; ids `v-N` (ancre `.mx-a`) et `w-N-k` pour le surlignage ; Couleurs du tajwîd masquées en vue Mushaf (`qTjWrap`, `qTjLeg`). Basmala du haut masquée en vue Mushaf. Sources, LICENCES, FAQ et Fonctionnalités mis à jour. Taille du texte : ~15 px à 360 px, ~30 px à 768 px.
 - Bouton Retour dans une sourate : masqué si on vient de la liste, gardé sinon (décision de l'utilisateur).
 
 ## Règles de travail
