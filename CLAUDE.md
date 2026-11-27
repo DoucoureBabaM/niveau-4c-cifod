@@ -30,7 +30,8 @@ PWA française de révision des règles de tadjwîd du CIFOD, niveaux 4A, 4B et 
 
 ## Version courante
 - En ligne (GitHub et Netlify) : **v314** (`CACHE = 'niveau4c-v314-2026-11-27'`).
-- Artefact : **version 473** (identique à v314).
+- Local v315 non poussé.
+- Artefact : **version 475** (identique à v315).
 - Derniers changements :
   - v298 à v300 : boutons du lecteur et filtres des sourates habillés (`orne_*.webp`, couleurs du cadre sourates).
   - v301 : cadres pour Retour, Quitter (médaillon sous 480 px), Mode mémorisation et boutons d'action des exercices (classe `cadre-pill act`). Choix de réponse et lignes de cartes de l'accueil non habillés.
@@ -40,7 +41,8 @@ PWA française de révision des règles de tadjwîd du CIFOD, niveaux 4A, 4B et 
   - v309 : « Un verset est compté dès qu’il reste affiché 2 secondes. » v310 : Fonctionnalités sans cartes (`.feat-sec` + `.set-h`), « tafsir » dans Lecture. v311 : FAQ, Installer, À propos, Confidentialité, Sources restylés (`.feat-sec`, `.set-h.ico`) ; Installer et Confidentialité au « tu » ; FAQ « section » au lieu de « carte », tafsir hors ligne ; EveryAyah dans Confidentialité ; faute « FOrmation » corrigée.
   - v312 : mode Mushaf dans le lecteur (`qMu`, stocké `mu` dans `waqf-coran`, `.mushaf-page`, `#q-verses.mushaf`, `.mu-mark` ouvre le verset) ; Stats : étoile à 8 branches (`progStar`, 12,5 % par branche), chapitres sans cartes (`.prog-row`).
   - v313 : Basmala d’ouverture (`#splash`, 1,5 s, une fois par session via `sessionStorage` `tj-splash`, masquée si mouvement réduit) ; filigrane girih (`.girih`, en-tête et pied de page) ; thème sombre bleu nuit (`bg #0E1424`, or `#D8B460`) ; retours d’exercices dorés (`--okb`, `--okbg`, halo `okGlow`) et médaillon étoilé du score (`.res-med`, exercices et « Trouver la règle »).
-  - v314 : bouton Traduction visible aussi en mode Mushaf ; traduction continue sous la page (`.mu-tr`, `.mu-n`).
+  - v314 : bouton Traduction visible aussi en mode Mushaf (remplacé en v315).
+  - v315 : plus de bouton Traduction global ; bouton « Traduction » par verset avant Tafsir (`qTrOpen` par sourate, en mémoire pendant la session, `qTrVToggle`) ; en mode Mushaf, toucher un numéro ouvre le verset. Ligne des boutons sur une ligne dès 360 px (icônes des pilules masquées sous 440 px).
 - Bouton Retour dans une sourate : masqué si on vient de la liste, gardé sinon (décision de l'utilisateur).
 
 ## Règles de travail
