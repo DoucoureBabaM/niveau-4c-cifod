@@ -3015,8 +3015,7 @@ class Component extends DCLogic {
       const rs = window.localStorage.getItem('waqf-suivi');
       if (rs) { const u = JSON.parse(rs) || {}; const ok = (o) => (o && typeof o === 'object' && !Array.isArray(o) ? o : {}); this.setState({ qLu: ok(u.lu), qAp: ok(u.ap), qGoal: [10, 20, 30, 50, 100].indexOf(u.goal) >= 0 ? u.goal : 20, qDay: typeof u.day === 'string' ? u.day : '', qSeen: ok(u.seen) }); }
     } catch (e) {}
-    // Basmala d’ouverture : une seule fois par session.
-    try { if (window.sessionStorage.getItem('tj-splash')) { const sp = document.getElementById('splash'); if (sp) sp.remove(); } else window.sessionStorage.setItem('tj-splash', '1'); } catch (e) {}
+    // Basmala d’ouverture : à chaque démarrage de l’application (pas au retour de l’arrière-plan).
     try { this._qSeenT = setInterval(() => this.qSeenTick(), 2000); } catch (e) {}
     try {
       const rq = window.localStorage.getItem('waqf-coran');
