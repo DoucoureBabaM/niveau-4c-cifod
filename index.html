@@ -214,7 +214,7 @@ h1,h2,h3{font-weight:700!important;letter-spacing:0!important}
 @media (prefers-reduced-motion: reduce){.splash{display:none}.res-med,[style*="var(--okb)"],#qz-fb{animation:none}}
 @media (max-width:420px){.mushaf-page{padding:20px 14px 16px}}
 nav button{position:relative}
-.faq summary{list-style:none}.faq summary::-webkit-details-marker{display:none}.faq details[open] .faq-chev,.bm-page details[open] .faq-chev{transform:rotate(90deg)}
+.faq summary{list-style:none}.faq summary::-webkit-details-marker{display:none}.faq details[open] .faq-chev,.bm-page details[open] .faq-chev,.im-page details[open] .faq-chev{transform:rotate(90deg)}.im-chain{display:flex;flex-direction:column;align-items:flex-start;padding:6px 0 10px}.im-kids{display:flex;flex-direction:column;align-items:flex-start;gap:10px;margin-left:24px;padding:12px 0 0 0;position:relative}.im-kids>.im-node{margin-left:20px}.im-kids>.im-node::before{content:"";position:absolute;left:-23px;top:-11.5px;height:calc(50% + 11.5px);width:21px;box-sizing:border-box;border-left:2px solid var(--gold);border-bottom:2px solid var(--gold);border-bottom-left-radius:9px}.im-kids>.im-node:first-child::before{top:-13.5px;height:calc(50% + 13.5px)}.im-kids>.im-node:not(:last-child)::after{content:"";position:absolute;left:-23px;top:50%;bottom:-1.5px;border-left:2px solid var(--gold)}.im-node{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-height:44px;padding:9px 14px;border-radius:12px;border:1.5px solid var(--gold);background:var(--surface);color:var(--ink);text-align:left;cursor:pointer}.im-m{border-width:2px;background:var(--surface3)}.im-n{font-family:"Alegreya",serif;font-size:17px;font-weight:700;line-height:1.3}.im-s{font-family:"Alegreya Sans",system-ui,sans-serif;font-size:13px;font-weight:500;color:var(--muted)}.im-here{display:inline-block;margin-top:4px;font-family:"Alegreya Sans",system-ui,sans-serif;font-size:12.5px;font-weight:800;color:var(--accent);background:var(--surface3);border:1px solid var(--gold);border-radius:999px;padding:3px 10px}.im-card{scroll-margin-top:96px}
 .set-h{display:flex;align-items:center;gap:10px;margin:0 0 6px;font-family:'Alegreya',serif;font-size:22px;font-weight:700;line-height:1.2;color:var(--ink)}
 .set-h::before{content:'';width:13px;height:13px;flex-shrink:0;background:var(--gold);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpolygon points='12,1 15.22,4.22 19.78,4.22 19.78,8.78 23,12 19.78,15.22 19.78,19.78 15.22,19.78 12,23 8.78,19.78 4.22,19.78 4.22,15.22 1,12 4.22,8.78 4.22,4.22 8.78,4.22' fill='black'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpolygon points='12,1 15.22,4.22 19.78,4.22 19.78,8.78 23,12 19.78,15.22 19.78,19.78 15.22,19.78 12,23 8.78,19.78 4.22,19.78 4.22,15.22 1,12 4.22,8.78 4.22,4.22 8.78,4.22' fill='black'/%3E%3C/svg%3E") center/contain no-repeat}
 .set-h::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--gold),transparent)}
@@ -327,6 +327,7 @@ Retour
 <button @click="qGoList" style="display: flex; align-items: center; justify-content: space-between; gap: 14px; width: 100%; min-height: 64px; padding: 10px 0; border: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: transparent; text-align: left; color: var(--ink)"><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-family: 'Alegreya', serif; font-size: 18px; font-weight: 500">Ouvrir le Qur’ân</span><span style="font-size: 14px; font-weight: 500; color: var(--muted)">Les 114 sourates, avec les couleurs du tajwîd</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; color: var(--muted)"><path d="M9 6l6 6-6 6"></path></svg></button>
 <button @click="qzGo" style="display: flex; align-items: center; justify-content: space-between; gap: 14px; width: 100%; min-height: 64px; padding: 10px 0; border: 0; border-bottom: 1px solid var(--line); background: transparent; text-align: left; color: var(--ink)"><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-family: 'Alegreya', serif; font-size: 18px; font-weight: 500">Trouver la règle dans un verset</span><span style="font-size: 14px; font-weight: 500; color: var(--muted)">{{qzHomeSub}}</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; color: var(--muted)"><path d="M9 6l6 6-6 6"></path></svg></button>
 <template v-if="qHasLast"><button @click="qResume" style="display: flex; align-items: center; justify-content: space-between; gap: 14px; width: 100%; min-height: 64px; padding: 10px 0; border: 0; border-bottom: 1px solid var(--line); background: transparent; text-align: left; color: var(--ink)"><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-family: 'Alegreya', serif; font-size: 18px; font-weight: 500">Reprendre la lecture</span><span style="font-size: 14px; font-weight: 500; color: var(--muted)">{{qLastLabel}}</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; color: var(--muted)"><path d="M9 6l6 6-6 6"></path></svg></button></template>
+<button @click="goImams" style="display: flex; align-items: center; justify-content: space-between; gap: 14px; width: 100%; min-height: 64px; padding: 10px 0; border: 0; border-bottom: 1px solid var(--line); background: transparent; text-align: left; color: var(--ink)"><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-family: 'Alegreya', serif; font-size: 18px; font-weight: 500">Les imams de la lecture</span><span style="font-size: 14px; font-weight: 500; color: var(--muted)">’Âsim, Hafs, Nâfi’, Warch, Qâloûn et Ach-Châtibiy</span></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; color: var(--muted)"><path d="M9 6l6 6-6 6"></path></svg></button>
 </section>
 
 <section aria-labelledby="h-comp" style="display: flex; flex-direction: column">
@@ -960,6 +961,25 @@ Mode mémorisation
 </div>
 <template v-if="qBmIdle"><div style="display: flex; padding-top: 4px"><button class="btn-a" @click="qBmAskAll" style="min-height: 46px; padding: 0 18px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Tout effacer</button></div></template>
 <template v-if="qBmAsk"><div role="alertdialog" aria-label="Confirmer l’effacement des marque-pages" style="background: var(--rose-t); border: 1.5px solid var(--rose); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 12px"><p style="margin: 0; font-size: 15px; line-height: 1.55; font-weight: 600">{{qBmAskText}}</p><div style="display: flex; flex-wrap: wrap; gap: 10px"><button @click="qBmDelAll" style="min-height: 46px; padding: 0 18px; border-radius: 12px; border: 0; background: var(--rose); color: #FFFFFF; font-size: 15px; font-weight: 800">Oui, tout effacer</button><button class="btn-a" @click="qBmAskNo" style="min-height: 46px; padding: 0 18px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Annuler</button></div></div></template>
+</section>
+</template>
+
+<template v-if="isImams">
+<section class="rise im-page" style="display: flex; flex-direction: column; gap: 22px; width: 100%; max-width: 640px; margin: 0 auto">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<h1 style="margin: 0; font-size: 34px; line-height: 1.12">Les imams de la lecture</h1>
+<p style="margin: 0; font-size: 16px; line-height: 1.6; color: var(--muted); text-wrap: pretty">Le Qur’ân s’est transmis de bouche à oreille, de maître à élève, depuis le Prophète (ﷺ). Voici quelques grandes figures de cette transmission.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<h2 class="set-h">La chaîne de transmission</h2>
+<template v-for="c in imChains"><div class="im-chain"><button class="im-node im-m" @click="c.m.go" :aria-label="c.m.aria"><span class="im-n">{{c.m.short}}</span><span class="im-s">{{c.m.sub}}</span></button><div class="im-kids"><template v-for="k in c.kids"><button class="im-node" @click="k.go" :aria-label="k.aria"><span class="im-n">{{k.short}}</span><span class="im-s">{{k.sub}}</span><template v-if="k.here"><span class="im-here">Lecture de cette application</span></template></button></template></div></div></template>
+<p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--muted); text-wrap: pretty">Touche un nom pour lire sa biographie. Plus tard, Ach-Châtibiy a mis en vers les règles des sept lectures.</p>
+</div>
+<div style="display: flex; flex-direction: column">
+<h2 class="set-h">Biographies</h2>
+<template v-for="m in imList"><details class="im-card" :id="m.id" style="border-top: 1px solid var(--line)"><summary style="display: flex; align-items: center; gap: 12px; min-height: 60px; padding: 10px 0; cursor: pointer; color: var(--ink)"><span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 17px; font-weight: 700; line-height: 1.35">{{m.name}}</span><span style="font-family: 'Alegreya Sans', system-ui, sans-serif; font-size: 14px; font-weight: 500; color: var(--muted)">{{m.sub}}</span></span><svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; color: var(--muted); transition: transform .2s"><path d="M9 6l6 6-6 6"></path></svg></summary><div style="display: flex; flex-direction: column; gap: 12px; padding: 2px 0 18px"><p lang="ar" dir="rtl" style="margin: 0; font-family: 'Hafs', 'Amiri Quran', serif; font-size: calc(24px * var(--ar, 1)); line-height: 1.7; color: var(--gold)">{{m.ar}}</p><template v-if="m.here"><span class="im-here" style="align-self: flex-start">Lecture de cette application</span></template><p style="margin: 0; font-size: 15px; line-height: 1.55; font-style: italic; color: var(--muted)">{{m.full}}</p><p style="margin: 0; font-size: 16px; line-height: 1.55; font-weight: 700">{{m.roleLabel}}</p><p style="margin: 0; font-family: 'Alegreya Sans', system-ui, sans-serif; font-size: 14.5px; font-weight: 600; color: var(--muted)">{{m.meta}}</p><template v-for="p in m.bio"><p style="margin: 0; font-size: 16px; line-height: 1.7; text-wrap: pretty; color: var(--ink2)">{{p}}</p></template></div></details></template>
+</div>
+<div style="display: flex; justify-content: center; padding-top: 4px"><button class="lift btn-a" @click="goHome" style="min-height: 52px; padding: 0 22px; border-radius: 14px; border: 1.5px solid var(--line); background: var(--surface); display: inline-flex; align-items: center; gap: 10px; font-size: 15.5px; font-weight: 800"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.5 20.5V11.5Q5.5 6.2 12 2.8Q18.5 6.2 18.5 11.5V20.5"></path><path d="M9.3 20.5V15Q9.3 12.4 12 10.6Q14.7 12.4 14.7 15V20.5"></path><path d="M3 20.5h18"></path></svg>Retour à l’accueil</button></div>
 </section>
 </template>
 
@@ -1689,6 +1709,54 @@ class DCLogic {
   forceUpdate() { render(); }
 }
 class Component extends DCLogic {
+  // Les imams de la lecture : quelques figures de la transmission du Qur’ân (biographies résumées)
+  imamsData() {
+    return [
+      { id: 'asim', name: 'L’imam ’Âsim', ar: 'الإمام عاصم بن أبي النجود', full: 'Abou Bakr ’Âsim Ibn Abî An-Najoûd Al-Asadiy Al-Koûfiy', role: 'Lecteur',
+        roleLabel: 'L’un des sept grands lecteurs (Al-Qurrâ’ As-Sab’a) et Tâbi’iy', dates: '? – 127 H (ou 128 H) / 745', place: 'Koufa (Irak)', master: '',
+        summary: 'L’un des sept grands lecteurs, imam incontesté des lecteurs de Koufa.',
+        bio: [
+          '’Âsim fut l’imam incontesté des lecteurs du Qur’ân à Koufa après la mort de son maître, Abou Abderrahmân As-Soulamiy. Il était réputé pour la grande beauté de sa voix, son éloquence en langue arabe et sa rigueur absolue dans la prononciation des lettres.',
+          'Sa chaîne de transmission (isnâd) est particulièrement courte et prestigieuse. Il apprit le Qur’ân auprès d’Abou Abderrahmân As-Soulamiy, qui l’avait reçu de ’Aliy Ibn Abî Tôlib, ’Othmân Ibn ’Affân, Zayd Ibn Thâbit et Oubay Ibn Ka’b, ainsi qu’auprès de Zirr Ibn Houbaych, élève d’Ibn Mas’oûd. Il transmit sa lecture à deux rapporteurs célèbres : Chou’ba et Hafs.'
+        ] },
+      { id: 'hafs', name: 'L’imam Hafs', ar: 'الإمام حفص بن سليمان', full: 'Abou ’Oumar Hafs Ibn Sulaymân Ibn Al-Moughîra Al-Asadiy Al-Koûfiy (Al-Bazzâz)', role: 'Rapporteur',
+        roleLabel: 'Le plus célèbre rapporteur (Râwî) de la lecture de l’imam ’Âsim', dates: '90 – 180 H / 709 – 795', place: 'Koufa (Irak)', master: 'asim', here: true,
+        summary: 'Rapporteur de ’Âsim ; sa transmission est la plus répandue au monde.',
+        bio: [
+          'Hafs était le beau-fils (rabîb) de l’imam ’Âsim et grandit sous son toit. Cette proximité quotidienne lui permit d’assimiler la lecture de son maître avec une précision exceptionnelle, verset par verset, et de la maîtriser mieux que quiconque.',
+          'Il voyagea à Bagdad et à La Mecque pour enseigner la lecture de ’Âsim. Les savants sont unanimes sur sa fiabilité et son autorité dans la science des lectures (Al-Qirâ’ât). Aujourd’hui, sa transmission, Hafs ’an ’Âsim, est la plus répandue et la plus imprimée dans le monde musulman. C’est la lecture du Qur’ân de cette application.'
+        ] },
+      { id: 'nafi', name: 'L’imam Nâfi’', ar: 'الإمام نافع المدني', full: 'Abou Rouwaym Nâfi’ Ibn ’Abderrahmân Ibn Abî Nou’aym Al-Laythiy Al-Madaniy', role: 'Lecteur',
+        roleLabel: 'L’un des sept grands lecteurs (Al-Qurrâ’ As-Sab’a), imam des lecteurs de Médine', dates: '70 – 169 H / 689 – 785', place: 'Médine (Arabie)', master: '',
+        summary: 'L’un des sept grands lecteurs, référence des lecteurs de Médine.',
+        bio: [
+          'D’origine perse (d’Ispahan), Nâfi’ grandit et vécut à Médine, où il recueillit la lecture du Qur’ân auprès de soixante-dix Tâbi’oûn, dont Abou Ja’far Yazîd Ibn Al-Qa’qâ’ et ’Abderrahmân Al-A’raj. Il enseigna le Qur’ân dans la Mosquée du Prophète (ﷺ) pendant plus de soixante-dix ans.',
+          'Réputé pour sa piété, sa douceur et son humilité, il jouissait d’une telle autorité que l’imam Mâlik Ibn Anas qualifiait sa lecture de Sounna, la référence établie de Médine. Il transmit sa lecture à de nombreux élèves, dont les deux rapporteurs les plus célèbres sont Qâloûn et Warch.'
+        ] },
+      { id: 'warch', name: 'L’imam Warch', ar: 'الإمام ورش', full: 'Abou Sa’îd ’Othmân Ibn Sa’îd Al-Qibtiy Al-Misriy (Warch)', role: 'Rapporteur',
+        roleLabel: 'L’un des deux grands rapporteurs (Râwî) de la lecture de l’imam Nâfi’', dates: '110 – 197 H / 728 – 812', place: 'Égypte, Médine', master: 'nafi',
+        summary: 'Rapporteur de Nâfi’ ; lecture majeure au Maghreb et en Afrique de l’Ouest.',
+        bio: [
+          'Né en Égypte, il fit le voyage jusqu’à Médine pour apprendre la lecture du Qur’ân directement auprès de l’imam Nâfi’. C’est son maître qui lui donna le surnom affectueux de « Warch », en référence à son teint très clair. Il récita le Qur’ân en entier à plusieurs reprises devant Nâfi’ afin d’en maîtriser chaque nuance.',
+          'De retour en Égypte, il devint la référence de la science des lectures, admiré pour la beauté de sa voix et sa maîtrise de la langue arabe. Sa transmission, Warch ’an Nâfi’, est aujourd’hui la deuxième lecture la plus répandue dans le monde musulman, en particulier au Maghreb et en Afrique de l’Ouest.'
+        ] },
+      { id: 'qaloun', name: 'L’imam Qâloûn', ar: 'الإمام قالون', full: 'Abou Moûsâ ’Îsâ Ibn Mînâ Ibn Wardân Az-Zouraqiy Al-Madaniy (Qâloûn)', role: 'Rapporteur',
+        roleLabel: 'L’un des deux grands rapporteurs (Râwî) de l’imam Nâfi’, imam de Médine', dates: '120 – 220 H / 738 – 835', place: 'Médine (Arabie)', master: 'nafi',
+        summary: 'Rapporteur de Nâfi’ ; lecture majoritaire en Libye et en Tunisie.',
+        bio: [
+          'Beau-fils (rabîb) de l’imam Nâfi’, Qâloûn bénéficia d’une proximité exceptionnelle avec son maître, devant lequel il récita le Qur’ân d’innombrables fois. Impressionné par la justesse de sa récitation, Nâfi’ lui donna le surnom de « Qâloûn », un mot d’origine grecque (kalon) qui signifie « excellent ».',
+          'Grammairien réputé pour sa piété, Qâloûn était presque sourd dans la vie de tous les jours, mais il enseignait le Qur’ân avec une précision remarquable en observant le mouvement des lèvres de ses élèves. Sa transmission, Qâloûn ’an Nâfi’, est aujourd’hui la lecture majoritaire en Libye et en Tunisie.'
+        ] },
+      { id: 'chatibi', name: 'L’imam Ach-Châtibiy', ar: 'الإمام الشاطبي', full: 'Abou Al-Qâsim Al-Qâsim Ibn Firroh Ibn Khalaf Ar-Rou’ayniy Ach-Châtibiy Al-Andalousiy', role: 'Codificateur',
+        roleLabel: 'Grand savant andalou, poète, codificateur des sept lectures', dates: '538 – 590 H / 1144 – 1194', place: 'Andalousie, Le Caire', master: '',
+        summary: 'Auteur de la Châtibiyya, le poème qui résume les sept lectures.',
+        bio: [
+          'Né à Xàtiva (Châtiba), en Andalousie, Ach-Châtibiy était aveugle, peut-être depuis l’enfance. Il se distingua très tôt par une mémoire prodigieuse et une grande piété. Il voyagea en Orient pour accomplir le pèlerinage, puis s’installa au Caire, où il enseigna à la Madrasa Al-Fâdiliyya jusqu’à sa mort.',
+          'Son œuvre majeure est un poème didactique de 1 173 vers, Hirz Al-Amânî wa Wajh At-Tahânî, connu sous le nom de Châtibiyya. Il y résume les règles des sept lectures à l’aide d’un système ingénieux de lettres-codes (roumoûz), ce qui a permis d’en unifier l’enseignement au fil des siècles.'
+        ] }
+    ];
+  }
+
   D() {
     if (this._d) return this._d;
     const fr = (t) => String(t).replace(/ ([:;?!»])/g, '\u00a0$1').replace(/« /g, '«\u00a0');
@@ -4121,6 +4189,11 @@ class Component extends DCLogic {
     delete bm[k]; this.setState({ qBm: bm }); this.qBmStore(); this.flash('Marque-page retiré.');
   }
 
+  // Les imams de la lecture : ouvrir une biographie depuis la chaîne de transmission
+  imamOpen(id) {
+    try { const el = document.getElementById('imam-' + id); if (!el) return; el.open = true; el.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (e) {}
+  }
+
   qBmDelAll() {
     this.setState({ qBm: {}, qBmConfirm: false, qBmEdit: '' }); this.qBmStore(); this.flash('Marque-pages effacés.');
   }
@@ -5480,6 +5553,18 @@ class Component extends DCLogic {
       qSegSetAll: () => { this.setState({ qClass: false, qHome: false }); this.qStore(); }, qSegSetCl: () => { this.setState({ qClass: true, qHome: false }); this.qStore(); }, qSegSetHo: () => { this.setState({ qHome: true, qClass: false }); this.qStore(); },
       qFilter: s.qFilter || '', qFilterInput: (e) => this.setState({ qFilter: e && e.target ? String(e.target.value || '').slice(0, 60) : '' }),
       qHasLast: !!(qLast && qLast.s), qLastLabel: qLast && qLast.s ? (qLast.name || ('Sourate ' + qLast.s)) + ', verset ' + qLast.v : '',
+      isImams: screen === 'imams', goImams: () => this.go('imams'),
+      ...(() => {
+        const L = this.imamsData(); const by = {}; L.forEach((m) => { by[m.id] = m; });
+        const short = (m) => m.name.replace(/^L’imam /, '');
+        const node = (m) => ({ short: short(m), sub: m.place.split(' (')[0] + ', ' + m.dates.split(' / ')[0].replace(' (ou 128 H)', ''), here: !!m.here, aria: 'Lire la biographie de ' + m.name, go: () => this.imamOpen(m.id) });
+        const chains = L.filter((m) => m.role === 'Lecteur').map((m) => ({ m: node(m), kids: L.filter((k) => k.master === m.id).map(node) }));
+        return {
+          imChains: chains,
+          imList: L.map((m) => ({ id: 'imam-' + m.id, name: m.name, ar: m.ar, full: m.full, roleLabel: m.roleLabel, here: !!m.here, bio: m.bio,
+            sub: m.role + (m.master ? ' de ' + short(by[m.master]) : '') + ', ' + m.dates.split(' / ')[0],
+            meta: m.place + ', ' + m.dates })) };
+      })(),
       qResume: () => { if (qLast && qLast.s) this.qOpen(qLast.s, qLast.v); },
       qHead, qVerses, qLoading: !!s.qLoading && screen === 'quranRead', qErrorShow: !!s.qError, qError: s.qError || '',
       qShowBasmala: !!(qData && qIdx && s.qSurah !== 1 && s.qSurah !== 9 && s.qMu !== true), qBasmala: qIdx ? qIdx.basmala : '',
@@ -5601,7 +5686,7 @@ class Component extends DCLogic {
       goBack: () => this.goBack(),
       // Retour : partout sauf à l’accueil ; dans une sourate, le lien « Les sourates » suffit quand on vient de la liste
       showBack: (() => { const nv = this._nav || ['home']; const prev = nv[nv.length - 1] === screen ? nv[nv.length - 2] : nv[nv.length - 1]; return screen !== 'home' && !(screen === 'quranRead' && prev === 'quranList'); })(),
-      showQuit: inSession || screen === 'learn' || screen === 'learnTypes' || screen === 'learnRa' || screen === 'learnComp' || screen === 'learnId' || screen === 'learnMd' || screen === 'learnCh' || screen === 'progress' || screen === 'settings' || screen === 'programme' || screen === 'install' || screen === 'about' || screen === 'faq' || screen === 'privacy' || screen === 'sources' || screen === 'features' || screen === 'search' || screen === 'quranList' || screen === 'quranBm' || screen === 'quranRead' || screen === 'quranQuiz', isQcm, isVf, isTrous,
+      showQuit: inSession || screen === 'learn' || screen === 'learnTypes' || screen === 'learnRa' || screen === 'learnComp' || screen === 'learnId' || screen === 'learnMd' || screen === 'learnCh' || screen === 'progress' || screen === 'settings' || screen === 'programme' || screen === 'install' || screen === 'about' || screen === 'faq' || screen === 'privacy' || screen === 'sources' || screen === 'features' || screen === 'search' || screen === 'quranList' || screen === 'quranBm' || screen === 'imams' || screen === 'quranRead' || screen === 'quranQuiz', isQcm, isVf, isTrous,
       isCard: isQcm || isVf, isResult: screen === 'result', inSession,
       modeLabel: (labels[screen] || '') + (inSession ? ', ' + String(topicLabels[s.topic] || '').replace(/ · /g, ', ') : ''), qNum: s.idx + 1, total: s.queue.length, score: s.score,
       progressNum, progressPct: progressNum + '%',
