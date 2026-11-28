@@ -3123,6 +3123,21 @@ class Component extends DCLogic {
       window.addEventListener('pageshow', (e) => { if (e.persisted) spShow(); });
       document.addEventListener('visibilitychange', () => { if (document.hidden) spAway = Date.now(); else { if (spAway && Date.now() - spAway > 30000) spShow(); spAway = 0; } });
     } catch (e) {}
+    // iPhone (Safari) : après la fermeture du clavier, la barre du bas peut rester bloquée au milieu de l’écran
+    // (le viewport des éléments fixes ne reprend pas sa hauteur). On la recale sur le bas de l’écran visible.
+    try {
+      const vv = window.visualViewport;
+      const navFix = () => {
+        const nav = document.querySelector('nav.tabbar'); if (!nav) return;
+        const ae = document.activeElement; const typing = !!ae && (ae.tagName === 'INPUT' || ae.tagName === 'TEXTAREA' || ae.tagName === 'SELECT' || ae.isContentEditable);
+        const gap = vv && !typing ? Math.round(vv.offsetTop + vv.height - window.innerHeight) : 0;
+        nav.style.transform = Math.abs(gap) > 2 ? 'translateY(' + gap + 'px)' : '';
+      };
+      if (vv) { vv.addEventListener('resize', navFix); vv.addEventListener('scroll', navFix); }
+      window.addEventListener('scroll', navFix, { passive: true });
+      window.addEventListener('resize', navFix);
+      document.addEventListener('focusout', () => { setTimeout(() => { try { window.scrollTo(window.scrollX, window.scrollY); } catch (e) {} navFix(); }, 350); });
+    } catch (e) {}
     try {
       const rq = window.localStorage.getItem('waqf-coran');
       if (rq) { const q = JSON.parse(rq); if (q && q.last && q.last.s) this._qLast = q.last; const nw = q.v >= 2; /* v2 : réglages par défaut = traduction, Al-Husary murattal, vitesse normale (une seule remise à zéro) */ this.setState({ qTr: nw ? q.tr === true : true, qTj: q.tj === true, qMu: q.mu === true, qClass: q.cl === true, qHome: q.ho === true, qJuz: q.jz === true, qRec: nw && this.qRecs().some((r) => r[0] === q.rec) ? q.rec : 6, qSpd: nw && [0.5, 0.75, 1, 1.25].indexOf(q.spd) >= 0 ? q.spd : 1 }); if (!nw) this.qStore(); }
