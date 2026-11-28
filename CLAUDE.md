@@ -29,8 +29,8 @@ PWA française de révision des règles de tadjwîd du CIFOD, niveaux 4A, 4B et 
 - Carte « Application » : Installer, Fonctionnalités, Questions fréquentes, À propos, Partager, Confidentialité, Sources.
 
 ## Version courante
-- En ligne (GitHub et Netlify) : **v338** (`CACHE = 'niveau4c-v338-2026-11-28'`). Local, non poussé : **v339** (`CACHE = 'niveau4c-v339-2026-11-28'`).
-- Artefact : **version 499** (identique à v339). Assets de l'artefact : police `/_blob/539a5ef52c5fcacc02d32088eed388d1`, `mushaf.json` `/_blob/5e5068f56bc17ed1384de35c469a3a68`, `cadre_mushaf.webp` `/_blob/ec8998d55ba82c1e8a17e3020fe05a90`, `fleuron_mushaf.webp` `/_blob/3ae90cb599580509591b28dd697b404d`, `cartouche_sourate.webp` `/_blob/7f75fceaf7f90a7e87bf4927d1819d63`.
+- En ligne (GitHub et Netlify) : **v339** (`CACHE = 'niveau4c-v339-2026-11-28'`). Local, non poussé : **v340** (`CACHE = 'niveau4c-v340-2026-11-28'`).
+- Artefact : **version 500** (identique à v340). Assets de l'artefact : police `/_blob/539a5ef52c5fcacc02d32088eed388d1`, `mushaf.json` `/_blob/5e5068f56bc17ed1384de35c469a3a68`, `cadre_mushaf.webp` `/_blob/ec8998d55ba82c1e8a17e3020fe05a90`, `fleuron_mushaf.webp` `/_blob/3ae90cb599580509591b28dd697b404d`, `cartouche_sourate.webp` `/_blob/7f75fceaf7f90a7e87bf4927d1819d63`.
 - Derniers changements :
   - v298 à v300 : boutons du lecteur et filtres des sourates habillés (`orne_*.webp`, couleurs du cadre sourates).
   - v301 : cadres pour Retour, Quitter (médaillon sous 480 px), Mode mémorisation et boutons d'action des exercices (classe `cadre-pill act`). Choix de réponse et lignes de cartes de l'accueil non habillés.
@@ -66,6 +66,7 @@ PWA française de révision des règles de tadjwîd du CIFOD, niveaux 4A, 4B et 
   - v337 : « Les imams de la lecture » (fichier TypeScript de l'utilisateur, orthographe harmonisée avec l'appli : Qur’ân, ’Âsim, Nâfi’, Qâloûn, Ach-Châtibiy ; Hafs daté 90 – 180 H / 709 – 795 comme la fiche du livre ; ’Âsim « 127 H (ou 128 H) » ; Ach-Châtibiy « aveugle, peut-être depuis l’enfance » ; mention de Qâloûn en Afrique de l'Ouest retirée). Ligne d'accueil `goImams` dans la section Le Qur’ân ; écran `imams` (`isImams`, `.im-page`) : chaîne de transmission en arbre (`imChains`, `.im-chain`, `.im-kids`, `.im-node`, connecteurs dorés en CSS ; badge « Lecture de cette application » sur Hafs) ; biographies en `<details class="im-card">` (`imList`), ouvertes et défilées par `imamOpen(id)`. Données : méthode `imamsData()` en tête de `Component`.
   - v338 : iPhone, la barre du bas (`nav.tabbar`) restait bloquée au milieu de l'écran en faisant défiler (toutes les pages, sans rien toucher ; hypothèse : bug Safari après fermeture du clavier, viewport des éléments fixes resté réduit). Correctif `navFix` : `translateY` = `visualViewport.offsetTop + height - innerHeight` (si écart > 2 px et aucun champ en saisie), sur `resize`/`scroll` du visualViewport et de la fenêtre, et 350 ms après `focusout` (+ `scrollTo` sur place). Sans effet ailleurs (écart nul).
   - v339 : correctif `navFix` de v338 retiré : sur l'iPhone de l'utilisateur, la barre du bas disparaissait entièrement (décalage mesuré faux, barre poussée hors écran). Retour au comportement de v337. Ne pas réessayer un `translateY` calculé sur `visualViewport`.
+  - v340 : la page ne défile plus (`html,body{height:100%;overflow:hidden}`) ; c'est la colonne `#shell` (div du thème) qui défile (`height:100dvh; overflow-y:auto`). Barre du bas en `position: sticky; bottom:0; margin-top:auto` (plus de `fixed`), cale de 82 px retirée. Écouteurs `scroll` en `capture: true` ; `scrollTo` et `scrollTop` sur `#shell` (`_qBackY`, retour en haut). Testé Chromium seulement : à confirmer sur iPhone.
 - Bouton Retour dans une sourate : masqué si on vient de la liste, gardé sinon (décision de l'utilisateur).
 
 ## Règles de travail
@@ -91,5 +92,5 @@ PWA française de révision des règles de tadjwîd du CIFOD, niveaux 4A, 4B et 
 - « Saint Qur'âne » et « Qour'ane » inchangés.
 - `og-image.jpg` : vérifier qu'il ne contient pas l'ancien nom.
 - Bouton « Tout supprimer » (écoute hors ligne) : pas de confirmation, à ajouter seulement si demandé.
-- Barre du bas bloquée au milieu sur iPhone : correctif v338 retiré en v339 (barre disparue). Problème d'origine non résolu.
+- Barre du bas bloquée au milieu sur iPhone : correctif v338 retiré en v339 (barre disparue) ; v340 (barre en sticky dans `#shell`) à confirmer sur iPhone.
 - Tests sur téléphone réel : écoute EveryAyah sur iPhone, icônes PWA après réinstallation, téléchargement réel des packs audio.
