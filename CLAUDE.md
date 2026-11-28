@@ -29,8 +29,8 @@ PWA française de révision des règles de tadjwîd du CIFOD, niveaux 4A, 4B et 
 - Carte « Application » : Installer, Fonctionnalités, Questions fréquentes, À propos, Partager, Confidentialité, Sources.
 
 ## Version courante
-- En ligne (GitHub et Netlify) : **v332** (`CACHE = 'niveau4c-v332-2026-11-28'`). Local, non poussé : **v333** (`CACHE = 'niveau4c-v333-2026-11-28'`).
-- Artefact : **version 493** (identique à v333). Assets de l'artefact : police `/_blob/539a5ef52c5fcacc02d32088eed388d1`, `mushaf.json` `/_blob/5e5068f56bc17ed1384de35c469a3a68`, `cadre_mushaf.webp` `/_blob/ec8998d55ba82c1e8a17e3020fe05a90`, `fleuron_mushaf.webp` `/_blob/3ae90cb599580509591b28dd697b404d`, `cartouche_sourate.webp` `/_blob/7f75fceaf7f90a7e87bf4927d1819d63`.
+- En ligne (GitHub et Netlify) : **v333** (`CACHE = 'niveau4c-v333-2026-11-28'`). Local, non poussé : **v334** (`CACHE = 'niveau4c-v334-2026-11-28'`).
+- Artefact : **version 494** (identique à v334). Assets de l'artefact : police `/_blob/539a5ef52c5fcacc02d32088eed388d1`, `mushaf.json` `/_blob/5e5068f56bc17ed1384de35c469a3a68`, `cadre_mushaf.webp` `/_blob/ec8998d55ba82c1e8a17e3020fe05a90`, `fleuron_mushaf.webp` `/_blob/3ae90cb599580509591b28dd697b404d`, `cartouche_sourate.webp` `/_blob/7f75fceaf7f90a7e87bf4927d1819d63`.
 - Derniers changements :
   - v298 à v300 : boutons du lecteur et filtres des sourates habillés (`orne_*.webp`, couleurs du cadre sourates).
   - v301 : cadres pour Retour, Quitter (médaillon sous 480 px), Mode mémorisation et boutons d'action des exercices (classe `cadre-pill act`). Choix de réponse et lignes de cartes de l'accueil non habillés.
@@ -60,6 +60,7 @@ PWA française de révision des règles de tadjwîd du CIFOD, niveaux 4A, 4B et 
   - v331 : icône maison remplacée par l'arc de mihrab (même tracé que l'onglet Accueil) sur les 7 boutons « Retour au sommaire » et les 3 « Retour à l’accueil ».
   - v332 : compteur de versets lus retiré (jugé trop imprécis : défilement sans lecture). Plus d'objectif du jour, de barre de progression ni de `qSeenTick` ; il reste « Sourates lues : N sur 114 » (interrupteur « Sourate lue » dans le lecteur). `waqf-suivi` ne garde que `lu` et `ap` ; export et import sans objectif (anciens fichiers acceptés). Fonctionnalités : « Sourates lues et sourates apprises ». Ne pas reproposer de compteur de versets ni de bouton « Lu jusqu'ici » (trop lourd).
   - v333 : barre de progression des sourates lues remise sous « Sourates lues : N sur 114 » (`qLuPct`, N ÷ 114, `role="progressbar"`, dorée).
+  - v334 : Compagnon 4A, fiche 1 « Avant de dormir » (`COMP4A`) complétée d'après le livre (pp. 20-22) : 2 derniers versets d'Al-Baqara (2/285-286, texte Tanzil, traduction Hamidullah, hadith en NB), « Bismika Allâhumma amoûtou wa ahyâ », tasbîh 33/33/34 (3 blocs), « Allâhumma aslamtou nafsî ilayk » (NB : As-Sajda et Al-Moulk, Tabâraka). Le livre écrit « S44 » pour As-Sajda : corrigé en sourate 32.
 - Bouton Retour dans une sourate : masqué si on vient de la liste, gardé sinon (décision de l'utilisateur).
 
 ## Règles de travail
