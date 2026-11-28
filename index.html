@@ -214,7 +214,7 @@ h1,h2,h3{font-weight:700!important;letter-spacing:0!important}
 @media (prefers-reduced-motion: reduce){.splash{display:none}.res-med,[style*="var(--okb)"],#qz-fb{animation:none}}
 @media (max-width:420px){.mushaf-page{padding:20px 14px 16px}}
 nav button{position:relative}
-.faq summary{list-style:none}.faq summary::-webkit-details-marker{display:none}.faq details[open] .faq-chev{transform:rotate(90deg)}
+.faq summary{list-style:none}.faq summary::-webkit-details-marker{display:none}.faq details[open] .faq-chev,.bm-page details[open] .faq-chev{transform:rotate(90deg)}
 .set-h{display:flex;align-items:center;gap:10px;margin:0 0 6px;font-family:'Alegreya',serif;font-size:22px;font-weight:700;line-height:1.2;color:var(--ink)}
 .set-h::before{content:'';width:13px;height:13px;flex-shrink:0;background:var(--gold);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpolygon points='12,1 15.22,4.22 19.78,4.22 19.78,8.78 23,12 19.78,15.22 19.78,19.78 15.22,19.78 12,23 8.78,19.78 4.22,19.78 4.22,15.22 1,12 4.22,8.78 4.22,4.22 8.78,4.22' fill='black'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpolygon points='12,1 15.22,4.22 19.78,4.22 19.78,8.78 23,12 19.78,15.22 19.78,19.78 15.22,19.78 12,23 8.78,19.78 4.22,19.78 4.22,15.22 1,12 4.22,8.78 4.22,4.22 8.78,4.22' fill='black'/%3E%3C/svg%3E") center/contain no-repeat}
 .set-h::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--gold),transparent)}
@@ -948,6 +948,21 @@ Mode mémorisation
 </section>
 </template>
 
+<template v-if="isQuranBm">
+<section class="rise bm-page" style="display: flex; flex-direction: column; gap: 18px; width: 100%; max-width: 640px; margin: 0 auto">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<h1 style="margin: 0; font-size: 34px; line-height: 1.12">Mes marque-pages</h1>
+<p style="margin: 0; font-size: 16px; line-height: 1.55; color: var(--muted); text-wrap: pretty">{{qBmCount}}</p>
+</div>
+<template v-if="qBmNone"><p style="margin: 0; font-size: 16px; line-height: 1.6; color: var(--muted); text-wrap: pretty">Dans une sourate, touche l’icône du marque-page à côté d’un verset pour en ajouter un.</p></template>
+<div style="display: flex; flex-direction: column">
+<template v-for="g in qBmGroups"><details style="border-top: 1px solid var(--line)"><summary style="display: flex; align-items: center; gap: 12px; min-height: 52px; padding: 10px 0; cursor: pointer; font-size: 17px; font-weight: 700; line-height: 1.4; color: var(--ink)"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; color: var(--gold)"><path d="M6 3.5h12v17l-6-4.2-6 4.2z"></path></svg><span style="flex: 1">{{g.name}}</span><span style="font-family: 'Alegreya Sans', system-ui, sans-serif; font-size: 14px; font-weight: 700; color: var(--muted)">{{g.count}}</span><svg class="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; color: var(--muted); transition: transform .2s"><path d="M9 6l6 6-6 6"></path></svg></summary><div style="display: flex; flex-direction: column; padding: 0 0 10px 30px"><template v-for="b in g.items"><div style="display: flex; align-items: center; gap: 4px; border-top: 1px solid var(--line)"><button @click="b.open" :aria-label="b.openAria" style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; min-height: 52px; padding: 8px 0; border: 0; background: transparent; text-align: left; color: var(--ink)"><span style="font-size: 16px; font-weight: 500">{{b.vref}}</span><template v-if="b.hasNote"><span style="font-family: 'Alegreya Sans', system-ui, sans-serif; font-size: 14px; font-weight: 500; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{b.note}}</span></template></button><button @click="b.del" :aria-label="b.delAria" :title="b.delAria" style="flex-shrink: 0; width: 44px; height: 44px; display: grid; place-items: center; border: 0; border-radius: 999px; background: transparent; color: var(--muted)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></div></template></div></details></template>
+</div>
+<template v-if="qBmIdle"><div style="display: flex; padding-top: 4px"><button class="btn-a" @click="qBmAskAll" style="min-height: 46px; padding: 0 18px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Tout effacer</button></div></template>
+<template v-if="qBmAsk"><div role="alertdialog" aria-label="Confirmer l’effacement des marque-pages" style="background: var(--rose-t); border: 1.5px solid var(--rose); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 12px"><p style="margin: 0; font-size: 15px; line-height: 1.55; font-weight: 600">{{qBmAskText}}</p><div style="display: flex; flex-wrap: wrap; gap: 10px"><button @click="qBmDelAll" style="min-height: 46px; padding: 0 18px; border-radius: 12px; border: 0; background: var(--rose); color: #FFFFFF; font-size: 15px; font-weight: 800">Oui, tout effacer</button><button class="btn-a" @click="qBmAskNo" style="min-height: 46px; padding: 0 18px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 700">Annuler</button></div></div></template>
+</section>
+</template>
+
 <template v-if="isQuranQuiz">
 <section class="rise" style="display: flex; flex-direction: column; gap: 18px; width: 100%; max-width: 640px; margin: 0 auto">
 <div style="display: flex; flex-direction: column; gap: 6px">
@@ -1011,6 +1026,7 @@ Mode mémorisation
 <template v-if="qBmHas"><div style="display: flex; flex-direction: column">
 <h2 style="margin: 0 0 4px; font-size: 20px; font-weight: 700">Mes marque-pages</h2>
 <template v-for="b in qBmList"><button @click="b.open" style="display: flex; align-items: center; gap: 12px; width: 100%; min-height: 56px; padding: 10px 0; border: 0; border-bottom: 1px solid var(--line); background: transparent; text-align: left; color: var(--ink)"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; color: var(--gold)"><path d="M6 3.5h12v17l-6-4.2-6 4.2z"></path></svg><span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 17px; font-weight: 500">{{b.ref}}</span><template v-if="b.hasNote"><span style="font-family: 'Alegreya Sans', system-ui, sans-serif; font-size: 14px; font-weight: 500; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{b.note}}</span></template></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; color: var(--muted)"><path d="M9 6l6 6-6 6"></path></svg></button></template>
+<button @click="qBmGoAll" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0; border: 0; background: transparent; color: var(--gold); font-family: 'Alegreya Sans', system-ui, sans-serif; font-size: 15.5px; font-weight: 800">{{qBmMoreLabel}}<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; color: var(--gold)"><path d="M9 6l6 6-6 6"></path></svg></button>
 </div></template>
 <div role="search" style="position: relative">
 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--gold); pointer-events: none"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.6-3.6"></path></svg>
@@ -2993,7 +3009,7 @@ class Component extends DCLogic {
       screen: 'home', mode: null, topic: 'signes', queue: [], idx: 0, answered: false, picked: null,
       fills: [], checked: false, score: 0, mistakes: [],
       best: { qcm: null, vf: null, trous: null, tqcm: null, tvf: null, ttrous: null }, hide: false, revealed: {},
-      prog: { q: {}, hist: [] }, weeksDone: {}, chap: 'a1', level: '4A', theme: 'auto', arScale: 1, arFont: 'hafs', sysDark: false, confirmReset: false, installed: false, appVersion: '', toast: '', importPending: null, importError: '', shareMenu: false, srQ: '', qSurah: 0, qTr: true, qTj: false, qFilter: '', qClass: false, qJuz: false, qRule: null, qz: null, qLu: {}, qAp: {}, qBm: {}, qBmEdit: '', qLoading: false, qError: '', qRec: 6, qPlayerOn: false, qPlayV: 1, qAudio: 'idle', qAudioMsg: '', qRepeat: false, qRecVer: 0, qRecording: 0, qRecSec: 0, qMePlaying: 0, qMeOn: false, qRecTotal: 0, qRecConfirm: false
+      prog: { q: {}, hist: [] }, weeksDone: {}, chap: 'a1', level: '4A', theme: 'auto', arScale: 1, arFont: 'hafs', sysDark: false, confirmReset: false, installed: false, appVersion: '', toast: '', importPending: null, importError: '', shareMenu: false, srQ: '', qSurah: 0, qTr: true, qTj: false, qFilter: '', qClass: false, qJuz: false, qRule: null, qz: null, qLu: {}, qAp: {}, qBm: {}, qBmEdit: '', qBmConfirm: false, qLoading: false, qError: '', qRec: 6, qPlayerOn: false, qPlayV: 1, qAudio: 'idle', qAudioMsg: '', qRepeat: false, qRecVer: 0, qRecording: 0, qRecSec: 0, qMePlaying: 0, qMeOn: false, qRecTotal: 0, qRecConfirm: false
     }, this.state || {});
   }
 
@@ -4095,6 +4111,16 @@ class Component extends DCLogic {
     bm[k] = { n: String(this._bmDraft || '').trim().slice(0, 500), t: (bm[k] && bm[k].t) || this.qToday() };
     this.setState({ qBm: bm, qBmEdit: '' }); this.qBmStore();
     if (isNew) this.flash('Marque-page ajouté.');
+  }
+
+  // Depuis la page « Mes marque-pages » : retirer un marque-page, ou tous (après confirmation)
+  qBmDelKey(k) {
+    const bm = Object.assign({}, this.S().qBm || {});
+    delete bm[k]; this.setState({ qBm: bm }); this.qBmStore(); this.flash('Marque-page retiré.');
+  }
+
+  qBmDelAll() {
+    this.setState({ qBm: {}, qBmConfirm: false, qBmEdit: '' }); this.qBmStore(); this.flash('Marque-pages effacés.');
   }
 
   qBmDel(v) {
@@ -5442,7 +5468,7 @@ class Component extends DCLogic {
       tabHome: 'color: ' + (screen === 'home' ? 'var(--accent)' : 'var(--muted)') + ';', tabHomeCur: screen === 'home' ? 'page' : 'false',
       tabStats: 'color: ' + (screen === 'progress' ? 'var(--accent)' : 'var(--muted)') + ';', tabStatsCur: screen === 'progress' ? 'page' : 'false',
       tabSettings: 'color: ' + (screen === 'settings' ? 'var(--accent)' : 'var(--muted)') + ';', tabSettingsCur: screen === 'settings' ? 'page' : 'false',
-      isQuranList: screen === 'quranList', isQuranRead: screen === 'quranRead',
+      isQuranList: screen === 'quranList', isQuranBm: screen === 'quranBm', isQuranRead: screen === 'quranRead',
       qGoList: () => { this.qLoadIndex(); this.go('quranList'); }, qListLoading: screen === 'quranList' && !qIdx, qListRows,
       qGroups, qJuz: s.qJuz === true, qJuzToggle: () => { this.setState({ qJuz: !(s.qJuz === true) }); this.qStore(); },
       qJuzOpts: qGroups.filter((g) => g.hasHead).map((g) => ({ v: g.j, label: g.title })),
@@ -5458,8 +5484,25 @@ class Component extends DCLogic {
       qTr, qTj, qLegend, qFontSt, qMu: s.qMu === true, qNoMu: s.qMu !== true, qTjLeg: qTj && s.qMu !== true, qTjWrap: s.qMu === true ? 'display: none' : 'display: contents', qMxPages, qMxOk: qMxPages.length > 0, qMxWait: s.qMu === true && !qMxPages.length, qMxMsg: this._qmxErr ? 'Impossible de charger les pages du Mushaf.' : 'Chargement des pages du Mushaf…', qMxSt: '--mxk: ' + qMxK,
       ...(() => {
         const bm = s.qBm || {}; const idx = this._qn;
-        const list = Object.keys(bm).map((k) => { const p = k.split(':'); return { s: +p[0], v: +p[1], k }; }).filter((x) => x.s >= 1 && x.s <= 114 && x.v >= 1).sort((a, b) => a.s - b.s || a.v - b.v);
-        return { qBmHas: list.length > 0, qBmList: list.map((x) => { const c = idx && idx.s[x.s - 1]; const n = (bm[x.k] && bm[x.k].n) || ''; return { ref: (c ? c.tr : 'Sourate ' + x.s) + ', verset ' + x.v, note: n, hasNote: !!n, open: () => this.qOpen(x.s, x.v) }; }) };
+        // Plus récent d’abord : date d’ajout, puis ordre d’ajout (les clés « s:v » gardent l’ordre d’insertion)
+        const list = Object.keys(bm).map((k, i) => { const p = k.split(':'); return { s: +p[0], v: +p[1], k, i, t: (bm[k] && bm[k].t) || '' }; }).filter((x) => x.s >= 1 && x.s <= 114 && x.v >= 1).sort((a, b) => (a.t < b.t ? 1 : a.t > b.t ? -1 : b.i - a.i));
+        const nm = (x) => { const c = idx && idx.s[x.s - 1]; return c ? c.tr : 'Sourate ' + x.s; };
+        const N = list.length; const pl = (n) => n + (n > 1 ? ' marque-pages' : ' marque-page');
+        const groups = []; const gi = {};
+        list.slice().sort((a, b) => a.s - b.s || a.v - b.v).forEach((x) => {
+          if (!gi[x.s]) { gi[x.s] = { name: nm(x), items: [] }; groups.push(gi[x.s]); }
+          const n = (bm[x.k] && bm[x.k].n) || '';
+          gi[x.s].items.push({ vref: 'Verset ' + x.v, note: n, hasNote: !!n, open: () => this.qOpen(x.s, x.v), openAria: 'Ouvrir ' + nm(x) + ', verset ' + x.v, del: () => this.qBmDelKey(x.k), delAria: 'Retirer le marque-page : ' + nm(x) + ', verset ' + x.v });
+        });
+        return {
+          qBmHas: N > 0, qBmNone: N === 0,
+          qBmList: list.slice(0, 3).map((x) => { const n = (bm[x.k] && bm[x.k].n) || ''; return { ref: nm(x) + ', verset ' + x.v, note: n, hasNote: !!n, open: () => this.qOpen(x.s, x.v) }; }),
+          qBmMoreLabel: N > 3 ? 'Voir les ' + N + ' marque-pages' : 'Gérer les marque-pages', qBmGoAll: () => { this.setState({ qBmConfirm: false }); this.go('quranBm'); },
+          qBmCount: N ? pl(N) + ', classés par sourate.' : 'Aucun marque-page pour l’instant.',
+          qBmGroups: groups.map((g) => ({ name: g.name, count: String(g.items.length), items: g.items })),
+          qBmIdle: N > 0 && !s.qBmConfirm, qBmAsk: N > 0 && !!s.qBmConfirm, qBmAskText: 'Effacer les ' + pl(N) + ' et leurs notes\u00a0? Cette action est définitive.',
+          qBmAskAll: () => this.setState({ qBmConfirm: true }), qBmAskNo: () => this.setState({ qBmConfirm: false }), qBmDelAll: () => this.qBmDelAll()
+        };
       })(),
       ...(() => {
         const nLu = Object.keys(s.qLu || {}).length, nAp = Object.keys(s.qAp || {}).length;
@@ -5554,7 +5597,7 @@ class Component extends DCLogic {
       goBack: () => this.goBack(),
       // Retour : partout sauf à l’accueil ; dans une sourate, le lien « Les sourates » suffit quand on vient de la liste
       showBack: (() => { const nv = this._nav || ['home']; const prev = nv[nv.length - 1] === screen ? nv[nv.length - 2] : nv[nv.length - 1]; return screen !== 'home' && !(screen === 'quranRead' && prev === 'quranList'); })(),
-      showQuit: inSession || screen === 'learn' || screen === 'learnTypes' || screen === 'learnRa' || screen === 'learnComp' || screen === 'learnId' || screen === 'learnMd' || screen === 'learnCh' || screen === 'progress' || screen === 'settings' || screen === 'programme' || screen === 'install' || screen === 'about' || screen === 'faq' || screen === 'privacy' || screen === 'sources' || screen === 'features' || screen === 'search' || screen === 'quranList' || screen === 'quranRead' || screen === 'quranQuiz', isQcm, isVf, isTrous,
+      showQuit: inSession || screen === 'learn' || screen === 'learnTypes' || screen === 'learnRa' || screen === 'learnComp' || screen === 'learnId' || screen === 'learnMd' || screen === 'learnCh' || screen === 'progress' || screen === 'settings' || screen === 'programme' || screen === 'install' || screen === 'about' || screen === 'faq' || screen === 'privacy' || screen === 'sources' || screen === 'features' || screen === 'search' || screen === 'quranList' || screen === 'quranBm' || screen === 'quranRead' || screen === 'quranQuiz', isQcm, isVf, isTrous,
       isCard: isQcm || isVf, isResult: screen === 'result', inSession,
       modeLabel: (labels[screen] || '') + (inSession ? ', ' + String(topicLabels[s.topic] || '').replace(/ · /g, ', ') : ''), qNum: s.idx + 1, total: s.queue.length, score: s.score,
       progressNum, progressPct: progressNum + '%',
